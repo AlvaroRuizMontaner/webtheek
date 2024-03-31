@@ -2,14 +2,18 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import Nav from "@/components/nav/Nav";
 
-// `app/page.tsx` is the UI for the `/` URL
-export default function Page() {
+export default function DashboardLayout({
+  children, // will be a page or nested layout
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <div>
+    <section>
       <Nav />
       <Header />
-      <div>home</div>
+
+      {children}
       <Footer />
-    </div>
+    </section>
   );
 }
