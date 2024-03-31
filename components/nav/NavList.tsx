@@ -1,5 +1,5 @@
 import React from "react";
-import { navInfo, navItemProps } from "./nav.info";
+import { navItemProps } from "./nav.info";
 import Link from "next/link";
 
 const NavList = ({ info }: NavListProps) => {

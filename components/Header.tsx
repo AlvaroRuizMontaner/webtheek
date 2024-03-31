@@ -1,5 +1,4 @@
 import React from "react";
-import Nav from "./nav/Nav";
 import Image from "next/image";
 import NavList from "./nav/NavList";
 import { headerInfo } from "./nav/nav.info";

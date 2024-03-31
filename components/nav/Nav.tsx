@@ -1,7 +1,5 @@
 import React from "react";
 import { navInfo } from "./nav.info";
-import Link from "next/link";
-import Image from "next/image";
 import NavList from "./NavList";
 
 const Nav = () => {
