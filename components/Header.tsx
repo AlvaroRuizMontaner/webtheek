@@ -3,7 +3,7 @@ import Image from "next/image";
 import NavList from "./nav/NavList";
 import { headerInfo } from "./nav/nav.info";
 
-const Header = () => {
+const Header = (): JSX.Element => {
   return (
     <div className="flex h-10">
       <div className="relative w-full md:w-[140px] h-full p-2 flex justify-center">

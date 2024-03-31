@@ -3,7 +3,7 @@ import Header from "@/components/Header";
 import Nav from "@/components/nav/Nav";
 
 // `app/page.tsx` is the UI for the `/` URL
-export default function Page() {
+export default function Page(): JSX.Element {
   return (
     <div>
       <Nav />

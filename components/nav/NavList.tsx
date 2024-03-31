@@ -2,7 +2,7 @@ import React from "react";
 import { navItemProps } from "./nav.info";
 import Link from "next/link";
 
-const NavList = ({ info }: NavListProps) => {
+const NavList = ({ info }: NavListProps): JSX.Element => {
   return (
     <div className="h-10 flex items-center justify-around flex-1">
       {info.map((link) => (

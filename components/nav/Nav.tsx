@@ -2,7 +2,7 @@ import React from "react";
 import { navInfo } from "./nav.info";
 import NavList from "./NavList";
 
-const Nav = () => {
+const Nav = (): JSX.Element => {
   return (
     <nav className="flex h-10">
       <NavList info={navInfo} />
