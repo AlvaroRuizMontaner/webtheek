@@ -36,3 +36,12 @@ body {
     text-wrap: balance;
   }
 }
+
+/* styles.css */
+.supercontainer {
+  padding-inline: 20px;
+}
+.supercontainer > * {
+  margin-left: auto;
+  margin-right: auto;
+}

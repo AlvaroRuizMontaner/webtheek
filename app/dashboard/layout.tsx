@@ -8,10 +8,9 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }): JSX.Element {
   return (
-    <section>
+    <section className="min-h-full flex flex-col">
       <Nav />
       <Header />
-
       {children}
       <Footer />
     </section>
