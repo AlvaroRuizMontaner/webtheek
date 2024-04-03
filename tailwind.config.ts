@@ -26,11 +26,12 @@ const config: Config = {
         accent: "#1E55FF",
         info: "#3273DC", */
 
-        primary: "#C084FC",
-        secondary: "#403D6C",
-        tertiary: "#5A55AE",
-        accent: "#F472B6",
-        info: "#4ADE80",
+        primary: "#362ebb",
+        secondary: "#4caf50",
+        tertiary: "#2196f3",
+        accent: "#6081fa ",
+        info: "#81c784",
+        highlight: "#90caf9",
       },
     },
   },

@@ -11,7 +11,7 @@ const Collapse = ({ children, isOpen }: CollapseProps): JSX.Element => {
   return (
     <section
       className={`overflow-y-hidden flex flex-col w-full ${styles.transition}
-        absolute translate-y-full bottom-0 left-0 right-0 bg-blue-600
+        absolute translate-y-full bottom-[-4px] left-0 right-0 bg-accent
         ${isOpen ? "h-[150px]" : "h-0"}`}
     >
       {Array.isArray(children) ? children.map((child) => child) : children}

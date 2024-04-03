@@ -7,9 +7,18 @@
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
 
-  --primary: #e99401;
-  --negro: #262626;
-  --blanco: #fff;
+  --primary: #362ebb;
+  --secondary: #4caf50;
+  --tertiary: #2196f3;
+  --accent: #8a9bf4; /* light primary */
+  --info: #81c784; /* light secondary */
+  --highlight: #90caf9; /* light tertiary */
+
+  --accent: #f472b6;
+  --info: #4ade80;
+
+  --black: #262626;
+  --white: #fff;
   --fuente-principal: "Outfit", sans-serif;
 }
 

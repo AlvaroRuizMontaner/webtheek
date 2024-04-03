@@ -11,7 +11,7 @@ const Header = (): JSX.Element => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="flex h-20 bg-secondary border-l-4 border-r-4 border-b-4">
+    <div className="flex h-20 bg-accent border-l-4 border-r-4 border-b-4">
       <div className="w-full p-2 md:w-[140px] h-full grid items-center relative">
         <div className="relative w-full h-full md:block justify-self-start hidden">
           <Image
@@ -26,7 +26,7 @@ const Header = (): JSX.Element => {
         </div>
         <button
           onClick={() => setIsOpen((prev) => !prev)}
-          className={`relative w-14 h-14 ${styles.button} bg-secondary md:hidden cursor-pointer justify-self-end md:justify-self-auto`}
+          className={`relative w-14 h-14 ${styles.button} bg-white md:hidden cursor-pointer justify-self-end md:justify-self-auto`}
         >
           <Image
             width={48}
