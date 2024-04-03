@@ -25,15 +25,15 @@ export const navInfoLogged: navItemProps[] = [
 
 export const headerInfo: navItemProps[] = [
   {
-    url: "/curriculares",
+    url: "/curriculars",
     text: "Curriculares",
   },
   {
-    url: "/herramientas",
+    url: "/tools",
     text: "Herramientas",
   },
   {
-    url: "/imagenes",
+    url: "/images",
     text: "Imagenes",
   },
 ];

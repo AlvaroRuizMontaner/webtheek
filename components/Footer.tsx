@@ -2,7 +2,7 @@ import React from "react";
 
 const Footer = (): JSX.Element => {
   return (
-    <div className="w-full h-40 flex flex-col gap-2 justify-center bg-indigo-600">
+    <div className="w-full h-40 flex flex-col gap-2 justify-center bg-indigo-800">
       <div className="text-center">
         Web en desarrollo por Álvaro Ruiz Montaner
       </div>
