@@ -45,3 +45,7 @@ body {
   margin-left: auto;
   margin-right: auto;
 }
+
+.custom-shadow {
+  box-shadow: 4px 4px 4px 0px;
+}

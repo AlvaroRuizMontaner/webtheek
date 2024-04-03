@@ -1,5 +1,5 @@
 import Footer from "@/components/Footer";
-import Header from "@/components/Header";
+import Header from "@/components/header/Header";
 import Nav from "@/components/nav/Nav";
 
 // `app/page.tsx` is the UI for the `/` URL

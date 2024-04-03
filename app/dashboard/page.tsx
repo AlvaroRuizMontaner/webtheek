@@ -5,9 +5,6 @@ export default function Page(): JSX.Element {
   return (
     <div className="container flex-1">
       <Offer />
-      <Offer />
-      <Offer />
-      <Offer />
     </div>
   );
 }

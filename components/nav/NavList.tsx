@@ -4,9 +4,13 @@ import Link from "next/link";
 
 const NavList = ({ info }: NavListProps): JSX.Element => {
   return (
-    <div className="h-10 flex items-center justify-around flex-1">
+    <div className="flex items-center justify-around flex-1">
       {info.map((link) => (
-        <Link key={link.text} href={link.url}>
+        <Link
+          className="hover:text-blue-700 font-bold hover:underline"
+          key={link.text}
+          href={link.url}
+        >
           {link.text}
         </Link>
       ))}
