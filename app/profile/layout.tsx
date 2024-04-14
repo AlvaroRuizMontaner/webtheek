@@ -1,6 +1,5 @@
 import Footer from "@/components/Footer";
 import Header from "@/components/header/Header";
-import Nav from "@/components/nav/Nav";
 
 export default function ProfileLayout({
   children, // will be a page or nested layout
@@ -9,7 +8,7 @@ export default function ProfileLayout({
 }): JSX.Element {
   return (
     <section className="min-h-screen flex flex-col">
-      <Nav />
+      {/* <Nav /> */}
       <Header />
       {children}
       <Footer />

@@ -25,6 +25,18 @@ export const navInfoLogged: navItemProps[] = [
 
 export const headerInfo: navItemProps[] = [
   {
+    url: "/Signin",
+    text: "SignIn",
+  },
+  {
+    url: "/SignUp",
+    text: "SignOut",
+  },
+  {
+    url: "/profile",
+    text: "Perfil",
+  },
+  {
     url: "/curriculars",
     text: "Curriculares",
   },

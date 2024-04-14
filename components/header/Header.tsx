@@ -11,7 +11,7 @@ const Header = (): JSX.Element => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="flex h-20 bg-accent border-l-4 border-r-4 border-b-4">
+    <div className="flex h-20 bg-accent">
       <div className="w-full p-2 md:w-[140px] h-full grid items-center relative">
         <div className="relative w-full h-full md:block justify-self-start hidden">
           <Image
@@ -39,6 +39,21 @@ const Header = (): JSX.Element => {
         </button>
 
         <Collapse isOpen={isOpen}>
+          <div
+            className={`flex flex-1 justify-center items-center ${isOpen ? styles.openItem : styles.closeItem}`}
+          >
+            <Link href="/profile">Perfil</Link>
+          </div>
+          <div
+            className={`flex flex-1 justify-center items-center ${isOpen ? styles.openItem : styles.closeItem}`}
+          >
+            <Link href="/singin">SignIn</Link>
+          </div>
+          <div
+            className={`flex flex-1 justify-center items-center ${isOpen ? styles.openItem : styles.closeItem}`}
+          >
+            <Link href="/signup">SignUp</Link>
+          </div>
           <div
             className={`flex flex-1 justify-center items-center ${isOpen ? styles.openItem : styles.closeItem}`}
           >
