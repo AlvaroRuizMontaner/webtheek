@@ -22,3 +22,7 @@
     0.9
   ); /* Hace el botón ligeramente más pequeño al pulsar, simulando un efecto de presión */
 }
+
+.dropButton {
+  transform: rotate(180);
+}

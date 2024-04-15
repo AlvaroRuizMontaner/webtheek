@@ -37,20 +37,26 @@ export const headerInfo: navItemProps[] = [
     text: "Perfil",
   },
   {
-    url: "/curriculars",
-    text: "Curriculares",
-  },
-  {
     url: "/tools",
     text: "Herramientas",
-  },
-  {
-    url: "/images",
-    text: "Imagenes",
+    subitems: [
+      {
+        url: "/curriculars",
+        text: "Curriculares",
+      },
+      {
+        url: "/images",
+        text: "Imagenes",
+      },
+    ],
   },
 ];
 
 export interface navItemProps {
-  url: string;
+  url?: string;
   text: string;
+  subitems?: {
+    url: string;
+    text: string;
+  }[];
 }
