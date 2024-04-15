@@ -51,7 +51,7 @@ const Header = (): JSX.Element => {
           />
         </button>
 
-        <Collapse isOpen={isOpen}>
+        <Collapse bottom={"1px"} isOpen={isOpen}>
           {filteredNavItems.map((headerItem) => (
             <div
               key={headerItem.text}

@@ -21,28 +21,26 @@ const NavItem = ({ subitems, url, text }: NavItemProps): JSX.Element => {
         </button>
       )}
       {subitems && (
-        <div className="absolute bottom-[-23px] w-full h-4">
-          <Collapse isOpen={isOpen}>
-            {subitems.map((subitem) => (
-              <div
-                key={subitem.text}
-                className={`flex flex-1 justify-center items-center ${isOpen ? styles.openItem : styles.closeItem}`}
-              >
-                {subitem.url ? (
-                  <Link href={subitem.url}>{subitem.text}</Link>
-                ) : (
-                  <div
-                    onClick={
-                      () => null //Logout handler
-                    }
-                  >
-                    {subitem.text}
-                  </div>
-                )}
-              </div>
-            ))}
-          </Collapse>
-        </div>
+        <Collapse bottom={"-24px"} isOpen={isOpen}>
+          {subitems.map((subitem) => (
+            <div
+              key={subitem.text}
+              className={`flex flex-1 justify-center items-center ${isOpen ? styles.openItem : styles.closeItem}`}
+            >
+              {subitem.url ? (
+                <Link href={subitem.url}>{subitem.text}</Link>
+              ) : (
+                <div
+                  onClick={
+                    () => null //Logout handler
+                  }
+                >
+                  {subitem.text}
+                </div>
+              )}
+            </div>
+          ))}
+        </Collapse>
       )}
     </div>
   );
