@@ -10,9 +10,9 @@ const Collapse = ({ children, isOpen }: CollapseProps): JSX.Element => {
 
   return (
     <section
-      className={`overflow-y-hidden flex flex-col w-full ${styles.transition}
+      className={`flex flex-col z-10 w-full ${styles.transition}
         absolute translate-y-full bottom-[-4px] left-0 right-0 bg-accent
-        ${isOpen ? "h-[150px]" : "h-0"}`}
+        ${isOpen ? "h-[150px]" : "h-0"} ${!isOpen && "overflow-y-hidden"}`}
     >
       {Array.isArray(children) ? children.map((child) => child) : children}
     </section>
