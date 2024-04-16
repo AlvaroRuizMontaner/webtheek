@@ -5,7 +5,7 @@ import NavList from "../nav/NavList";
 import { headerInfo, navItemProps } from "../nav/nav.info";
 import Collapse from "../collapse/Collapse";
 import styles from "./header.module.css";
-import NavItem from "./NavItem";
+import NavItemMobile from "./NavItemMobile";
 
 const Header = (): JSX.Element => {
   const [isOpen, setIsOpen] = useState(false);
@@ -47,7 +47,7 @@ const Header = (): JSX.Element => {
             layout="responsive"
             objectFit="contain"
             src={"/icons/menu.png"}
-            alt="butterfly"
+            alt="menu"
           />
         </button>
 
@@ -58,7 +58,7 @@ const Header = (): JSX.Element => {
               className={`flex flex-1 justify-center items-center ${isOpen ? styles.openItem : styles.closeItem}`}
             >
               {headerItem.url ? (
-                <NavItem {...headerItem} />
+                <NavItemMobile {...headerItem} />
               ) : (
                 <div
                   onClick={

@@ -4,16 +4,16 @@ import Collapse from "../collapse/Collapse";
 import { IoIosArrowDown } from "react-icons/io";
 import styles from "./header.module.css";
 
-const NavItem = ({ subitems, url, text }: NavItemProps): JSX.Element => {
+const NavItemMobile = ({
+  subitems,
+  url,
+  text,
+}: NavItemMobileProps): JSX.Element => {
   const [isOpen, setIsOpen] = useState(false);
   console.log(subitems, text);
   return (
     <div className="relative">
-      {url && (
-        <span className="hover:text-blue-700 hover:underline">
-          <Link href={url}>{text}</Link>
-        </span>
-      )}
+      {url && <Link href={url}>{text}</Link>}
       {subitems && (
         <button
           onClick={() => setIsOpen((prev) => !prev)}
@@ -25,7 +25,7 @@ const NavItem = ({ subitems, url, text }: NavItemProps): JSX.Element => {
         </button>
       )}
       {subitems && (
-        <Collapse bottom={"-24px"} isOpen={isOpen}>
+        <Collapse bottom={"-4px"} isOpen={isOpen}>
           {subitems.map((subitem) => (
             <div
               key={subitem.text}
@@ -50,9 +50,9 @@ const NavItem = ({ subitems, url, text }: NavItemProps): JSX.Element => {
   );
 };
 
-export default NavItem;
+export default NavItemMobile;
 
-interface NavItemProps {
+interface NavItemMobileProps {
   subitems?: {
     url: string;
     text: string;
