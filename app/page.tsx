@@ -1,15 +1,28 @@
 import AppLayout from "@/layouts/AppLayout";
+import DashboardView from "@/views/DashboardView";
 
 // `app/page.tsx` is the UI for the `/` URL
 export default function Page(): JSX.Element {
   return (
-    <section className="min-h-screen">
-      {/* <Nav /> */}
-      {/* <Header /> */}
+    <>
       <AppLayout>
-        <span>Hola Mundo</span>
+        <section className=" max-w-screen-2xl mx-auto mt-10 p-5">
+          <DashboardView />
+        </section>
       </AppLayout>
-      {/* <Footer /> */}
-    </section>
+      
+
+      <footer className="py-5">
+        <p className="text-center">
+          Todos los derechos reservados {new Date().getFullYear()}
+        </p>
+      </footer>
+
+    </>
   );
 }
+
+
+{/* <Nav /> */}
+{/* <Header /> */}
+{/* <Footer /> */}
