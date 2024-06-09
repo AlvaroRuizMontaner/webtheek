@@ -6,7 +6,7 @@ const NavList = ({ info }: NavListProps): JSX.Element => {
   return (
     <div className="flex items-center justify-around flex-1">
       {info.map((link, index) => (
-        <div key={index} className="font-bold">
+        <div key={index} className="">
           <NavItem {...link} />
         </div>
       ))}

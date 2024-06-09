@@ -33,6 +33,17 @@ const config: Config = {
         info: "#81c784",
         highlight: "#90caf9",
       },
+      fontFamily: {
+        lato: ["Lato", "sans-serif"],
+      },
+      fontSize: {
+        body: ["14px", { lineHeight: "1.5", letterSpacing: "0.05em" }],
+        headline: ["30px", { lineHeight: "1.5", letterSpacing: "-0.02em" }],
+        "headline-lg": [
+          "36px",
+          { lineHeight: "1.5", letterSpacing: "-0.02em" },
+        ],
+      },
     },
   },
   plugins: [],

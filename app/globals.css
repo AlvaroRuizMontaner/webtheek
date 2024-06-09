@@ -10,7 +10,7 @@
   --primary: #362ebb;
   --secondary: #4caf50;
   --tertiary: #2196f3;
-  --accent: #8a9bf4; /* light primary */
+  --accent: #6081fa; /* light primary */
   --info: #81c784; /* light secondary */
   --highlight: #90caf9; /* light tertiary */
 
@@ -22,13 +22,13 @@
   --fuente-principal: "Outfit", sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
     --background-start-rgb: 0, 0, 0;
     --background-end-rgb: 0, 0, 0;
   }
-}
+} */
 
 body {
   color: rgb(var(--foreground-rgb));
