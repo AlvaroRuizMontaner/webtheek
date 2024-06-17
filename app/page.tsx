@@ -1,23 +1,15 @@
-import AppLayout from "@/layouts/AppLayout";
+"use client"
+import { useToastSuccess } from "@/hooks/toast";
 import DashboardView from "@/views/DashboardView";
 
 // `app/page.tsx` is the UI for the `/` URL
 export default function Page(): JSX.Element {
+
+  useToastSuccess()
   return (
+
     <>
-      <AppLayout>
-        <section className=" max-w-screen-2xl mx-auto mt-10 p-5">
-          <DashboardView />
-        </section>
-      </AppLayout>
-      
-
-      <footer className="py-5">
-        <p className="text-center">
-          Todos los derechos reservados {new Date().getFullYear()}
-        </p>
-      </footer>
-
+      <DashboardView />
     </>
   );
 }
