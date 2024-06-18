@@ -1,15 +1,16 @@
 import { z } from "zod"
 
-const taskStatus = {
-    PENDING: "pending",
-    ON_HOLD: "onHold",
-    IN_PROGRESS: "inProgress",
-    UNDER_REVIEW: "underReview",
-    COMPLETED: "completed"
-} as const
 export const taskStatusSchema = z.enum(["pending", "onHold", "inProgress", "underReview", "completed"])
+export type TaskStatus = z.infer<typeof taskStatusSchema>
 
-export type TaskStatus = typeof taskStatus[keyof typeof taskStatus];
+/*     const taskStatus = {
+        PENDING: "pending",
+        ON_HOLD: "onHold",
+        IN_PROGRESS: "inProgress",
+        UNDER_REVIEW: "underReview",
+        COMPLETED: "completed"
+    } as const */
+//export type TaskStatus = typeof taskStatus[keyof typeof taskStatus];
 
 /* Tasks */
 export const taskSchema = z.object({

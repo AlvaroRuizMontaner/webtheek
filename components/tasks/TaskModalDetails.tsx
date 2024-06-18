@@ -1,12 +1,13 @@
 import { Fragment } from 'react';
 import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from '@headlessui/react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useQuery } from '@tanstack/react-query';
-import { getTaskById } from '@/services/TaskAPI';
-import { Project } from '@/types';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { getTaskById, updateStatus } from '@/services/TaskAPI';
+import { Project, TaskStatus } from '@/types';
 import { toast } from 'react-toastify';
 import { secondRenderUseEffect } from '@/hooks/useEffect';
 import { formatDate } from '@/utils/formatDate';
+import { statusTranslations } from '@/locales/es';
 
 type TaskModalDetailsProps = {
     projectId: Project["_id"]
@@ -18,7 +19,6 @@ export default function TaskModalDetails({projectId}: TaskModalDetailsProps) {
     const path = usePathname()
     const searchParams = useSearchParams()
     const taskId = searchParams.get('viewTask')!
-    console.log(taskId)
 
     const show = taskId ? true : false
 
@@ -28,6 +28,26 @@ export default function TaskModalDetails({projectId}: TaskModalDetailsProps) {
         enabled: !!taskId,
         retry: false
     })
+
+    const queryClient = useQueryClient()
+    const { mutate } = useMutation({
+        mutationFn: updateStatus,
+        onError: (error) => {
+            toast.error(error.message)
+        },
+        onSuccess: (data) => {
+            toast.success(data)
+            queryClient.invalidateQueries({queryKey: ["project", projectId]})
+            queryClient.invalidateQueries({queryKey: ["task", taskId]})
+        }
+    })
+
+    const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const status = e.target.value as TaskStatus
+
+        const data = {projectId, taskId, status}
+        mutate(data)
+    }
 
     // Evita que toast provoque el warning de "cannot-update-a-component-x-while"
     // En caso de id no valida, en el primer render no hace nada esperando que react-query reciba el error
@@ -77,6 +97,18 @@ export default function TaskModalDetails({projectId}: TaskModalDetailsProps) {
                                     <p className='text-lg text-slate-500 mb-2'>Descripción: {data.description}</p>
                                     <div className='my-5 space-y-3'>
                                         <label className='font-bold'>Estado Actual:</label>
+                                        
+                                        <select 
+                                            name="" 
+                                            id=""
+                                            className='w-full p-3 bg-white border border-gray-300'
+                                            defaultValue={data.status}
+                                            onChange={handleChange}
+                                        >
+                                            {Object.entries(statusTranslations).map(([key, value]) => (
+                                                <option key={key} value={key}>{value}</option>
+                                            ))}
+                                        </select>
                                     </div>
                                 </DialogPanel>
                             </TransitionChild>
