@@ -1,11 +1,11 @@
 "use client"
-import LoginView from '@/views/auth/LoginView'
+import RequestNewCodeView from '@/views/auth/RequestNewCodeView'
 import React from 'react'
 
 export default function Page() {
   return (
     <>
-        <LoginView />
+        <RequestNewCodeView />
     </>
   )
 }

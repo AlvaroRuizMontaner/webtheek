@@ -1,11 +1,11 @@
 "use client"
-import LoginView from '@/views/auth/LoginView'
+import ForgotPasswordView from '@/views/auth/ForgotPasswordView'
 import React from 'react'
 
 export default function Page() {
   return (
     <>
-        <LoginView />
+        <ForgotPasswordView />
     </>
   )
 }

@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import Provider from "@/utils/Providers";
-import AppLayout from "@/layouts/AppLayout";
 
 const poppins = Poppins({ weight: "400", subsets: ["latin"] });
 
@@ -20,9 +19,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${poppins.className} min-h-screen bg-gray-100`}>
         <Provider>
-          <AppLayout>
             {children}
-          </AppLayout>
         </Provider>
       </body>
     </html>
