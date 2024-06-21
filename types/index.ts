@@ -30,6 +30,16 @@ export type TaskStatus = z.infer<typeof taskStatusSchema>
     } as const */
 //export type TaskStatus = typeof taskStatus[keyof typeof taskStatus];
 
+/* Users */
+export const userSchema = authSchema.pick({
+    name: true,
+    email: true
+}).extend({
+    _id: z.string()
+})
+
+export type User = z.infer<typeof userSchema>
+
 /* Tasks */
 export const taskSchema = z.object({
     _id: z.string(),

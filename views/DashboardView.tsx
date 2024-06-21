@@ -25,7 +25,6 @@ export default function DashboardView() {
     }
   })
 
-  console.log(data);
   if (isLoading) return "cargando...";
 
   if (data)

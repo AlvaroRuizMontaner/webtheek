@@ -5,8 +5,10 @@ import Link from 'next/link';
 import { useMutation } from '@tanstack/react-query';
 import { authenticateUser } from '@/services/AuthAPI';
 import { toast } from 'react-toastify';
+import { useRouter } from 'next/navigation';
 
 export default function LoginView() {
+  const router = useRouter()
 
   const initialValues: UserLoginForm = {
     email: '',
@@ -20,9 +22,10 @@ export default function LoginView() {
         toast.error(error.message)
     },
     onSuccess: () => {
-        toast.success("Iniciando sesión...")
+        router.push("/")
     }
   })
+
 
   const handleLogin = (formData: UserLoginForm) => mutate(formData)
 

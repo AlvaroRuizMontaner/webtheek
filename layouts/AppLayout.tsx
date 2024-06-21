@@ -4,12 +4,14 @@ import "react-toastify/dist/ReactToastify.css"
 import Logo from '@/components/Logo'
 import NavMenu from '@/components/NavMenu';
 import Link from 'next/link';
+import Redirect from '@/components/Redirect';
 
 interface AppLayoutProps {
     children: React.ReactNode
 }
 
 export default function AppLayout({children}: AppLayoutProps): ReactNode {
+
   return (
     <>
       <header className=" bg-gray-800 py-5">
@@ -26,6 +28,8 @@ export default function AppLayout({children}: AppLayoutProps): ReactNode {
           <NavMenu/>
         </div>
       </header>
+
+      <Redirect />
 
       <section className=" max-w-screen-2xl mx-auto mt-10 p-5">
           {children}

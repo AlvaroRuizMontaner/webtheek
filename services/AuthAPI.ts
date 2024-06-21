@@ -1,5 +1,5 @@
 import api from "@/lib/axios";
-import { ConfirmToken, ForgotPasswordForm, NewPasswordForm, RequestConfirmationCodeForm, UserLoginForm, UserRegistrationForm } from "@/types";
+import { ConfirmToken, ForgotPasswordForm, NewPasswordForm, RequestConfirmationCodeForm, UserLoginForm, UserRegistrationForm, userSchema } from "@/types";
 import { isAxiosError } from "axios";
 
 
@@ -79,5 +79,18 @@ export async function updatePasswordWithToken({formData, token}: {formData: NewP
     } catch (error) {
         if(isAxiosError(error) && error.response)
             throw new Error(error.response.data.error) // Hay que lanzar el error para que vaya al onError de mutate
+    }
+}
+
+export async function getUser() {
+    try {
+        const {data} = await api("/auth/user")
+        const response = userSchema.safeParse(data)
+        if(response.success) {
+            return response.data
+        }
+    } catch (error) {
+        if(isAxiosError(error) && error.response)
+            throw new Error(error.response.data.error)
     }
 }
