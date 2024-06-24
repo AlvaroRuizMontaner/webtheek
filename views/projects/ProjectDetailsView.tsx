@@ -5,13 +5,15 @@ import TaskModalDetails from '@/components/tasks/TaskModalDetails';
 import { getProjectById } from '@/services/ProjectAPI';
 import { Project } from '@/types';
 import { useQuery } from '@tanstack/react-query';
-import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
 import React from 'react'
 
 
 export default function ProjectDetailsView({projectId}: {projectId: Project["_id"]}) {
 
     const router = useRouter()
+    const path = usePathname()
 
     const { data, isLoading, isError, error } = useQuery({
         queryKey: ["project", projectId],
@@ -34,6 +36,12 @@ export default function ProjectDetailsView({projectId}: {projectId: Project["_id
                     font-bold cursor-pointer transition-colors'
                     onClick={() => router.push("?newTask=true")}
                 >Agregar Tarea</button>
+
+                <Link
+                href={path + "/team"}
+                className=' bg-fuchsia-600 hover:bg-fuchsia-700 px-10 py-3 text-white text-xl
+                    font-bold cursor-pointer transition-colors'
+                >Colaboradores</Link>
             </nav>
 
 

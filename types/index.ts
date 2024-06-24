@@ -1,3 +1,4 @@
+import { truncate } from "fs"
 import { z } from "zod"
 
 /* Auth & Users */
@@ -60,7 +61,8 @@ export const projectSchema = z.object({
     _id: z.string(),
     projectName: z.string(),
     clientName: z.string(),
-    description: z.string()
+    description: z.string(),
+    /* manager: userSchema.pick({ _id: true }) */
 })
 
 export const dashboardProjectSchema = z.array(
@@ -68,9 +70,21 @@ export const dashboardProjectSchema = z.array(
         _id: true,
         projectName: true,
         clientName: true,
-        description: true
+        description: true,
+        /* manager: true */
     })
 )
 
 export type Project = z.infer<typeof projectSchema>
 export type ProjectFormData = Pick<Project, "clientName" | "projectName" | "description">
+
+
+/* Team */
+const teamMemberSchema = userSchema.pick({
+    name: true,
+    email: true,
+    _id: true
+})
+export const teamMembersSchema = z.array(teamMemberSchema)
+export type TeamMember = z.infer<typeof teamMemberSchema>
+export type TeamMemberForm = Pick<TeamMember, "email">
