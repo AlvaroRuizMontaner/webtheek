@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 import { secondRenderUseEffect } from '@/hooks/useEffect';
 import { formatDate } from '@/utils/formatDate';
 import { statusTranslations } from '@/locales/es';
+import NotesPanel from '../notes/NotesPanel';
 
 type TaskModalDetailsProps = {
     projectId: Project["_id"]
@@ -95,6 +96,23 @@ export default function TaskModalDetails({projectId}: TaskModalDetailsProps) {
                                     >{data.name}
                                     </DialogTitle>
                                     <p className='text-lg text-slate-500 mb-2'>Descripción: {data.description}</p>
+
+                                    {data.completedBy.length ? (
+                                        <>
+                                            <p className="font-bold text-2xl text-slate-600 my-5">Historial de cambios</p>
+
+                                            <ul className='list-decimal'>
+                                                {data.completedBy.map((activityLog) => (
+                                                    <li key={activityLog._id}>
+                                                        <span className='font-bold text-slate-600'>{statusTranslations[activityLog.status]}</span>{" "}
+                                                        por: {activityLog.user.name}
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </>
+                                    ) : null}
+
+
                                     <div className='my-5 space-y-3'>
                                         <label className='font-bold'>Estado Actual:</label>
                                         
@@ -110,6 +128,8 @@ export default function TaskModalDetails({projectId}: TaskModalDetailsProps) {
                                             ))}
                                         </select>
                                     </div>
+
+                                    <NotesPanel notes={data.notes} projectId={projectId} />
                                 </DialogPanel>
                             </TransitionChild>
                         </div>

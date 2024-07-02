@@ -1,10 +1,10 @@
-import { truncate } from "fs"
 import { z } from "zod"
 
 /* Auth & Users */
 const authSchema = z.object({
     name: z.string(),
     email: z.string().email(),
+    current_password: z.string(),
     password: z.string(),
     password_confirmation: z.string(),
     token: z.string()
@@ -16,8 +16,9 @@ export type UserRegistrationForm = Pick<Auth, "name" | "email" | "password" | "p
 export type RequestConfirmationCodeForm = Pick<Auth,  "email">
 export type ForgotPasswordForm = Pick<Auth, "email">
 export type NewPasswordForm = Pick<Auth, "password" | "password_confirmation">
-
+export type UpdateCurrentPasswordForm = Pick<Auth, "current_password" | "password" | "password_confirmation">
 export type ConfirmToken = Pick<Auth, "token">
+export type checkPasswordForm = Pick<Auth, "password">
 
 export const taskStatusSchema = z.enum(["pending", "onHold", "inProgress", "underReview", "completed"])
 export type TaskStatus = z.infer<typeof taskStatusSchema>
@@ -40,6 +41,18 @@ export const userSchema = authSchema.pick({
 })
 
 export type User = z.infer<typeof userSchema>
+export type UserProfileForm = Pick<User, "name" | "email">
+
+/* Notes */
+const noteSchema = z.object({
+    _id: z.string(),
+    content: z.string(),
+    createdBy: userSchema,
+    task: z.string(),
+    createdAt: z.string()
+})
+export type Note = z.infer<typeof noteSchema>
+export type NoteFormData = Pick<Note, "content">
 
 /* Tasks */
 export const taskSchema = z.object({
@@ -47,7 +60,14 @@ export const taskSchema = z.object({
     name: z.string(),
     description: z.string(),
     project: z.string(),
-    status: z.string(),
+    status: taskStatusSchema,
+    completedBy: z.array(z.object({
+        _id: z.string(),
+        user: userSchema,
+        status: taskStatusSchema
+    })), // El or se usa para que pase la validacion si el status es pending y por tanto completedBy es null
+    //completedBy: userSchema.or(z.null()), // El or se usa para que pase la validacion si el status es pending y por tanto completedBy es null
+    notes: z.array(noteSchema/* .extend({createdBy: userSchema}) */),
     createdAt: z.string(),
     updatedAt: z.string()
 })
@@ -62,7 +82,7 @@ export const projectSchema = z.object({
     projectName: z.string(),
     clientName: z.string(),
     description: z.string(),
-    /* manager: userSchema.pick({ _id: true }) */
+    manager: z.string() //z.string(userSchema.pick({ _id: true }))
 })
 
 export const dashboardProjectSchema = z.array(
@@ -71,7 +91,7 @@ export const dashboardProjectSchema = z.array(
         projectName: true,
         clientName: true,
         description: true,
-        /* manager: true */
+        manager: true
     })
 )
 
