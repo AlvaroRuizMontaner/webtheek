@@ -13,7 +13,7 @@ export async function createProject(formData: ProjectFormData) {
 }
 
 export async function getProjects() {
-    console.log(process.env.NEXT_PUBLIC_API_URL, process.env.ENV)
+    console.log(process.env.NEXT_PUBLIC_API_URL, process.env.NEXT_PUBLIC_ENV)
     try {
         const { data } = await api("/projects")
         const response = dashboardProjectSchema.safeParse(data)
