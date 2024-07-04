@@ -3,7 +3,7 @@ import EditTaskData from '@/components/tasks/EditTaskData';
 import TaskList from '@/components/tasks/TaskList';
 import TaskModalDetails from '@/components/tasks/TaskModalDetails';
 import { useAuth } from '@/hooks/useAuth';
-import { getProjectById } from '@/services/ProjectAPI';
+import { getFullProject } from '@/services/ProjectAPI';
 import { Project } from '@/types';
 import { isManager } from '@/utils/policies';
 import { useQuery } from '@tanstack/react-query';
@@ -20,7 +20,7 @@ export default function ProjectDetailsView({projectId}: {projectId: Project["_id
     const { data: user, isLoading: authLoading } = useAuth()
     const { data, isLoading, isError, error } = useQuery({
         queryKey: ["project", projectId],
-        queryFn: () => getProjectById(projectId),
+        queryFn: () => getFullProject(projectId),
         retry: false
     });
 

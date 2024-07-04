@@ -1,19 +1,25 @@
 import { deleteTask } from '@/services/TaskAPI'
-import { Project, Task } from '@/types'
+import { Project, TaskProject } from '@/types'
 import { Menu, Transition } from '@headlessui/react'
 import { EllipsisVerticalIcon } from '@heroicons/react/20/solid'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import React, { Fragment } from 'react'
 import { toast } from 'react-toastify'
+import { useDraggable } from "@dnd-kit/core"
+import {CSS} from '@dnd-kit/utilities';
 
 type TaskCardProps = {
-    task: Task
+    task: TaskProject
     projectId: Project["_id"]
     canEdit: boolean
 }
 
 export default function TaskCard({task, projectId, canEdit}: TaskCardProps) {
+
+  const { attributes, listeners, setNodeRef, transform } = useDraggable({
+    id: task._id
+  })
 
     const router = useRouter()
 
@@ -29,8 +35,17 @@ export default function TaskCard({task, projectId, canEdit}: TaskCardProps) {
       },
     })
 
+    const style = {
+      transform: CSS.Translate.toString(transform),
+    }
+
   return (
-    <li className="p-5 bg-white border border-slate-300 flex justify-between gap-3">
+    <li 
+    {...listeners}
+    {...attributes}
+    ref={setNodeRef}
+    style={style}
+    className="p-5 bg-white border border-slate-300 flex justify-between gap-3">
       <div className=" min-w-0 flex flex-col gap-y-4">
         <button
           type="button"
