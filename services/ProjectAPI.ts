@@ -13,6 +13,7 @@ export async function createProject(formData: ProjectFormData) {
 }
 
 export async function getProjects() {
+    console.log(process.env.NEXT_PUBLIC_PROD_API_URL)
     try {
         const { data } = await api("/projects")
         const response = dashboardProjectSchema.safeParse(data)
