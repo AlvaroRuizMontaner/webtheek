@@ -17,7 +17,7 @@ export default function RootLayout({
 }>): JSX.Element {
   return (
     <html lang="en">
-      <body className={`${poppins.className} min-h-screen bg-gray-100`}>
+      <body className={`${poppins.className} min-h-screen flex flex-col bg-gray-100`}>
         <Provider>
             {children}
         </Provider>

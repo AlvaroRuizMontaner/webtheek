@@ -79,7 +79,7 @@ export default function EditTaskModal({data, projectId, taskId}: EditTaskModalPr
                                 </DialogTitle>
 
                                 <p className="text-xl font-bold">Realiza cambios a una tarea en {''}
-                                    <span className="text-fuchsia-600">este formulario</span>
+                                    <span className="text-secondary">este formulario</span>
                                 </p>
 
                                 <form
@@ -92,7 +92,7 @@ export default function EditTaskModal({data, projectId, taskId}: EditTaskModalPr
 
                                     <input
                                         type="submit"
-                                        className=" bg-fuchsia-600 hover:bg-fuchsia-700 w-full p-3  text-white font-black  text-xl cursor-pointer"
+                                        className=" bg-secondary hover:bg-info w-full p-3  text-white font-black  text-xl cursor-pointer"
                                         value='Guardar Tarea'
                                     />
                                 </form>

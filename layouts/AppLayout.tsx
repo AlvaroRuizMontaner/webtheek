@@ -5,6 +5,7 @@ import Logo from '@/components/Logo'
 import NavMenu from '@/components/NavMenu';
 import Link from 'next/link';
 import Redirect from '@/components/Redirect';
+import Footer from '@/components/Footer';
 
 interface AppLayoutProps {
     children: React.ReactNode
@@ -17,7 +18,7 @@ export default function AppLayout({children}: AppLayoutProps): ReactNode {
       <header className=" bg-gray-800 py-5">
         <div
           className="max-w-screen-2xl mx-auto flex flex-col lg:flex-row
-            justify-between items-center"
+            justify-between items-center container"
         >
           <div className="w-64">
             <Link href="/">
@@ -31,15 +32,17 @@ export default function AppLayout({children}: AppLayoutProps): ReactNode {
 
       <Redirect />
 
-      <section className=" max-w-screen-2xl mx-auto mt-10 p-5">
+      <section className=" max-w-screen-2xl flex-1 mx-auto mt-10 container">
           {children}
       </section>
 
-      <footer className="py-5">
+      <Footer/>
+
+{/*       <footer className="py-5">
         <p className="text-center">
           Todos los derechos reservados {new Date().getFullYear()}
         </p>
-      </footer>
+      </footer> */}
 
       <ToastContainer
       pauseOnHover={false}

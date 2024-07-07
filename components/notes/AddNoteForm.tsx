@@ -62,7 +62,7 @@ export default function AddNoteForm({projectId}: {projectId: Project["_id"]}) {
         <input 
             type="submit" 
             value="Crear Nota"
-            className='bg-fuchsia-600 hover:bg-fuchsia-700 w-full p-2 text-white font-black cursor-pointer'
+            className='bg-secondary hover:bg-info w-full p-2 text-white font-black cursor-pointer'
         />
     </form>
   )

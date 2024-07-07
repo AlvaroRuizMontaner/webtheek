@@ -81,7 +81,7 @@ export default function DeleteProjectModal() {
                                 >Eliminar Proyecto </Dialog.Title>
 
                                 <p className="text-xl font-bold">Confirma la eliminación del proyecto {''}
-                                    <span className="text-fuchsia-600">colocando tu password</span>
+                                    <span className="text-secondary">colocando tu password</span>
                                 </p>
 
                                 <form
@@ -111,7 +111,7 @@ export default function DeleteProjectModal() {
 
                                     <input
                                         type="submit"
-                                        className=" bg-fuchsia-600 hover:bg-fuchsia-700 w-full p-3  text-white font-black  text-xl cursor-pointer"
+                                        className=" bg-secondary hover:bg-info w-full p-3  text-white font-black  text-xl cursor-pointer"
                                         value='Eliminar Proyecto'
                                     />
                                 </form>
