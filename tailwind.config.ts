@@ -28,6 +28,7 @@ const config: Config = {
         accent: "#362ebb ",
         info: "#81c784",
         highlight: "#90caf9",
+        background: "#1F2937",
       },
       fontFamily: {
         lato: ["Lato", "sans-serif"],

@@ -11,7 +11,7 @@ export default function AuthLayout({children}: AuthLayoutProps): ReactNode {
   return (
     <>
 
-    <div className='bg-gray-800 min-h-screen'>
+    <div className='bg-accent min-h-screen'>
 
         <div className='py-10 lg:py-20 mx-auto px-8 sm:px-0 sm:w-[450px] '>
             <Logo />
