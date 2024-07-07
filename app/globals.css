@@ -33,16 +33,15 @@
   --background-end-rgb: 255, 255, 255;
 
   --primary: #6366F1;
-  --secondary: #4caf50;
-  --tertiary: #2196f3;
-  --accent: #362ebb; /* light primary */
-  --info: #81c784; /* light secondary */
-  --highlight: #90caf9; /* light tertiary */
+  --secondary: #81c784;
+  --tertiary: #90caf9;
 
-  --background: #1F2937;
+  --dark-primary: #1E1B4B;
+  --dark-secondary: #4caf50;
+  --dark-tertiary: #2196f3;
 
-/*   --accent: #f472b6;
-  --info: #4ade80; */
+  --accent: #f472b6;
+  --info: #4caf50;
 
   --black: #262626;
   --white: #fff;

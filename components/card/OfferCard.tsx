@@ -14,7 +14,7 @@ const OfferCard = ({
       border-4 rounded-lg border-tertiary shadow-tertiary custom-shadow
      "
     >
-      <div className="relative w-full h-20 bg-accent rounded-lg">
+      <div className="relative w-full h-20 bg-dark-primary rounded-lg">
         <Image className="" fill src={image} alt={`Image ${name}`} />
       </div>
       <h3 className="h-20 text-lg text-secondary font-extrabold flex items-center justify-center text-center">

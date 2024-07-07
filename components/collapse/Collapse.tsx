@@ -16,7 +16,7 @@ const Collapse = ({
     <section
       style={{ bottom }}
       className={`flex flex-col z-10 w-full ${styles.transition}
-        absolute translate-y-full left-0 right-0 bg-accent
+        absolute translate-y-full left-0 right-0 bg-dark-primary
         ${isOpen ? "h-[150px]" : "h-0"} ${!isOpen && "overflow-y-hidden"}
         `}
     >

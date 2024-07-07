@@ -96,7 +96,7 @@ export default function AddTaskModal({projectId}: {projectId: Project["_id"]}) {
                                         <input
                                             type="submit"
                                             value="Guardar Tarea"
-                                            className=" bg-secondary hover:bg-info w-full p-3 text-white 
+                                            className=" bg-info hover:bg-info w-full p-3 text-white 
                                             uppercase font-bold cursor-pointer transition-colors"
                                         />
                                     </form>

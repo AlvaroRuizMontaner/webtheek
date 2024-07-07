@@ -54,7 +54,7 @@ export default function EditProjectForm({data, projectId}: EditProjectFormProps)
 
       <nav className="my-5">
         <Link
-          className=" bg-primary hover:bg-accent px-10 py-3 text-white text-xl 
+          className=" bg-primary hover:bg-dark-primary px-10 py-3 text-white text-xl 
         font-bold cursor-pointer transition-colors"
           href="/"
         >
@@ -71,7 +71,7 @@ export default function EditProjectForm({data, projectId}: EditProjectFormProps)
         <input
           type="submit"
           value="Guardar cambios"
-          className=" bg-secondary hover:bg-info w-full p-3 text-white 
+          className=" bg-info hover:bg-info w-full p-3 text-white 
           uppercase font-bold cursor-pointer transition-colors"
         />
       </form>

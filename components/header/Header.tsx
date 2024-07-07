@@ -24,7 +24,7 @@ const Header = (): JSX.Element => {
   const filteredNavItems = filterNavItems(isLogged);
 
   return (
-    <div className="flex h-20 bg-accent">
+    <div className="flex h-20 bg-dark-primary">
       <nav className="container flex">
         <div className="w-full p-2 md:w-[140px] h-full grid items-center relative">
           <div className="relative w-full h-full md:block justify-self-start hidden">

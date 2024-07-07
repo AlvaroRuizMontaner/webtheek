@@ -86,7 +86,7 @@ export default function LoginView() {
         <input
           type="submit"
           value='Iniciar Sesión'
-          className="bg-secondary hover:bg-info w-full p-3  text-white font-black  text-xl cursor-pointer"
+          className="bg-info hover:bg-info w-full p-3  text-white font-black  text-xl cursor-pointer"
         />
       </form>
 
@@ -94,7 +94,7 @@ export default function LoginView() {
         <Link 
             className='text-center text-gray-300 font-normal'
             href={"/auth/register"}
-        >¿No tienes una cuenta? <span className='text-highlight'>Crear cuenta</span>
+        >¿No tienes una cuenta? <span className='text-tertiary'>Crear cuenta</span>
         </Link>
         <Link 
             className='text-center text-gray-300 font-normal'
