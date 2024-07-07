@@ -23,12 +23,14 @@ const config: Config = {
       /* Paleta de colores */
       colors: {
         primary: "#6366F1",
-        secondary: "#4caf50",
-        tertiary: "#2196f3",
-        accent: "#362ebb ",
-        info: "#81c784",
-        highlight: "#90caf9",
-        background: "#1F2937",
+        secondary: "#81c784",
+        tertiary: "#90caf9",
+
+        "dark-primary": "#1E1B4B",
+        "dark-secondary": "#4caf50",
+        "dark-tertiary": "#2196f3",
+
+        info: "#4caf50"
       },
       fontFamily: {
         lato: ["Lato", "sans-serif"],

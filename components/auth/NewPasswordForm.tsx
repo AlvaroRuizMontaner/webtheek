@@ -95,7 +95,7 @@ export default function NewPasswordForm({token}: NewPasswordFormProps) {
                 <input
                     type="submit"
                     value='Establecer Password'
-                    className="bg-secondary hover:bg-info w-full p-3  text-white font-black  text-xl cursor-pointer"
+                    className="bg-info hover:bg-info w-full p-3  text-white font-black  text-xl cursor-pointer"
                 />
             </form>
         </>
