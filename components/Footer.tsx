@@ -1,6 +1,6 @@
 const Footer = (): JSX.Element => {
   return (
-    <div className="w-full h-40 flex flex-col gap-2 justify-center bg-gray-800">
+    <div className="w-full h-40 flex flex-col gap-2 justify-center bg-accent">
       <div className="text-center text-white">
         Web en desarrollo por Álvaro Ruiz Montaner
       </div>
