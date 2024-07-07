@@ -22,12 +22,6 @@ const config: Config = {
       },
       /* Paleta de colores */
       colors: {
-        /*         primary: "#5E2BFF",
-        secondary: "#6933FF",
-        tertiary: "#4D4F5C",
-        accent: "#1E55FF",
-        info: "#3273DC", */
-
         primary: "#362ebb",
         secondary: "#4caf50",
         tertiary: "#2196f3",
