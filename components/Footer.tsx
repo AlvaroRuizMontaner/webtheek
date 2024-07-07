@@ -1,19 +1,22 @@
-import React from "react";
-
 const Footer = (): JSX.Element => {
   return (
-    <div className="w-full h-40 flex flex-col gap-2 justify-center bg-primary">
-      <div className="text-center">
+    <div className="w-full h-40 flex flex-col gap-2 justify-center bg-gray-800">
+      <div className="text-center text-white">
         Web en desarrollo por Álvaro Ruiz Montaner
       </div>
-      <div className="text-center">
+
+      <div className="text-center text-highlight">
         LinkedIn:{" "}
         <a
-          className="text-tertiary"
+          className="text-white underline"
           href="https://www.linkedin.com/in/%C3%A1lvaro-ruiz-montaner-221a2b206"
         >
           https://www.linkedin.com/in/%C3%A1lvaro-ruiz-montaner-221a2b206
         </a>
+      </div>
+
+      <div>
+        <p className='text-center text-white'>Todos los derechos reservados {new Date().getFullYear()}</p>
       </div>
     </div>
   );

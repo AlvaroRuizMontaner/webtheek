@@ -81,7 +81,7 @@ export default function AddTaskModal({projectId}: {projectId: Project["_id"]}) {
                                     </Dialog.Title>
 
                                     <p className="text-xl font-bold">Llena el formulario y crea  {''}
-                                        <span className="text-fuchsia-600">una tarea</span>
+                                        <span className="text-secondary">una tarea</span>
                                     </p>
 
                                     <form 
@@ -96,7 +96,7 @@ export default function AddTaskModal({projectId}: {projectId: Project["_id"]}) {
                                         <input
                                             type="submit"
                                             value="Guardar Tarea"
-                                            className=" bg-fuchsia-600 hover:bg-fuchsia-700 w-full p-3 text-white 
+                                            className=" bg-secondary hover:bg-info w-full p-3 text-white 
                                             uppercase font-bold cursor-pointer transition-colors"
                                         />
                                     </form>
