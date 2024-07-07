@@ -2,16 +2,41 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .headline {
+    font-size: 30px;
+    line-height: "1.5"; 
+    letter-spacing: "-0.02em"
+  }
+  .headline-lg {
+    font-size: 36px;
+    line-height: "1.5"; 
+    letter-spacing: "-0.02em"
+  }
+
+  .body {
+    font-size: 18px;
+    line-height: "1.5"; 
+    letter-spacing: "-0.02em"
+  }
+
+  .body-lg {
+    font-size: 24px;
+    line-height: "1.5"; 
+    letter-spacing: "-0.02em"
+  }
+}
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
 
   --primary: #362ebb;
-  --secondary: #4caf50;
+  --secondary: #81c784;
   --tertiary: #2196f3;
   --accent: #6081fa; /* light primary */
-  --info: #81c784; /* light secondary */
+  --info: #4caf50; /* light secondary */
   --highlight: #90caf9; /* light tertiary */
 
   --accent: #f472b6;
