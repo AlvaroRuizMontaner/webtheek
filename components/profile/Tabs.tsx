@@ -49,14 +49,14 @@ export default function Tabs() {
                                 href={tab.href}
                                 className={classNames(
                                     path === tab.href
-                                        ? 'border-purple-800 text-purple-800'
+                                        ? 'border-primary text-primary'
                                         : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700',
                                     'group inline-flex items-center border-b-2 py-4 px-1 text-sm font-medium'
                                 )}
                             >
                                 <tab.icon
                                     className={classNames(
-                                        path === tab.href ? 'text-purple-800' : 'text-gray-400 group-hover:text-gray-500',
+                                        path === tab.href ? 'text-primary' : 'text-gray-400 group-hover:text-gray-500',
                                         '-ml-0.5 mr-2 h-5 w-5'
                                     )}
                                     aria-hidden="true"
