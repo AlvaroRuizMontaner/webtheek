@@ -35,10 +35,10 @@ export default function RegisterView() {
 
   return (
     <>
-      <h1 className="text-5xl font-black text-white">Crear Cuenta</h1>
-      <p className="text-2xl font-light text-white mt-5">
+      <h1 className="headline1 font-black text-white">Crear Cuenta</h1>
+      <p className="headline2 font-light text-white mt-5">
         Llena el formulario para {''}
-        <span className=" text-fuchsia-500 font-bold"> crear tu cuenta</span>
+        <span className=" text-secondary font-bold"> crear tu cuenta</span>
       </p>
 
       <form
@@ -48,7 +48,7 @@ export default function RegisterView() {
       >
         <div className="flex flex-col gap-5">
           <label
-            className="font-normal text-2xl"
+            className="font-bold headline3 text-primary"
             htmlFor="email"
           >Email</label>
           <input
@@ -71,7 +71,7 @@ export default function RegisterView() {
 
         <div className="flex flex-col gap-5">
           <label
-            className="font-normal text-2xl"
+            className="font-bold headline3 text-primary"
           >Nombre</label>
           <input
             type="name"
@@ -88,7 +88,7 @@ export default function RegisterView() {
 
         <div className="flex flex-col gap-5">
           <label
-            className="font-normal text-2xl"
+            className="font-bold headline3 text-primary"
           >Password</label>
 
           <input
@@ -110,7 +110,7 @@ export default function RegisterView() {
 
         <div className="flex flex-col gap-5">
           <label
-            className="font-normal text-2xl"
+            className="font-bold headline3 text-primary"
           >Repetir Password</label>
 
           <input
@@ -132,20 +132,20 @@ export default function RegisterView() {
         <input
           type="submit"
           value='Registrarme'
-          className="bg-info hover:bg-info w-full p-3  text-white font-black  text-xl cursor-pointer"
+          className="bg-info hover:bg-info w-full p-3  text-white font-black body1 cursor-pointer"
         />
       </form>
 
       <nav className="mt-10 flex flex-col space-y-4">
         <Link 
-            className='text-center text-gray-300 font-normal'
+            className='text-center text-gray-300 font-normal body2'
             href={"/auth/login"}
-        >¿Ya tienes cuenta? iniciar sesión
+        >¿Ya tienes cuenta? <span className="text-tertiary underline">iniciar sesión</span>
         </Link>
         <Link 
-            className='text-center text-gray-300 font-normal'
+            className='text-center text-gray-300 font-normal body2'
             href={"/auth/forgot-password"}
-        >¿Olvidaste tu contraseña? Restablecer
+        >¿Olvidaste tu contraseña? <span className="text-tertiary underline">Restablecer</span>
         </Link>
       </nav>
     </>

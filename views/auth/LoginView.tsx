@@ -31,10 +31,10 @@ export default function LoginView() {
 
   return (
     <>
-      <h1 className="font-black text-white text-2xl md:headline lg:headline-lg">iniciar sesión</h1>
-      <p className="font-light text-white my-5 text-lg md:body lg:body-lg">
-        comienza a planear tus proyectos {''}
-        <span className=" text-fuchsia-500 font-bold"> iniciando sesión en este formulario</span>
+      <h1 className="font-black text-white headline2">Iniciar sesión</h1>
+      <p className="font-light text-white my-5 body1">
+        Prosigue tu aventura en Webtheek {''}
+        <span className=" text-secondary font-bold"> iniciando sesión en este formulario</span>
       </p>
 
       <form
@@ -44,7 +44,7 @@ export default function LoginView() {
       >
         <div className="flex flex-col gap-5">
           <label
-            className="font-normal text-2xl"
+            className="headline3 text-primary font-bold"
           >Email</label>
 
           <input
@@ -67,7 +67,7 @@ export default function LoginView() {
 
         <div className="flex flex-col gap-5">
           <label
-            className="font-normal text-2xl"
+            className="font-bold headline3 text-primary"
           >Password</label>
 
           <input
@@ -92,14 +92,14 @@ export default function LoginView() {
 
       <nav className="mt-10 flex flex-col space-y-4">
         <Link 
-            className='text-center text-gray-300 font-normal'
+            className='text-center text-gray-300 font-normal body2'
             href={"/auth/register"}
-        >¿No tienes una cuenta? <span className='text-tertiary'>Crear cuenta</span>
+        >¿No tienes una cuenta? <span className='text-tertiary underline'>Crear cuenta</span>
         </Link>
         <Link 
-            className='text-center text-gray-300 font-normal'
+            className='text-center text-gray-300 font-normal body2'
             href={"/auth/forgot-password"}
-        >¿Olvidaste tu contraseña? Restablecer
+        >¿Olvidaste tu contraseña? <span className='text-tertiary underline'>Restablecer</span>
         </Link>
       </nav>
     </>

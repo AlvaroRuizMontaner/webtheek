@@ -49,7 +49,7 @@ export default function TaskCard({task, projectId, canEdit}: TaskCardProps) {
       <div className=" min-w-0 flex flex-col gap-y-4">
         <button
           type="button"
-          className="text-xl font-bold text-slate-600 text-left"
+          className="body2 font-bold text-slate-600 text-left"
           onClick={() =>
             router.push(location.pathname + `?viewTask=${task._id}`)
           }

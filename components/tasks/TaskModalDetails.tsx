@@ -99,7 +99,7 @@ export default function TaskModalDetails({projectId}: TaskModalDetailsProps) {
 
                                     {data.completedBy.length ? (
                                         <>
-                                            <p className="font-bold text-2xl text-slate-600 my-5">Historial de cambios</p>
+                                            <p className="font-bold headline3 text-slate-600 my-5">Historial de cambios</p>
 
                                             <ul className='list-decimal'>
                                                 {data.completedBy.map((activityLog) => (

@@ -24,14 +24,14 @@ export default function DashboardView() {
   if (data && user)
     return (
       <>
-        <h1 className="text-5xl font-black">Mis Proyectos</h1>
-        <p className="text-2xl font-light text-gray-500 mt-5">
+        <h1 className="headline1 font-black">Mis Proyectos</h1>
+        <p className="body1 font-light text-gray-500 my-5">
           Maneja y administra tus proyectos
         </p>
 
         <nav className="my-5">
           <Link
-            className=" bg-primary hover:bg-dark-primary px-10 py-3 text-white text-xl 
+            className="inline-block bg-primary hover:bg-dark-primary px-10 py-3 text-white text-xl 
           font-bold cursor-pointer transition-colors"
             href="/projects/create"
           >
@@ -63,7 +63,7 @@ export default function DashboardView() {
 
                     <Link
                       href={`/projects/${project._id}`}
-                      className="text-gray-600 cursor-pointer hover:underline text-3xl font-bold"
+                      className="text-gray-600 cursor-pointer hover:underline headline3 font-bold"
                     >
                       {project.projectName}
                     </Link>
