@@ -100,7 +100,7 @@ export default function TaskList({tasks, projectId, canEdit}: TaskListProps) {
 
   return (
     <>
-      <h2 className="text-5xl font-black my-10">Tareas</h2>
+      <h2 className="headline2 font-black my-10">Tareas</h2>
 
       <div className="flex gap-5 overflow-x-scroll 2xl:overflow-auto pb-32">
         <DndContext onDragEnd={handleDragEnd} sensors={sensors}>

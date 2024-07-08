@@ -75,7 +75,7 @@ export default function AddTaskModal({projectId}: {projectId: Project["_id"]}) {
                                 <Dialog.Panel className="w-full max-w-4xl transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all p-16">
                                     <Dialog.Title
                                         as="h3"
-                                        className="font-black text-4xl  my-5"
+                                        className="font-black headline2 my-5"
                                     >
                                         Nueva Tarea
                                     </Dialog.Title>

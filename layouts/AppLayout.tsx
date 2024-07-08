@@ -17,10 +17,10 @@ export default function AppLayout({children}: AppLayoutProps): ReactNode {
     <>
       <header className=" bg-dark-primary py-5">
         <div
-          className="max-w-screen-2xl mx-auto flex flex-col lg:flex-row
+          className="max-w-screen-2xl mx-auto flex flex-col sm:flex-row gap-6
             justify-between items-center container"
         >
-          <div className="w-64">
+          <div className="w-14">
             <Link href="/">
               <Logo />
             </Link>

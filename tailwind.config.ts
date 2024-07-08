@@ -34,6 +34,7 @@ const config: Config = {
       },
       fontFamily: {
         lato: ["Lato", "sans-serif"],
+        "rubik": ["Rubik", "sans-serif"],
       },
       fontSize: {
         body: ["14px", { lineHeight: "1.5", letterSpacing: "0.05em" }],

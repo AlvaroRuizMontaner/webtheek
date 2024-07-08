@@ -13,8 +13,10 @@ export default function AuthLayout({children}: AuthLayoutProps): ReactNode {
 
     <div className='bg-dark-primary min-h-screen'>
 
-        <div className='py-10 lg:py-20 mx-auto px-8 sm:px-0 sm:w-[450px] '>
-            <Logo />
+        <div className='py-10 lg:py-20 mx-auto px-8 sm:px-0 sm:w-[450px] md:w-[650px] flex flex-col items-center '>
+            <div className='w-[350px] flex justify-center'>
+              <Logo />
+            </div>
 
             <div className='mt-10'>
                 {children}
