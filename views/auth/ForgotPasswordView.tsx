@@ -70,7 +70,7 @@ export default function ForgotPasswordView() {
       </form>
 
       <nav className="mt-10 flex flex-col space-y-4">
-        <Link
+{/*         <Link
           href='/auth/login'
           className="text-center text-gray-300 font-normal"
         >
@@ -82,7 +82,27 @@ export default function ForgotPasswordView() {
           className="text-center text-gray-300 font-normal"
         >
           ¿No tienes cuenta? Crea una
-        </Link>
+        </Link> */}
+
+
+        <div className="text-gray-300 flex gap-1 justify-center">
+            <span>¿Ya tienes cuenta?</span>
+            <Link
+              href="/auth/login"
+              className="text-center font-normal text-tertiary underline"
+            >
+              Iniciar Sesión
+            </Link>
+          </div>
+          <div className="text-gray-300 flex gap-1 justify-center">
+            <span>¿No tienes cuenta?</span>
+            <Link
+              href="/auth/register"
+              className="text-center font-normal text-tertiary underline"
+            >
+              Crea una
+            </Link>
+          </div>
       </nav>
     </>
   )

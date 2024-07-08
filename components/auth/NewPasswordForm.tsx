@@ -51,7 +51,7 @@ export default function NewPasswordForm({token}: NewPasswordFormProps) {
 
                 <div className="flex flex-col gap-5">
                     <label
-                        className="font-normal text-2xl"
+                        className="font-normal text-2xl text-primary headline3"
                     >Password</label>
 
                     <input
@@ -73,7 +73,7 @@ export default function NewPasswordForm({token}: NewPasswordFormProps) {
 
                 <div className="flex flex-col gap-5">
                     <label
-                        className="font-normal text-2xl"
+                        className="font-normal text-2xl text-primary headline3"
                     >Repetir Password</label>
 
                     <input
