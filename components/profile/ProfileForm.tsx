@@ -27,8 +27,8 @@ export default function ProfileForm({ data }: ProfileFormProps) {
     return (
         <>
             <div className="mx-auto max-w-3xl g">
-                <h1 className="text-5xl font-black ">Mi Perfil</h1>
-                <p className="text-2xl font-light text-gray-500 mt-5">Aquí puedes actualizar tu información</p>
+                <h1 className="headline1 font-black ">Mi Perfil</h1>
+                <p className="body1 font-light text-gray-500 mt-5">Aquí puedes actualizar tu información</p>
 
                 <form
                     onSubmit={handleSubmit(handleEditProfile)}
