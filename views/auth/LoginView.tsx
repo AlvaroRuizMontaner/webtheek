@@ -31,7 +31,7 @@ export default function LoginView() {
 
   return (
     <>
-      <h1 className="font-black text-white headline2">Iniciar sesión</h1>
+      <h1 className="font-black text-white headline1">Iniciar sesión</h1>
       <p className="font-light text-white my-5 body1">
         Prosigue tu aventura en Webtheek {''}
         <span className=" text-secondary font-bold"> iniciando sesión en este formulario</span>
@@ -91,7 +91,7 @@ export default function LoginView() {
       </form>
 
       <nav className="mt-10 flex flex-col space-y-4">
-        <Link 
+{/*         <Link 
             className='text-center text-gray-300 font-normal body2'
             href={"/auth/register"}
         >¿No tienes una cuenta? <span className='text-tertiary underline'>Crear cuenta</span>
@@ -100,7 +100,26 @@ export default function LoginView() {
             className='text-center text-gray-300 font-normal body2'
             href={"/auth/forgot-password"}
         >¿Olvidaste tu contraseña? <span className='text-tertiary underline'>Restablecer</span>
-        </Link>
+        </Link> */}
+
+        <div className="text-gray-300 flex gap-1 justify-center">
+            <span>¿No tienes una cuenta?</span>
+            <Link
+              href={"/auth/register"}
+              className="text-center font-normal text-tertiary underline"
+            >
+              Crear cuenta
+            </Link>
+          </div>
+          <div className="text-gray-300 flex gap-1 justify-center">
+            <span>¿Olvidaste tu contraseña?</span>
+            <Link
+              href="/auth/register"
+              className="text-center font-normal text-tertiary underline"
+            >
+              Restablecer
+            </Link>
+          </div>
       </nav>
     </>
   )

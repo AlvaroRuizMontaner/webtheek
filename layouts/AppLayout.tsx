@@ -17,7 +17,7 @@ export default function AppLayout({children}: AppLayoutProps): ReactNode {
     <>
       <header className=" bg-dark-primary py-5">
         <div
-          className="max-w-screen-2xl mx-auto flex flex-col sm:flex-row gap-6
+          className="max-w-screen-2xl mx-auto flex sm:flex-row gap-6
             justify-between items-center container"
         >
           <div className="w-14">

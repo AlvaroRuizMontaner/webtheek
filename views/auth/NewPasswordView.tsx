@@ -11,10 +11,10 @@ export default function NewPasswordView() {
 
   return (
     <>
-      <h1 className="text-5xl font-black text-white">Restablecer Password</h1>
+      <h1 className="headline2 font-black text-white">Restablecer Password</h1>
       <p className="text-2xl font-light text-white mt-5">
-        introduce el codigo que recibiste {''}
-        <span className=" text-fuchsia-500 font-bold"> por email</span>
+        Introduce el codigo que recibiste {''}
+        <span className=" text-secondary font-bold"> por email</span>
       </p>
     
       {!isValidToken ? (

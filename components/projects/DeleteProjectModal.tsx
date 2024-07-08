@@ -92,7 +92,7 @@ export default function DeleteProjectModal() {
 
                                     <div className="flex flex-col gap-3">
                                         <label
-                                            className="font-normal text-2xl"
+                                            className="font-normal text-primary headline3"
                                             htmlFor="password"
                                         >Password</label>
                                         <input
