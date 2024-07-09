@@ -5,8 +5,11 @@ import Link from "next/link";
 import { useMutation } from "@tanstack/react-query";
 import { createAccount } from "@/services/AuthAPI";
 import { toast } from "react-toastify";
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/20/solid";
+import { useState } from "react";
 
 export default function RegisterView() {
+  const [showPass, setShowPass] = useState(false)
   
   const initialValues: UserRegistrationForm = {
     name: '',
@@ -90,19 +93,22 @@ export default function RegisterView() {
           <label
             className="font-bold headline3 text-primary"
           >Password</label>
-
-          <input
-            type="password"
-            placeholder="Password de Registro"
-            className="w-full p-3  border-gray-300 border"
-            {...register("password", {
-              required: "El Password es obligatorio",
-              minLength: {
-                value: 8,
-                message: 'El Password debe ser mínimo de 8 caracteres'
+          <div className='relative'>
+            <input
+              type={showPass ? "text": "password"}
+              placeholder="Password de Registro"
+              className="w-full p-3 border-gray-300 border"
+              {...register("password", {
+                required: "El Password es obligatorio",
+                minLength: {
+                  value: 8,
+                  message: 'El Password debe ser mínimo de 8 caracteres'
               }
-            })}
-          />
+              })}
+            />
+            {showPass && <span onClick={() => setShowPass(false)} className='absolute right-4 top-1/2 -translate-y-1/2 inline-block cursor-pointer'><EyeIcon className='w-8 h-8 text-gray-500 ' /></span>}
+            {!showPass && <span  onClick={() => setShowPass(true)} className='absolute right-4 top-1/2 -translate-y-1/2 inline-block cursor-pointer'><EyeSlashIcon className='w-8 h-8 text-gray-500 ' /></span>}
+          </div>
           {errors.password && (
             <ErrorMessage>{errors.password.message}</ErrorMessage>
           )}
@@ -132,7 +138,7 @@ export default function RegisterView() {
         <input
           type="submit"
           value='Registrarme'
-          className="bg-info hover:bg-info w-full p-3  text-white font-black body1 cursor-pointer"
+          className="bg-info hover:bg-info w-full p-3  text-white font-black text-xl cursor-pointer"
         />
       </form>
 
