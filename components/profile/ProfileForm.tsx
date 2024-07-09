@@ -10,7 +10,7 @@ type ProfileFormProps = {
 }
 
 export default function ProfileForm({ data }: ProfileFormProps) {
-    const { register, handleSubmit, formState: { errors } } = useForm<UserProfileForm>({ defaultValues: data })
+    const { register, handleSubmit, formState: { errors }, trigger } = useForm<UserProfileForm>({ defaultValues: data })
 
     const queryClient = useQueryClient()
     const { mutate } = useMutation({
@@ -48,6 +48,9 @@ export default function ProfileForm({ data }: ProfileFormProps) {
                             {...register("name", {
                                 required: "Nombre de usuario es obligatoro",
                             })}
+                            onBlur={() => {
+                                trigger('name'); // Ejecuta la validación manualmente
+                            }}
                         />
                         {errors.name && (
                             <ErrorMessage>{errors.name.message}</ErrorMessage>
@@ -71,6 +74,9 @@ export default function ProfileForm({ data }: ProfileFormProps) {
                                     message: "E-mail no válido",
                                 },
                             })}
+                            onBlur={() => {
+                                trigger('email'); // Ejecuta la validación manualmente
+                              }}
                         />
                         {errors.email && (
                             <ErrorMessage>{errors.email.message}</ErrorMessage>

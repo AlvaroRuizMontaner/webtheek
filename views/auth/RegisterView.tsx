@@ -18,7 +18,7 @@ export default function RegisterView() {
     password_confirmation: '',
   }
 
-  const { register, handleSubmit, watch, reset, formState: { errors } } = useForm<UserRegistrationForm>({ defaultValues: initialValues });
+  const { register, handleSubmit, watch, reset, formState: { errors }, trigger } = useForm<UserRegistrationForm>({ defaultValues: initialValues });
 
 
   const { mutate } = useMutation({
@@ -66,6 +66,9 @@ export default function RegisterView() {
                 message: "E-mail no válido",
               },
             })}
+            onBlur={() => {
+              trigger('email'); // Ejecuta la validación manualmente
+            }}
           />
           {errors.email && (
             <ErrorMessage>{errors.email.message}</ErrorMessage>
@@ -83,6 +86,9 @@ export default function RegisterView() {
             {...register("name", {
               required: "El Nombre de usuario es obligatorio",
             })}
+            onBlur={() => {
+              trigger('name'); // Ejecuta la validación manualmente
+            }}
           />
           {errors.name && (
             <ErrorMessage>{errors.name.message}</ErrorMessage>
@@ -128,6 +134,9 @@ export default function RegisterView() {
               required: "Repetir Password es obligatorio",
               validate: value => value === password || 'Los Passwords no son iguales'
             })}
+            onBlur={() => {
+              trigger('password'); // Ejecuta la validación manualmente
+            }}
           />
 
           {errors.password_confirmation && (

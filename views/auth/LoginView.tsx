@@ -17,7 +17,7 @@ export default function LoginView() {
     email: '',
     password: '',
   }
-  const { register, handleSubmit, formState: { errors } } = useForm({ defaultValues: initialValues })
+  const { register, handleSubmit, formState: { errors }, trigger } = useForm({ defaultValues: initialValues })
 
   const { mutate } = useMutation({
     mutationFn: authenticateUser,
@@ -62,6 +62,9 @@ export default function LoginView() {
                 message: "E-mail no válido",
               },
             })}
+            onBlur={() => {
+              trigger('email'); // Ejecuta la validación manualmente
+            }}
           />
           {errors.email && (
             <ErrorMessage>{errors.email.message}</ErrorMessage>
@@ -81,6 +84,9 @@ export default function LoginView() {
               {...register("password", {
                 required: "El Password es obligatorio",
               })}
+              onBlur={() => {
+                trigger('password'); // Ejecuta la validación manualmente
+              }}
             />
            {showPass && <span onClick={() => setShowPass(false)} className='absolute right-4 top-1/2 -translate-y-1/2 inline-block cursor-pointer'><EyeIcon className='w-8 h-8 text-gray-500 ' /></span>}
             {!showPass && <span  onClick={() => setShowPass(true)} className='absolute right-4 top-1/2 -translate-y-1/2 inline-block cursor-pointer'><EyeSlashIcon className='w-8 h-8 text-gray-500 ' /></span>}

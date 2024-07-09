@@ -4,15 +4,20 @@ import { UpdateCurrentPasswordForm } from "@/types";
 import { useMutation } from "@tanstack/react-query";
 import { changePassword } from "@/services/ProfileAPI";
 import { toast } from "react-toastify";
+import { useState } from "react";
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/20/solid";
 
 export default function ChangePasswordView() {
+  const [showCurrentPass, setShowCurrentPass] = useState(false)
+  const [showPass, setShowPass] = useState(false)
+  const [showPassConfirm, setShowPassConfirm] = useState(false)
   const initialValues: UpdateCurrentPasswordForm = {
     current_password: '',
     password: '',
     password_confirmation: ''
   }
 
-  const { register, handleSubmit, watch, reset, formState: { errors } } = useForm({ defaultValues: initialValues })
+  const { register, handleSubmit, watch, reset, formState: { errors }, trigger } = useForm({ defaultValues: initialValues })
 
   const { mutate } = useMutation({
     mutationFn: changePassword,
@@ -46,15 +51,22 @@ export default function ChangePasswordView() {
               className="text-sm uppercase font-bold"
               htmlFor="current_password"
             >Password Actual</label>
-            <input
-              id="current_password"
-              type="password"
-              placeholder="Password Actual"
-              className="w-full p-3  border border-gray-200"
-              {...register("current_password", {
-                required: "El password actual es obligatorio",
-              })}
-            />
+            <div className='relative'>
+              <input
+                id="current_password"
+                type={showCurrentPass ? "text": "password"}
+                placeholder="Password Actual"
+                className="w-full p-3 border border-gray-200"
+                {...register("current_password", {
+                  required: "El password actual es obligatorio",
+                })}
+                onBlur={() => {
+                  trigger('current_password'); // Ejecuta la validación manualmente
+                }}
+              />
+              {showCurrentPass && <span onClick={() => setShowCurrentPass(false)} className='absolute right-4 top-1/2 -translate-y-1/2 inline-block cursor-pointer'><EyeIcon className='w-8 h-8 text-gray-500 ' /></span>}
+              {!showCurrentPass && <span  onClick={() => setShowCurrentPass(true)} className='absolute right-4 top-1/2 -translate-y-1/2 inline-block cursor-pointer'><EyeSlashIcon className='w-8 h-8 text-gray-500 ' /></span>}
+            </div>
             {errors.current_password && (
               <ErrorMessage>{errors.current_password.message}</ErrorMessage>
             )}
@@ -65,19 +77,26 @@ export default function ChangePasswordView() {
               className="text-sm uppercase font-bold"
               htmlFor="password"
             >Nuevo Password</label>
-            <input
-              id="password"
-              type="password"
-              placeholder="Nuevo Password"
-              className="w-full p-3  border border-gray-200"
-              {...register("password", {
-                required: "El Nuevo Password es obligatorio",
-                minLength: {
-                  value: 8,
-                  message: 'El Password debe ser mínimo de 8 caracteres'
-                }
-              })}
-            />
+            <div className='relative'>
+              <input
+                id="password"
+                type={showPass ? "text": "password"}
+                placeholder="Nuevo Password"
+                className="w-full p-3 border border-gray-200"
+                {...register("password", {
+                  required: "El Nuevo Password es obligatorio",
+                  minLength: {
+                    value: 8,
+                    message: 'El Password debe ser mínimo de 8 caracteres'
+                  }
+                })}
+                onBlur={() => {
+                  trigger('password'); // Ejecuta la validación manualmente
+                }}
+              />
+              {showPass && <span onClick={() => setShowPass(false)} className='absolute right-4 top-1/2 -translate-y-1/2 inline-block cursor-pointer'><EyeIcon className='w-8 h-8 text-gray-500 ' /></span>}
+              {!showPass && <span  onClick={() => setShowPass(true)} className='absolute right-4 top-1/2 -translate-y-1/2 inline-block cursor-pointer'><EyeSlashIcon className='w-8 h-8 text-gray-500 ' /></span>}
+            </div>
             {errors.password && (
               <ErrorMessage>{errors.password.message}</ErrorMessage>
             )}
@@ -87,17 +106,23 @@ export default function ChangePasswordView() {
               htmlFor="password_confirmation"
               className="text-sm uppercase font-bold"
             >Repetir Password</label>
-
-            <input
-              id="password_confirmation"
-              type="password"
-              placeholder="Repetir Password"
-              className="w-full p-3  border border-gray-200"
-              {...register("password_confirmation", {
-                required: "Este campo es obligatorio",
-                validate: value => value === password || 'Los Passwords no son iguales'
-              })}
-            />
+            <div className='relative'>
+              <input
+                id="password_confirmation"
+                type={showPassConfirm ? "text": "password"}
+                placeholder="Repetir Password"
+                className="w-full p-3 border border-gray-200"
+                {...register("password_confirmation", {
+                  required: "Este campo es obligatorio",
+                  validate: value => value === password || 'Los Passwords no son iguales'
+                })}
+                onBlur={() => {
+                  trigger('password_confirmation'); // Ejecuta la validación manualmente
+                }}
+              />
+              {showPassConfirm && <span onClick={() => setShowPassConfirm(false)} className='absolute right-4 top-1/2 -translate-y-1/2 inline-block cursor-pointer'><EyeIcon className='w-8 h-8 text-gray-500 ' /></span>}
+              {!showPassConfirm && <span  onClick={() => setShowPassConfirm(true)} className='absolute right-4 top-1/2 -translate-y-1/2 inline-block cursor-pointer'><EyeSlashIcon className='w-8 h-8 text-gray-500 ' /></span>}
+            </div>
             {errors.password_confirmation && (
               <ErrorMessage>{errors.password_confirmation.message}</ErrorMessage>
             )}
