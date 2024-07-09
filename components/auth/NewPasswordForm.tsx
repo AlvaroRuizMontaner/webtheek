@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import { updatePasswordWithToken } from "@/services/AuthAPI";
 import { toast } from "react-toastify";
 import { useMutation } from "@tanstack/react-query";
+import { useState } from "react";
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/20/solid";
 
 type NewPasswordFormProps = {
     token: ConfirmToken["token"]
@@ -12,6 +14,7 @@ type NewPasswordFormProps = {
 
 export default function NewPasswordForm({token}: NewPasswordFormProps) {
     const router = useRouter()
+    const [showPass, setShowPass] = useState(false)
     const initialValues: NewPasswordForm = {
         password: '',
         password_confirmation: '',
@@ -66,6 +69,22 @@ export default function NewPasswordForm({token}: NewPasswordFormProps) {
                             }
                         })}
                     />
+                    <div className='relative'>
+                        <input
+                        type={showPass ? "text": "password"}
+                        placeholder="Password de Registro"
+                        className="w-full p-3 border-gray-300 border"
+                        {...register("password", {
+                            required: "El Password es obligatorio",
+                            minLength: {
+                                value: 8,
+                                message: 'El Password debe ser mínimo de 8 caracteres'
+                            }
+                        })}
+                        />
+                        {showPass && <span onClick={() => setShowPass(false)} className='absolute right-4 top-1/2 -translate-y-1/2 inline-block cursor-pointer'><EyeIcon className='w-8 h-8 text-gray-500 ' /></span>}
+                        {!showPass && <span  onClick={() => setShowPass(true)} className='absolute right-4 top-1/2 -translate-y-1/2 inline-block cursor-pointer'><EyeSlashIcon className='w-8 h-8 text-gray-500 ' /></span>}
+                    </div>
                     {errors.password && (
                         <ErrorMessage>{errors.password.message}</ErrorMessage>
                     )}

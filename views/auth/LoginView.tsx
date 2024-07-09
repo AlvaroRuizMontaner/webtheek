@@ -6,9 +6,12 @@ import { useMutation } from '@tanstack/react-query';
 import { authenticateUser } from '@/services/AuthAPI';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
+import { EyeIcon, EyeSlashIcon } from '@heroicons/react/20/solid';
+import { useState } from 'react';
 
 export default function LoginView() {
   const router = useRouter()
+  const [showPass, setShowPass] = useState(false)
 
   const initialValues: UserLoginForm = {
     email: '',
@@ -70,14 +73,18 @@ export default function LoginView() {
             className="font-bold headline3 text-primary"
           >Password</label>
 
-          <input
-            type="password"
-            placeholder="Password de Registro"
-            className="w-full p-3  border-gray-300 border"
-            {...register("password", {
-              required: "El Password es obligatorio",
-            })}
-          />
+          <div className='relative'>
+            <input
+              type={showPass ? "text": "password"}
+              placeholder="Password de Registro"
+              className="w-full p-3 border-gray-300 border"
+              {...register("password", {
+                required: "El Password es obligatorio",
+              })}
+            />
+           {showPass && <span onClick={() => setShowPass(false)} className='absolute right-4 top-1/2 -translate-y-1/2 inline-block cursor-pointer'><EyeIcon className='w-8 h-8 text-gray-500 ' /></span>}
+            {!showPass && <span  onClick={() => setShowPass(true)} className='absolute right-4 top-1/2 -translate-y-1/2 inline-block cursor-pointer'><EyeSlashIcon className='w-8 h-8 text-gray-500 ' /></span>}
+          </div>
           {errors.password && (
             <ErrorMessage>{errors.password.message}</ErrorMessage>
           )}
