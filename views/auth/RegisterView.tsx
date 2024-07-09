@@ -10,6 +10,7 @@ import { useState } from "react";
 
 export default function RegisterView() {
   const [showPass, setShowPass] = useState(false)
+  const [showPassConfirm, setShowPassConfirm] = useState(false)
   
   const initialValues: UserRegistrationForm = {
     name: '',
@@ -124,20 +125,23 @@ export default function RegisterView() {
           <label
             className="font-bold headline3 text-primary"
           >Repetir Password</label>
-
-          <input
-            id="password_confirmation"
-            type="password"
-            placeholder="Repite Password de Registro"
-            className="w-full p-3  border-gray-300 border"
-            {...register("password_confirmation", {
-              required: "Repetir Password es obligatorio",
-              validate: value => value === password || 'Los Passwords no son iguales'
-            })}
-            onBlur={() => {
-              trigger('password'); // Ejecuta la validación manualmente
-            }}
-          />
+          <div className='relative'>
+            <input
+              id="password_confirmation"
+              type={showPassConfirm ? "text": "password"}
+              placeholder="Repite Password de Registro"
+              className="w-full p-3 border-gray-300 border"
+              {...register("password_confirmation", {
+                required: "Repetir Password es obligatorio",
+                validate: value => value === password || 'Los Passwords no son iguales'
+              })}
+              onBlur={() => {
+                trigger('password_confirmation'); // Ejecuta la validación manualmente
+              }}
+            />
+            {showPassConfirm && <span onClick={() => setShowPassConfirm(false)} className='absolute right-4 top-1/2 -translate-y-1/2 inline-block cursor-pointer'><EyeIcon className='w-8 h-8 text-gray-500 ' /></span>}
+            {!showPassConfirm && <span  onClick={() => setShowPassConfirm(true)} className='absolute right-4 top-1/2 -translate-y-1/2 inline-block cursor-pointer'><EyeSlashIcon className='w-8 h-8 text-gray-500 ' /></span>}
+          </div>
 
           {errors.password_confirmation && (
             <ErrorMessage>{errors.password_confirmation.message}</ErrorMessage>
