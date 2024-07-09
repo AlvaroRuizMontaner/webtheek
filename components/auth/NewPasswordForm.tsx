@@ -15,11 +15,12 @@ type NewPasswordFormProps = {
 export default function NewPasswordForm({token}: NewPasswordFormProps) {
     const router = useRouter()
     const [showPass, setShowPass] = useState(false)
+    const [showPassConfirm, setShowPassConfirm] = useState(false)
     const initialValues: NewPasswordForm = {
         password: '',
         password_confirmation: '',
     }
-    const { register, handleSubmit, watch, reset, formState: { errors } } = useForm({ defaultValues: initialValues });
+    const { register, handleSubmit, watch, reset, formState: { errors }, trigger } = useForm({ defaultValues: initialValues });
 
     const { mutate } = useMutation({
         mutationFn: updatePasswordWithToken,
@@ -56,19 +57,6 @@ export default function NewPasswordForm({token}: NewPasswordFormProps) {
                     <label
                         className="font-normal text-2xl text-primary headline3"
                     >Password</label>
-
-                    <input
-                        type="password"
-                        placeholder="Password de Registro"
-                        className="w-full p-3  border-gray-300 border"
-                        {...register("password", {
-                            required: "El Password es obligatorio",
-                            minLength: {
-                                value: 8,
-                                message: 'El Password debe ser mínimo de 8 caracteres'
-                            }
-                        })}
-                    />
                     <div className='relative'>
                         <input
                         type={showPass ? "text": "password"}
@@ -81,6 +69,9 @@ export default function NewPasswordForm({token}: NewPasswordFormProps) {
                                 message: 'El Password debe ser mínimo de 8 caracteres'
                             }
                         })}
+                        onBlur={() => {
+                            trigger('password'); // Ejecuta la validación manualmente
+                          }}
                         />
                         {showPass && <span onClick={() => setShowPass(false)} className='absolute right-4 top-1/2 -translate-y-1/2 inline-block cursor-pointer'><EyeIcon className='w-8 h-8 text-gray-500 ' /></span>}
                         {!showPass && <span  onClick={() => setShowPass(true)} className='absolute right-4 top-1/2 -translate-y-1/2 inline-block cursor-pointer'><EyeSlashIcon className='w-8 h-8 text-gray-500 ' /></span>}
@@ -99,12 +90,30 @@ export default function NewPasswordForm({token}: NewPasswordFormProps) {
                         id="password_confirmation"
                         type="password"
                         placeholder="Repite Password de Registro"
-                        className="w-full p-3  border-gray-300 border"
+                        className="w-full p-3 border-gray-300 border"
                         {...register("password_confirmation", {
                             required: "Repetir Password es obligatorio",
                             validate: value => value === password || 'Los Passwords no son iguales'
                         })}
                     />
+
+                    <div className='relative'>
+                        <input
+                        id="password_confirmation"
+                        type={showPassConfirm ? "text": "password"}
+                        placeholder="Repite Password de Registro"
+                        className="w-full p-3 border-gray-300 border"
+                        {...register("password_confirmation", {
+                            required: "Repetir Password es obligatorio",
+                            validate: value => value === password || 'Los Passwords no son iguales'
+                        })}
+                        onBlur={() => {
+                            trigger('password_confirmation'); // Ejecuta la validación manualmente
+                          }}
+                        />
+                        {showPassConfirm && <span onClick={() => setShowPassConfirm(false)} className='absolute right-4 top-1/2 -translate-y-1/2 inline-block cursor-pointer'><EyeIcon className='w-8 h-8 text-gray-500 ' /></span>}
+                        {!showPassConfirm && <span  onClick={() => setShowPassConfirm(true)} className='absolute right-4 top-1/2 -translate-y-1/2 inline-block cursor-pointer'><EyeSlashIcon className='w-8 h-8 text-gray-500 ' /></span>}
+                    </div>
 
                     {errors.password_confirmation && (
                         <ErrorMessage>{errors.password_confirmation.message}</ErrorMessage>
