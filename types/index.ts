@@ -93,7 +93,11 @@ export const projectSchema = z.object({
     description: z.string(),
     manager: z.string(), //z.string(userSchema.pick({ _id: true }))
     tasks: z.array(taskProjectSchema),
-    team: z.array(z.string(userSchema.pick({_id: true})))
+    team: z.array(z.object({
+        user: z.string(),
+        permissionLevel: z.number()
+    }))
+    //team: z.array(z.string(userSchema.pick({_id: true})))
 })
 
 export const dashboardProjectSchema = z.array(
@@ -122,6 +126,11 @@ const teamMemberSchema = userSchema.pick({
     email: true,
     _id: true
 })
-export const teamMembersSchema = z.array(teamMemberSchema)
+
+export const userTeamSchema = z.object({
+    user: teamMemberSchema,
+    permissionLevel: z.number()
+})
+export const teamMembersSchema = z.array(userTeamSchema)
 export type TeamMember = z.infer<typeof teamMemberSchema>
 export type TeamMemberForm = Pick<TeamMember, "email">

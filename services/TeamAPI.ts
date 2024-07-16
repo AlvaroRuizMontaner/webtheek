@@ -1,9 +1,18 @@
 import api from "@/lib/axios";
-import { Project, TeamMember, TeamMemberForm, teamMembersSchema } from "@/types";
+import { Project, TeamMember, TeamMemberForm, User, teamMembersSchema, userTeamSchema } from "@/types";
 import { isAxiosError } from "axios";
 
 
-export async function finduserByEmail({projectId, formData}: {projectId: Project["_id"], formData: TeamMemberForm}) {
+type TeamAPI = {
+    formData: TeamMemberForm,
+    projectId: Project["_id"],
+    userId: User["_id"],
+    permissionFormData: {
+        permissionLevel: number
+    }
+}
+
+export async function finduserByEmail({projectId, formData}: Pick<TeamAPI, "projectId" | "formData">) {
     try {
         const url = `/projects/${projectId}/team/find`
         const { data } = await api.post(url, formData)
@@ -45,6 +54,32 @@ export async function removeUserFromProject({projectId, userId}: {projectId: Pro
         const url = `/projects/${projectId}/team/${userId}`
         const { data } = await api.delete<string>(url)
         return data
+    } catch (error) {
+        if(isAxiosError(error) && error.response) {
+            throw new Error(error.response.data.error)
+        }
+    }
+}
+
+export async function editUserFromProject({projectId, userId, permissionFormData}: Pick<TeamAPI, "projectId" | "userId" | "permissionFormData">) {
+    try {
+        const url = `/projects/${projectId}/team/${userId}`
+        const { data } = await api.put<string>(url, permissionFormData)
+        return data
+    } catch (error) {
+        if(isAxiosError(error) && error.response) {
+            throw new Error(error.response.data.error)
+        }
+    }
+}
+
+export async function getUserTeamById({projectId, userId}: Pick<TeamAPI, "projectId" | "userId">) {
+    try {
+        const url = `/projects/${projectId}/team/${userId}`
+        const { data } = await api.get<string>(url)
+        const response = userTeamSchema.safeParse(data)
+        if(response.success) return response.data
+
     } catch (error) {
         if(isAxiosError(error) && error.response) {
             throw new Error(error.response.data.error)
