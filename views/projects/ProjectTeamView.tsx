@@ -67,14 +67,14 @@ export default function ProjectTeamView({projectId}: ProjectTeamViewProps) {
             {data.length ? (
                 <ul role="list" className="divide-y divide-gray-100 border border-gray-100 my-10 bg-white shadow-lg">
                     {data?.map((member) => (
-                        <li key={member._id} className="flex justify-between gap-x-6 px-5 py-10">
+                        <li key={member.user._id} className="flex justify-between gap-x-6 px-5 py-10">
                             <div className="flex min-w-0 gap-x-4">
                                 <div className="min-w-0 flex-auto space-y-2">
                                     <p className="text-2xl font-black text-gray-600">
-                                        {member.name}
+                                        <Link href={location.pathname + `/${member.user._id}`}>{member.user.name}</Link>
                                     </p>
                                     <p className="text-sm text-gray-400">
-                                        {member.email}
+                                        {member.user.email}
                                     </p>
                                 </div>
                             </div>
@@ -97,8 +97,17 @@ export default function ProjectTeamView({projectId}: ProjectTeamViewProps) {
                                             <MenuItem>
                                                 <button
                                                     type='button'
+                                                    className='block px-3 py-1 text-sm leading-6 text-gray-900'
+                                                    onClick={() => router.push(location.pathname + `/${member.user._id}`)}
+                                                >
+                                                    Ver Colaborador
+                                                </button>
+                                            </MenuItem>
+                                            <MenuItem>
+                                                <button
+                                                    type='button'
                                                     className='block px-3 py-1 text-sm leading-6 text-red-500'
-                                                    onClick={() => mutate({projectId, userId: member._id})}
+                                                    onClick={() => mutate({projectId, userId: member.user._id})}
                                                 >
                                                     Eliminar del Proyecto
                                                 </button>
