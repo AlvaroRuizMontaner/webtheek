@@ -5,7 +5,7 @@ import TaskModalDetails from '@/components/tasks/TaskModalDetails';
 import { useAuth } from '@/hooks/useAuth';
 import { getFullProject } from '@/services/ProjectAPI';
 import { Project } from '@/types';
-import { isManager } from '@/utils/policies';
+import { havePermission, isManager } from '@/utils/policies';
 import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
@@ -24,7 +24,7 @@ export default function ProjectDetailsView({projectId}: {projectId: Project["_id
         retry: false
     });
 
-    const canEdit = useMemo(() => data?.manager === user?._id, [data, user])
+    const checkManager = useMemo(() => data?.manager === user?._id, [data, user])
 
     if(isLoading && authLoading) return "Cargando..."
     if(isError) throw new Error(error.message);
@@ -35,31 +35,32 @@ export default function ProjectDetailsView({projectId}: {projectId: Project["_id
           {data.description}
         </p>
 
-        {isManager(data.manager, user._id) && (
-          <nav className="my-5 flex flex-col gap-3 sm:flex-row">
-            <button
+          <nav className="flex flex-col gap-3 sm:flex-row">
+            {(isManager(data.manager, user._id) || havePermission(data.team, user._id, 3)) && <button
               type="button"
               className=" bg-primary hover:bg-dark-primary px-10 py-3 text-white text-xl
-                font-bold cursor-pointer transition-colors"
+                font-bold cursor-pointer transition-colors mt-5"
               onClick={() => router.push("?newTask=true")}
             >
               Agregar Tarea
-            </button>
+            </button>}
 
-            <Link
+            {(isManager(data.manager, user._id) || havePermission(data.team, user._id, 4)) &&<Link
               href={path + "/team"}
               className=" bg-info hover:bg-info px-10 py-3 text-white text-xl
-                font-bold cursor-pointer transition-colors flex justify-center"
+                font-bold cursor-pointer transition-colors flex justify-center mt-5"
             >
               Colaboradores
-            </Link>
+            </Link>}
           </nav>
-        )}
+        
 
-        <TaskList canEdit={canEdit} projectId={projectId} tasks={data.tasks} />
+        <TaskList canEdit={checkManager || havePermission(data.team, user._id, 3)} projectId={projectId} tasks={data.tasks}/>
         <AddTaskModal projectId={projectId} />
         <EditTaskData projectId={projectId} />
-        <TaskModalDetails projectId={projectId} />
+        <TaskModalDetails canEditTasks={checkManager || havePermission(data.team, user._id, 3)} 
+         projectId={projectId} canEditNotes={checkManager || havePermission(data.team, user._id, 2)}
+        />
       </>
     );
 }
