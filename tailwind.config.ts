@@ -32,6 +32,9 @@ const config: Config = {
 
         info: "#4caf50"
       },
+      boxShadow: {
+        '1': "2px 2px 4px 2px rgba(0,0,0,0.3)",
+      },
       fontFamily: {
         lato: ["Lato", "sans-serif"],
         "rubik": ["Rubik", "sans-serif"],
