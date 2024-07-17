@@ -89,12 +89,14 @@ export default function TaskModalDetails({projectId, canEditNotes, canEditTasks}
                                 leaveFrom="opacity-100 scale-100"
                                 leaveTo="opacity-0 scale-95"
                             >
-                                <DialogPanel className="w-full max-w-4xl transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all p-16">
+                                <DialogPanel className="w-full max-w-4xl transform overflow-hidden rounded-2xl bg-white
+                                    text-left align-middle shadow-xl transition-all sm:p-16 p-8"
+                                >
                                     <p className='text-sm text-slate-400'>Agregada el: {formatDate(data.createdAt)} </p>
                                     <p className='text-sm text-slate-400'>Última actualización: {formatDate(data.updatedAt)}</p>
                                     <DialogTitle
                                         as="h3"
-                                        className="font-black text-4xl text-slate-600 my-5"
+                                        className="font-black headline2 text-slate-600 my-5"
                                     >{data.name}
                                     </DialogTitle>
                                     <p className='text-lg text-slate-500 mb-2'>Descripción: {data.description}</p>
@@ -103,7 +105,7 @@ export default function TaskModalDetails({projectId, canEditNotes, canEditTasks}
                                         <>
                                             <p className="font-bold headline3 text-slate-600 my-5">Historial de cambios</p>
 
-                                            <ul className='list-decimal'>
+                                            <ul className='list-decimal ml-4'>
                                                 {data.completedBy.map((activityLog) => (
                                                     <li key={activityLog._id}>
                                                         <span className='font-bold text-slate-600'>{statusTranslations[activityLog.status]}</span>{" "}
