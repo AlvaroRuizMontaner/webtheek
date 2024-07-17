@@ -12,9 +12,11 @@ import NotesPanel from '../notes/NotesPanel';
 
 type TaskModalDetailsProps = {
     projectId: Project["_id"]
+    canEditTasks: boolean
+    canEditNotes: boolean
 }
 
-export default function TaskModalDetails({projectId}: TaskModalDetailsProps) {
+export default function TaskModalDetails({projectId, canEditNotes, canEditTasks}: TaskModalDetailsProps) {
 
     const router = useRouter()
     const path = usePathname()
@@ -116,7 +118,7 @@ export default function TaskModalDetails({projectId}: TaskModalDetailsProps) {
                                     <div className='my-5 space-y-3'>
                                         <label className='font-bold'>Estado Actual:</label>
                                         
-                                        <select 
+                                        {canEditTasks ? (<select 
                                             name="" 
                                             id=""
                                             className='w-full p-3 bg-white border border-gray-300'
@@ -126,10 +128,12 @@ export default function TaskModalDetails({projectId}: TaskModalDetailsProps) {
                                             {Object.entries(statusTranslations).map(([key, value]) => (
                                                 <option key={key} value={key}>{value}</option>
                                             ))}
-                                        </select>
+                                        </select>) : (
+                                            <div className='w-full p-3 bg-white border border-gray-300'>{statusTranslations[data.status]}</div>
+                                        )}
                                     </div>
 
-                                    <NotesPanel notes={data.notes} projectId={projectId} />
+                                    <NotesPanel canEditNotes={canEditNotes} notes={data.notes} projectId={projectId} />
                                 </DialogPanel>
                             </TransitionChild>
                         </div>

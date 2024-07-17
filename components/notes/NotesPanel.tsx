@@ -6,12 +6,13 @@ import NoteDetail from './NoteDetail'
 type NotesPanelProps = {
     notes: Task["notes"],
     projectId: Project["_id"]
+    canEditNotes: boolean
 }
 
-export default function NotesPanel({projectId, notes}: NotesPanelProps) {
+export default function NotesPanel({projectId, notes, canEditNotes}: NotesPanelProps) {
   return (
     <>
-        <AddNoteForm projectId={projectId} />
+        {canEditNotes && <AddNoteForm projectId={projectId} />}
 
         <div className="divide-y divide-gray-100 mt-10">
             {notes.length ? (
