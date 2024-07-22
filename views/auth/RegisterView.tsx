@@ -156,22 +156,10 @@ export default function RegisterView() {
       </form>
 
       <nav className="mt-10 flex flex-col space-y-4">
-{/*         <Link 
-            className='text-center text-gray-300 font-normal body2'
-            href={"/auth/login"}
-        >¿Ya tienes cuenta? <span className="text-tertiary underline">iniciar sesión</span>
-        </Link>
-        <Link 
-            className='text-center text-gray-300 font-normal body2'
-            href={"/auth/forgot-password"}
-        >¿Olvidaste tu contraseña? <span className="text-tertiary underline">Restablecer</span>
-        </Link> */}
-
-
         <div className="text-gray-300 flex gap-1 justify-center">
             <span>¿Ya tienes cuenta?</span>
             <Link
-              href={"/auth/register"}
+              href={"/auth/login"}
               className="text-center font-normal text-tertiary underline"
             >
               iniciar sesión
@@ -180,7 +168,7 @@ export default function RegisterView() {
           <div className="text-gray-300 flex gap-1 justify-center">
             <span>¿Olvidaste tu contraseña?</span>
             <Link
-              href="/auth/register"
+              href="/auth/forgot-password"
               className="text-center font-normal text-tertiary underline"
             >
               Restablecer

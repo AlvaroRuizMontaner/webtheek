@@ -30,23 +30,59 @@ export default function Page(): JSX.Element {
     <>
     {/* El referrer se ha colodado en un ancestro extra porque de otro modo no cogia el background-color */}
       <div ref={referrer}>
-        <div className="bg-lime-400 h-screen">
-          <div className="space-y-12 max-w-2xl h-[700px] bg-lime-400  mx-auto p-12">
+        <div className=" bg-yellow-200 min-h-screen">
+          <div className="space-y-12 max-w-2xl min-h-[200vh] bg-yellow-200  mx-auto p-12">
             <h1 className="headline1 font-black text-black text-center underline">
               Hola a todos esto es una prueba que te cagas
             </h1>
             <section className=" flex justify-around text-white font-bold">
-              <div className="w-32 h-32 bg-teal-300 flex items-center justify-center border-8 rounded-full border-emerald-200">
+              <div className="w-32 h-32 bg-teal-300 flex items-center justify-center border-8 rounded-full border-white">
                 <p className="text-center">Card Name</p>
               </div>
-              <div className="w-32 h-32 bg-indigo-600 flex items-center justify-center border-8 rounded-full border-emerald-200">
+              <div className="w-32 h-32 bg-indigo-600 flex items-center justify-center border-8 rounded-full border-white">
                 <p className="text-center">Card Name</p>
               </div>
-              <div className="w-32 h-32 bg-blue-600 flex items-center justify-center border-8 rounded-full border-emerald-200">
+              <div className="w-32 h-32 bg-blue-600 flex items-center justify-center border-8 rounded-full border-white">
                 <p className="text-center">Card Name</p>
               </div>
             </section>
-            <div className="text-dark-tertiary text-center shadow-1 bg-white p-4">
+            <div className="text-black text-center shadow-1 bg-[#c7cbd1] p-4">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit
+              modi natus, omnis nemo cum animi, accusamus veritatis dolor
+              laborum quis magnam libero, maiores quisquam. Dignissimos
+              voluptate quas et repudiandae culpa?
+            </div>
+            <div className="text-black text-center shadow-1 bg-[#c7cbd1] p-4">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit
+              modi natus, omnis nemo cum animi, accusamus veritatis dolor
+              laborum quis magnam libero, maiores quisquam. Dignissimos
+              voluptate quas et repudiandae culpa?
+            </div>
+            <div className="text-black text-center shadow-1 bg-[#c7cbd1] p-4">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit
+              modi natus, omnis nemo cum animi, accusamus veritatis dolor
+              laborum quis magnam libero, maiores quisquam. Dignissimos
+              voluptate quas et repudiandae culpa?
+            </div>
+            <div className="text-black text-center shadow-1 bg-[#c7cbd1] p-4">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit
+              modi natus, omnis nemo cum animi, accusamus veritatis dolor
+              laborum quis magnam libero, maiores quisquam. Dignissimos
+              voluptate quas et repudiandae culpa?
+            </div>
+            <div className="text-black text-center shadow-1 bg-[#c7cbd1] p-4">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit
+              modi natus, omnis nemo cum animi, accusamus veritatis dolor
+              laborum quis magnam libero, maiores quisquam. Dignissimos
+              voluptate quas et repudiandae culpa?
+            </div>
+            <div className="text-black text-center shadow-1 bg-[#c7cbd1] p-4">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit
+              modi natus, omnis nemo cum animi, accusamus veritatis dolor
+              laborum quis magnam libero, maiores quisquam. Dignissimos
+              voluptate quas et repudiandae culpa?
+            </div>
+            <div className="text-black text-center shadow-1 bg-[#c7cbd1] p-4">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit
               modi natus, omnis nemo cum animi, accusamus veritatis dolor
               laborum quis magnam libero, maiores quisquam. Dignissimos
@@ -55,10 +91,10 @@ export default function Page(): JSX.Element {
           </div>
         </div>
       </div>
-      <div className="bg-lime-400">
+      <div className="bg-yellow-200">
         <button
           onClick={handleClick}
-          className="py-4 px-10 bg-dark-secondary shadow-1 rounded-lg mb-10 mx-auto block"
+          className="py-4 px-10 bg-secondary shadow-1 rounded-lg mb-10 mx-auto block"
         >
           Convert to pdf
         </button>

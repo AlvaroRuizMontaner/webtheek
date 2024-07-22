@@ -3,10 +3,12 @@ import { ConfirmToken } from "@/types";
 import { PinInput, PinInputField } from "@chakra-ui/pin-input";
 import { useMutation } from "@tanstack/react-query";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
 export default function ConfirmAccountView() {
+  const router = useRouter()
 
     const [token, setToken] = useState<ConfirmToken["token"]>("")
 
@@ -17,7 +19,7 @@ export default function ConfirmAccountView() {
         },
         onSuccess: (data) => {
             toast.success(data)
-            //router.push(path)
+            router.push("/auth/login")
         }
     })
 
@@ -43,12 +45,12 @@ export default function ConfirmAccountView() {
 
         <div className="flex justify-center gap-5">
             <PinInput value={token} onChange={handleChange} onComplete={handleComplete}>
-                <PinInputField className="w-7 h-7 sm:w-10 sm:h-10 p-3 rounded-lg border-gray-300 border placeholder-white" />
-                <PinInputField className="w-7 h-7 sm:w-10 sm:h-10 p-3 rounded-lg border-gray-300 border placeholder-white" />
-                <PinInputField className="w-7 h-7 sm:w-10 sm:h-10 p-3 rounded-lg border-gray-300 border placeholder-white" />
-                <PinInputField className="w-7 h-7 sm:w-10 sm:h-10 p-3 rounded-lg border-gray-300 border placeholder-white" />
-                <PinInputField className="w-7 h-7 sm:w-10 sm:h-10 p-3 rounded-lg border-gray-300 border placeholder-white" />
-                <PinInputField className="w-7 h-7 sm:w-10 sm:h-10 p-3 rounded-lg border-gray-300 border placeholder-white" />
+                <PinInputField className="w-7 sm:w-10 h-7 sm:h-10 p-1 sm:p-3 rounded-lg border-gray-300 border placeholder-white text-center" />
+                <PinInputField className="w-7 sm:w-10 h-7 sm:h-10 p-1 sm:p-3 rounded-lg border-gray-300 border placeholder-white text-center" />
+                <PinInputField className="w-7 sm:w-10 h-7 sm:h-10 p-1 sm:p-3 rounded-lg border-gray-300 border placeholder-white text-center" />
+                <PinInputField className="w-7 sm:w-10 h-7 sm:h-10 p-1 sm:p-3 rounded-lg border-gray-300 border placeholder-white text-center" />
+                <PinInputField className="w-7 sm:w-10 h-7 sm:h-10 p-1 sm:p-3 rounded-lg border-gray-300 border placeholder-white text-center" />
+                <PinInputField className="w-7 sm:w-10 h-7 sm:h-10 p-1 sm:p-3 rounded-lg border-gray-300 border placeholder-white text-center" />
             </PinInput>
         </div>
 

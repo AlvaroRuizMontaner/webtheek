@@ -43,12 +43,12 @@ export default function NewPasswordToken({token, setToken, setIsValidToken}: New
                 >Código de 6 dígitos</label>
                 <div className="flex justify-center gap-5">
                     <PinInput value={token} onChange={handleChange} onComplete={handleComplete}>
-                        <PinInputField className="w-7 h-7 sm:h-10 sm:w-10 p-3 rounded-lg border-gray-300 border placeholder-white" />
-                        <PinInputField className="w-7 h-7 sm:h-10 sm:w-10 p-3 rounded-lg border-gray-300 border placeholder-white" />
-                        <PinInputField className="w-7 h-7 sm:h-10 sm:w-10 p-3 rounded-lg border-gray-300 border placeholder-white" />
-                        <PinInputField className="w-7 h-7 sm:h-10 sm:w-10 p-3 rounded-lg border-gray-300 border placeholder-white" />
-                        <PinInputField className="w-7 h-7 sm:h-10 sm:w-10 p-3 rounded-lg border-gray-300 border placeholder-white" />
-                        <PinInputField className="w-7 h-7 sm:h-10 sm:w-10 p-3 rounded-lg border-gray-300 border placeholder-white" />
+                        <PinInputField className="w-7 sm:w-10 h-7 sm:h-10 p-1 sm:p-3 rounded-lg border-gray-300 border placeholder-white text-center" />
+                        <PinInputField className="w-7 sm:w-10 h-7 sm:h-10 p-1 sm:p-3 rounded-lg border-gray-300 border placeholder-white text-center" />
+                        <PinInputField className="w-7 sm:w-10 h-7 sm:h-10 p-1 sm:p-3 rounded-lg border-gray-300 border placeholder-white text-center" />
+                        <PinInputField className="w-7 sm:w-10 h-7 sm:h-10 p-1 sm:p-3 rounded-lg border-gray-300 border placeholder-white text-center" />
+                        <PinInputField className="w-7 sm:w-10 h-7 sm:h-10 p-1 sm:p-3 rounded-lg border-gray-300 border placeholder-white text-center" />
+                        <PinInputField className="w-7 sm:w-10 h-7 sm:h-10 p-1 sm:p-3 rounded-lg border-gray-300 border placeholder-white text-center" />
                     </PinInput>
                 </div>
             </form>
