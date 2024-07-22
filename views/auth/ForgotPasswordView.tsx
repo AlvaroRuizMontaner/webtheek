@@ -100,7 +100,7 @@ export default function ForgotPasswordView() {
               href="/auth/register"
               className="text-center font-normal text-tertiary underline"
             >
-              Crea una
+              Crear cuenta
             </Link>
           </div>
       </nav>
