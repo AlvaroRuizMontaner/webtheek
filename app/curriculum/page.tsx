@@ -34,7 +34,7 @@ export default function Page(): JSX.Element {
       <div ref={referrer}>
         <div className=" bg-yellow-200 min-h-screen">
           <div className="space-y-12 max-w-2xl min-h-[200vh] bg-yellow-200  mx-auto p-12">
-            <h1 className="headline1 font-black text-black text-center underline">
+            <h1 className="headline1 text-lato font-black text-black text-center underline">
               Hola a todos esto es una prueba que te cagas
             </h1>
             <section className=" flex justify-around text-white font-bold">

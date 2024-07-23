@@ -32,15 +32,39 @@ export const getHtmlWithStyles = (htmlElement: MutableRefObject<HTMLDivElement |
                     <meta name="viewport" content="width=device-width, initial-scale=1">
                     <style>
                         @font-face {
-                            font-family: 'Rubik';
-                            src: url('/fonts/Rubik-VariableFont_wght.ttf') format('truetype');
+                            font-family: 'Lato';
+                            src: url('/fonts/Lato-VariableFont_wght.ttf') format('truetype');
                             font-weight: normal;
+                            font-style: normal;
+                        }
+                        @font-face {
+                            font-family: 'Lato';
+                            src: url('/fonts/Lato-Bold.ttf') format('truetype');
+                            font-weight: 700;
+                            font-style: normal;
+                        }
+                        @font-face {
+                            font-family: 'Lato';
+                            src: url('/fonts/Lato-Black.ttf') format('truetype');
+                            font-weight: 900;
                             font-style: normal;
                         }
                         @font-face {
                             font-family: 'Poppins';
                             src: url('/fonts/Poppins-Regular.ttf') format('truetype');
-                            font-weight: normal;
+                            font-weight: 400;
+                            font-style: normal;
+                        }
+                        @font-face {
+                            font-family: 'Poppins';
+                            src: url('/fonts/Poppins-Bold.ttf') format('truetype');
+                            font-weight: 700;
+                            font-style: normal;
+                        }
+                        @font-face {
+                            font-family: 'Poppins';
+                            src: url('/fonts/Poppins-Black.ttf') format('truetype');
+                            font-weight: 900;
                             font-style: normal;
                         }
                             h1.lol {
