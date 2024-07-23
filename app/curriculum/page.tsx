@@ -3,9 +3,10 @@
 import { generatePDF } from "@/services/PDFAPI";
 import { getHtmlWithStyles } from "@/utils/generateHtml";
 import { useMutation } from "@tanstack/react-query";
-import { useRef } from "react";
+import { useRef, /* useState */ } from "react";
 
 export default function Page(): JSX.Element {
+  /* const [pdf, setPdf] = useState(false) */
   const { mutate } = useMutation({
     mutationFn: generatePDF,
     onError: (error) => {
@@ -23,6 +24,7 @@ export default function Page(): JSX.Element {
     if (html) {
       console.log(html);
       mutate(html);
+      /* setPdf(true) */
     }
   };
 

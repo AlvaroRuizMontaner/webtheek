@@ -8,6 +8,13 @@ export const getHtmlWithStyles = (htmlElement: MutableRefObject<HTMLDivElement |
             .map((styleSheet) => {
                 try {
                     return Array.from(styleSheet.cssRules)
+                    .filter((rule) => {
+                        // Filtra reglas @font-face y clases específicas
+                        const cssText = rule.cssText;
+                        const isFontFace = cssText.includes('@font-face');
+                        const isSpecificClass = cssText.includes('.__className_fdcb09');
+                        return !isFontFace && !isSpecificClass;
+                    })
                         .map((rule) => rule.cssText)
                         .join('');
                 } catch (error) {
@@ -36,6 +43,10 @@ export const getHtmlWithStyles = (htmlElement: MutableRefObject<HTMLDivElement |
                             font-weight: normal;
                             font-style: normal;
                         }
+                            h1.lol {
+                                color: green;
+                                background-color: green;
+                            }
                         ${styles}
                     </style>
                 </head>
