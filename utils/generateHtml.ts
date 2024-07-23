@@ -31,42 +31,8 @@ export const getHtmlWithStyles = (htmlElement: MutableRefObject<HTMLDivElement |
                     <meta http-equiv="X-UA-Compatible" content="IE=edge">
                     <meta name="viewport" content="width=device-width, initial-scale=1">
                     <style>
-                        @font-face {
-                            font-family: 'Lato';
-                            src: url('/fonts/Lato-VariableFont_wght.ttf') format('truetype');
-                            font-weight: normal;
-                            font-style: normal;
-                        }
-                        @font-face {
-                            font-family: 'Lato';
-                            src: url('/fonts/Lato-Bold.ttf') format('truetype');
-                            font-weight: 700;
-                            font-style: normal;
-                        }
-                        @font-face {
-                            font-family: 'Lato';
-                            src: url('/fonts/Lato-Black.ttf') format('truetype');
-                            font-weight: 900;
-                            font-style: normal;
-                        }
-                        @font-face {
-                            font-family: 'Poppins';
-                            src: url('/fonts/Poppins-Regular.ttf') format('truetype');
-                            font-weight: 400;
-                            font-style: normal;
-                        }
-                        @font-face {
-                            font-family: 'Poppins';
-                            src: url('/fonts/Poppins-Bold.ttf') format('truetype');
-                            font-weight: 700;
-                            font-style: normal;
-                        }
-                        @font-face {
-                            font-family: 'Poppins';
-                            src: url('/fonts/Poppins-Black.ttf') format('truetype');
-                            font-weight: 900;
-                            font-style: normal;
-                        }
+                        @import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&display=swap');
+                        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;700;900&display=swap');
                             h1.lol {
                                 color: green;
                                 background-color: green;
