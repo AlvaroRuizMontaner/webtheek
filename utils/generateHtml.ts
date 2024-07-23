@@ -33,9 +33,11 @@ export const getHtmlWithStyles = (htmlElement: MutableRefObject<HTMLDivElement |
                     <style>
                         @import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&display=swap');
                         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;700;900&display=swap');
-                            h1.lol {
-                                color: green;
-                                background-color: green;
+                            body {
+                                font-family: Poppins;
+                            }
+                            h1 {
+                                font-family: Lato;
                             }
                         ${styles}
                     </style>
