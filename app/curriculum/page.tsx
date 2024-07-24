@@ -8,6 +8,7 @@ import "./curriculum.css";
 import EncabezadoLateral from "@/components/curriculum/EncabezadoLateral";
 import CuerpoLateral from "@/components/curriculum/CuerpoLateral";
 import CuerpoCentral from "@/components/curriculum/CuerpoCentral";
+import { cuerpoCentralPagina1, cuerpoCentralPagina2, lateralPagina1, lateralPagina2 } from "@/components/curriculum/curriculum.info";
 
 export default function Page(): JSX.Element {
   /* const [pdf, setPdf] = useState(false) */
@@ -37,17 +38,30 @@ export default function Page(): JSX.Element {
     <>
     {/* El referrer se ha colodado en un ancestro extra porque de otro modo no cogia el background-color */}
       <div ref={referrer}>
+
         <div className=" bg-yellow-200 min-h-screen">
           <div className="contenedor max-w-2xl bg-yellow-200  mx-auto p-12 px-0">
             <section className="">
-              <CuerpoCentral />
+              <CuerpoCentral page={cuerpoCentralPagina1} />
             </section>
             <section className="lateral">
               <EncabezadoLateral />
-              <CuerpoLateral />
+              <CuerpoLateral page={lateralPagina1} />
             </section>
           </div>
         </div>
+
+        <div className=" bg-yellow-200 min-h-screen">
+          <div className="contenedor max-w-2xl bg-yellow-200  mx-auto p-12 px-0">
+            <section className="">
+              <CuerpoCentral page={cuerpoCentralPagina2} />
+            </section>
+            <section className="lateral">
+              <CuerpoLateral page={lateralPagina2} />
+            </section>
+          </div>
+        </div>
+
       </div>
       <div className="bg-yellow-200 relative">
         <button
