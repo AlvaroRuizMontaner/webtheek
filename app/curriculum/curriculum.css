@@ -3,6 +3,7 @@
     display: grid;
     grid-template-columns: 1fr 236px;
     gap: 6px;
+    min-height: 594mm;
 }
 
 .lateral {
