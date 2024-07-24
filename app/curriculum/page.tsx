@@ -7,6 +7,7 @@ import { useRef, /* useState */ } from "react";
 import "./curriculum.css";
 import EncabezadoLateral from "@/components/curriculum/EncabezadoLateral";
 import CuerpoLateral from "@/components/curriculum/CuerpoLateral";
+import CuerpoCentral from "@/components/curriculum/CuerpoCentral";
 
 export default function Page(): JSX.Element {
   /* const [pdf, setPdf] = useState(false) */
@@ -36,8 +37,10 @@ export default function Page(): JSX.Element {
     {/* El referrer se ha colodado en un ancestro extra porque de otro modo no cogia el background-color */}
       <div ref={referrer}>
         <div className=" bg-yellow-200 min-h-screen">
-          <div className="contenedor max-w-2xl min-h-[200vh] bg-yellow-200  mx-auto p-12">
-            <section className=""></section>
+          <div className="contenedor max-w-2xl min-h-[200vh] bg-yellow-200  mx-auto p-12 px-0">
+            <section className="">
+              <CuerpoCentral />
+            </section>
             <section className="lateral">
               <EncabezadoLateral />
               <CuerpoLateral />

@@ -37,9 +37,6 @@ export const getHtmlWithStyles = (htmlElement: MutableRefObject<HTMLDivElement |
                             body {
                                 font-family: Poppins;
                             }
-                            h1 {
-                                font-family: Lato;
-                            }
                         ${styles}
                     </style>
                 </head>
