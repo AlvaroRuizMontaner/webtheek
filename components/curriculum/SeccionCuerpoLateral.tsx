@@ -6,19 +6,19 @@ export default function SeccionCuerpoLateral({titleIcon, title, info}: seccionCu
     <div className='flex flex-col gap-6'>
         <div className='flex gap-2 font-bold'>
           <span className={titleIcon.className}>{titleIcon.name}</span>
-          <h2 className='text-lg'>{title}</h2>
+          <h2 className='text-xl'>{title}</h2>
         </div>
 
-        <div className='space-y-1'>
+        <div className='space-y-2'>
           {info.map((el, index) => (
             <div className='flex flex-col gap-1' key={index}>
               <div className=' text-[14px] flex gap-2'>
                 {el.icon.name && <span className={el.icon.className}>{el.icon.name}</span>}
                 {" "}
-                <div className='text-white'>{el.main}</div>
-                <div className='text-gray-400 font-bold'>{el.aux}</div>
+                <span className='text-white break-all flex items-center'>{el.main}</span>
+                <span className='text-gray-400 font-bold'>{el.aux}</span>
               </div>
-              {el.bar && (<div className='h-5 w-full bg-red-400 mb-4'>
+              {el.bar && (<div className='h-5 w-full bg-red-400 mb-2'>
                   <div style={{width: el.bar}} className={`h-full bg-fuchsia-500`}></div>
                 </div>
               )}

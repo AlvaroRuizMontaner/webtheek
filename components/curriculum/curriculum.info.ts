@@ -38,14 +38,14 @@ export const seccionCuerpoLateralContactoInfo: seccionCuerpoLateralInfoType = {
             main: "675967289",
             aux: ""
         },
-        {
+/*         {
             icon: {
                 name: "group",
                 className: "material-symbols-outlined"
             },
             main: "www.linkedin.com/in/%C3%A1lvaro-ruiz-montaner-221a2b206",
             aux: ""
-        },
+        }, */
         {
             icon: {
                 name: "computer",
