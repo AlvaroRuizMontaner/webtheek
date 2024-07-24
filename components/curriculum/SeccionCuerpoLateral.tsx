@@ -3,7 +3,7 @@ import { seccionCuerpoLateralInfoType } from './curriculum.info'
 
 export default function SeccionCuerpoLateral({titleIcon, title, info}: seccionCuerpoLateralInfoType) {
   return (
-    <div className='flex flex-col gap-6'>
+    <div className='flex flex-col gap-4'>
         <div className='flex gap-2 font-bold'>
           <span className={titleIcon.className}>{titleIcon.name}</span>
           <h2 className='text-xl'>{title}</h2>
@@ -18,8 +18,8 @@ export default function SeccionCuerpoLateral({titleIcon, title, info}: seccionCu
                 <span className='text-white break-all flex items-center'>{el.main}</span>
                 <span className='text-gray-400 font-bold'>{el.aux}</span>
               </div>
-              {el.bar && (<div className='h-5 w-full bg-red-400 mb-2'>
-                  <div style={{width: el.bar}} className={`h-full bg-fuchsia-500`}></div>
+              {el.bar && (<div className='h-5 w-full bg-indigo-400 mb-2'>
+                  <div style={{width: el.bar}} className={`h-full bg-blue-500`}></div>
                 </div>
               )}
             </div>

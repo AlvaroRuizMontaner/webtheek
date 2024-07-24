@@ -39,24 +39,24 @@ export default function Page(): JSX.Element {
     {/* El referrer se ha colodado en un ancestro extra porque de otro modo no cogia el background-color */}
       <div ref={referrer}>
 
-        <div className=" bg-yellow-200 min-h-screen">
-          <div className="contenedor max-w-2xl bg-yellow-200  mx-auto p-12 px-0">
+        <div className=" bg-white min-h-screen">
+          <div className="contenedor max-w-2xl bg-white  mx-auto p-12 px-0">
             <section className="">
               <CuerpoCentral page={cuerpoCentralPagina1} />
             </section>
-            <section className="lateral">
+            <section className="bg-indigo-600">
               <EncabezadoLateral />
               <CuerpoLateral page={lateralPagina1} />
             </section>
           </div>
         </div>
 
-        <div className=" bg-yellow-200 min-h-screen">
-          <div className="contenedor max-w-2xl bg-yellow-200  mx-auto p-12 px-0">
+        <div className=" bg-white min-h-screen">
+          <div className="contenedor max-w-2xl bg-white  mx-auto p-12 px-0">
             <section className="">
               <CuerpoCentral page={cuerpoCentralPagina2} />
             </section>
-            <section className="lateral">
+            <section className="bg-indigo-600">
               <CuerpoLateral page={lateralPagina2} />
             </section>
           </div>
