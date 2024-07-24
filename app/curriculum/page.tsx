@@ -27,6 +27,7 @@ export default function Page(): JSX.Element {
     const html: string | undefined = getHtmlWithStyles(referrer);
     if (html) {
       console.log(html);
+      console.log(referrer.current?.offsetHeight)
       mutate(html);
       /* setPdf(true) */
     }
@@ -37,7 +38,7 @@ export default function Page(): JSX.Element {
     {/* El referrer se ha colodado en un ancestro extra porque de otro modo no cogia el background-color */}
       <div ref={referrer}>
         <div className=" bg-yellow-200 min-h-screen">
-          <div className="contenedor max-w-2xl min-h-[200vh] bg-yellow-200  mx-auto p-12 px-0">
+          <div className="contenedor max-w-2xl bg-yellow-200  mx-auto p-12 px-0">
             <section className="">
               <CuerpoCentral />
             </section>

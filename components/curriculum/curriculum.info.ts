@@ -70,16 +70,16 @@ export const seccionCuerpoCentralCareerProfileInfo = {
             date: "",
             list: [
                 "TypeScript integrated",
-                "Function components, hooks, state, life cycles, routing, composition",
+                "Function components, hooks, state, life cycles, routing",
                 "Testing with Jest and react-testing-library",
-                "Global state with Redux, useReducer, useContext, and persistent state",
+                "Global state with Redux, useReducer, useContext",
                 "Frameworks like Next.js and Vite",
                 "Communication with Restful APIs",
                 "SEO built on Next.js"
             ]
         },
         {
-            main: "Full-Stack skills",
+            main: "Full-Stack Skills",
             detail: "MERN & PERN",
             date: "",
             list: [

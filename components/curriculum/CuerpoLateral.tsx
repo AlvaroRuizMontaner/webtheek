@@ -4,7 +4,7 @@ import { seccionCuerpoLateralCodeInfo, seccionCuerpoLateralContactoInfo, seccion
 
 export default function CuerpoLateral() {
   return (
-    <div className='flex flex-col justify-center gap-10 p-[1.25rem] text-white'>
+    <div className='flex flex-col justify-center gap-5 p-[1.25rem] text-white'>
         <SeccionCuerpoLateral {...seccionCuerpoLateralContactoInfo} />
         <SeccionCuerpoLateral {...seccionCuerpoLateralIdiomasInfo} />
         <SeccionCuerpoLateral {...seccionCuerpoLateralCodeInfo} />
