@@ -41,10 +41,6 @@ export default function Page(): JSX.Element {
             <section className="lateral">
               <EncabezadoLateral />
               <CuerpoLateral />
-              <div className="flex gap-2">
-                <div>lol</div>
-                <div> Lorem ipsum dolor sit amet consectetur adipisicing elit. Et fuga debitis consequatur autem tempora error architecto quaerat iusto. Esse nisi vel tempora dignissimos modi tenetur iure molestias aliquam nesciunt commodi!</div>
-              </div>
             </section>
           </div>
         </div>

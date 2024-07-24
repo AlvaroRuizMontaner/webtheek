@@ -1,7 +1,7 @@
 
 .contenedor {
     display: grid;
-    grid-template-columns: 1fr 230px;
+    grid-template-columns: 1fr 236px;
 }
 
 .lateral {
