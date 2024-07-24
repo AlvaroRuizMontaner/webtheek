@@ -1,14 +1,13 @@
 import React from 'react'
 import SeccionCuerpoCentral from './SeccionCuerpoCentral'
-import { seccionCuerpoCentralCareerProfileInfo, seccionCuerpoCentralEducacionInfo, seccionCuerpoCentralExperienceInfo, seccionCuerpoCentralProyectosInfo } from './curriculum.info'
+import { seccionCuerpocentralInfoType } from './curriculum.info'
 
-export default function CuerpoCentral() {
+export default function CuerpoCentral({page}: {page: seccionCuerpocentralInfoType[]}) {
   return (
     <div className='flex flex-col justify-center gap-10 p-[1.25rem]'>
-        <SeccionCuerpoCentral {...seccionCuerpoCentralEducacionInfo}/>
-        <SeccionCuerpoCentral {...seccionCuerpoCentralCareerProfileInfo} />
-        <SeccionCuerpoCentral {...seccionCuerpoCentralExperienceInfo}/>
-        <SeccionCuerpoCentral {...seccionCuerpoCentralProyectosInfo}/>
+        {page.map((seccion, seccionIndx) => (
+            <SeccionCuerpoCentral key={seccionIndx} {...seccion}/>
+        ))}
     </div>
   )
 }

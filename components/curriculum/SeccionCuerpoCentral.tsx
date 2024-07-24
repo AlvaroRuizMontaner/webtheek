@@ -3,7 +3,7 @@ import { seccionCuerpocentralInfoType } from './curriculum.info'
 
 export default function SeccionCuerpoCentral({title, titleIcon, info}: seccionCuerpocentralInfoType) {
   return (
-    <div className='flex flex-col gap-4'>
+    <div className='flex flex-col gap-3'>
         <div className='flex gap-2 items-center relative -translate-x-8'>
             <div className='bg-fuchsia-700 h-8 w-8 rounded-full flex items-center justify-center'>
                 <span className={`text-white ${titleIcon.className}`}>{titleIcon.name}</span>
