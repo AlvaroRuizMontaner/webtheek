@@ -2,6 +2,7 @@
 .contenedor {
     display: grid;
     grid-template-columns: 1fr 236px;
+    gap: 6px;
 }
 
 .lateral {
