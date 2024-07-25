@@ -47,7 +47,7 @@ export default function ProjectDetailsView({projectId}: {projectId: Project["_id
 
             {(isManager(data.manager, user._id) || havePermission(data.team, user._id, 4)) &&<Link
               href={path + "/team"}
-              className=" bg-info hover:bg-info px-10 py-3 text-white text-xl
+              className=" bg-info hover:bg-dark-secondary px-10 py-3 text-white text-xl
                 font-bold cursor-pointer transition-colors flex justify-center mt-5"
             >
               Colaboradores

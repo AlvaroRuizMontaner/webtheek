@@ -7,10 +7,13 @@ import { createAccount } from "@/services/AuthAPI";
 import { toast } from "react-toastify";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/20/solid";
 import { useState } from "react";
+import Spinner from "@/components/spinners/Spinner";
 
 export default function RegisterView() {
   const [showPass, setShowPass] = useState(false)
   const [showPassConfirm, setShowPassConfirm] = useState(false)
+  const [isSubmitted, setIsSubmitted] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   
   const initialValues: UserRegistrationForm = {
     name: '',
@@ -22,20 +25,25 @@ export default function RegisterView() {
   const { register, handleSubmit, watch, reset, formState: { errors }, trigger } = useForm<UserRegistrationForm>({ defaultValues: initialValues });
 
 
-  const { mutate } = useMutation({
+  const { mutateAsync } = useMutation({
     mutationFn: createAccount,
     onError: (error) => {
         toast.error(error.message)
+        setIsLoading(false)
     },
-    onSuccess: (data) => {
-        toast.success(data)
+    onSuccess: () => {
         reset()
+        setIsLoading(false)
     }
   })
 
   const password = watch('password');
 
-  const handleRegister = (formData: UserRegistrationForm) => mutate(formData)
+  const handleRegister = async (formData: UserRegistrationForm) => {
+    setIsLoading(true)
+    await mutateAsync(formData)
+    setIsSubmitted(true)
+  }
 
   return (
     <>
@@ -45,7 +53,7 @@ export default function RegisterView() {
         <span className=" text-secondary font-bold"> crear tu cuenta</span>
       </p>
 
-      <form
+      {!isSubmitted ? <form
         onSubmit={handleSubmit(handleRegister)}
         className="space-y-8 p-10  bg-white mt-10"
         noValidate
@@ -148,12 +156,19 @@ export default function RegisterView() {
           )}
         </div>
 
-        <input
-          type="submit"
-          value='Registrarme'
-          className="bg-info hover:bg-info w-full p-3  text-white font-black text-xl cursor-pointer"
-        />
-      </form>
+          <div className="bg-info hover:bg-dark-secondary w-full flex justify-center h-[52px] text-white font-black text-xl cursor-pointer relative">
+            {!isLoading ? <input
+            type="submit"
+            value='Registrarme'
+            className="block w-full h-full p-3 cursor-pointer"
+            /> : <Spinner />}
+          </div>
+      </form> : (
+        <div className="space-y-8 p-7 sm:p-10 bg-white mt-10 flex justify-center items-center flex-col rounded-2xl">
+          <p className="text-center text-dark-secondary headline2 font-bold ">¡Felicidades, lo has conseguido!</p>
+          <p>Tu cuenta ha sido creada con éxito, pero ahora necesitamos que la confirmes revisando la información que hemos enviado a tu <span className="font-bold text-dark-primary">email</span></p>
+        </div>
+      )}
 
       <nav className="mt-10 flex flex-col space-y-4">
         <div className="text-gray-300 flex gap-1 justify-center">

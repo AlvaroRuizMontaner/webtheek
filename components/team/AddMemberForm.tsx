@@ -64,7 +64,7 @@ export default function AddMemberForm({projectId}: AddMemberFormProps) {
 
                 <input
                     type="submit"
-                    className=" bg-info hover:bg-info w-full p-3  text-white font-black  text-xl cursor-pointer"
+                    className=" bg-info hover:bg-dark-secondary w-full p-3  text-white font-black  text-xl cursor-pointer"
                     value='Buscar Usuario'
                 />
             </form>

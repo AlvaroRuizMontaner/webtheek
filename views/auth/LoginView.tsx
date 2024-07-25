@@ -99,7 +99,7 @@ export default function LoginView() {
         <input
           type="submit"
           value='Iniciar Sesión'
-          className="bg-info hover:bg-info w-full p-3  text-white font-black  text-xl cursor-pointer"
+          className="bg-info hover:bg-dark-secondary w-full p-3  text-white font-black  text-xl cursor-pointer"
         />
       </form>
 
