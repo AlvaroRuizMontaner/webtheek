@@ -65,7 +65,7 @@ export default function RegisterView() {
           <input
             type="submit"
             value="Enviar Código"
-            className="bg-info hover:bg-info w-full p-3 rounded-lg text-white font-black  text-xl cursor-pointer"
+            className="bg-info hover:bg-dark-secondary w-full p-3 rounded-lg text-white font-black  text-xl cursor-pointer"
           />
         </form>
 

@@ -56,7 +56,7 @@ export default function ProjectTeamView({projectId}: ProjectTeamViewProps) {
 
           <Link
             href={"/projects/" + projectId}
-            className=" bg-info hover:bg-info px-10 py-3 text-white text-xl
+            className=" bg-info hover:bg-dark-secondary px-10 py-3 text-white text-xl
                 font-bold cursor-pointer transition-colors"
           >
             Volver a proyecto

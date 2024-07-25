@@ -61,7 +61,7 @@ return (
         <input
           type="submit"
           value="Crear proyecto"
-          className=" bg-info hover:bg-info w-full p-3 text-white 
+          className=" bg-info hover:bg-dark-secondary w-full p-3 text-white 
           uppercase font-bold cursor-pointer transition-colors"
         />
       </form>

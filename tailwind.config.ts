@@ -27,7 +27,7 @@ const config: Config = {
         tertiary: "#90caf9",
 
         "dark-primary": "#1E1B4B",
-        "dark-secondary": "#4caf50",
+        "dark-secondary": "#348137",
         "dark-tertiary": "#2196f3",
 
         info: "#4caf50"

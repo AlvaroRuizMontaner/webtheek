@@ -133,9 +133,9 @@ export default function DashboardView() {
           </ul>
         ) : (
           <p className="text-center py-20">
-            No hay proyectos aún {""}
+            No hay proyectos aún. {""}
             <Link
-              className=" text-fuchsia-500 font-bold"
+              className=" text-secondary font-bold"
               href="/projects/create"
             >
               Crear proyecto

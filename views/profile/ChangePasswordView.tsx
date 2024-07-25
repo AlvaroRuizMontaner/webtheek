@@ -131,7 +131,7 @@ export default function ChangePasswordView() {
           <input
             type="submit"
             value='Cambiar Password'
-            className="bg-info w-full p-3 text-white uppercase font-bold hover:bg-info cursor-pointer transition-colors"
+            className="bg-info w-full p-3 text-white uppercase font-bold hover:bg-dark-secondary cursor-pointer transition-colors"
           />
         </form>
       </div>

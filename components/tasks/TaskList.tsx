@@ -106,7 +106,7 @@ export default function TaskList({tasks, projectId, canEdit}: TaskListProps) {
         {canEdit ? (
           <DndContext onDragEnd={handleDragEnd} sensors={sensors}>
           {Object.entries(groupedTasks).map(([status, tasks]) => (
-            <div key={status} className="min-w-[300px] 2xl:min-w-0 2xl:w-1/5">
+            <div key={status} className="min-w-[220px] sm:min-w-[300px] 2xl:min-w-0 2xl:w-1/5">
 
               <h3 
                 className={`capitalize text-xl font-light border border-slate-300 bg-white
