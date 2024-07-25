@@ -15,5 +15,5 @@ export async function generatePDF (html: string)  {
     const pdfUrl = URL.createObjectURL(pdfBlob);
 
     // Abrir el PDF en una nueva pestaña
-    window.open(pdfUrl);
+    return pdfUrl
 }
