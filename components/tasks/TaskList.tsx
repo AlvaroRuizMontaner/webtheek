@@ -1,5 +1,5 @@
 import { Project, TaskProject, TaskStatus } from '@/types'
-import React from 'react'
+import React, { useState } from 'react'
 import TaskCard from './TaskCard'
 import { statusTranslations } from '@/locales/es'
 import DropTask from './DropTask'
@@ -36,6 +36,8 @@ const statusStyles: {[key: string]: string} = {
 
 export default function TaskList({tasks, projectId, canEdit}: TaskListProps) {
 
+  const [showDropTask, setShowDropTask] = useState(false)
+
   const queryClient = useQueryClient()
   const { mutate } = useMutation({
       mutationFn: updateStatus,
@@ -71,6 +73,7 @@ export default function TaskList({tasks, projectId, canEdit}: TaskListProps) {
 
     const handleDragEnd = (e: DragEndEvent) => {
       const { over, active } = e
+      setShowDropTask(false)
       if(over && over.id) {
         const taskId = active.id.toString()
         const status = over.id as TaskStatus
@@ -96,6 +99,11 @@ export default function TaskList({tasks, projectId, canEdit}: TaskListProps) {
         })
       }
     }
+    const handleDragStart = (e: DragEndEvent) => {
+      const { active } = e
+      console.log(active)
+      setShowDropTask(true)
+    }
 
 
   return (
@@ -104,7 +112,7 @@ export default function TaskList({tasks, projectId, canEdit}: TaskListProps) {
 
       <div className="flex gap-5 overflow-x-scroll 2xl:overflow-auto pb-32">
         {canEdit ? (
-          <DndContext onDragEnd={handleDragEnd} sensors={sensors}>
+          <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd} sensors={sensors}>
           {Object.entries(groupedTasks).map(([status, tasks]) => (
             <div key={status} className="min-w-[220px] sm:min-w-[300px] 2xl:min-w-0 2xl:w-1/5">
 
@@ -113,7 +121,7 @@ export default function TaskList({tasks, projectId, canEdit}: TaskListProps) {
                 p-3 border-t-8 ${statusStyles[status]}`}
               >{statusTranslations[status]}</h3>
 
-              <DropTask status={status} />
+              {showDropTask && <DropTask status={status} />}
 
               <ul className="mt-5 space-y-5">
                 {tasks.length === 0 ? (
