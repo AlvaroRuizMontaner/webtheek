@@ -14,7 +14,7 @@ export default function NotesPanel({projectId, notes, canEditNotes}: NotesPanelP
     <>
         {canEditNotes && <AddNoteForm projectId={projectId} />}
 
-        <div className="divide-y divide-gray-100 mt-10">
+        <div className="divide-y divide-gray-300 mt-10 space-y-2">
             {notes.length ? (
                 <>
                     <p className='font-bold text-2xl text-slate-600 my-5'>Notas:</p>

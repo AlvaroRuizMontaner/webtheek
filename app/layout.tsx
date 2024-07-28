@@ -20,7 +20,7 @@ export default function RootLayout({
       <head>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
       </head>
-      <body className={`${poppins.className} min-h-screen flex flex-col bg-gray-100`}>
+      <body className={`${poppins.className} min-h-screen flex flex-col body3 bg-gray-100`}>
         <Provider>
             {children}
         </Provider>

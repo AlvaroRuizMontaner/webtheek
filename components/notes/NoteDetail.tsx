@@ -6,6 +6,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useSearchParams } from 'next/navigation';
 import React, { useMemo } from 'react'
 import { toast } from 'react-toastify';
+import { XMarkIcon } from "@heroicons/react/20/solid";
 
 type NoteDetailProps  = {
     note: Note
@@ -34,20 +35,19 @@ export default function NoteDetail({note, projectId}: NoteDetailProps) {
     if(isLoading) return "Cargando..."
 
   return (
-    <div className="p-3 flex justify-between items-center">
-      <div>
-        <p>
-          {note.content} por :{" "}
-          <span className="font-bold">{note.createdBy.name}</span>
-        </p>
-        <p className="text-xs text-slate-500">{formatDate(note.createdAt)}</p>
+    <div className="flex justify-between items-center gap-2 body3">
+      <div className='flex-1 flex flex-col bg-primary rounded border-2 border-primary'>
+        <div className='flex justify-between items-center gap-4 text-white'>
+          <p className='px-1 flex justify-between w-full'>
+            <span className="">{note.createdBy.name}</span>
+            {canDelete && <span className='cursor-pointer flex items-center' onClick={() => mutate({projectId, taskId, noteId: note._id})}><XMarkIcon className='w-4 h-4' /></span>}
+          </p>
+        </div>
+        <div className='flex justify-between flex-col sm:flex-row bg-white p-1'>
+          <p>{note.content}</p>
+          <p className="text-xs text-slate-500 w-32 flex items-center">{formatDate(note.createdAt)}</p>
+        </div>
       </div>
-
-      {canDelete && <button
-      onClick={() => mutate({projectId, taskId, noteId: note._id})}
-      type="button"
-      className='bg-red-400 hover:bg-red-500 p-2 text-xs text-white font-bold cursor-pointer transition-colors'
-      >Eliminar</button>}
     </div>
   );
 }

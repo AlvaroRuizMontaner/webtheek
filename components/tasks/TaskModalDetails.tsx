@@ -9,6 +9,7 @@ import { secondRenderUseEffect } from '@/hooks/useEffect';
 import { formatDate } from '@/utils/formatDate';
 import { statusTranslations } from '@/locales/es';
 import NotesPanel from '../notes/NotesPanel';
+import { XMarkIcon } from "@heroicons/react/20/solid";
 
 type TaskModalDetailsProps = {
     projectId: Project["_id"]
@@ -90,8 +91,11 @@ export default function TaskModalDetails({projectId, canEditNotes, canEditTasks}
                                 leaveTo="opacity-0 scale-95"
                             >
                                 <DialogPanel className="w-full max-w-4xl transform overflow-hidden rounded-2xl bg-white
-                                    text-left align-middle shadow-xl transition-all sm:p-16 p-8"
+                                    text-left align-middle shadow-xl transition-all p-4 sm:p-16 relative"
                                 >
+                                    <span className='absolute inline-block top-2 right-2 sm:top-5 sm:right-5 cursor-pointer' onClick={() => router.push(path)}>
+                                        <XMarkIcon className='w-8 h-8 text-black' />
+                                    </span>
                                     <p className='text-sm text-slate-400'>Agregada el: {formatDate(data.createdAt)} </p>
                                     <p className='text-sm text-slate-400'>Última actualización: {formatDate(data.updatedAt)}</p>
                                     <DialogTitle
