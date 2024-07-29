@@ -45,11 +45,10 @@ export default function AddNoteForm({projectId}: {projectId: Project["_id"]}) {
     >
         <div className="flex flex-col gap-2">
             <label className='font-bold' htmlFor="">Crear Nota</label>
-            <input 
-                type="text" 
+            <textarea 
                 id="content"
                 placeholder="Contenido de la nota"
-                className='w-full p-3 border border-gray-300'
+                className='w-full p-3 border border-gray-300 min-h-[50px]'
                 {...register("content", {
                     required: "El cotnenido de la nota es obligatorio"
                 })}
