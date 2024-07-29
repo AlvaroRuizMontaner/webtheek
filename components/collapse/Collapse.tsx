@@ -5,6 +5,7 @@ const Collapse = ({
   children,
   isOpen,
   bottom = "-4px",
+  position = "absolute",
 }: CollapseProps): JSX.Element => {
   /* 
     Las reglas mas importantes del collapse son el max-height 0 cuando isOpen es false y
@@ -16,8 +17,8 @@ const Collapse = ({
     <section
       style={{ bottom }}
       className={`flex flex-col z-10 w-full ${styles.transition}
-        absolute translate-y-full left-0 right-0 bg-dark-primary
-        ${isOpen ? "h-[150px]" : "h-0"} ${!isOpen && "overflow-y-hidden"}
+        ${position} left-0 right-0 overflow-y-hidden
+        ${isOpen ? " max-h-screen" : "max-h-0"}
         `}
     >
       {Array.isArray(children) ? children.map((child) => child) : children}
@@ -31,4 +32,6 @@ interface CollapseProps {
   children: React.ReactNode;
   isOpen: boolean;
   bottom?: string;
+  position?: "absolute" | "relative"
+  height?: string
 }
