@@ -30,7 +30,8 @@ const config: Config = {
         "dark-secondary": "#348137",
         "dark-tertiary": "#2196f3",
 
-        info: "#4caf50"
+        info: "#4caf50",
+        accent: "#f472b6"
       },
       boxShadow: {
         '1': "2px 2px 4px 2px rgba(0,0,0,0.3)",

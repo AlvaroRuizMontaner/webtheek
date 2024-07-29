@@ -10,6 +10,7 @@ import { formatDate } from '@/utils/formatDate';
 import { statusTranslations } from '@/locales/es';
 import NotesPanel from '../notes/NotesPanel';
 import { XMarkIcon } from "@heroicons/react/20/solid";
+/* import Collapse from '../collapse/Collapse'; */
 
 type TaskModalDetailsProps = {
     projectId: Project["_id"]
@@ -109,13 +110,15 @@ export default function TaskModalDetails({projectId, canEditNotes, canEditTasks}
                                         <>
                                             <p className="font-bold headline3 text-slate-600 my-5">Historial de cambios</p>
 
-                                            <ul className='list-decimal ml-4'>
+                                            <ul className='list-decimal ml-4 relative'>
+                                            {/* <Collapse bottom='unset' isOpen={true}> */}
                                                 {data.completedBy.map((activityLog) => (
                                                     <li key={activityLog._id}>
                                                         <span className='font-bold text-slate-600'>{statusTranslations[activityLog.status]}</span>{" "}
                                                         por: {activityLog.user.name}
                                                     </li>
                                                 ))}
+                                            {/* </Collapse> */}
                                             </ul>
                                         </>
                                     ) : null}

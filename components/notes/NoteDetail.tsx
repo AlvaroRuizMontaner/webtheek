@@ -6,7 +6,8 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useSearchParams } from 'next/navigation';
 import React, { useMemo } from 'react'
 import { toast } from 'react-toastify';
-import { XMarkIcon } from "@heroicons/react/20/solid";
+import { TrashIcon } from "@heroicons/react/20/solid";
+import styles from "./Notes.module.css"
 
 type NoteDetailProps  = {
     note: Note
@@ -40,12 +41,12 @@ export default function NoteDetail({note, projectId}: NoteDetailProps) {
         <div className='flex justify-between items-center gap-4 text-white'>
           <p className='px-1 flex justify-between w-full'>
             <span className="">{note.createdBy.name}</span>
-            {canDelete && <span className='cursor-pointer flex items-center' onClick={() => mutate({projectId, taskId, noteId: note._id})}><XMarkIcon className='w-4 h-4' /></span>}
+            {canDelete && <span className='cursor-pointer flex items-center text-accent' onClick={() => mutate({projectId, taskId, noteId: note._id})}><TrashIcon className='w-4 h-4' /></span>}
           </p>
         </div>
         <div className='flex justify-between flex-col sm:flex-row bg-white p-1'>
-          <p>{note.content}</p>
-          <p className="text-xs text-slate-500 w-32 flex items-center">{formatDate(note.createdAt)}</p>
+          <p className={`${styles["note-content"]}`}>{note.content}</p>
+          <p className="text-xs text-slate-500 flex items-center">{formatDate(note.createdAt)}</p>
         </div>
       </div>
     </div>
