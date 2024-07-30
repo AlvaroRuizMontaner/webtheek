@@ -109,8 +109,8 @@ export default function TaskModalDetails({projectId, canEditNotes, canEditTasks}
                                     <p className='text-lg text-slate-500 mb-2'>Descripción: {data.description}</p>
 
                                     {data.completedBy.length ? (
-                                        <div className='mt-5'>
-                                            <p className={`font-bold headline3 flex items-center justify-between gap-2 rounded border-2 px-2 border-primary bg-primary text-white ${isOpenHistory && "rounded-b-none"} `}>
+                                        <div className='py-5'>
+                                            <p className={`font-bold headline4 flex items-center justify-between gap-2 rounded border-2 px-2 border-primary bg-primary text-white ${isOpenHistory && "rounded-b-none"} `}>
                                                 <span>Historial de cambios</span>
                                                 <span onClick={() => setIsOpenHistory((prev) => !prev)} className={`${isOpenHistory ? "rotate-180" : "rotate-0"} ${styles["transition-rotate"]} cursor-pointer`}><ChevronDownIcon className='w-8 h-8 text-white' /></span>
                                             </p>
@@ -131,25 +131,29 @@ export default function TaskModalDetails({projectId, canEditNotes, canEditTasks}
                                     ) : null}
 
 
-                                    <div className='my-5 space-y-3'>
-                                        <label className='font-bold'>Estado Actual:</label>
-                                        
-                                        {canEditTasks ? (<select 
-                                            name="" 
-                                            id=""
-                                            className='w-full p-3 bg-white border border-gray-300'
-                                            defaultValue={data.status}
-                                            onChange={handleChange}
-                                        >
-                                            {Object.entries(statusTranslations).map(([key, value]) => (
-                                                <option key={key} value={key}>{value}</option>
-                                            ))}
-                                        </select>) : (
-                                            <div className='w-full p-3 bg-white border border-gray-300'>{statusTranslations[data.status]}</div>
-                                        )}
-                                    </div>
+                                    <section className=''>
+                                        <div className='my-5'>
+                                            <label className='bg-gray-300 px-3 text-black rounded-t'>Estado Actual:</label>
+                                            
+                                            {canEditTasks ? (<select 
+                                                name="" 
+                                                id=""
+                                                className='w-full p-3 bg-white border border-gray-300 rounded-b'
+                                                defaultValue={data.status}
+                                                onChange={handleChange}
+                                            >
+                                                {Object.entries(statusTranslations).map(([key, value]) => (
+                                                    <option key={key} value={key}>{value}</option>
+                                                ))}
+                                            </select>) : (
+                                                <div className='w-full p-3 bg-white border border-gray-300'>{statusTranslations[data.status]}</div>
+                                            )}
+                                        </div>
+                                        <div className='py-5'>
+                                         <NotesPanel canEditNotes={canEditNotes} notes={data.notes} projectId={projectId} />
+                                        </div>
+                                    </section>
 
-                                    <NotesPanel canEditNotes={canEditNotes} notes={data.notes} projectId={projectId} />
                                 </DialogPanel>
                             </TransitionChild>
                         </div>

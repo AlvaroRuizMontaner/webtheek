@@ -43,12 +43,12 @@ export default function AddNoteForm({projectId}: {projectId: Project["_id"]}) {
         noValidate
         className='space-y-3'
     >
-        <div className="flex flex-col gap-2">
-            <label className='font-bold' htmlFor="">Crear Nota</label>
+        <div className="flex flex-col">
+            <label className=' px-3 bg-gray-300 w-fit text-black rounded-t' htmlFor="content">Nueva Nota</label>
             <textarea 
                 id="content"
                 placeholder="Contenido de la nota"
-                className='w-full p-3 border border-gray-300 min-h-[50px]'
+                className='w-full p-3 border min-h-[50px] rounded-b border-gray-300'
                 {...register("content", {
                     required: "El cotnenido de la nota es obligatorio"
                 })}
@@ -58,11 +58,13 @@ export default function AddNoteForm({projectId}: {projectId: Project["_id"]}) {
             )}
         </div>
 
-        <input 
-            type="submit" 
-            value="Crear Nota"
-            className='bg-info hover:bg-dark-secondary w-full p-2 body2 text-white font-black cursor-pointer'
-        />
+        <div className='flex justify-center'>
+            <input 
+                type="submit" 
+                value="Crear Nota"
+                className='bg-info hover:bg-dark-secondary w-full sm:w-fit px-8 py-2 body2 text-white font-black cursor-pointer rounded'
+            />
+        </div>
     </form>
   )
 }
