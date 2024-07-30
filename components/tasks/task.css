@@ -1,0 +1,10 @@
+.no-border-focus {
+    cursor: pointer;
+}
+
+.no-border-focus:focus {
+    outline: none;
+    border-width: 1px;
+    border-color: lightgray;
+    box-shadow: none !important; 
+}
