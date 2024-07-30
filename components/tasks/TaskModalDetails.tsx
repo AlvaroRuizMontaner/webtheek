@@ -111,9 +111,9 @@ export default function TaskModalDetails({projectId, canEditNotes, canEditTasks}
 
                                     {data.completedBy.length ? (
                                         <div className='py-5'>
-                                            <p className={`font-bold headline4 flex items-center justify-between gap-2 rounded border-2 px-2 border-gray-300 text-black ${isOpenHistory && "rounded-b-none"} `}>
+                                            <p className={`flex items-center justify-between gap-2 rounded border-2 p-3 border-gray-300 text-black ${isOpenHistory && "rounded-b-none"} `}>
                                                 <span>Historial de cambios</span>
-                                                <span onClick={() => setIsOpenHistory((prev) => !prev)} className={`${isOpenHistory ? "rotate-180" : "rotate-0"} text-gray-800 ${styles["transition-rotate"]} cursor-pointer`}><ChevronDownIcon className='w-8 h-8 ' /></span>
+                                                <span onClick={() => setIsOpenHistory((prev) => !prev)} className={`${isOpenHistory ? "rotate-180" : "rotate-0"} text-gray-500 ${styles["transition-rotate"]} cursor-pointer`}><ChevronDownIcon className='w-6 h-6 ' /></span>
                                             </p>
 
                                             <Collapse height='unset' position='relative' bottom='unset' isOpen={isOpenHistory}>

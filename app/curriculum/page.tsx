@@ -82,7 +82,7 @@ export default function Page(): JSX.Element {
         <button
           onClick={handleClick}
           className="py-4 px-10 max-h-[56px] bg-secondary shadow-1 rounded-lg
-          mx-auto block absolute left-1/2 -translate-x-1/2 w-[196px] h-[56px]"
+          mx-auto block absolute left-1/2 -translate-x-1/2 w-[200px] h-[56px]"
         >
           {isLoading ? <Spinner/> : "Convert to pdf"}
         </button>

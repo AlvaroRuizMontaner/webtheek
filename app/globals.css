@@ -61,3 +61,10 @@ body {
 .custom-shadow {
   box-shadow: 4px 4px 4px 0px;
 }
+
+.full-width-with-bar {
+  width: calc(100vw - 17px);
+  @media screen and (min-width: 640px) {
+    width: 16rem;
+  }
+}
