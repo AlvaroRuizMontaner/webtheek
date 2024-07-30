@@ -110,11 +110,11 @@ export default function TaskList({tasks, projectId, canEdit}: TaskListProps) {
     <>
       <h2 className="headline2 font-black my-10">Tareas</h2>
 
-      <div className="flex gap-5 overflow-x-scroll 2xl:overflow-auto pb-32">
+      <div className="flex gap-5 overflow-x-scroll 2xl:overflow-auto pb-8">
         {canEdit ? (
           <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd} sensors={sensors}>
           {Object.entries(groupedTasks).map(([status, tasks]) => (
-            <div key={status} className="min-w-[220px] sm:min-w-[300px] 2xl:min-w-0 2xl:w-1/5">
+            <div key={status} className="2xl:min-w-0 2xl:w-1/5 taskWidth">
 
               <h3 
                 className={`capitalize text-xl font-light border border-slate-300 bg-white
@@ -137,7 +137,7 @@ export default function TaskList({tasks, projectId, canEdit}: TaskListProps) {
         </DndContext>
         ) : (
           Object.entries(groupedTasks).map(([status, tasks]) => (
-            <div key={status} className="min-w-[300px] 2xl:min-w-0 2xl:w-1/5">
+            <div key={status} className="taskWidth 2xl:min-w-0 2xl:w-1/5">
 
               <h3 
                 className={`capitalize text-xl font-light border border-slate-300 bg-white

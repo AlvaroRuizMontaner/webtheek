@@ -165,7 +165,7 @@ export default function RegisterView() {
           </div>
       </form> : (
         <div className="space-y-8 p-7 sm:p-10 bg-white mt-10 flex justify-center items-center flex-col rounded-2xl">
-          <p className="text-center text-dark-secondary headline2 font-bold ">¡Felicidades, lo has conseguido!</p>
+          <p className="text-center text-dark-secondary headline2 font-bold ">Cuenta creada</p>
           <p>Tu cuenta ha sido creada con éxito, pero ahora necesitamos que la confirmes revisando la información que hemos enviado a tu <span className="font-bold text-dark-primary">email</span></p>
         </div>
       )}
