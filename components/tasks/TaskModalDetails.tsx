@@ -12,6 +12,7 @@ import NotesPanel from '../notes/NotesPanel';
 import { XMarkIcon, ChevronDownIcon } from "@heroicons/react/20/solid";
 import Collapse from '../collapse/Collapse';
 import styles from '../collapse/collapse.module.css'
+import "./task.css"
 
 type TaskModalDetailsProps = {
     projectId: Project["_id"]
@@ -110,13 +111,13 @@ export default function TaskModalDetails({projectId, canEditNotes, canEditTasks}
 
                                     {data.completedBy.length ? (
                                         <div className='py-5'>
-                                            <p className={`font-bold headline4 flex items-center justify-between gap-2 rounded border-2 px-2 border-primary bg-primary text-white ${isOpenHistory && "rounded-b-none"} `}>
+                                            <p className={`font-bold headline4 flex items-center justify-between gap-2 rounded border-2 px-2 border-gray-300 text-black ${isOpenHistory && "rounded-b-none"} `}>
                                                 <span>Historial de cambios</span>
-                                                <span onClick={() => setIsOpenHistory((prev) => !prev)} className={`${isOpenHistory ? "rotate-180" : "rotate-0"} ${styles["transition-rotate"]} cursor-pointer`}><ChevronDownIcon className='w-8 h-8 text-white' /></span>
+                                                <span onClick={() => setIsOpenHistory((prev) => !prev)} className={`${isOpenHistory ? "rotate-180" : "rotate-0"} text-gray-800 ${styles["transition-rotate"]} cursor-pointer`}><ChevronDownIcon className='w-8 h-8 ' /></span>
                                             </p>
 
                                             <Collapse height='unset' position='relative' bottom='unset' isOpen={isOpenHistory}>
-                                                <div className='border-2 border-primary border-t-0 p-2 rounded-b'>
+                                                <div className='border-2 border-gray-300 border-t-0 p-2 rounded-b'>
                                                     <ul className='list-decimal ml-4 relative bg-white px-2'>
                                                         {data.completedBy.map((activityLog) => (
                                                             <li key={activityLog._id}>
@@ -138,7 +139,7 @@ export default function TaskModalDetails({projectId, canEditNotes, canEditTasks}
                                             {canEditTasks ? (<select 
                                                 name="" 
                                                 id=""
-                                                className='w-full p-3 bg-white border border-gray-300 rounded-b'
+                                                className='w-full p-3 bg-white border no-border-focus border-gray-300 rounded-b'
                                                 defaultValue={data.status}
                                                 onChange={handleChange}
                                             >
