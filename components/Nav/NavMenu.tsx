@@ -11,12 +11,12 @@ export default function NavMenu(): JSX.Element {
 
   const queryClient = useQueryClient()
 
-  const {data} = useAuth()
-
   const logout = () => {
     localStorage.removeItem("AUTH_TOKEN")
     queryClient.invalidateQueries({queryKey: ["user"]})
   }
+  const {data} = useAuth()
+
 
 
   return (
