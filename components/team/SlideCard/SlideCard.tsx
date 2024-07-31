@@ -9,14 +9,14 @@ type SlideCardProps = {
 export default function SlideCard({level}: SlideCardProps) {
   return (
     <div className={`
-         p-4 sm:p-6 border-gray-300 border-8 rounded-md cursor-pointer
+         p-4 sm:p-6 border-primary border-8 rounded-md cursor-pointer
         shadow-gray-500 shadow-md my-5 min-h-[240px] `
     }>
         <div className=' space-y-4'>
             <div className='flex justify-center items-center gap-2'>
-                <span className='font-black text-xl'>Nivel de permiso: </span>
-                <span className="text-white p-2 bg-primary rounded-full w-8 h-8 flex 
-                items-center justify-center font-black shadow-1
+                <span className='font-black text-xl'>Nivel de permiso </span>
+                <span className="text-white p-2 bg-gray-400 rounded-full w-8 h-8 flex 
+                items-center justify-center font-black
                 " >{level}</span>
             </div>
             {slideCardInfo.filter((_, filterIndx) => filterIndx+1 <= level).map((msg, index) => (
