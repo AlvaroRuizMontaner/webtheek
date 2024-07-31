@@ -81,10 +81,10 @@ export default function UserTeamView({projectId, userId}: UserTeamViewProps) {
           </div>
 
           <button className={`absolute left-10 top-1/2 z-10 hidden sm:block ${slideIndex === 1 && "disabled opacity-20"}`} onClick={() => swiperRef.current?.slidePrev()}>
-            <ArrowLeftCircleIcon className='w-12 h-12 text-dark-tertiary ' />
+            <ArrowLeftCircleIcon className='w-12 h-12 text-gray-400 ' />
           </button>
           <button className={`absolute right-10 top-1/2 z-10 hidden sm:block ${slideIndex === 3 && "disabled opacity-20"}`} onClick={() => swiperRef.current?.slideNext()}>
-            <ArrowRightCircleIcon className='w-12 h-12 text-dark-tertiary ' />
+            <ArrowRightCircleIcon className='w-12 h-12 text-gray-400 ' />
           </button>
         </div>
       </div>
