@@ -45,14 +45,11 @@ export default function UserTeamView({projectId, userId}: UserTeamViewProps) {
   if (isError) throw new Error("Error");
   if (data) return (
     <>
-      <h1 className=" font-black headline1">Editar permisos de <span className='text-secondary'>{data.user.name}</span></h1>
-      <p className="text-2xl fon-light text-gray-500 mt-5">
-        Elige qué permisos debe tener el usuario indicado según la tarjeta
-      </p>
+      <h1 className=" font-black headline2">Editar permisos de <span className='text-secondary'>{data.user.name}</span></h1>
 
       <div className='mt-10'>
         <div className='max-w-[600px] mx-auto flex items-center justify-center h-[260px] relative'>
-          <div className='max-w-96 ml-20 sm:ml-0'>
+          <div className='swiper-container ml-5 sm:ml-0'>
             <Swiper
               initialSlide={data.permissionLevel-1}
               onBeforeInit={(swiper) => {

@@ -39,16 +39,16 @@ export default function ProjectTeamView({projectId}: ProjectTeamViewProps) {
   if (isError) throw new Error("Error");
   if (data) return (
       <>
-        <h1 className=" text-5xl font-black">Administrar equipo</h1>
-        <p className="text-2xl fon-light text-gray-500 mt-5">
+        <h1 className=" headline2 font-black">Administrar equipo</h1>
+        <p className="fon-light text-gray-500 mt-5 body1">
           Administra el equipo de este proyecto
         </p>
 
-        <nav className="my-5 flex gap-3">
+        <nav className="my-5 flex flex-col sm:flex-row gap-3">
           <button
             type="button"
-            className=" bg-primary hover:bg-dark-primary px-10 py-3 text-white text-xl
-                font-bold cursor-pointer transition-colors"
+            className=" bg-primary hover:bg-dark-primary px-10 py-3 text-white body2
+                font-bold cursor-pointer transition-colors text-center"
             onClick={() => router.push("?addMember=true")}
           >
             Agregar Colaborador
@@ -56,14 +56,14 @@ export default function ProjectTeamView({projectId}: ProjectTeamViewProps) {
 
           <Link
             href={"/projects/" + projectId}
-            className=" bg-info hover:bg-dark-secondary px-10 py-3 text-white text-xl
-                font-bold cursor-pointer transition-colors"
+            className=" bg-info hover:bg-dark-secondary px-10 py-3 text-white body2
+                font-bold cursor-pointer transition-colors text-center"
           >
             Volver a proyecto
           </Link>
         </nav>
 
-        <h2 className="text-5xl font-black my-10">Miembros actuales</h2>
+        <h2 className="headline2 font-black my-10">Miembros actuales</h2>
             {data.length ? (
                 <ul role="list" className="divide-y divide-gray-100 border border-gray-100 my-10 bg-white shadow-lg">
                     {data?.map((member) => (
