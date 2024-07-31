@@ -2,16 +2,20 @@ import React, { ReactNode } from 'react'
 import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css"
 import Logo from '@/components/Logo'
-import NavMenu from '@/components/NavMenu';
+import NavMenu from '@/components/Nav/NavMenu';
 import Link from 'next/link';
 import Redirect from '@/components/Redirect';
 import Footer from '@/components/Footer';
+import DesktopNav from '@/components/Nav/DesktopNav';
+import { getSectionFromRouter } from '@/utils/router';
 
 interface AppLayoutProps {
     children: React.ReactNode
 }
 
 export default function AppLayout({children}: AppLayoutProps): ReactNode {
+
+  getSectionFromRouter
 
   return (
     <>
@@ -26,7 +30,13 @@ export default function AppLayout({children}: AppLayoutProps): ReactNode {
             </Link>
           </div>
 
-          <NavMenu/>
+          <section className='w-full hidden sm:block'>
+            <DesktopNav />
+          </section>
+
+          <section className='sm:hidden'>
+            <NavMenu/>
+          </section>
         </div>
       </header>
 
