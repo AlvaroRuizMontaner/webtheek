@@ -1,5 +1,4 @@
 import Footer from "@/components/Footer";
-import Header from "@/components/header/Header";
 
 export default function Bedroom({
   children, // will be a page or nested layout
@@ -9,7 +8,7 @@ export default function Bedroom({
   return (
     <section className="min-h-screen flex flex-col">
       {/* <Nav /> */}
-      <Header />
+      {/* <Header /> */}
       {children}
       <Footer />
     </section>
