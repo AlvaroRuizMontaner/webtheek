@@ -8,6 +8,9 @@ const poppins = Poppins({ weight: "400", subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Webtheek",
   description: "The tools site",
+  icons: {
+    icon: "/logo.png",
+  },
 };
 
 export default function RootLayout({

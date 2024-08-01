@@ -1,4 +1,4 @@
-import React/* , { useMemo } */ from 'react'
+import React, { useMemo } from 'react'
 import { NavItem } from './navItems.info'
 import Link from 'next/link'
 import { useQueryClient } from '@tanstack/react-query'
@@ -9,8 +9,7 @@ export default function DesktopNavItem({name, url}: NavItem) {
     const queryClient = useQueryClient()
     const path = usePathname()
 
-    console.log(path.includes(url!), path, url)
-    //const isPath = useMemo(() => path.includes(url!), [path])
+    const isPath = useMemo(() => path.includes(url!), [path])
 
     const logout = () => {
       localStorage.removeItem("AUTH_TOKEN")
@@ -18,7 +17,7 @@ export default function DesktopNavItem({name, url}: NavItem) {
     }
 
   return (
-    <div className='cursor-pointer' /* className={`${isPath && "border-b-2 border-primary"}`} */>
+    <div className={`'cursor-pointer' ${isPath && "border-b-2 border-primary"}`}>
         {(url || url === "") ? (
             <Link href={`/${url}`}>{name}</Link>
         ): (
