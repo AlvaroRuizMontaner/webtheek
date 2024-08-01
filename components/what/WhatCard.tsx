@@ -10,7 +10,7 @@ const WhatCard = ({
   return (
       <section
         className="
-      w-60 mx-auto md:mx-0 p-4 flex flex-col gap-2
+      w-64 mx-auto md:mx-0 p-4 flex flex-col gap-2
       border-8 rounded-lg border-primary shadow-primary custom-shadow
      "
       >
