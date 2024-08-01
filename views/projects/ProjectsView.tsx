@@ -24,7 +24,7 @@ export default function ProjectsView() {
   if (data && user)
     return (
       <>
-        <h1 className="headline1 font-black">Mis Proyectos</h1>
+        <h1 className="headline1 font-black">Proyectos</h1>
         <p className="body1 font-light text-gray-500 my-5">
           Maneja y administra tus proyectos
         </p>

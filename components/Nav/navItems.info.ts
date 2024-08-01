@@ -13,7 +13,7 @@ export const navItemsInfo: NavItem[] = [
         url: "profile"
     },
     {
-        name: "Mis proyectos",
+        name: "Proyectos",
         url: "projects"
     },
     {

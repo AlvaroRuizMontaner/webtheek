@@ -33,8 +33,8 @@ export const seoHome: SeoHome = {
           content="Crea tus proyectos, tests, curriculum y más, todo ello lo puedes hacer aquí"
         />
         <meta property="og:type" content="website" />
-        <meta property="twitter:site" content="@masmovil" />
-        <meta property="twitter:creator" content="@masmovil" />
+{/*         <meta property="twitter:site" content="@masmovil" />
+        <meta property="twitter:creator" content="@masmovil" /> */}
         <meta
           property="twitter:description"
           content="Crea tus proyectos, tests, curriculum y más, todo ello lo puedes hacer aquí"

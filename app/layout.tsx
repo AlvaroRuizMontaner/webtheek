@@ -6,11 +6,14 @@ import Provider from "@/utils/Providers";
 const poppins = Poppins({ weight: "400", subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Webtheek",
-  description: "The tools site",
+  title: "Webtheek: Tu biblioteca de recursos web",
+  description: "Crea tus proyectos, tests, curriculum y más, todo ello lo puedes hacer aquí",
   icons: {
     icon: "/logo.png",
   },
+  openGraph: {
+    images: ["https://webtheek.com/"]
+  }
 };
 
 export default function RootLayout({
