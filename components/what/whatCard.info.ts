@@ -2,13 +2,15 @@ export const whatInfo: WhatInfoProps = {
     title: "¿Qué ofrece este sitio web?",
     cards: [
       {
-        name: "Herramientas de archivos e imágenes",
+        /* name: "Herramientas de archivos e imágenes", */
+        name: "Crear y gestionar tus proyectos",
         image: "icons/settings.svg",
         description:
           "Nostrud fugiat aliquip fugiat in dolore est voluptate ipsum do Lorem elit. sit ea quis incididunt est anim ea aliquip.",
       },
       {
-        name: "Simulaciones y gráficos",
+        /* name: "Simulaciones y gráficos", */
+        name: "Crear tus propios CV",
         image: "/icons/graphic.svg",
         description:
           "Nostrud fugiat aliquip fugiat in dolore est voluptate ipsum do Lorem elit. sit ea quis incididunt est anim ea aliquip.",
