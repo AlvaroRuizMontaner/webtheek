@@ -14,7 +14,7 @@ export const navItemsInfo: NavItem[] = [
     },
     {
         name: "Mis proyectos",
-        url: ""
+        url: "projects"
     },
     {
         name: "Cerrar sesión"
