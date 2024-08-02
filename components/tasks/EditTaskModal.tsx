@@ -7,6 +7,7 @@ import TaskForm from './TaskForm';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updateTask } from '@/services/TaskAPI';
 import { toast } from 'react-toastify';
+import SubmitInput from '../form/input/SubmitInput';
 
 
 type EditTaskModalProps = {
@@ -26,7 +27,7 @@ export default function EditTaskModal({data, projectId, taskId}: EditTaskModalPr
     }})
 
     const queryClient = useQueryClient()
-    const  { mutate } = useMutation({
+    const  { mutate, isPending } = useMutation({
         mutationFn: updateTask,
         onError: (error) => {
             toast.error(error.message)
@@ -90,11 +91,14 @@ export default function EditTaskModal({data, projectId, taskId}: EditTaskModalPr
                                     
                                     <TaskForm register={register} errors={errors} />
 
-                                    <input
+{/*                                     <div className="bg-info hover:bg-dark-secondary w-full flex justify-center h-[52px] text-white font-black text-xl cursor-pointer relative">
+                                        {!isPending ? <input
                                         type="submit"
-                                        className=" bg-info hover:bg-dark-secondary w-full p-3  text-white font-black  text-xl cursor-pointer"
                                         value='Guardar Tarea'
-                                    />
+                                        className="block w-full h-full p-3 cursor-pointer"
+                                        /> : <Spinner />}
+                                    </div> */}
+                                    <SubmitInput isLoading={isPending} value="Guardar Tarea" />
                                 </form>
                             </DialogPanel>
                         </TransitionChild>

@@ -6,6 +6,7 @@ import { changePassword } from "@/services/ProfileAPI";
 import { toast } from "react-toastify";
 import { useState } from "react";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/20/solid";
+import SubmitInput from "@/components/form/input/SubmitInput";
 
 export default function ChangePasswordView() {
   const [showCurrentPass, setShowCurrentPass] = useState(false)
@@ -19,7 +20,7 @@ export default function ChangePasswordView() {
 
   const { register, handleSubmit, watch, reset, formState: { errors }, trigger } = useForm({ defaultValues: initialValues })
 
-  const { mutate } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: changePassword,
     onError: (error) => {
         toast.error(error.message)
@@ -128,11 +129,14 @@ export default function ChangePasswordView() {
             )}
           </div>
 
-          <input
+{/*           <div className="bg-info hover:bg-dark-secondary w-full flex justify-center h-[52px] text-white font-black text-xl cursor-pointer relative">
+            {!isPending ? <input
             type="submit"
             value='Cambiar Password'
-            className="bg-info w-full p-3 text-white uppercase font-bold hover:bg-dark-secondary cursor-pointer transition-colors"
-          />
+            className="block w-full h-full p-3 cursor-pointer"
+            /> : <Spinner />}
+          </div> */}
+          <SubmitInput isLoading={isPending} value="Cambiar Password" />
         </form>
       </div>
     </>

@@ -8,6 +8,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { checkPassword } from '@/services/AuthAPI';
 import { toast } from 'react-toastify';
 import { deleteProject } from '@/services/ProjectAPI';
+import SubmitInput from '../form/input/SubmitInput';
 
 export default function DeleteProjectModal() {
     const initialValues: checkPasswordForm = {
@@ -109,11 +110,14 @@ export default function DeleteProjectModal() {
                                         )}
                                     </div>
 
-                                    <input
+{/*                                     <div className="bg-info hover:bg-dark-secondary w-full flex justify-center h-[52px] text-white font-black text-xl cursor-pointer relative">
+                                        {!checkPasswordMutation.isPending || !deleteProjectMutation.isPending ? <input
                                         type="submit"
-                                        className=" bg-info hover:bg-dark-secondary w-full p-3  text-white font-black  text-xl cursor-pointer"
                                         value='Eliminar Proyecto'
-                                    />
+                                        className="block w-full h-full p-3 cursor-pointer"
+                                        /> : <Spinner />}
+                                    </div> */}
+                                    <SubmitInput isLoading={checkPasswordMutation.isPending || deleteProjectMutation.isPending} value="Eliminar Proyecto" />
                                 </form>
                             </Dialog.Panel>
                         </Transition.Child>

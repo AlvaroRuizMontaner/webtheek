@@ -41,7 +41,7 @@ export default function DesktopNavItem({name, url}: NavItem) {
             href={"/auth/login"}
             className=""
           >
-            iniciar sesión
+            Iniciar sesión
           </Link>
         )
         )}

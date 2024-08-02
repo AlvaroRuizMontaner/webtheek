@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/20/solid";
+import SubmitInput from "../form/input/SubmitInput";
 
 type NewPasswordFormProps = {
     token: ConfirmToken["token"]
@@ -22,7 +23,7 @@ export default function NewPasswordForm({token}: NewPasswordFormProps) {
     }
     const { register, handleSubmit, watch, reset, formState: { errors }, trigger } = useForm({ defaultValues: initialValues });
 
-    const { mutate } = useMutation({
+    const { mutate, isPending } = useMutation({
         mutationFn: updatePasswordWithToken,
         onError: (error) => {
             toast.error(error.message)
@@ -120,11 +121,12 @@ export default function NewPasswordForm({token}: NewPasswordFormProps) {
                     )}
                 </div>
 
-                <input
+{/*                 <input
                     type="submit"
                     value='Establecer Password'
                     className="bg-info hover:bg-dark-secondaryw-full p-3  text-white font-black  text-xl cursor-pointer"
-                />
+                /> */}
+                <SubmitInput isLoading={isPending} value="Establecer Password" />
             </form>
         </>
     )

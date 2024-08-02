@@ -40,7 +40,7 @@ export default function MobileNavItem({url, name}: NavItem) : JSX.Element {
                     href={"/auth/login"}
                     className="block p-2 hover:text-purple-950"
                   >
-                    iniciar sesión
+                    Iniciar sesión
                   </Link>
                 )
             )}

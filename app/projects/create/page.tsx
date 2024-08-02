@@ -1,4 +1,5 @@
 "use client"
+import SubmitInput from '@/components/form/input/SubmitInput';
 import ProjectForm from '@/components/projects/ProjectForm';
 import { createProject } from '@/services/ProjectAPI';
 import { ProjectFormData } from '@/types';
@@ -20,14 +21,14 @@ export default function CreateProjectView():JSX.Element {
 
   const {register, handleSubmit, formState: {errors}} = useForm({defaultValues: initialValues})
 
-  const {mutate} = useMutation({
+  const {mutate, isPending} = useMutation({
       mutationFn: createProject,
       onError: (error) => {
           toast.error(error.message)
       },
       onSuccess: (data) => {
           localStorage.setItem('toastMessage', data);
-          router.push('/');
+          router.push('/projects');
       }
   })
 
@@ -58,12 +59,13 @@ return (
         noValidate
       >
         <ProjectForm register={register} errors={errors} />
-        <input
+{/*         <input
           type="submit"
           value="Crear proyecto"
           className=" bg-info hover:bg-dark-secondary w-full p-3 text-white 
           uppercase font-bold cursor-pointer transition-colors"
-        />
+        /> */}
+        <SubmitInput isLoading={isPending} value="Crear proyecto" />
       </form>
     </div>
   </>

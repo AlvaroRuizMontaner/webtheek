@@ -1,3 +1,4 @@
+import SubmitInput from '@/components/form/input/SubmitInput';
 import ProjectForm from '@/components/projects/ProjectForm';
 import { createProject } from '@/services/ProjectAPI';
 import { ProjectFormData } from '@/types';
@@ -19,14 +20,14 @@ export default function CreateProjectView():JSX.Element {
 
   const {register, handleSubmit, formState: {errors}} = useForm({defaultValues: initialValues})
 
-  const {mutate} = useMutation({
+  const {mutate, isPending} = useMutation({
       mutationFn: createProject,
       onError: (error) => {
           toast.error(error.message)
       },
       onSuccess: (data) => {
           localStorage.setItem('toastMessage', data);
-          router.push('/');
+          router.push('/projects');
       }
   })
 
@@ -57,12 +58,14 @@ return (
         noValidate
       >
         <ProjectForm register={register} errors={errors} />
-        <input
-          type="submit"
-          value="Crear proyecto"
-          className=" bg-info hover:bg-dark-secondary w-full p-3 text-white 
-          uppercase font-bold cursor-pointer transition-colors"
-        />
+{/*         <div className="bg-info hover:bg-dark-secondary w-full flex justify-center h-[52px] text-white font-black text-xl cursor-pointer relative">
+            {!isPending ? <input
+            type="submit"
+            value='Iniciar Sesión'
+            className="block w-full h-full p-3 cursor-pointer"
+            /> : <Spinner />}
+          </div> */}
+          <SubmitInput isLoading={isPending} value="Crear proyecto" />
       </form>
     </div>
   </>

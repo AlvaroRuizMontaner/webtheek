@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form';
 import { createTask } from '@/services/TaskAPI';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
+import SubmitInput from '../form/input/SubmitInput';
 
 export default function AddTaskModal({projectId}: {projectId: Project["_id"]}) {
 
@@ -24,7 +25,7 @@ export default function AddTaskModal({projectId}: {projectId: Project["_id"]}) {
     const { register, handleSubmit, reset, formState: {errors} } = useForm({defaultValues: initialvalues})
 
     const queryClient = useQueryClient()
-    const { mutate } = useMutation({
+    const { mutate, isPending } = useMutation({
         mutationFn: createTask,
         onError: (error) => {
             toast.error(error.message)
@@ -93,12 +94,13 @@ export default function AddTaskModal({projectId}: {projectId: Project["_id"]}) {
                                             register={register}
                                             errors={errors}
                                         />
-                                        <input
+{/*                                         <input
                                             type="submit"
                                             value="Guardar Tarea"
                                             className=" bg-info hover:bg-dark-secondary w-full p-3 text-white 
                                             uppercase font-bold cursor-pointer transition-colors"
-                                        />
+                                        /> */}
+                                        <SubmitInput isLoading={isPending} value="Guardar Tarea" />
                                     </form>
 
                                 </Dialog.Panel>

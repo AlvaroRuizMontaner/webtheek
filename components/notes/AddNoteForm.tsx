@@ -6,6 +6,7 @@ import { createNote } from '@/services/NoteAPI'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'react-toastify'
 import { useSearchParams } from 'next/navigation'
+import SubmitInput from '../form/input/SubmitInput'
 
 export default function AddNoteForm({projectId}: {projectId: Project["_id"]}) {
 
@@ -19,7 +20,7 @@ export default function AddNoteForm({projectId}: {projectId: Project["_id"]}) {
 
 
     const queryClient = useQueryClient()
-    const { mutate } = useMutation({
+    const { mutate, isPending } = useMutation({
         mutationFn: createNote,
         onError: (error) => {
             toast.error(error.message)
@@ -59,11 +60,12 @@ export default function AddNoteForm({projectId}: {projectId: Project["_id"]}) {
         </div>
 
         <div className='flex justify-center'>
-            <input 
+{/*             <input 
                 type="submit" 
                 value="Crear Nota"
                 className='bg-info hover:bg-dark-secondary w-full sm:w-fit px-8 py-2 body2 text-white font-black cursor-pointer rounded'
-            />
+            /> */}
+            <SubmitInput isLoading={isPending} value="Crear Nota" />
         </div>
     </form>
   )
