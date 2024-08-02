@@ -7,7 +7,7 @@ import { createAccount } from "@/services/AuthAPI";
 import { toast } from "react-toastify";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/20/solid";
 import { useState } from "react";
-import Spinner from "@/components/spinners/Spinner";
+import SubmitInput from "@/components/form/input/SubmitInput";
 
 export default function RegisterView() {
   const [showPass, setShowPass] = useState(false)
@@ -156,13 +156,14 @@ export default function RegisterView() {
           )}
         </div>
 
-          <div className="bg-info hover:bg-dark-secondary w-full flex justify-center h-[52px] text-white font-black text-xl cursor-pointer relative">
+{/*           <div className="bg-info hover:bg-dark-secondary w-full flex justify-center h-[52px] text-white font-black text-xl cursor-pointer relative">
             {!isLoading ? <input
             type="submit"
             value='Registrarme'
             className="block w-full h-full p-3 cursor-pointer"
             /> : <Spinner />}
-          </div>
+          </div> */}
+          <SubmitInput isLoading={isLoading} value="Registrarme" />
       </form> : (
         <div className="space-y-8 p-7 sm:p-10 bg-white mt-10 flex justify-center items-center flex-col rounded-2xl">
           <p className="text-center text-dark-secondary headline2 font-bold ">Cuenta creada</p>
@@ -177,7 +178,7 @@ export default function RegisterView() {
               href={"/auth/login"}
               className="text-center font-normal text-tertiary underline"
             >
-              iniciar sesión
+              Iniciar sesión
             </Link>
           </div>
           <div className="text-gray-300 flex gap-1 justify-center">

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useMutation } from "@tanstack/react-query";
 import { RequestConfirmationCode } from "@/services/AuthAPI";
 import { toast } from "react-toastify";
+import SubmitInput from "@/components/form/input/SubmitInput";
 
 export default function RegisterView() {
     const initialValues: RequestConfirmationCodeForm = {
@@ -13,7 +14,7 @@ export default function RegisterView() {
 
     const { register, handleSubmit, formState: { errors } } = useForm({ defaultValues: initialValues });
 
-    const { mutate } = useMutation({
+    const { mutate, isPending } = useMutation({
         mutationFn: RequestConfirmationCode,
         onError: (error) => {
             toast.error(error.message)
@@ -62,11 +63,14 @@ export default function RegisterView() {
             )}
           </div>
 
-          <input
+{/*           <div className="bg-info hover:bg-dark-secondary w-full flex justify-center h-[52px] text-white font-black text-xl cursor-pointer relative">
+            {!isPending ? <input
             type="submit"
             value="Enviar Código"
-            className="bg-info hover:bg-dark-secondary w-full p-3 rounded-lg text-white font-black  text-xl cursor-pointer"
-          />
+            className="block w-full h-full p-3 cursor-pointer"
+            /> : <Spinner />}
+          </div> */}
+          <SubmitInput isLoading={isPending} value="Enviar Código" />
         </form>
 
         <nav className="mt-10 flex flex-col space-y-4">

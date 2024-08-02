@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/20/solid';
 import { useState } from 'react';
+import SubmitInput from '@/components/form/input/SubmitInput';
 
 export default function LoginView() {
   const router = useRouter()
@@ -19,7 +20,7 @@ export default function LoginView() {
   }
   const { register, handleSubmit, formState: { errors }, trigger } = useForm({ defaultValues: initialValues })
 
-  const { mutate } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: authenticateUser,
     onError: (error) => {
         toast.error(error.message)
@@ -30,7 +31,11 @@ export default function LoginView() {
   })
 
 
-  const handleLogin = (formData: UserLoginForm) => mutate(formData)
+  const handleLogin = (formData: UserLoginForm) => {
+    console.log(isPending)
+    mutate(formData)
+
+  }
 
   return (
     <>
@@ -96,11 +101,14 @@ export default function LoginView() {
           )}
         </div>
 
-        <input
+{/*         <div className="bg-info hover:bg-dark-secondary w-full flex justify-center h-[52px] text-white font-black text-xl cursor-pointer relative">
+          {!isPending ? <input
           type="submit"
           value='Iniciar Sesión'
-          className="bg-info hover:bg-dark-secondary w-full p-3  text-white font-black  text-xl cursor-pointer"
-        />
+          className="block w-full h-full p-3 cursor-pointer"
+          /> : <Spinner />}
+        </div> */}
+        <SubmitInput isLoading={isPending} value="Iniciar Sesión" />
       </form>
 
       <nav className="mt-10 flex flex-col space-y-4">

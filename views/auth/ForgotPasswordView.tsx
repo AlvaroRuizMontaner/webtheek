@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useMutation } from "@tanstack/react-query";
 import { forgotPassword } from "@/services/AuthAPI";
 import { toast } from "react-toastify";
+import SubmitInput from "@/components/form/input/SubmitInput";
 
 export default function ForgotPasswordView() {
   const initialValues: ForgotPasswordForm = {
@@ -12,7 +13,7 @@ export default function ForgotPasswordView() {
   }
   const { register, handleSubmit, reset, formState: { errors } } = useForm({ defaultValues: initialValues });
 
-  const { mutate } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: forgotPassword,
     onError: (error) => {
         toast.error(error.message)
@@ -62,11 +63,14 @@ export default function ForgotPasswordView() {
           )}
         </div>
 
-        <input
-          type="submit"
-          value='Enviar Instrucciones'
-          className="bg-info hover:bg-dark-secondary w-full p-3  text-white font-black  text-xl cursor-pointer"
-        />
+{/*         <div className="bg-info hover:bg-dark-secondary w-full flex justify-center h-[52px] text-white font-black text-xl cursor-pointer relative">
+            {!isPending ? <input
+            type="submit"
+            value='Enviar Instrucciones'
+            className="block w-full h-full p-3 cursor-pointer"
+            /> : <Spinner />}
+        </div> */}
+        <SubmitInput isLoading={isPending} value="Enviar Instrucciones" />
       </form>
 
       <nav className="mt-10 flex flex-col space-y-4">

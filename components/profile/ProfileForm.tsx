@@ -4,16 +4,17 @@ import { User, UserProfileForm } from "@/types"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { updateProfile } from "@/services/ProfileAPI"
 import { toast } from "react-toastify"
+import SubmitInput from "../form/input/SubmitInput"
 
 type ProfileFormProps = {
     data: User
 }
 
 export default function ProfileForm({ data }: ProfileFormProps) {
-    const { register, handleSubmit, formState: { errors }, trigger } = useForm<UserProfileForm>({ defaultValues: data })
+    const { register, handleSubmit, formState: { errors }, trigger, setError } = useForm<UserProfileForm>({ defaultValues: data })
 
     const queryClient = useQueryClient()
-    const { mutate } = useMutation({
+    const { mutate, isPending } = useMutation({
         mutationFn: updateProfile,
         onError: (error) => toast.error(error.message),
         onSuccess: (data) => {
@@ -22,7 +23,15 @@ export default function ProfileForm({ data }: ProfileFormProps) {
         }
     })
 
-    const handleEditProfile = (formData: UserProfileForm) => mutate(formData)
+    const handleEditProfile = (formData: UserProfileForm) => {
+        console.log(data, formData)
+
+        if((data.name === formData.name) && (data.email === formData.email)) {
+            setError("email", { type: 'custom', message: 'El nombre y el email no han cambiado' })
+        } else {
+            mutate(formData)
+        }
+    }
 
     return (
         <>
@@ -82,11 +91,14 @@ export default function ProfileForm({ data }: ProfileFormProps) {
                             <ErrorMessage>{errors.email.message}</ErrorMessage>
                         )}
                     </div>
-                    <input
+{/*                     <div className="bg-info hover:bg-dark-secondary w-full flex justify-center h-[52px] text-white font-black text-xl cursor-pointer relative">
+                        {!isPending ? <input
                         type="submit"
                         value='Guardar Cambios'
-                        className="bg-info w-full p-3 text-white uppercase font-bold hover:bg-dark-secondary cursor-pointer transition-colors"
-                    />
+                        className="block w-full h-full p-3 cursor-pointer"
+                        /> : <Spinner />}
+                    </div> */}
+                    <SubmitInput isLoading={isPending} value="Guardar Cambios" />
                 </form>
             </div>
         </>

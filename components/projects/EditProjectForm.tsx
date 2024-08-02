@@ -7,6 +7,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updateProject } from '@/services/ProjectAPI';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
+import SubmitInput from '../form/input/SubmitInput';
 
 type EditProjectFormProps = {
     data: ProjectFormData,
@@ -24,7 +25,7 @@ export default function EditProjectForm({data, projectId}: EditProjectFormProps)
       }})
 
       const queryClient = useQueryClient()
-      const { mutate } = useMutation({
+      const { mutate, isPending } = useMutation({
         mutationFn: updateProject,
         onError: (error) => {
             toast.error(error.message)
@@ -68,12 +69,14 @@ export default function EditProjectForm({data, projectId}: EditProjectFormProps)
         noValidate
       >
         <ProjectForm register={register} errors={errors} />
-        <input
-          type="submit"
-          value="Guardar cambios"
-          className=" bg-info hover:bg-dark-secondary w-full p-3 text-white 
-          uppercase font-bold cursor-pointer transition-colors"
-        />
+{/*         <div className="bg-info hover:bg-dark-secondary w-full flex justify-center h-[52px] text-white font-black text-xl cursor-pointer relative">
+            {!isPending ? <input
+            type="submit"
+            value="Guardar cambios"
+            className="block w-full h-full p-3 cursor-pointer"
+            /> : <Spinner />}
+        </div> */}
+        <SubmitInput isLoading={isPending} value="Guardar cambios" />
       </form>
     </div>
   </>
