@@ -38,9 +38,9 @@ export default function TaskForm({errors, register} : TaskFormProps) {
                     id="description"
                     placeholder="Descripción de la tarea"
                     className="w-full p-3  border-gray-300 border"
-                    {...register("description", {
+                    {...register("description", /* {
                         required: "La descripción de la tarea es obligatoria"
-                    })}
+                    } */)}
                 />
                 {errors.description && (
                     <ErrorMessage>{errors.description.message}</ErrorMessage>

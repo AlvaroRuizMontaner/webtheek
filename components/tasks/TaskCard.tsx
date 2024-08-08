@@ -46,7 +46,7 @@ export default function TaskCard({task, projectId, canEdit}: TaskCardProps) {
     ref={setNodeRef}
     style={style}
     className="p-3 sm:p-5 bg-white border border-slate-300 flex justify-between gap-3">
-      <div className=" min-w-0 flex flex-col gap-y-4">
+      <div className=" min-w-0 flex flex-col gap-y-4 max-h-48">
         <button
           type="button"
           className="body2 font-bold text-slate-600 text-left"
@@ -56,7 +56,7 @@ export default function TaskCard({task, projectId, canEdit}: TaskCardProps) {
         >
           {task.name}
         </button>
-        <p className="text-slate-500 body3">{task.description}</p>
+        {task.description && <p className="text-slate-500 body3 text-ellipsis overflow-hidden ">{task.description}</p>}
       </div>
 
       <div className="flex shrink-0  gap-x-6">
