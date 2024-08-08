@@ -8,6 +8,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updateTask } from '@/services/TaskAPI';
 import { toast } from 'react-toastify';
 import SubmitInput from '../form/input/SubmitInput';
+import { XMarkIcon } from '@heroicons/react/20/solid';
 
 
 type EditTaskModalProps = {
@@ -72,6 +73,9 @@ export default function EditTaskModal({data, projectId, taskId}: EditTaskModalPr
                             leaveTo="opacity-0 scale-95"
                         >
                             <DialogPanel className="w-full max-w-4xl transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all p-16">
+                                <span className='absolute inline-block top-2 right-2 sm:top-5 sm:right-5 cursor-pointer' onClick={() => router.push(path)}>
+                                    <XMarkIcon className='w-8 h-8 text-black' />
+                                </span>
                                 <DialogTitle
                                     as="h3"
                                     className="font-black text-4xl  my-5"

@@ -33,6 +33,16 @@ const config: Config = {
         info: "#4caf50",
         accent: "#f472b6"
       },
+      padding: {
+        sm: "2rem",
+        md: "3rem",
+        lg: "5rem"
+      },
+      borderWidth: {
+        sm: "2px",
+        md: "4px",
+        lg: "10px"
+      },
       boxShadow: {
         '1': "2px 2px 4px 2px rgba(0,0,0,0.3)",
       },
