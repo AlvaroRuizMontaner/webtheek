@@ -3,6 +3,7 @@ import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from '@
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import AddMemberForm from './AddMemberForm';
 import { Project } from '@/types';
+import { XMarkIcon } from '@heroicons/react/20/solid';
 
 type AddMemberModalProps = {
     projectId: Project["_id"]
@@ -45,6 +46,9 @@ export default function AddMemberModal({projectId}: AddMemberModalProps) {
                                 leaveTo="opacity-0 scale-95"
                             >
                                 <DialogPanel className="w-full max-w-4xl transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all p-16">
+                                <span className='absolute inline-block top-2 right-2 sm:top-5 sm:right-5 cursor-pointer' onClick={() => router.push(path)}>
+                                    <XMarkIcon className='w-8 h-8 text-black' />
+                                </span>
                                     <DialogTitle
                                         as="h3"
                                         className="font-black text-4xl  my-5"

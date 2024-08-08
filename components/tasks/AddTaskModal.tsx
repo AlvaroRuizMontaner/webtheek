@@ -8,6 +8,7 @@ import { createTask } from '@/services/TaskAPI';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import SubmitInput from '../form/input/SubmitInput';
+import { XMarkIcon } from '@heroicons/react/20/solid';
 
 export default function AddTaskModal({projectId}: {projectId: Project["_id"]}) {
 
@@ -73,10 +74,13 @@ export default function AddTaskModal({projectId}: {projectId: Project["_id"]}) {
                                 leaveFrom="opacity-100 scale-100"
                                 leaveTo="opacity-0 scale-95"
                             >
-                                <Dialog.Panel className="w-full max-w-4xl transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all p-16">
+                                <Dialog.Panel className="w-full max-w-4xl transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all p-8 sm:p-16">
+                                    <span className='absolute inline-block top-2 right-2 sm:top-5 sm:right-5 cursor-pointer' onClick={() => router.push(path)}>
+                                        <XMarkIcon className='w-8 h-8 text-black' />
+                                    </span>
                                     <Dialog.Title
                                         as="h3"
-                                        className="font-black headline2 my-5"
+                                        className="font-black headline2 mb-5 leading-[1]"
                                     >
                                         Nueva Tarea
                                     </Dialog.Title>

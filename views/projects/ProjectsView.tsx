@@ -42,7 +42,7 @@ export default function ProjectsView() {
         {data.length ? (
           <ul
             role="list"
-            className="divide-y divide-gray-100 border border-gray-100 my-10 bg-white shadow-lg"
+            className="divide-y divide-gray-300 border border-gray-100 my-10 bg-white shadow-lg"
           >
             {data.map((project) => (
               <li
@@ -54,9 +54,9 @@ export default function ProjectsView() {
 
                   <div>
                   {isManager(project.manager, user._id) ?
-                        <p className="font-bold text-xs uppercase bg-indigo-50 text-indigo-500 border-2
+                        <p className="font-bold text-xs uppercase bg-indigo-50 text-indigo-500 border-sm
                         border-indigo-500 rounded-lg inline-block py-1 px-5 mb-2">Manager</p>:
-                        <p  className="font-bold text-xs uppercase bg-green-50 text-green-500 border-2
+                        <p  className="font-bold text-xs uppercase bg-green-50 text-green-500 border-sm
                         border-green-500 rounded-lg inline-block py-1 px-5 mb-2">Colaborador</p>
                       }
                   </div>

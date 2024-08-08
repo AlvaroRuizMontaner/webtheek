@@ -37,7 +37,7 @@ export default function NoteDetail({note, projectId}: NoteDetailProps) {
 
   return (
     <div className="flex justify-between items-center gap-2 body3">
-      <div className='flex-1 flex flex-col bg-primary rounded border-2 border-primary'>
+      <div className='flex-1 flex flex-col bg-primary rounded border-sm border-primary'>
         <div className='flex justify-between items-center gap-4 text-white'>
           <p className='px-1 flex justify-between w-full'>
             <span className="">{note.createdBy.name}</span>

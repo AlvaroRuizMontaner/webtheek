@@ -9,7 +9,7 @@ type SlideCardProps = {
 export default function SlideCard({level}: SlideCardProps) {
   return (
     <div className={`
-         p-4 sm:p-6 border-primary border-8 rounded-md cursor-pointer
+         p-4 sm:p-6 border-primary border-sm rounded-md cursor-pointer
         shadow-gray-500 shadow-md my-5 min-h-[240px] `
     }>
         <div className=' space-y-4'>

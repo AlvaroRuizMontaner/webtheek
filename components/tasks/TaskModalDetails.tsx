@@ -95,7 +95,7 @@ export default function TaskModalDetails({projectId, canEditNotes, canEditTasks}
                                 leaveTo="opacity-0 scale-95"
                             >
                                 <DialogPanel className="w-full max-w-4xl transform overflow-hidden rounded-2xl bg-white
-                                    text-left align-middle shadow-xl transition-all p-4 sm:p-16 relative"
+                                    text-left align-middle shadow-xl transition-all p-8 sm:p-16 relative"
                                 >
                                     <span className='absolute inline-block top-2 right-2 sm:top-5 sm:right-5 cursor-pointer' onClick={() => router.push(path)}>
                                         <XMarkIcon className='w-8 h-8 text-black' />
@@ -107,17 +107,17 @@ export default function TaskModalDetails({projectId, canEditNotes, canEditTasks}
                                         className="font-black headline2 text-slate-600 my-5"
                                     >{data.name}
                                     </DialogTitle>
-                                    <p className='text-lg text-slate-500 mb-2'>Descripción: {data.description}</p>
+                                    <p className='text-lg text-slate-500 mb-2 break-all '>Descripción: {data.description}</p>
 
                                     {data.completedBy.length ? (
                                         <div className='py-5'>
-                                            <p className={`flex items-center justify-between gap-2 rounded border-2 p-3 border-gray-300 text-black ${isOpenHistory && "rounded-b-none"} `}>
+                                            <p className={`flex items-center justify-between gap-2 rounded border-sm p-3 border-gray-300 text-black ${isOpenHistory && "rounded-b-none"} `}>
                                                 <span>Historial de cambios</span>
                                                 <span onClick={() => setIsOpenHistory((prev) => !prev)} className={`${isOpenHistory ? "rotate-180" : "rotate-0"} text-gray-500 ${styles["transition-rotate"]} cursor-pointer`}><ChevronDownIcon className='w-6 h-6 ' /></span>
                                             </p>
 
                                             <Collapse height='unset' position='relative' bottom='unset' isOpen={isOpenHistory}>
-                                                <div className='border-2 border-gray-300 border-t-0 p-2 rounded-b'>
+                                                <div className='border-sm border-gray-300 border-t-0 p-2 rounded-b'>
                                                     <ul className='list-decimal ml-4 relative bg-white px-2'>
                                                         {data.completedBy.map((activityLog) => (
                                                             <li key={activityLog._id}>
