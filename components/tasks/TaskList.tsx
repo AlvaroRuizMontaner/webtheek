@@ -7,6 +7,7 @@ import { DndContext, DragEndEvent, MouseSensor, TouchSensor, useSensor, useSenso
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'react-toastify'
 import { updateStatus } from '@/services/TaskAPI'
+import BackLogList from './BackLogList'
 
 type TaskListProps = {
     tasks: TaskProject[]
@@ -19,6 +20,7 @@ type GroupedTasks = {
 }
 
 const initialStatusGroups: GroupedTasks = {
+    backlog: [],
     pending: [],
     onHold: [],
     inProgress: [],
@@ -56,6 +58,9 @@ export default function TaskList({tasks, projectId, canEdit}: TaskListProps) {
         currentGroup = [...currentGroup, task]
         return { ...acc, [task.status]: currentGroup };
     }, initialStatusGroups);
+
+    const fieldGroupedTasks = Object.entries(groupedTasks).filter(([status]) => status !== "backlog")
+    const backlogGroupedTasks = groupedTasks["backlog"]
 
     const mouseSensor = useSensor(MouseSensor, {
       activationConstraint: {
@@ -113,7 +118,7 @@ export default function TaskList({tasks, projectId, canEdit}: TaskListProps) {
       <div className="flex gap-5 overflow-x-scroll 2xl:overflow-auto pb-8">
         {canEdit ? (
           <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd} sensors={sensors}>
-          {Object.entries(groupedTasks).map(([status, tasks]) => (
+          {fieldGroupedTasks.map(([status, tasks]) => (
             <div key={status} className="2xl:min-w-0 2xl:w-1/5 taskWidth">
 
               <h3 
@@ -136,7 +141,7 @@ export default function TaskList({tasks, projectId, canEdit}: TaskListProps) {
           ))}
         </DndContext>
         ) : (
-          Object.entries(groupedTasks).map(([status, tasks]) => (
+          fieldGroupedTasks.map(([status, tasks]) => (
             <div key={status} className="taskWidth 2xl:min-w-0 2xl:w-1/5">
 
               <h3 
@@ -157,6 +162,8 @@ export default function TaskList({tasks, projectId, canEdit}: TaskListProps) {
           ))
         )}
       </div>
+
+      <BackLogList backlogGroupedTasks={backlogGroupedTasks} canEdit={canEdit} projectId={projectId} />
     </>
   );
 }

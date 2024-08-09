@@ -20,7 +20,7 @@ export type UpdateCurrentPasswordForm = Pick<Auth, "current_password" | "passwor
 export type ConfirmToken = Pick<Auth, "token">
 export type checkPasswordForm = Pick<Auth, "password">
 
-export const taskStatusSchema = z.enum(["pending", "onHold", "inProgress", "underReview", "completed"])
+export const taskStatusSchema = z.enum(["backlog", "pending", "onHold", "inProgress", "underReview", "completed"])
 export type TaskStatus = z.infer<typeof taskStatusSchema>
 
 /*     const taskStatus = {
