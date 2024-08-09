@@ -1,3 +1,6 @@
+
+@import "../../styles/colors.css";
+
 .no-border-focus {
     cursor: pointer;
 }
@@ -16,4 +19,9 @@
     @media screen and (min-width: 440px) {
         min-width: 270px;
     }
+}
+
+.backlog-card {
+    background: linear-gradient(to bottom, var(--primary) -50%, #FFF 50%, var(--primary) 150%);
+    background-color: green;
 }
