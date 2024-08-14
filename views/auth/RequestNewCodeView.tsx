@@ -73,7 +73,7 @@ export default function RegisterView() {
           <SubmitInput isLoading={isPending} value="Enviar Código" />
         </form>
 
-        <nav className="mt-10 flex flex-col space-y-4">
+        <nav className="mt-10 flex flex-col space-y-4 body2">
           <div className="text-gray-300 flex gap-1 justify-center">
             <span>¿Ya tienes cuenta?</span>
             <Link

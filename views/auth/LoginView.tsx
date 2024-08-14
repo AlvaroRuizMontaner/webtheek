@@ -52,7 +52,7 @@ export default function LoginView() {
       >
         <div className="flex flex-col gap-5">
           <label
-            className="headline3 text-primary font-bold"
+            className="body1 text-primary font-bold"
           >Email</label>
 
           <input
@@ -78,7 +78,7 @@ export default function LoginView() {
 
         <div className="flex flex-col gap-5">
           <label
-            className="font-bold headline3 text-primary"
+            className="font-bold body1 text-primary"
           >Password</label>
 
           <div className='relative'>
@@ -111,7 +111,7 @@ export default function LoginView() {
         <SubmitInput isLoading={isPending} value="Iniciar Sesión" />
       </form>
 
-      <nav className="mt-10 flex flex-col space-y-4">
+      <nav className="mt-10 flex flex-col space-y-4 body2">
         <div className="text-gray-300 flex gap-1 justify-center">
             <span>¿No tienes una cuenta?</span>
             <Link

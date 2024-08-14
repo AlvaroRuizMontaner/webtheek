@@ -56,7 +56,7 @@ export default function ConfirmAccountView() {
 
       </form>
 
-      <nav className="mt-10 flex flex-col space-y-4">
+      <nav className="mt-10 flex flex-col space-y-4 body2">
         <Link
           href='/auth/request-code'
           className="text-center text-tertiary underline font-normal body2"
