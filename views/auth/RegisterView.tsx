@@ -60,7 +60,7 @@ export default function RegisterView() {
       >
         <div className="flex flex-col gap-5">
           <label
-            className="font-bold headline3 text-primary"
+            className="font-bold body1 text-primary"
             htmlFor="email"
           >Email</label>
           <input
@@ -86,12 +86,12 @@ export default function RegisterView() {
 
         <div className="flex flex-col gap-5">
           <label
-            className="font-bold headline3 text-primary"
+            className="font-bold body1 text-primary"
           >Nombre</label>
           <input
-            type="name"
+            type="text"
             placeholder="Nombre de Registro"
-            className="w-full p-3  border-gray-300 border"
+            className="w-full p-3 border-gray-300 border"
             {...register("name", {
               required: "El Nombre de usuario es obligatorio",
             })}
@@ -106,7 +106,7 @@ export default function RegisterView() {
 
         <div className="flex flex-col gap-5">
           <label
-            className="font-bold headline3 text-primary"
+            className="font-bold body1 text-primary"
           >Password</label>
           <div className='relative'>
             <input
@@ -131,7 +131,7 @@ export default function RegisterView() {
 
         <div className="flex flex-col gap-5">
           <label
-            className="font-bold headline3 text-primary"
+            className="font-bold body1 text-primary"
           >Repetir Password</label>
           <div className='relative'>
             <input
@@ -171,7 +171,7 @@ export default function RegisterView() {
         </div>
       )}
 
-      <nav className="mt-10 flex flex-col space-y-4">
+      <nav className="mt-10 flex flex-col space-y-4 body1">
         <div className="text-gray-300 flex gap-1 justify-center">
             <span>¿Ya tienes cuenta?</span>
             <Link

@@ -89,7 +89,7 @@ export default function ForgotPasswordView() {
         </Link> */}
 
 
-        <div className="text-gray-300 flex gap-1 justify-center">
+        <div className="text-gray-300 flex gap-1 justify-center body2">
             <span>¿Ya tienes cuenta?</span>
             <Link
               href="/auth/login"
