@@ -26,7 +26,7 @@ export default function DashboardView() {
           <h1 className="text-center headline1 font-bold bg-primary text-white">¿Qué es Webtheek?</h1>
 
           <div className="flex justify-center p-4">
-            <h2 className="text-center headline4">
+            <h2 className="text-center body1">
               {" "}
               Webtheek es una plataforma que aspira en el futuro a ser una biblioteca de
               recursos web de todo tipo, una webteca.
