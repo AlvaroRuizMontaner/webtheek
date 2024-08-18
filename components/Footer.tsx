@@ -5,7 +5,7 @@ const Footer = (): JSX.Element => {
         Web en desarrollo por Álvaro Ruiz Montaner
       </div>
 
-      <div className="text-center text-tertiary">
+      <div className="text-center text-accent-300">
         LinkedIn:{" "}
         <a
           className="text-white underline"

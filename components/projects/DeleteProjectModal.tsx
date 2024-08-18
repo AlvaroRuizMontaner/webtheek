@@ -85,7 +85,7 @@ export default function DeleteProjectModal() {
                                 >Eliminar Proyecto </Dialog.Title>
 
                                 <p className="text-xl font-bold">Confirma la eliminación del proyecto {''}
-                                    <span className="text-secondary">colocando tu password</span>
+                                    <span className="text-accent-300">colocando tu password</span>
                                 </p>
 
                                 <form

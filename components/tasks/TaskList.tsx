@@ -29,11 +29,11 @@ const initialStatusGroups: GroupedTasks = {
 }
 
 const statusStyles: {[key: string]: string} = {
-  pending: "border-t-gray-400",
-  onHold: "border-t-accent-danger-400",
-  inProgress: "border-t-primary-400",
+  pending: "border-t-gray-500",
+  onHold: "border-t-accent-danger-500",
+  inProgress: "border-t-primary-500",
   underReview: "border-t-accent-warning-300",
-  completed: "border-t-accent-400"
+  completed: "border-t-accent-500"
 }
 
 export default function TaskList({tasks, projectId, canEdit}: TaskListProps) {

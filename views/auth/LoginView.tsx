@@ -42,7 +42,7 @@ export default function LoginView() {
       <h1 className="font-black text-white headline1">Iniciar sesión</h1>
       <p className="font-light text-white my-5 body1">
         Prosigue tu aventura en Webtheek {''}
-        <span className=" text-secondary font-bold"> iniciando sesión en este formulario</span>
+        <span className=" text-accent-300 font-bold"> iniciando sesión en este formulario</span>
       </p>
 
       <form
@@ -116,7 +116,7 @@ export default function LoginView() {
             <span>¿No tienes una cuenta?</span>
             <Link
               href={"/auth/register"}
-              className="text-center font-normal text-tertiary underline"
+              className="text-center font-bold text-accent-300 "
             >
               Crear cuenta
             </Link>
@@ -125,7 +125,7 @@ export default function LoginView() {
             <span>¿Olvidaste tu contraseña?</span>
             <Link
               href="/auth/forgot-password"
-              className="text-center font-normal text-tertiary underline"
+              className="text-center font-bold text-accent-300 "
             >
               Restablecer
             </Link>

@@ -33,7 +33,7 @@ export default function RegisterView() {
         </h1>
         <p className="text-2xl font-light text-white mt-5">
           Coloca tu e-mail para recibir {""}
-          <span className=" text-secondary font-bold"> un nuevo código</span>
+          <span className=" text-accent-300 font-bold"> un nuevo código</span>
         </p>
 
         <form
@@ -78,7 +78,7 @@ export default function RegisterView() {
             <span>¿Ya tienes cuenta?</span>
             <Link
               href="/auth/login"
-              className="text-center font-normal text-tertiary underline"
+              className="text-center font-bold text-accent-300"
             >
               Iniciar Sesión
             </Link>
@@ -87,7 +87,7 @@ export default function RegisterView() {
             <span>¿Olvidaste tu contraseña?</span>
             <Link
               href="/auth/forgot-password"
-              className="text-center font-normal text-tertiary underline"
+              className="text-center font-bold text-accent-300"
             >
               Reestablecer
             </Link>
