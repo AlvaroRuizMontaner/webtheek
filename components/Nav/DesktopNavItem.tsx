@@ -30,7 +30,7 @@ export default function DesktopNavItem({name, url}: NavItem) {
     }
 
   return (
-    <div className={`'cursor-pointer' ${isPath && "border-b-2 border-primary"}`}>
+    <div className={`'cursor-pointer' ${isPath && "border-b-4 border-primary-300"}`}>
         {(url || url === "") ? (
             <Link href={`/${url}`}>{name}</Link>
         ): (

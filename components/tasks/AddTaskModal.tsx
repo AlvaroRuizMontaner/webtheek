@@ -101,7 +101,7 @@ export default function AddTaskModal({projectId}: {projectId: Project["_id"]}) {
 {/*                                         <input
                                             type="submit"
                                             value="Guardar Tarea"
-                                            className=" bg-info hover:bg-dark-secondary w-full p-3 text-white 
+                                            className=" bg-accent-500 hover:bg-accent-700 w-full p-3 text-white 
                                             uppercase font-bold cursor-pointer transition-colors"
                                         /> */}
                                         <SubmitInput isLoading={isPending} value="Guardar Tarea" />

@@ -56,7 +56,7 @@ export default function NewPasswordForm({token}: NewPasswordFormProps) {
 
                 <div className="flex flex-col gap-5">
                     <label
-                        className="font-normal text-2xl text-primary headline3"
+                        className="font-normal text-2xl text-primary-500 headline3"
                     >Password</label>
                     <div className='relative'>
                         <input
@@ -84,7 +84,7 @@ export default function NewPasswordForm({token}: NewPasswordFormProps) {
 
                 <div className="flex flex-col gap-5">
                     <label
-                        className="font-normal body1 text-primary headline3"
+                        className="font-normal body1 text-primary-500 headline3"
                     >Repetir Password</label>
 
                     <input
@@ -124,7 +124,7 @@ export default function NewPasswordForm({token}: NewPasswordFormProps) {
 {/*                 <input
                     type="submit"
                     value='Establecer Password'
-                    className="bg-info hover:bg-dark-secondaryw-full p-3  text-white font-black  text-xl cursor-pointer"
+                    className="bg-accent-500 hover:bg-accent-700 w-full p-3  text-white font-black  text-xl cursor-pointer"
                 /> */}
                 <SubmitInput isLoading={isPending} value="Establecer Password" />
             </form>

@@ -52,7 +52,7 @@ export default function LoginView() {
       >
         <div className="flex flex-col gap-5">
           <label
-            className="body1 text-primary font-bold"
+            className="body1 text-primary-500 font-bold"
           >Email</label>
 
           <input
@@ -78,7 +78,7 @@ export default function LoginView() {
 
         <div className="flex flex-col gap-5">
           <label
-            className="font-bold body1 text-primary"
+            className="font-bold body1 text-primary-500"
           >Password</label>
 
           <div className='relative'>
@@ -101,7 +101,7 @@ export default function LoginView() {
           )}
         </div>
 
-{/*         <div className="bg-info hover:bg-dark-secondary w-full flex justify-center h-[52px] text-white font-black text-xl cursor-pointer relative">
+{/*         <div className="bg-accent-500 hover:bg-accent-700 w-full flex justify-center h-[52px] text-white font-black text-xl cursor-pointer relative">
           {!isPending ? <input
           type="submit"
           value='Iniciar Sesión'

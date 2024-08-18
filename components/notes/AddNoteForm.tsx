@@ -63,7 +63,7 @@ export default function AddNoteForm({projectId}: {projectId: Project["_id"]}) {
 {/*             <input 
                 type="submit" 
                 value="Crear Nota"
-                className='bg-info hover:bg-dark-secondary w-full sm:w-fit px-8 py-2 body2 text-white font-black cursor-pointer rounded'
+                className='bg-accent-500 hover:bg-accent-700 w-full sm:w-fit px-8 py-2 body2 text-white font-black cursor-pointer rounded'
             /> */}
             <SubmitInput isLoading={isPending} value="Crear Nota" />
         </div>

@@ -95,7 +95,7 @@ export default function EditTaskModal({data, projectId, taskId}: EditTaskModalPr
                                     
                                     <TaskForm register={register} errors={errors} />
 
-{/*                                     <div className="bg-info hover:bg-dark-secondary w-full flex justify-center h-[52px] text-white font-black text-xl cursor-pointer relative">
+{/*                                     <div className="bg-accent-500 hover:bg-accent-700 w-full flex justify-center h-[52px] text-white font-black text-xl cursor-pointer relative">
                                         {!isPending ? <input
                                         type="submit"
                                         value='Guardar Tarea'

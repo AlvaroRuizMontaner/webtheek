@@ -19,7 +19,7 @@ export default function AppLayout({children}: AppLayoutProps): ReactNode {
 
   return (
     <>
-      <header className=" bg-dark-primary py-5">
+      <header className=" bg-primary-900 py-5">
         <div
           className="max-w-screen-2xl mx-auto flex sm:flex-row gap-6
             justify-between items-center container"

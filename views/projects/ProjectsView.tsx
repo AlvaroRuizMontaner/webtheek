@@ -31,8 +31,8 @@ export default function ProjectsView() {
 
         <nav className="my-5">
           <Link
-            className="inline-block bg-primary hover:bg-dark-primary px-10 py-3 text-white text-xl 
-          font-bold cursor-pointer transition-colors"
+            className="inline-block bg-primary-400 hover:bg-primary-700 px-10 py-3 text-white text-xl 
+          cursor-pointer transition-colors shadow-inset"
             href="/projects/create"
           >
             Nuevo proyecto
@@ -54,10 +54,10 @@ export default function ProjectsView() {
 
                   <div>
                   {isManager(project.manager, user._id) ?
-                        <p className="font-bold text-xs uppercase bg-indigo-50 text-indigo-500 border-sm
-                        border-indigo-500 rounded-lg inline-block py-1 px-5 mb-2">Manager</p>:
-                        <p  className="font-bold text-xs uppercase bg-green-50 text-green-500 border-sm
-                        border-green-500 rounded-lg inline-block py-1 px-5 mb-2">Colaborador</p>
+                        <p className="font-bold text-xs uppercase bg-primary-100 text-primary-500 border-sm
+                        border-primary-500 rounded-lg inline-block py-1 px-5 mb-2">Manager</p>:
+                        <p  className="font-bold text-xs uppercase bg-accent-100 text-accent-500 border-sm
+                        border-accent-500 rounded-lg inline-block py-1 px-5 mb-2">Colaborador</p>
                       }
                   </div>
 

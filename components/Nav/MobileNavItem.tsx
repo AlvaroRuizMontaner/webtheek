@@ -29,7 +29,7 @@ export default function MobileNavItem({url, name}: NavItem) : JSX.Element {
     }
 
     return (
-        <div className={`'cursor-pointer' ${isPath && "border-b-2 border-primary w-32"}`}>
+        <div className={`'cursor-pointer' ${isPath && "border-b-2 border-primary-500 w-32"}`}>
             {(url || url === "") ? (
                 <Link className='block p-2 hover:text-purple-950' href={`/${url}`}>{name}</Link>
             ): (

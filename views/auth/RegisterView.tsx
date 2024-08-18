@@ -60,7 +60,7 @@ export default function RegisterView() {
       >
         <div className="flex flex-col gap-5">
           <label
-            className="font-bold body1 text-primary"
+            className="font-bold body1 text-primary-500"
             htmlFor="email"
           >Email</label>
           <input
@@ -86,7 +86,7 @@ export default function RegisterView() {
 
         <div className="flex flex-col gap-5">
           <label
-            className="font-bold body1 text-primary"
+            className="font-bold body1 text-primary-500"
           >Nombre</label>
           <input
             type="text"
@@ -106,7 +106,7 @@ export default function RegisterView() {
 
         <div className="flex flex-col gap-5">
           <label
-            className="font-bold body1 text-primary"
+            className="font-bold body1 text-primary-500"
           >Password</label>
           <div className='relative'>
             <input
@@ -131,7 +131,7 @@ export default function RegisterView() {
 
         <div className="flex flex-col gap-5">
           <label
-            className="font-bold body1 text-primary"
+            className="font-bold body1 text-primary-500"
           >Repetir Password</label>
           <div className='relative'>
             <input
@@ -156,7 +156,7 @@ export default function RegisterView() {
           )}
         </div>
 
-{/*           <div className="bg-info hover:bg-dark-secondary w-full flex justify-center h-[52px] text-white font-black text-xl cursor-pointer relative">
+{/*           <div className="bg-accent-500 hover:bg-accent-700 w-full flex justify-center h-[52px] text-white font-black text-xl cursor-pointer relative">
             {!isLoading ? <input
             type="submit"
             value='Registrarme'
@@ -166,8 +166,8 @@ export default function RegisterView() {
           <SubmitInput isLoading={isLoading} value="Registrarme" />
       </form> : (
         <div className="space-y-8 p-7 sm:p-10 bg-white mt-10 flex justify-center items-center flex-col rounded-2xl">
-          <p className="text-center text-dark-secondary headline2 font-bold ">Cuenta creada</p>
-          <p>Tu cuenta ha sido creada con éxito, pero ahora necesitamos que la confirmes revisando la información que hemos enviado a tu <span className="font-bold text-dark-primary">email</span></p>
+          <p className="text-center text-accent-700 headline2 font-bold ">Cuenta creada</p>
+          <p>Tu cuenta ha sido creada con éxito, pero ahora necesitamos que la confirmes revisando la información que hemos enviado a tu <span className="font-bold text-primary-900">email</span></p>
         </div>
       )}
 

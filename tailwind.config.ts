@@ -35,25 +35,25 @@ const config: Config = {
         accent: "#f472b6",
 
 
-        "primary-100": "#a7c0fb", // hsla(222, 91%, 82%, 1)
-        "primary-200": "#8a9fff", // hsla(229, 100%, 77%, 1)
-        "primary-300": "#687cfd", // hsla(232, 97%, 70%, 1)
+        "primary-100": "#e5edff", // hsla(222, 100%, 95%, 1)
+        "primary-200": "#b3c1ff", // hsla(229, 100%, 85%, 1)
+        "primary-300": "#8998f5", // hsla(232, 85%, 75%, 1)
     
         "primary-400": "#565ee6", // hsla(237, 74%, 62%, 1)
-        "primary-500": "#3939c6", // hsla(240, 55%, 50%, 1)
+        "primary-500": "#4d4dcb", // hsla(240, 55%, 55%, 1)
         "primary-600": "#2929ae", // hsla(240, 62%, 42%, 1)
     
         "primary-700": "#202097", // hsla(240, 65%, 36%, 1)
-        "primary-800": "#141480", // hsla(240, 73%, 29%, 1)
-        "primary-900": "#050566", // hsla(240, 90%, 21%, 1)
+        "primary-800": "#212173", // hsla(240, 56%, 29%, 1)
+        "primary-900": "#1E1B4B", // hsla(244, 47%, 20%, 1)
 
 
-        "gray-100": "#c0cae3", // hsla(222, 38%, 82%, 1)
+        "gray-100": "#f1f3f9", // hsla(222, 38%, 96%, 1)
         "gray-200": "#b3b9d6", // hsla(229, 30%, 77%, 1)
         "gray-300": "#a3a7c2", // hsla(232, 20%, 70%, 1)
     
         "gray-400": "#9495a8", // hsla(237, 10%, 62%, 1)
-        "gray-500": "#808080", // hsla(240, 0%, 50%, 1)
+        "gray-500": "#778", // hsla(240, 7%, 50%, 1)
         "gray-600": "#535365", // hsla(240, 10%, 36%, 1)
     
         "gray-700": "#34344b", // hsla(240, 18%, 25%, 1)
@@ -61,12 +61,12 @@ const config: Config = {
         "gray-900": "#10101e", // hsla(240, 32%, 9%, 1)
 
 
-        "accent-100": "#b7fafa", // hsla(180, 88%, 85%, 1)
+        "accent-100": "#e7fdfd", // hsla(180, 88%, 95%, 1)
         "accent-200": "#97eded", // hsla(180, 70%, 76%, 1)
         "accent-300": "#74dcdc", // hsla(180, 60%, 66%, 1)
     
         "accent-400": "#5bc8bd", // hsla(174, 50%, 57%, 1)
-        "accent-500": "#4db3a2", // hsla(170, 40%, 50%, 1)
+        "accent-500": "#39c6ae", // hsla(170, 55%, 50%, 1)
         "accent-600": "#37a492", // hsla(170, 50%, 43%, 1)
     
         "accent-700": "#228c7a", // hsla(170, 61%, 34%, 1)
@@ -74,7 +74,7 @@ const config: Config = {
         "accent-900": "#024f42", // hsla(170, 94%, 16%, 1)
 
 
-        "accent-warning-100": "#fafab7", // hsla(60, 88%, 85%, 1)
+        "accent-warning-100": "#fcfcd4", // hsla(60, 88%, 91%, 1)
         "accent-warning-200": "#eded97", // hsla(60, 70%, 76%, 1)
         "accent-warning-300": "#dcdc74", // hsla(60, 60%, 66%, 1)
     
@@ -87,7 +87,7 @@ const config: Config = {
         "accent-warning-900": "#424f02", // hsla(70, 94%, 16%, 1)
 
 
-        "accent-danger-100": "#fab7b7", // hsla(360, 88%, 85%, 1)
+        "accent-danger-100": "#fcd4d4", // hsla(360, 88%, 91%, 1)
         "accent-danger-200": "#ed9797", // hsla(360, 70%, 76%, 1)
         "accent-danger-300": "#dc7474", // hsla(360, 60%, 66%, 1)
     
@@ -119,7 +119,15 @@ const config: Config = {
         lg: "10px"
       },
       boxShadow: {
-        '1': "2px 2px 4px 2px rgba(0,0,0,0.3)",
+        /* '1': "2px 2px 4px 2px rgba(0,0,0,0.3)", */
+        "1": "0 1px 3px hsla(0, 0%, 0%,0.2)",
+        "2": "0 4px 6px hsla(0, 0%, 0%,0.2)",
+        "3": "0 5px 15px hsla(0, 0%, 0%,0.2)",
+        "4": "0 10px 24px hsla(0, 0%, 0%,0.2)",
+        "5": "0 15px 35px hsla(0, 0%, 0%,0.2)",
+        inset: 'inset 0 1px 0 hsla(229, 100%, 77%, 1), 0 1px 3px hsla(0, 0%, 0%, 0.2)',
+        "combined-1": "4px 6px hsla(0, 0%, 0%,0.7), 5px 15px hsla(0, 0%, 0%,0.1)",
+        "no-blur": "0 3px 0 hsl(230, 7%, 83%)"
       },
       fontFamily: {
         lato: ["Lato", "sans-serif"],

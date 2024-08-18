@@ -36,7 +36,7 @@ export default function ProfileForm({ data }: ProfileFormProps) {
     return (
         <>
             <div className="mx-auto max-w-3xl g">
-                <h1 className="headline1 font-black ">Mi Perfil</h1>
+                <h1 className="headline1 font-black ">Mi perfil</h1>
                 <p className="body1 font-light text-gray-500 mt-5">Aquí puedes actualizar tu información</p>
 
                 <form
@@ -91,14 +91,14 @@ export default function ProfileForm({ data }: ProfileFormProps) {
                             <ErrorMessage>{errors.email.message}</ErrorMessage>
                         )}
                     </div>
-{/*                     <div className="bg-info hover:bg-dark-secondary w-full flex justify-center h-[52px] text-white font-black text-xl cursor-pointer relative">
+{/*                     <div className="bg-accent-500 hover:bg-accent-700 w-full flex justify-center h-[52px] text-white font-black text-xl cursor-pointer relative">
                         {!isPending ? <input
                         type="submit"
                         value='Guardar Cambios'
                         className="block w-full h-full p-3 cursor-pointer"
                         /> : <Spinner />}
                     </div> */}
-                    <SubmitInput isLoading={isPending} value="Guardar Cambios" />
+                    <SubmitInput isLoading={isPending} value="Guardar cambios" />
                 </form>
             </div>
         </>

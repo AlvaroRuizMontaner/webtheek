@@ -38,8 +38,8 @@ export default function ProjectDetailsView({projectId}: {projectId: Project["_id
           <nav className="flex flex-col gap-3 sm:flex-row">
             {(isManager(data.manager, user._id) || havePermission(data.team, user._id, 3)) && <button
               type="button"
-              className=" bg-primary hover:bg-dark-primary px-10 py-3 text-white text-xl
-                font-bold cursor-pointer transition-colors mt-5"
+              className=" bg-primary-400 hover:bg-primary-700 px-10 py-3 text-white text-xl
+                cursor-pointer transition-colors mt-5 shadow-inset"
               onClick={() => router.push("?newTask=true")}
             >
               Agregar Tarea
@@ -47,8 +47,8 @@ export default function ProjectDetailsView({projectId}: {projectId: Project["_id
 
             {(isManager(data.manager, user._id) || havePermission(data.team, user._id, 4)) &&<Link
               href={path + "/team"}
-              className=" bg-info hover:bg-dark-secondary px-10 py-3 text-white text-xl
-                font-bold cursor-pointer transition-colors flex justify-center mt-5"
+              className=" bg-white hover:bg-primary-100 px-10 py-3 text-primary-500 border-2 border-primary-500 text-xl
+                font-bold cursor-pointer transition-colors flex justify-center mt-5 shadow-inset"
             >
               Colaboradores
             </Link>}
