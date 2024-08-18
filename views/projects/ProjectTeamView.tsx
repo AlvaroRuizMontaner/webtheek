@@ -47,7 +47,7 @@ export default function ProjectTeamView({projectId}: ProjectTeamViewProps) {
         <nav className="my-5 flex flex-col sm:flex-row gap-3">
           <button
             type="button"
-            className=" bg-primary hover:bg-dark-primary px-10 py-3 text-white body2
+            className=" bg-primary-400 hover:bg-primary-700 px-10 py-3 text-white body2
                 font-bold cursor-pointer transition-colors text-center"
             onClick={() => router.push("?addMember=true")}
           >
@@ -56,7 +56,7 @@ export default function ProjectTeamView({projectId}: ProjectTeamViewProps) {
 
           <Link
             href={"/projects/" + projectId}
-            className=" bg-info hover:bg-dark-secondary px-10 py-3 text-white body2
+            className=" bg-white hover:bg-primary-100 border-2 border-primary-500 px-10 py-3 text-primary-500 body2
                 font-bold cursor-pointer transition-colors text-center"
           >
             Volver a proyecto

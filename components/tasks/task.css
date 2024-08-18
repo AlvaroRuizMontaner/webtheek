@@ -22,6 +22,6 @@
 }
 
 .backlog-card {
-    background: linear-gradient(to bottom, var(--primary) -50%, #FFF 50%, var(--primary) 150%);
+    background: linear-gradient(to bottom, var(--primary-500) -50%, #FFF 50%, var(--primary-500) 150%);
     background-color: green;
 }

@@ -45,7 +45,7 @@ export default function TaskCard({task, projectId, canEdit}: TaskCardProps) {
     {...attributes}
     ref={setNodeRef}
     style={style}
-    className="p-3 sm:p-5 bg-white border border-slate-300 flex justify-between gap-3">
+    className="p-3 sm:p-5 bg-white border border-gray-200 flex justify-between gap-3 shadow-2">
       <div className=" min-w-0 flex flex-col gap-y-4 max-h-48">
         <button
           type="button"

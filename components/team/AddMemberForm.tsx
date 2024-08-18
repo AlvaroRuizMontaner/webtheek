@@ -63,7 +63,7 @@ export default function AddMemberForm({projectId}: AddMemberFormProps) {
                     )}
                 </div>
 
-{/*                 <div className="bg-info hover:bg-dark-secondary w-full flex justify-center h-[52px] text-white font-black text-xl cursor-pointer relative">
+{/*                 <div className="bg-accent.500 hover:bg-accent-700 w-full flex justify-center h-[52px] text-white font-black text-xl cursor-pointer relative">
                     {!mutation.isPending ? <input
                     type="submit"
                     value='Buscar Usuario'

@@ -11,7 +11,7 @@ export default function NavMenu(): JSX.Element {
 
   return (
     <Popover className="">
-      <PopoverButton className="inline-flex items-center gap-x-1 text-sm font-semibold leading-6 p-1 rounded-lg bg-primary">
+      <PopoverButton className="inline-flex items-center gap-x-1 text-sm font-semibold leading-6 p-1 rounded-lg bg-primary-900">
         <Bars3Icon className='w-8 h-8 text-white ' />
       </PopoverButton>
 

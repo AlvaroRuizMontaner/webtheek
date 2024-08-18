@@ -96,7 +96,7 @@ export default function DeleteProjectModal() {
 
                                     <div className="flex flex-col gap-3">
                                         <label
-                                            className="font-normal text-primary headline3"
+                                            className="font-normal text-primary-500 headline3"
                                             htmlFor="password"
                                         >Password</label>
                                         <input
@@ -113,7 +113,7 @@ export default function DeleteProjectModal() {
                                         )}
                                     </div>
 
-{/*                                     <div className="bg-info hover:bg-dark-secondary w-full flex justify-center h-[52px] text-white font-black text-xl cursor-pointer relative">
+{/*                                     <div className="bg-accent-500 hover:bg-accent-700 w-full flex justify-center h-[52px] text-white font-black text-xl cursor-pointer relative">
                                         {!checkPasswordMutation.isPending || !deleteProjectMutation.isPending ? <input
                                         type="submit"
                                         value='Eliminar Proyecto'

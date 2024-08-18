@@ -44,7 +44,7 @@ return (
 
       <nav className="my-5">
         <Link
-          className=" bg-primary hover:bg-dark-primary px-10 py-3 text-white text-xl 
+          className=" bg-primary-400 hover:bg-primary-700 px-10 py-3 text-white text-xl 
         font-bold cursor-pointer transition-colors"
           href="/"
         >
@@ -58,7 +58,7 @@ return (
         noValidate
       >
         <ProjectForm register={register} errors={errors} />
-{/*         <div className="bg-info hover:bg-dark-secondary w-full flex justify-center h-[52px] text-white font-black text-xl cursor-pointer relative">
+{/*         <div className="bg-accent-500 hover:bg-accent-700 w-full flex justify-center h-[52px] text-white font-black text-xl cursor-pointer relative">
             {!isPending ? <input
             type="submit"
             value='Iniciar Sesión'

@@ -45,7 +45,7 @@ return (
 
       <nav className="my-5">
         <Link
-          className=" bg-primary hover:bg-dark-primary px-10 py-3 text-white text-xl 
+          className=" bg-primary-400 hover:bg-primary-700 px-10 py-3 text-white text-xl 
         font-bold cursor-pointer transition-colors"
           href="/"
         >
@@ -62,7 +62,7 @@ return (
 {/*         <input
           type="submit"
           value="Crear proyecto"
-          className=" bg-info hover:bg-dark-secondary w-full p-3 text-white 
+          className=" bg-accent-500 hover:bg-accent-700 w-full p-3 text-white 
           uppercase font-bold cursor-pointer transition-colors"
         /> */}
         <SubmitInput isLoading={isPending} value="Crear proyecto" />

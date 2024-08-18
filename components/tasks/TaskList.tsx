@@ -29,11 +29,11 @@ const initialStatusGroups: GroupedTasks = {
 }
 
 const statusStyles: {[key: string]: string} = {
-  pending: "border-t-slate-500",
-  onHold: "border-t-red-500",
-  inProgress: "border-t-blue-500",
-  underReview: "border-t-amber-500",
-  completed: "border-t-emerald-500"
+  pending: "border-t-gray-400",
+  onHold: "border-t-accent-danger-400",
+  inProgress: "border-t-primary-400",
+  underReview: "border-t-accent-warning-300",
+  completed: "border-t-accent-400"
 }
 
 export default function TaskList({tasks, projectId, canEdit}: TaskListProps) {
@@ -123,7 +123,7 @@ export default function TaskList({tasks, projectId, canEdit}: TaskListProps) {
 
               <h3 
                 className={`capitalize text-xl font-light border border-slate-300 bg-white
-                p-3 border-t-8 ${statusStyles[status]}`}
+                p-3 border-t-8 shadow-2 ${statusStyles[status]}`}
               >{statusTranslations[status]}</h3>
 
               {showDropTask && <DropTask status={status} />}
