@@ -45,7 +45,7 @@ export default function UserTeamView({projectId, userId}: UserTeamViewProps) {
   if (isError) throw new Error("Error");
   if (data) return (
     <>
-      <h1 className=" font-black headline2">Editar permisos de <span className='text-secondary'>{data.user.name}</span></h1>
+      <h1 className=" font-black headline2">Editar permisos de <span className='text-accent-700'>{data.user.name}</span></h1>
 
       <div className='mt-10'>
         <div className='max-w-[600px] mx-auto flex items-center justify-center h-[260px] relative'>

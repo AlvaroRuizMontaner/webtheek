@@ -56,7 +56,7 @@ export default function AddMemberModal({projectId}: AddMemberModalProps) {
                                         Agregar Integrante al equipo
                                     </DialogTitle>
                                     <p className="text-xl font-bold">Busca el nuevo integrante por email {''}
-                                        <span className="text-secondary">para agregarlo al proyecto</span>
+                                        <span className="text-accent-300">para agregarlo al proyecto</span>
                                     </p>
 
                                     <AddMemberForm projectId={projectId}/>

@@ -93,7 +93,7 @@ export default function ForgotPasswordView() {
             <span>¿Ya tienes cuenta?</span>
             <Link
               href="/auth/login"
-              className="text-center font-normal text-tertiary underline"
+              className="text-center font-bold text-accent-300"
             >
               Iniciar Sesión
             </Link>
@@ -102,7 +102,7 @@ export default function ForgotPasswordView() {
             <span>¿No tienes cuenta?</span>
             <Link
               href="/auth/register"
-              className="text-center font-normal text-tertiary underline"
+              className="text-center font-bold text-accent-300"
             >
               Crear cuenta
             </Link>

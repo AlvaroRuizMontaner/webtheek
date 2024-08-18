@@ -47,10 +47,10 @@ export default function RegisterView() {
 
   return (
     <>
-      <h1 className="headline1 font-black text-white">Crear Cuenta</h1>
+      <h1 className="headline1 font-black text-primary-200">Crear cuenta</h1>
       <p className="body1 font-light text-white mt-5">
         Llena el formulario para {''}
-        <span className=" text-secondary font-bold"> crear tu cuenta</span>
+        <span className=" text-accent-300 font-bold"> crear tu cuenta</span>
       </p>
 
       {!isSubmitted ? <form
@@ -176,7 +176,7 @@ export default function RegisterView() {
             <span>¿Ya tienes cuenta?</span>
             <Link
               href={"/auth/login"}
-              className="text-center font-normal text-tertiary underline"
+              className="text-center font-bold text-accent-300"
             >
               Iniciar sesión
             </Link>
@@ -185,7 +185,7 @@ export default function RegisterView() {
             <span>¿Olvidaste tu contraseña?</span>
             <Link
               href="/auth/forgot-password"
-              className="text-center font-normal text-tertiary underline"
+              className="text-center font-bold text-accent-300"
             >
               Restablecer
             </Link>

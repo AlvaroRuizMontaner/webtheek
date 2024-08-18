@@ -61,7 +61,7 @@ const config: Config = {
         "gray-900": "#10101e", // hsla(240, 32%, 9%, 1)
 
 
-        "accent-100": "#e7fdfd", // hsla(180, 88%, 95%, 1)
+        "accent-100": "#e5ffff", // hsla(180, 88%, 95%, 1)
         "accent-200": "#97eded", // hsla(180, 70%, 76%, 1)
         "accent-300": "#74dcdc", // hsla(180, 60%, 66%, 1)
     
@@ -74,12 +74,12 @@ const config: Config = {
         "accent-900": "#024f42", // hsla(170, 94%, 16%, 1)
 
 
-        "accent-warning-100": "#fcfcd4", // hsla(60, 88%, 91%, 1)
-        "accent-warning-200": "#eded97", // hsla(60, 70%, 76%, 1)
-        "accent-warning-300": "#dcdc74", // hsla(60, 60%, 66%, 1)
+        "accent-warning-100": "#fdfde7", // hsla(60, 88%, 95%, 1)
+        "accent-warning-200": "#f5f5bc", // hsla(60, 75%, 85%, 1)
+        "accent-warning-300": "#ebeb94", // hsla(60, 68%, 75%, 1)
     
-        "accent-warning-400": "#bfc85b", // hsla(65, 50%, 57%, 1)
-        "accent-warning-500": "#a1b34d", // hsla(70, 40%, 50%, 1)
+        "accent-warning-400": "#d4dd6e", // hsla(65, 62%, 65%, 1)
+        "accent-warning-500": "#b6cb4d", // hsla(70, 55%, 55%, 1)
         "accent-warning-600": "#92a437", // hsla(70, 50%, 43%, 1)
     
         "accent-warning-700": "#7a8c22", // hsla(70, 61%, 34%, 1)
@@ -87,12 +87,12 @@ const config: Config = {
         "accent-warning-900": "#424f02", // hsla(70, 94%, 16%, 1)
 
 
-        "accent-danger-100": "#fcd4d4", // hsla(360, 88%, 91%, 1)
-        "accent-danger-200": "#ed9797", // hsla(360, 70%, 76%, 1)
-        "accent-danger-300": "#dc7474", // hsla(360, 60%, 66%, 1)
+        "accent-danger-100": "#fde7e7", // hsla(360, 88%, 95%, 1)
+        "accent-danger-200": "#f5bcbc", // hsla(360, 75%, 85%, 1)
+        "accent-danger-300": "#eb9494", // hsla(360, 68%, 75%, 1)
     
-        "accent-danger-400": "#c85b5b", // hsla(360, 50%, 57%, 1)
-        "accent-danger-500": "#b34d4d", // hsla(360, 40%, 50%, 1)
+        "accent-danger-400": "#e45858", // hsla(360, 72%, 62%, 1)
+        "accent-danger-500": "#dd3c3c", // hsla(360, 70%, 55%, 1)
         "accent-danger-600": "#a43740", // hsla(355, 50%, 43%, 1)
     
         "accent-danger-700": "#8c2233", // hsla(350, 61%, 34%, 1)

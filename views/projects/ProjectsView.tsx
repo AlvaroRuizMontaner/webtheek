@@ -135,7 +135,7 @@ export default function ProjectsView() {
           <p className="text-center py-20">
             No hay proyectos aún. {""}
             <Link
-              className=" text-secondary font-bold"
+              className=" text-accent-300 font-bold"
               href="/projects/create"
             >
               Crear proyecto

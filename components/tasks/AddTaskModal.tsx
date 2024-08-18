@@ -86,7 +86,7 @@ export default function AddTaskModal({projectId}: {projectId: Project["_id"]}) {
                                     </Dialog.Title>
 
                                     <p className="text-xl font-bold">Llena el formulario y crea  {''}
-                                        <span className="text-secondary">una tarea</span>
+                                        <span className="text-accent-300">una tarea</span>
                                     </p>
 
                                     <form 

@@ -84,7 +84,7 @@ export default function EditTaskModal({data, projectId, taskId}: EditTaskModalPr
                                 </DialogTitle>
 
                                 <p className="text-xl font-bold">Realiza cambios a una tarea en {''}
-                                    <span className="text-secondary">este formulario</span>
+                                    <span className="text-accent-300">este formulario</span>
                                 </p>
 
                                 <form
