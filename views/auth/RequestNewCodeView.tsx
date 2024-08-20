@@ -6,6 +6,7 @@ import { useMutation } from "@tanstack/react-query";
 import { RequestConfirmationCode } from "@/services/AuthAPI";
 import { toast } from "react-toastify";
 import SubmitInput from "@/components/form/input/SubmitInput";
+import Form from '@/components/form/Form';
 
 export default function RegisterView() {
     const initialValues: RequestConfirmationCodeForm = {
@@ -36,10 +37,8 @@ export default function RegisterView() {
           <span className=" text-accent-300 font-bold"> un nuevo código</span>
         </p>
 
-        <form
+        <Form
           onSubmit={handleSubmit(handleRequestCode)}
-          className="space-y-8 p-10 rounded-lg bg-white mt-10"
-          noValidate
         >
           <div className="flex flex-col gap-5">
             <label className="font-normal text-2xl" htmlFor="email">
@@ -71,7 +70,7 @@ export default function RegisterView() {
             /> : <Spinner />}
           </div> */}
           <SubmitInput isLoading={isPending} value="Enviar Código" />
-        </form>
+        </Form>
 
         <nav className="mt-10 flex flex-col space-y-4 body2">
           <div className="text-gray-300 flex gap-1 justify-center">

@@ -18,7 +18,7 @@ export default function AuthLayout({children}: AuthLayoutProps): ReactNode {
               <Logo />
             </div>
 
-            <div className='mt-10'>
+            <div className='mt-10 w-full'>
                 {children}
             </div>
         </div>

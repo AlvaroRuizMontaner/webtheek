@@ -72,7 +72,7 @@ export default function EditTaskModal({data, projectId, taskId}: EditTaskModalPr
                             leaveFrom="opacity-100 scale-100"
                             leaveTo="opacity-0 scale-95"
                         >
-                            <DialogPanel className="w-full max-w-4xl transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all p-16">
+                            <DialogPanel className="w-full max-w-4xl transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all p-8u sm:p-16u">
                                 <span className='absolute inline-block top-2 right-2 sm:top-5 sm:right-5 cursor-pointer' onClick={() => router.push(path)}>
                                     <XMarkIcon className='w-8 h-8 text-black' />
                                 </span>
@@ -94,14 +94,6 @@ export default function EditTaskModal({data, projectId, taskId}: EditTaskModalPr
                                 >
                                     
                                     <TaskForm register={register} errors={errors} />
-
-{/*                                     <div className="bg-accent-500 hover:bg-accent-700 w-full flex justify-center h-[52px] text-white font-black text-xl cursor-pointer relative">
-                                        {!isPending ? <input
-                                        type="submit"
-                                        value='Guardar Tarea'
-                                        className="block w-full h-full p-3 cursor-pointer"
-                                        /> : <Spinner />}
-                                    </div> */}
                                     <SubmitInput isLoading={isPending} value="Guardar Tarea" />
                                 </form>
                             </DialogPanel>

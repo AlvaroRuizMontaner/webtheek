@@ -45,7 +45,7 @@ export default function UserTeamView({projectId, userId}: UserTeamViewProps) {
   if (isError) throw new Error("Error");
   if (data) return (
     <>
-      <h1 className=" font-black headline2">Editar permisos de <span className='text-accent-700'>{data.user.name}</span></h1>
+      <h1 className=" font-black headline2">Editar permisos de <span className='text-primary-700'>{data.user.name}</span></h1>
 
       <div className='mt-10'>
         <div className='max-w-[600px] mx-auto flex items-center justify-center h-[260px] relative'>
@@ -81,10 +81,10 @@ export default function UserTeamView({projectId, userId}: UserTeamViewProps) {
           </div>
 
           <button className={`absolute left-10 top-1/2 z-10 hidden sm:block ${slideIndex === 1 && "disabled opacity-20"}`} onClick={() => swiperRef.current?.slidePrev()}>
-            <ArrowLeftCircleIcon className='w-12 h-12 text-gray-400 ' />
+            <ArrowLeftCircleIcon className='w-12 h-12 text-primary-400 ' />
           </button>
           <button className={`absolute right-10 top-1/2 z-10 hidden sm:block ${slideIndex === 3 && "disabled opacity-20"}`} onClick={() => swiperRef.current?.slideNext()}>
-            <ArrowRightCircleIcon className='w-12 h-12 text-gray-400 ' />
+            <ArrowRightCircleIcon className='w-12 h-12 text-primary-400 ' />
           </button>
         </div>
       </div>
