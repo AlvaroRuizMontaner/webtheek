@@ -6,6 +6,7 @@ import { useMutation } from "@tanstack/react-query";
 import { forgotPassword } from "@/services/AuthAPI";
 import { toast } from "react-toastify";
 import SubmitInput from "@/components/form/input/SubmitInput";
+import Form from '@/components/form/Form';
 
 export default function ForgotPasswordView() {
   const initialValues: ForgotPasswordForm = {
@@ -35,10 +36,8 @@ export default function ForgotPasswordView() {
         <span className=" text-fuchsia-500 font-bold"> y restablece tu password</span>
       </p>
 
-      <form
+      <Form
         onSubmit={handleSubmit(handleForgotPassword)}
-        className="space-y-8 p-10 mt-10  bg-white"
-        noValidate
       >
         <div className="flex flex-col gap-5">
           <label
@@ -62,31 +61,10 @@ export default function ForgotPasswordView() {
             <ErrorMessage>{errors.email.message}</ErrorMessage>
           )}
         </div>
-
-{/*         <div className="bg-accent-500 hover:bg-accent-700 w-full flex justify-center h-[52px] text-white font-black text-xl cursor-pointer relative">
-            {!isPending ? <input
-            type="submit"
-            value='Enviar Instrucciones'
-            className="block w-full h-full p-3 cursor-pointer"
-            /> : <Spinner />}
-        </div> */}
         <SubmitInput isLoading={isPending} value="Enviar Instrucciones" />
-      </form>
+      </Form>
 
       <nav className="mt-10 flex flex-col space-y-4">
-{/*         <Link
-          href='/auth/login'
-          className="text-center text-gray-300 font-normal"
-        >
-          ¿Ya tienes cuenta? Iniciar Sesión
-        </Link>
-
-        <Link
-          href='/auth/register'
-          className="text-center text-gray-300 font-normal"
-        >
-          ¿No tienes cuenta? Crea una
-        </Link> */}
 
 
         <div className="text-gray-300 flex gap-1 justify-center body2">

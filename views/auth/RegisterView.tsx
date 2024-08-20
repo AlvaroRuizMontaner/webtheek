@@ -1,13 +1,18 @@
 import { useForm } from "react-hook-form";
 import { UserRegistrationForm } from "@/types/index";
 import ErrorMessage from "@/components/ErrorMessage";
-import Link from "next/link";
 import { useMutation } from "@tanstack/react-query";
 import { createAccount } from "@/services/AuthAPI";
 import { toast } from "react-toastify";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/20/solid";
 import { useState } from "react";
 import SubmitInput from "@/components/form/input/SubmitInput";
+import Form from '@/components/form/Form';
+import Title from "@/components/title/Title";
+import Subtitle from "@/components/title/Subtitle";
+import { registerAuthLinks } from "@/components/form/authLinks/authLinks.info";
+import AuthLinks from "@/components/form/authLinks/AuthLinks";
+import Input from "@/components/form/input/Input";
 
 export default function RegisterView() {
   const [showPass, setShowPass] = useState(false)
@@ -47,150 +52,136 @@ export default function RegisterView() {
 
   return (
     <>
-      <h1 className="headline1 font-black text-primary-200">Crear cuenta</h1>
-      <p className="body1 font-light text-white mt-5">
-        Llena el formulario para {''}
-        <span className=" text-accent-300 font-bold"> crear tu cuenta</span>
-      </p>
-
-      {!isSubmitted ? <form
-        onSubmit={handleSubmit(handleRegister)}
-        className="space-y-8 p-10  bg-white mt-10"
-        noValidate
-      >
-        <div className="flex flex-col gap-5">
-          <label
-            className="font-bold body1 text-primary-500"
-            htmlFor="email"
-          >Email</label>
-          <input
-            id="email"
-            type="email"
-            placeholder="Email de Registro"
-            className="w-full p-3  border-gray-300 border"
-            {...register("email", {
-              required: "El Email de registro es obligatorio",
-              pattern: {
+      {!isSubmitted ? (
+        <>
+          <Title>Crear cuenta</Title>
+          <Subtitle
+            text={"Llena el formulario para"}
+            highlight="crear una cuenta"
+          />
+          <Form onSubmit={handleSubmit(handleRegister)}>
+            <Input
+              label="Email"
+              name="email"
+              id="email"
+              placeholder="Email de Registro"
+              register={register}
+              errors={errors}
+              trigger={trigger}
+              required="El Email de registro es obligatorio"
+              pattern={{
                 value: /\S+@\S+\.\S+/,
                 message: "E-mail no válido",
-              },
-            })}
-            onBlur={() => {
-              trigger('email'); // Ejecuta la validación manualmente
-            }}
-          />
-          {errors.email && (
-            <ErrorMessage>{errors.email.message}</ErrorMessage>
-          )}
-        </div>
-
-        <div className="flex flex-col gap-5">
-          <label
-            className="font-bold body1 text-primary-500"
-          >Nombre</label>
-          <input
-            type="text"
-            placeholder="Nombre de Registro"
-            className="w-full p-3 border-gray-300 border"
-            {...register("name", {
-              required: "El Nombre de usuario es obligatorio",
-            })}
-            onBlur={() => {
-              trigger('name'); // Ejecuta la validación manualmente
-            }}
-          />
-          {errors.name && (
-            <ErrorMessage>{errors.name.message}</ErrorMessage>
-          )}
-        </div>
-
-        <div className="flex flex-col gap-5">
-          <label
-            className="font-bold body1 text-primary-500"
-          >Password</label>
-          <div className='relative'>
-            <input
-              type={showPass ? "text": "password"}
-              placeholder="Password de Registro"
-              className="w-full p-3 border-gray-300 border"
-              {...register("password", {
-                required: "El Password es obligatorio",
-                minLength: {
-                  value: 8,
-                  message: 'El Password debe ser mínimo de 8 caracteres'
-              }
-              })}
-            />
-            {showPass && <span onClick={() => setShowPass(false)} className='absolute right-4 top-1/2 -translate-y-1/2 inline-block cursor-pointer'><EyeIcon className='w-8 h-8 text-gray-500 ' /></span>}
-            {!showPass && <span  onClick={() => setShowPass(true)} className='absolute right-4 top-1/2 -translate-y-1/2 inline-block cursor-pointer'><EyeSlashIcon className='w-8 h-8 text-gray-500 ' /></span>}
-          </div>
-          {errors.password && (
-            <ErrorMessage>{errors.password.message}</ErrorMessage>
-          )}
-        </div>
-
-        <div className="flex flex-col gap-5">
-          <label
-            className="font-bold body1 text-primary-500"
-          >Repetir Password</label>
-          <div className='relative'>
-            <input
-              id="password_confirmation"
-              type={showPassConfirm ? "text": "password"}
-              placeholder="Repite Password de Registro"
-              className="w-full p-3 border-gray-300 border"
-              {...register("password_confirmation", {
-                required: "Repetir Password es obligatorio",
-                validate: value => value === password || 'Los Passwords no son iguales'
-              })}
-              onBlur={() => {
-                trigger('password_confirmation'); // Ejecuta la validación manualmente
               }}
             />
-            {showPassConfirm && <span onClick={() => setShowPassConfirm(false)} className='absolute right-4 top-1/2 -translate-y-1/2 inline-block cursor-pointer'><EyeIcon className='w-8 h-8 text-gray-500 ' /></span>}
-            {!showPassConfirm && <span  onClick={() => setShowPassConfirm(true)} className='absolute right-4 top-1/2 -translate-y-1/2 inline-block cursor-pointer'><EyeSlashIcon className='w-8 h-8 text-gray-500 ' /></span>}
-          </div>
+            <Input
+              label="Nombre"
+              name="name"
+              id="name"
+              placeholder="Nombre de Registro"
+              register={register}
+              errors={errors}
+              trigger={trigger}
+              required="El Nombre de usuario es obligatorio"
+            />
+            <div className="flex flex-col gap-5">
+              <label className="font-bold body1 text-primary-500">
+                Password
+              </label>
+              <div className="relative">
+                <input
+                  type={showPass ? "text" : "password"}
+                  placeholder="Password de Registro"
+                  className="w-full p-3 border-gray-300 border"
+                  {...register("password", {
+                    required: "El Password es obligatorio",
+                    minLength: {
+                      value: 8,
+                      message: "El Password debe ser mínimo de 8 caracteres",
+                    },
+                  })}
+                />
+                {showPass && (
+                  <span
+                    onClick={() => setShowPass(false)}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 inline-block cursor-pointer"
+                  >
+                    <EyeIcon className="w-8 h-8 text-gray-500 " />
+                  </span>
+                )}
+                {!showPass && (
+                  <span
+                    onClick={() => setShowPass(true)}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 inline-block cursor-pointer"
+                  >
+                    <EyeSlashIcon className="w-8 h-8 text-gray-500 " />
+                  </span>
+                )}
+              </div>
+              {errors.password && (
+                <ErrorMessage>{errors.password.message}</ErrorMessage>
+              )}
+            </div>
 
-          {errors.password_confirmation && (
-            <ErrorMessage>{errors.password_confirmation.message}</ErrorMessage>
-          )}
-        </div>
+            <div className="flex flex-col gap-5">
+              <label className="font-bold body1 text-primary-500">
+                Repetir Password
+              </label>
+              <div className="relative">
+                <input
+                  id="password_confirmation"
+                  type={showPassConfirm ? "text" : "password"}
+                  placeholder="Repite Password de Registro"
+                  className="w-full p-3 border-gray-300 border"
+                  {...register("password_confirmation", {
+                    required: "Repetir Password es obligatorio",
+                    validate: (value) =>
+                      value === password || "Los Passwords no son iguales",
+                  })}
+                  onBlur={() => {
+                    trigger("password_confirmation"); // Ejecuta la validación manualmente
+                  }}
+                />
+                {showPassConfirm && (
+                  <span
+                    onClick={() => setShowPassConfirm(false)}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 inline-block cursor-pointer"
+                  >
+                    <EyeIcon className="w-8 h-8 text-gray-500 " />
+                  </span>
+                )}
+                {!showPassConfirm && (
+                  <span
+                    onClick={() => setShowPassConfirm(true)}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 inline-block cursor-pointer"
+                  >
+                    <EyeSlashIcon className="w-8 h-8 text-gray-500 " />
+                  </span>
+                )}
+              </div>
 
-{/*           <div className="bg-accent-500 hover:bg-accent-700 w-full flex justify-center h-[52px] text-white font-black text-xl cursor-pointer relative">
-            {!isLoading ? <input
-            type="submit"
-            value='Registrarme'
-            className="block w-full h-full p-3 cursor-pointer"
-            /> : <Spinner />}
-          </div> */}
-          <SubmitInput isLoading={isLoading} value="Registrarme" />
-      </form> : (
+              {errors.password_confirmation && (
+                <ErrorMessage>
+                  {errors.password_confirmation.message}
+                </ErrorMessage>
+              )}
+            </div>
+            <SubmitInput isLoading={isLoading} value="Registrarme" />
+          </Form>
+          <AuthLinks info={registerAuthLinks} />
+        </>
+      ) : (
         <div className="space-y-8 p-7 sm:p-10 bg-white mt-10 flex justify-center items-center flex-col rounded-2xl">
-          <p className="text-center text-accent-700 headline2 font-bold ">Cuenta creada</p>
-          <p>Tu cuenta ha sido creada con éxito, pero ahora necesitamos que la confirmes revisando la información que hemos enviado a tu <span className="font-bold text-primary-900">email</span></p>
+          <p className="text-center text-primary-900 headline2 font-bold ">
+            Cuenta creada
+          </p>
+          <p className="text-gray-900">
+            Tu cuenta ha sido creada con éxito, pero ahora necesitamos que la
+            confirmes revisando la información que hemos enviado a tu{" "}
+            <span className="font-bold text-accent-500">email</span>
+          </p>
         </div>
       )}
-
-      <nav className="mt-10 flex flex-col space-y-4 body2">
-        <div className="text-gray-300 flex gap-1 justify-center">
-            <span>¿Ya tienes cuenta?</span>
-            <Link
-              href={"/auth/login"}
-              className="text-center font-bold text-accent-300"
-            >
-              Iniciar sesión
-            </Link>
-          </div>
-          <div className="text-gray-300 flex gap-1 justify-center">
-            <span>¿Olvidaste tu contraseña?</span>
-            <Link
-              href="/auth/forgot-password"
-              className="text-center font-bold text-accent-300"
-            >
-              Restablecer
-            </Link>
-          </div>
-      </nav>
     </>
-  )
+  );
 }

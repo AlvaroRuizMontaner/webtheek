@@ -8,6 +8,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/20/solid";
 import SubmitInput from "../form/input/SubmitInput";
+import Form from '@/components/form/Form';
 
 type NewPasswordFormProps = {
     token: ConfirmToken["token"]
@@ -48,10 +49,8 @@ export default function NewPasswordForm({token}: NewPasswordFormProps) {
 
     return (
         <>
-            <form
+            <Form
                 onSubmit={handleSubmit(handleNewPassword)}
-                className="space-y-8 p-10  bg-white mt-10"
-                noValidate
             >
 
                 <div className="flex flex-col gap-5">
@@ -127,7 +126,7 @@ export default function NewPasswordForm({token}: NewPasswordFormProps) {
                     className="bg-accent-500 hover:bg-accent-700 w-full p-3  text-white font-black  text-xl cursor-pointer"
                 /> */}
                 <SubmitInput isLoading={isPending} value="Establecer Password" />
-            </form>
+            </Form>
         </>
     )
 }
