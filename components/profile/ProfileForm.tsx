@@ -1,10 +1,13 @@
 import { useForm } from "react-hook-form"
-import ErrorMessage from "../ErrorMessage"
 import { User, UserProfileForm } from "@/types"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { updateProfile } from "@/services/ProfileAPI"
 import { toast } from "react-toastify"
 import SubmitInput from "../form/input/SubmitInput"
+import Form from "../form/Form"
+import Title from "../title/Title"
+import Subtitle from "../title/Subtitle"
+import Input from "../form/input/Input"
 
 type ProfileFormProps = {
     data: User
@@ -34,73 +37,46 @@ export default function ProfileForm({ data }: ProfileFormProps) {
     }
 
     return (
-        <>
-            <div className="mx-auto max-w-3xl g">
-                <h1 className="headline1 font-black ">Mi perfil</h1>
-                <p className="body1 font-light text-gray-500 mt-5">Aquí puedes actualizar tu información</p>
+      <>
+        <div className="mx-auto max-w-3xl g">
+          <Title variant="dark">Mi perfil</Title>
+          <Subtitle
+            variant="dark"
+            text={"Aquí puedes actualizar"}
+            highlight="tu información"
+          />
 
-                <form
-                    onSubmit={handleSubmit(handleEditProfile)}
-                    className=" mt-14 space-y-5  bg-white shadow-lg p-10 rounded-l"
-                    noValidate
-                >
-                    <div className="mb-5 space-y-3">
-                        <label
-                            className="text-sm uppercase font-bold"
-                            htmlFor="name"
-                        >Nombre</label>
-                        <input
-                            id="name"
-                            type="text"
-                            placeholder="Tu Nombre"
-                            className="w-full p-3  border border-gray-200"
-                            {...register("name", {
-                                required: "Nombre de usuario es obligatoro",
-                            })}
-                            onBlur={() => {
-                                trigger('name'); // Ejecuta la validación manualmente
-                            }}
-                        />
-                        {errors.name && (
-                            <ErrorMessage>{errors.name.message}</ErrorMessage>
-                        )}
-                    </div>
+          <Form onSubmit={handleSubmit(handleEditProfile)}>
 
-                    <div className="mb-5 space-y-3">
-                        <label
-                            className="text-sm uppercase font-bold"
-                            htmlFor="password"
-                        >E-mail</label>
-                        <input
-                            id="text"
-                            type="email"
-                            placeholder="Tu Email"
-                            className="w-full p-3  border border-gray-200"
-                            {...register("email", {
-                                required: "EL e-mail es obligatorio",
-                                pattern: {
-                                    value: /\S+@\S+\.\S+/,
-                                    message: "E-mail no válido",
-                                },
-                            })}
-                            onBlur={() => {
-                                trigger('email'); // Ejecuta la validación manualmente
-                              }}
-                        />
-                        {errors.email && (
-                            <ErrorMessage>{errors.email.message}</ErrorMessage>
-                        )}
-                    </div>
-{/*                     <div className="bg-accent-500 hover:bg-accent-700 w-full flex justify-center h-[52px] text-white font-black text-xl cursor-pointer relative">
-                        {!isPending ? <input
-                        type="submit"
-                        value='Guardar Cambios'
-                        className="block w-full h-full p-3 cursor-pointer"
-                        /> : <Spinner />}
-                    </div> */}
-                    <SubmitInput isLoading={isPending} value="Guardar cambios" />
-                </form>
-            </div>
-        </>
-    )
+          <Input
+              label="Nombre"
+              name="name"
+              id="name"
+              placeholder="Tu Nombre"
+              register={register}
+              errors={errors}
+              trigger={trigger}
+              required="El Nombre de usuario es obligatorio"
+            />
+          <Input
+              label="Email"
+              name="email"
+              id="email"
+              placeholder="Tu Email"
+              register={register}
+              errors={errors}
+              trigger={trigger}
+              required="El e-mail es obligatorio"
+              pattern={{
+                value: /\S+@\S+\.\S+/,
+                message: "E-mail no válido",
+              }}
+            />
+            <SubmitInput isLoading={isPending} value="Guardar cambios" />
+          </Form>
+
+          <section className="mt-6u"></section>
+        </div>
+      </>
+    );
 }
