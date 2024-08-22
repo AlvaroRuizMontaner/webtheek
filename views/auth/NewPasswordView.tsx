@@ -2,6 +2,8 @@ import NewPasswordToken from '@/components/auth/NewPasswordToken'
 import NewPasswordForm from '@/components/auth/NewPasswordForm'
 import React, { useState } from 'react'
 import { ConfirmToken } from '@/types'
+import Title from '@/components/title/Title'
+import Subtitle from '@/components/title/Subtitle'
 
 export default function NewPasswordView() {
 
@@ -11,18 +13,21 @@ export default function NewPasswordView() {
 
   return (
     <>
-      <h1 className="headline2 font-black text-white">Restablecer Password</h1>
-      <p className="text-2xl font-light text-white mt-5">
-        Introduce el codigo que recibiste {''}
-        <span className=" text-accent-300 font-bold"> por email</span>
-      </p>
-    
+      <Title>Restablecer Password</Title>
+      <Subtitle
+        text={"Introduce el código que recibiste"}
+        highlight="por email"
+      />
+
       {!isValidToken ? (
-        <NewPasswordToken setToken={setToken} token={token} setIsValidToken={setIsValidToken} />
+        <NewPasswordToken
+          setToken={setToken}
+          token={token}
+          setIsValidToken={setIsValidToken}
+        />
       ) : (
         <NewPasswordForm token={token} />
       )}
-
     </>
-  )
+  );
 }

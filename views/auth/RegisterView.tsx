@@ -1,10 +1,8 @@
 import { useForm } from "react-hook-form";
 import { UserRegistrationForm } from "@/types/index";
-import ErrorMessage from "@/components/ErrorMessage";
 import { useMutation } from "@tanstack/react-query";
 import { createAccount } from "@/services/AuthAPI";
 import { toast } from "react-toastify";
-import { EyeIcon, EyeSlashIcon } from "@heroicons/react/20/solid";
 import { useState } from "react";
 import SubmitInput from "@/components/form/input/SubmitInput";
 import Form from '@/components/form/Form';
@@ -13,6 +11,7 @@ import Subtitle from "@/components/title/Subtitle";
 import { registerAuthLinks } from "@/components/form/authLinks/authLinks.info";
 import AuthLinks from "@/components/form/authLinks/AuthLinks";
 import Input from "@/components/form/input/Input";
+import Eye from "@/components/form/input/Eye";
 
 export default function RegisterView() {
   const [showPass, setShowPass] = useState(false)
@@ -44,6 +43,8 @@ export default function RegisterView() {
 
   const password = watch('password');
 
+  const handlePasswordMatch = (value: unknown) => value === password || "Los Passwords no son iguales"
+
   const handleRegister = async (formData: UserRegistrationForm) => {
     setIsLoading(true)
     await mutateAsync(formData)
@@ -64,7 +65,7 @@ export default function RegisterView() {
               label="Email"
               name="email"
               id="email"
-              placeholder="Email de Registro"
+              placeholder="Email de registro"
               register={register}
               errors={errors}
               trigger={trigger}
@@ -78,94 +79,47 @@ export default function RegisterView() {
               label="Nombre"
               name="name"
               id="name"
-              placeholder="Nombre de Registro"
+              placeholder="Nombre de registro"
               register={register}
               errors={errors}
               trigger={trigger}
               required="El Nombre de usuario es obligatorio"
             />
-            <div className="flex flex-col gap-5">
-              <label className="font-bold body1 text-primary-500">
-                Password
-              </label>
-              <div className="relative">
-                <input
-                  type={showPass ? "text" : "password"}
-                  placeholder="Password de Registro"
-                  className="w-full p-3 border-gray-300 border"
-                  {...register("password", {
-                    required: "El Password es obligatorio",
-                    minLength: {
-                      value: 8,
-                      message: "El Password debe ser mínimo de 8 caracteres",
-                    },
-                  })}
-                />
-                {showPass && (
-                  <span
-                    onClick={() => setShowPass(false)}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 inline-block cursor-pointer"
-                  >
-                    <EyeIcon className="w-8 h-8 text-gray-500 " />
-                  </span>
-                )}
-                {!showPass && (
-                  <span
-                    onClick={() => setShowPass(true)}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 inline-block cursor-pointer"
-                  >
-                    <EyeSlashIcon className="w-8 h-8 text-gray-500 " />
-                  </span>
-                )}
-              </div>
-              {errors.password && (
-                <ErrorMessage>{errors.password.message}</ErrorMessage>
-              )}
-            </div>
-
-            <div className="flex flex-col gap-5">
-              <label className="font-bold body1 text-primary-500">
-                Repetir Password
-              </label>
-              <div className="relative">
-                <input
-                  id="password_confirmation"
-                  type={showPassConfirm ? "text" : "password"}
-                  placeholder="Repite Password de Registro"
-                  className="w-full p-3 border-gray-300 border"
-                  {...register("password_confirmation", {
-                    required: "Repetir Password es obligatorio",
-                    validate: (value) =>
-                      value === password || "Los Passwords no son iguales",
-                  })}
-                  onBlur={() => {
-                    trigger("password_confirmation"); // Ejecuta la validación manualmente
-                  }}
-                />
-                {showPassConfirm && (
-                  <span
-                    onClick={() => setShowPassConfirm(false)}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 inline-block cursor-pointer"
-                  >
-                    <EyeIcon className="w-8 h-8 text-gray-500 " />
-                  </span>
-                )}
-                {!showPassConfirm && (
-                  <span
-                    onClick={() => setShowPassConfirm(true)}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 inline-block cursor-pointer"
-                  >
-                    <EyeSlashIcon className="w-8 h-8 text-gray-500 " />
-                  </span>
-                )}
-              </div>
-
-              {errors.password_confirmation && (
-                <ErrorMessage>
-                  {errors.password_confirmation.message}
-                </ErrorMessage>
-              )}
-            </div>
+            <Input
+              label="Password"
+              name="password"
+              id="password"
+              type={showPass ? "text" : "password"}
+              placeholder="Password de registro"
+              register={register}
+              errors={errors}
+              trigger={trigger}
+              required="El Password es obligatorio"
+              minLength={{
+                value: 8,
+                message: "El Password debe ser mínimo de 8 caracteres",
+              }}
+            >
+              <Eye showPass={showPass} setShowPass={setShowPass} />
+            </Input>
+            <Input
+              label="Repetir Password"
+              name="password_confirmation"
+              id="password_confirmation"
+              type={showPassConfirm ? "text" : "password"}
+              placeholder="Repite password de registro"
+              register={register}
+              errors={errors}
+              trigger={trigger}
+              required="Repetir Password es obligatorio"
+              validate={handlePasswordMatch}
+              minLength={{
+                value: 8,
+                message: "El Password debe ser mínimo de 8 caracteres",
+              }}
+            >
+              <Eye showPass={showPassConfirm} setShowPass={setShowPassConfirm} />
+            </Input>
             <SubmitInput isLoading={isLoading} value="Registrarme" />
           </Form>
           <AuthLinks info={registerAuthLinks} />

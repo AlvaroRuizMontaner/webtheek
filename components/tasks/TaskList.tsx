@@ -115,7 +115,7 @@ export default function TaskList({tasks, projectId, canEdit}: TaskListProps) {
     <>
       <h2 className="headline2 font-black my-10">Tareas</h2>
 
-      <div className="flex gap-5 overflow-x-scroll 2xl:overflow-auto pb-8">
+      <div className="flex gap-5 overflow-x-scroll 2xl:overflow-auto pb-8 ">
         {canEdit ? (
           <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd} sensors={sensors}>
           {fieldGroupedTasks.map(([status, tasks]) => (
@@ -130,7 +130,7 @@ export default function TaskList({tasks, projectId, canEdit}: TaskListProps) {
 
               <ul className="mt-5 space-y-5">
                 {tasks.length === 0 ? (
-                  <li className="text-gray-500 text-center pt-3">
+                  <li className="text-gray-700 text-center pt-3">
                     No Hay tareas
                   </li>
                 ) : (

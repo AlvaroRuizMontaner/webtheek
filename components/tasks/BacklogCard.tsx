@@ -35,7 +35,7 @@ export default function BacklogCard({task, canEdit, projectId}: BacklogCardProps
     <li
       className="p-2 shadow-1 backlog-card rounded-lg flex justify-between"
     >
-      <div className="font-bold text-gray-600 flex flex-col justify-center">
+      <div className="font-bold text-gray-800 flex flex-col justify-center">
         <span
           className="cursor-pointer"
           onClick={() =>
