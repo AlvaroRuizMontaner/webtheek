@@ -2,8 +2,9 @@ import { validateToken } from '@/services/AuthAPI';
 import { ConfirmToken } from '@/types';
 import { PinInput, PinInputField } from '@chakra-ui/pin-input';
 import { useMutation } from '@tanstack/react-query';
-import Link from 'next/link';
 import { toast } from 'react-toastify';
+import AuthLinks from '../form/authLinks/AuthLinks';
+import { newPasswordTokenLinks } from '../form/authLinks/authLinks.info';
 
 type NewPasswordTokenProps = {
     token: ConfirmToken["token"]
@@ -52,14 +53,8 @@ export default function NewPasswordToken({token, setToken, setIsValidToken}: New
                     </PinInput>
                 </div>
             </form>
-            <nav className="mt-10 flex flex-col space-y-4">
-                <Link
-                    href='/auth/forgot-password'
-                    className="text-center text-accent-300 underline font-bold"
-                >
-                    Solicitar un nuevo Código
-                </Link>
-            </nav>
+
+            <AuthLinks variant="underline" info={newPasswordTokenLinks} />
         </>
     )
 }

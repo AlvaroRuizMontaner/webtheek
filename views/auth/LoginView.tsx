@@ -1,11 +1,9 @@
 import { useForm } from 'react-hook-form';
 import { UserLoginForm } from "@/types/index";
-import ErrorMessage from "@/components/ErrorMessage";
 import { useMutation } from '@tanstack/react-query';
 import { authenticateUser } from '@/services/AuthAPI';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
-import { EyeIcon, EyeSlashIcon } from '@heroicons/react/20/solid';
 import { useState } from 'react';
 import SubmitInput from '@/components/form/input/SubmitInput';
 import Form from '@/components/form/Form';
@@ -14,6 +12,7 @@ import Title from '@/components/title/Title';
 import AuthLinks from '@/components/form/authLinks/AuthLinks';
 import { loginAuthLinks } from '@/components/form/authLinks/authLinks.info';
 import Input from '@/components/form/input/Input';
+import Eye from '@/components/form/input/Eye';
 
 export default function LoginView() {
   const router = useRouter()
@@ -66,42 +65,23 @@ export default function LoginView() {
           }}
         />
 
-        <div className="flex flex-col gap-4u">
-          <label className="font-bold body1 text-primary-500">Password</label>
-
-          <div className="relative">
-            <input
-              type={showPass ? "text" : "password"}
-              placeholder="Password de login"
-              className="w-full p-3 border-gray-300 border"
-              {...register("password", {
-                required: "El Password es obligatorio",
-              })}
-              onBlur={() => {
-                trigger("password"); // Ejecuta la validación manualmente
-              }}
-            />
-            {showPass && (
-              <span
-                onClick={() => setShowPass(false)}
-                className="absolute right-4 top-1/2 -translate-y-1/2 inline-block cursor-pointer"
-              >
-                <EyeIcon className="w-8 h-8 text-gray-500 " />
-              </span>
-            )}
-            {!showPass && (
-              <span
-                onClick={() => setShowPass(true)}
-                className="absolute right-4 top-1/2 -translate-y-1/2 inline-block cursor-pointer"
-              >
-                <EyeSlashIcon className="w-8 h-8 text-gray-500 " />
-              </span>
-            )}
-          </div>
-          {errors.password && (
-            <ErrorMessage>{errors.password.message}</ErrorMessage>
-          )}
-        </div>
+        <Input
+          label="Password"
+          name="password"
+          id="password"
+          type={showPass ? "text" : "password"}
+          placeholder="Password de login"
+          register={register}
+          errors={errors}
+          trigger={trigger}
+          required="El Password es obligatorio"
+          minLength={{
+            value: 8,
+            message: "El Password debe ser mínimo de 8 caracteres",
+          }}
+        >
+          <Eye showPass={showPass} setShowPass={setShowPass} />
+        </Input>
         <SubmitInput isLoading={isPending} value="Iniciar sesión" />
       </Form>
 
