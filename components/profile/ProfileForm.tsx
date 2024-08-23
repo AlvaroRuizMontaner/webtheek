@@ -47,7 +47,9 @@ export default function ProfileForm({ data }: ProfileFormProps) {
             highlight="tu información"
           />
 
-          <Form onSubmit={handleSubmit(handleEditProfile)}>
+          <Form onSubmit={handleSubmit(handleEditProfile)}
+            className="shadow-4"
+          >
 
           <Input
               label="Nombre"
