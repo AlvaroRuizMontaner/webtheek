@@ -10,6 +10,7 @@ import Eye from "@/components/form/input/Eye";
 import Form from "@/components/form/Form";
 import Title from "@/components/title/Title";
 import Subtitle from "@/components/title/Subtitle";
+import Separator from "@/components/separator/Separator";
 
 export default function ChangePasswordView() {
   const [showCurrentPass, setShowCurrentPass] = useState(false)
@@ -101,7 +102,7 @@ export default function ChangePasswordView() {
           <SubmitInput isLoading={isPending} value="Cambiar password" />
         </Form>
 
-        <section className="mt-6u"></section>
+        <Separator />
       </div>
     </>
   );

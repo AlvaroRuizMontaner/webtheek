@@ -1,10 +1,14 @@
 "use client"
+import Button from '@/components/button/Button';
+import Form from '@/components/form/Form';
 import SubmitInput from '@/components/form/input/SubmitInput';
 import ProjectForm from '@/components/projects/ProjectForm';
+import Separator from '@/components/separator/Separator';
+import Subtitle from '@/components/title/Subtitle';
+import Title from '@/components/title/Title';
 import { createProject } from '@/services/ProjectAPI';
 import { ProjectFormData } from '@/types';
 import { useMutation } from '@tanstack/react-query';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React from 'react'
 import { useForm } from 'react-hook-form';
@@ -38,35 +42,22 @@ export default function CreateProjectView():JSX.Element {
 return (
   <>
     <div className=" max-w-3xl mx-auto">
-      <h1 className="headline1 font-bold">Crear proyecto</h1>
-      <p className="text-2xl font-light text-gray-500 mt-5">
-        Llena el siguiente formulario para crear un proyecto
-      </p>
+      <Title variant="dark">Crear proyecto</Title>
+        <Subtitle
+          variant="dark"
+          text="Llena el siguiente formulario para crear un proyecto"
+        />
 
-      <nav className="my-5">
-        <Link
-          className=" bg-primary-400 hover:bg-primary-700 px-10 py-3 text-white text-xl 
-        font-bold cursor-pointer transition-colors"
-          href="/"
-        >
-          Volver a proyectos
-        </Link>
-      </nav>
+      <Button text="Volver a proyectos" href="/projects" />
 
-      <form
-        className="mt-10 bg-white shadow-lg p-10 rounded-lg"
+      <Form
+        className=" shadow-lg rounded-lg"
         onSubmit={handleSubmit(handleForm)}
-        noValidate
       >
         <ProjectForm register={register} errors={errors} />
-{/*         <input
-          type="submit"
-          value="Crear proyecto"
-          className=" bg-accent-500 hover:bg-accent-700 w-full p-3 text-white 
-          uppercase font-bold cursor-pointer transition-colors"
-        /> */}
         <SubmitInput isLoading={isPending} value="Crear proyecto" />
-      </form>
+      </Form>
+      <Separator />
     </div>
   </>
 );

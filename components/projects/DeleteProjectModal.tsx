@@ -1,7 +1,6 @@
 import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { useForm } from "react-hook-form";
-import ErrorMessage from "../ErrorMessage";
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { checkPasswordForm } from '@/types';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -10,6 +9,9 @@ import { toast } from 'react-toastify';
 import { deleteProject } from '@/services/ProjectAPI';
 import SubmitInput from '../form/input/SubmitInput';
 import { XMarkIcon } from '@heroicons/react/20/solid';
+import Subtitle from '../title/Subtitle';
+import Title from '../title/Title';
+import Input from '../form/input/Input';
 
 export default function DeleteProjectModal() {
     const initialValues: checkPasswordForm = {
@@ -50,75 +52,76 @@ export default function DeleteProjectModal() {
 
 
     return (
-        <Transition appear show={show} as={Fragment}>
-            <Dialog as="div" className="relative z-10" onClose={() => router.push(path)}>
-                <Transition.Child
-                    as={Fragment}
-                    enter="ease-out duration-300"
-                    enterFrom="opacity-0"
-                    enterTo="opacity-100"
-                    leave="ease-in duration-200"
-                    leaveFrom="opacity-100"
-                    leaveTo="opacity-0"
-                >
-                    <div className="fixed inset-0 bg-black/60" />
-                </Transition.Child>
+      <Transition appear show={show} as={Fragment}>
+        <Dialog
+          as="div"
+          className="relative z-10"
+          onClose={() => router.push(path)}
+        >
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-black/60" />
+          </Transition.Child>
 
-                <div className="fixed inset-0 overflow-y-auto">
-                    <div className="flex min-h-full items-center justify-center p-4 text-center">
-                        <Transition.Child
-                            as={Fragment}
-                            enter="ease-out duration-300"
-                            enterFrom="opacity-0 scale-95"
-                            enterTo="opacity-100 scale-100"
-                            leave="ease-in duration-200"
-                            leaveFrom="opacity-100 scale-100"
-                            leaveTo="opacity-0 scale-95"
-                        >
-                            <Dialog.Panel className="w-full max-w-4xl transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all p-8 sm:p-16">
-                                <span className='absolute inline-block top-2 right-2 sm:top-5 sm:right-5 cursor-pointer' onClick={() => router.push(path)}>
-                                    <XMarkIcon className='w-8 h-8 text-black' />
-                                </span>
-                                <Dialog.Title
-                                    as="h3"
-                                    className="font-black text-4xl  my-5"
-                                >Eliminar Proyecto </Dialog.Title>
+          <div className="fixed inset-0 overflow-y-auto">
+            <div className="flex min-h-full items-center justify-center p-4 text-center">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+              >
+                <Dialog.Panel className="w-full max-w-4xl transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all p-8 sm:p-16">
+                  <span
+                    className="absolute inline-block top-2 right-2 sm:top-5 sm:right-5 cursor-pointer"
+                    onClick={() => router.push(path)}
+                  >
+                    <XMarkIcon className="w-8 h-8 text-black" />
+                  </span>
 
-                                <p className="text-xl font-bold">Confirma la eliminación del proyecto {''}
-                                    <span className="text-accent-300">colocando tu password</span>
-                                </p>
+                  <Title variant="dark">Eliminar Proyecto</Title>
+                  <Subtitle
+                    variant="dark"
+                    text="Confirma la eliminación del proyecto"
+                    highlight="colocando tu password"
+                  />
 
-                                <form
-                                    className="mt-10 space-y-5"
-                                    onSubmit={handleSubmit(handleForm)}
-                                    noValidate
-                                >
-
-                                    <div className="flex flex-col gap-3">
-                                        <label
-                                            className="font-normal text-primary-500 headline3"
-                                            htmlFor="password"
-                                        >Password</label>
-                                        <input
-                                            id="password"
-                                            type="password"
-                                            placeholder="Password Inicio de Sesión"
-                                            className="w-full p-3  border-gray-300 border"
-                                            {...register("password", {
-                                                required: "El password es obligatorio",
-                                            })}
-                                        />
-                                        {errors.password && (
-                                            <ErrorMessage>{errors.password.message}</ErrorMessage>
-                                        )}
-                                    </div>
-                                    <SubmitInput isLoading={checkPasswordMutation.isPending || deleteProjectMutation.isPending} value="Eliminar Proyecto" />
-                                </form>
-                            </Dialog.Panel>
-                        </Transition.Child>
-                    </div>
-                </div>
-            </Dialog>
-        </Transition>
+                  <form
+                    className="mt-10 space-y-5"
+                    onSubmit={handleSubmit(handleForm)}
+                    noValidate
+                  >
+                    <Input
+                      name="password"
+                      id="password"
+                      placeholder="Password de inicio de sesión"
+                      register={register}
+                      errors={errors}
+                      required="El Password es obligatorio"
+                    />
+                    <SubmitInput
+                      isLoading={
+                        checkPasswordMutation.isPending ||
+                        deleteProjectMutation.isPending
+                      }
+                      value="Eliminar Proyecto"
+                    />
+                  </form>
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </div>
+        </Dialog>
+      </Transition>
     );
 }

@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import React from 'react'
 import ProjectForm from './ProjectForm'
 import { Project, ProjectFormData } from '@/types';
@@ -8,6 +7,11 @@ import { updateProject } from '@/services/ProjectAPI';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 import SubmitInput from '../form/input/SubmitInput';
+import Title from '../title/Title';
+import Subtitle from '../title/Subtitle';
+import Button from '../button/Button';
+import Form from '../form/Form';
+import Separator from '../separator/Separator';
 
 type EditProjectFormProps = {
     data: ProjectFormData,
@@ -47,38 +51,24 @@ export default function EditProjectForm({data, projectId}: EditProjectFormProps)
 
   return (
     <>
-    <div className=" max-w-3xl mx-auto shadow-1">
-      <h1 className="text-5xl font-bold">Editar proyecto</h1>
-      <p className="text-2xl font-light text-gray-500 mt-5">
-        Llena el siguiente formulario para editar un proyecto
-      </p>
+      <div className=" max-w-3xl mx-auto">
+        <Title variant="dark">Editar proyecto</Title>
+        <Subtitle
+          variant="dark"
+          text="Llena el siguiente formulario para editar un proyecto"
+        />
 
-      <nav className="my-5">
-        <Link
-          className=" bg-primary-400 hover:bg-primary-700 px-10 py-3 text-white text-xl 
-        font-bold cursor-pointer transition-colors"
-          href="/"
+        <Button text="Volver a proyectos" href="/projects" />
+
+        <Form
+          onSubmit={handleSubmit(handleForm)}
         >
-          Volver a proyectos
-        </Link>
-      </nav>
+          <ProjectForm register={register} errors={errors} />
+          <SubmitInput isLoading={isPending} value="Guardar cambios" />
+        </Form>
 
-      <form
-        className="mt-10 bg-white shadow-lg p-10 rounded-lg"
-        onSubmit={handleSubmit(handleForm)}
-        noValidate
-      >
-        <ProjectForm register={register} errors={errors} />
-{/*         <div className="bg-accent-500 hover:bg-accent-700 w-full flex justify-center h-[52px] text-white font-black text-xl cursor-pointer relative">
-            {!isPending ? <input
-            type="submit"
-            value="Guardar cambios"
-            className="block w-full h-full p-3 cursor-pointer"
-            /> : <Spinner />}
-        </div> */}
-        <SubmitInput isLoading={isPending} value="Guardar cambios" />
-      </form>
-    </div>
-  </>
-  )
+        <Separator />
+      </div>
+    </>
+  );
 }
