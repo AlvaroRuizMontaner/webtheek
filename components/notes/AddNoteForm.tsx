@@ -8,7 +8,7 @@ import { useSearchParams } from 'next/navigation'
 import SubmitInput from '../form/input/SubmitInput'
 import Textarea from '../form/input/Textarea'
 import Title from '../title/Title'
-import HR from '../separator/HR'
+import Form from '../form/Form'
 
 export default function AddNoteForm({projectId}: {projectId: Project["_id"]}) {
 
@@ -40,15 +40,13 @@ export default function AddNoteForm({projectId}: {projectId: Project["_id"]}) {
 
 
   return (
-    <form
-      className="!p-0"
+    <Form
+      className="!p-0 !space-y-4u"
       onSubmit={handleSubmit(handleAddNote)}
-      noValidate
     >
       <Title variant="dark" as="h3">
-        Crear nota
+        Creación de notas
       </Title>
-      <HR />
       <Textarea
         name="content"
         id="content"
@@ -59,6 +57,6 @@ export default function AddNoteForm({projectId}: {projectId: Project["_id"]}) {
       />
 
       <SubmitInput isLoading={isPending} value="Crear Nota" />
-    </form>
+    </Form>
   );
 }

@@ -42,7 +42,7 @@ const ActionButton = ({text, className, onClick}: ActionButtonProps): JSX.Elemen
 export default function Button({href, text, variant="normal", onClick}: ButtonProps) {
 
     
-    let className = "text-xl mb-8u px-10 py-3u h-[56px] max-w-fit bg-primary-400 hover:bg-primary-700 text-white cursor-pointer"
+    let className = "text-xl mb-8u px-8u py-2u max-w-fit bg-primary-400 hover:bg-primary-700 text-white cursor-pointer"
     if(variant === "outline") className += " " + "bg-white hover:!bg-primary-100 border-2 border-primary-500 !text-primary-500 font-bold shadow-inset"
 
   return (

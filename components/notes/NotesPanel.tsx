@@ -15,13 +15,12 @@ export default function NotesPanel({projectId, notes, canEditNotes}: NotesPanelP
     <div className="space-y-12u">
       {canEditNotes && <AddNoteForm projectId={projectId} />}
 
-      <div className="divide-y divide-gray-300 mt-10 space-y-2">
+      <div className="divide-y divide-gray-300 mt-10 space-y-4u">
         {notes.length ? (
           <>
             <Title variant="dark" as="h3">
             Notas
             </Title>
-            <hr />
             {/* <p className="font-bold text-2xl text-slate-600 my-5">Notas:</p> */}
             {notes.map((note) => (
               <NoteDetail projectId={projectId} key={note._id} note={note} />

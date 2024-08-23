@@ -15,6 +15,7 @@ import styles from '../collapse/collapse.module.css'
 import "./task.css"
 import Subtitle from '../title/Subtitle';
 import Title from '../title/Title';
+import Label from '../title/Label';
 
 type TaskModalDetailsProps = {
     projectId: Project["_id"]
@@ -119,18 +120,19 @@ export default function TaskModalDetails({projectId, canEditNotes, canEditTasks}
                       Última actualización: {formatDate(data.updatedAt)}
                     </p>
 
-                    <div className='mt-6u'>
+                    <div className="mt-6u">
                       <Title variant="dark" as="h3">
                         {data.name}
                       </Title>
                     </div>
                     <Subtitle variant="dark" text={data.description} />
 
-                    <div className="space-y-12u">
+                    <div className="space-y-12u mt-12u">
                       {data.completedBy.length ? (
                         <div className="">
+                          <Label> Modificaciones</Label>
                           <p
-                            className={`flex items-center justify-between gap-2 rounded p-3 border-2 border-primary-700 text-black ${isOpenHistory && "rounded-b-none"} `}
+                            className={` flex items-center justify-between gap-2 rounded p-3 border border-gray-300 text-black ${isOpenHistory && "rounded-b-none"} `}
                           >
                             <span>Historial de cambios</span>
                             <span
@@ -147,7 +149,7 @@ export default function TaskModalDetails({projectId, canEditNotes, canEditTasks}
                             bottom="unset"
                             isOpen={isOpenHistory}
                           >
-                            <div className="border-sm border-gray-700 border-t-0 p-2 rounded-b">
+                            <div className="border border-gray-300 border-t-0 p-2 rounded-b">
                               <ul className="list-decimal ml-4 relative bg-white px-2">
                                 {data.completedBy.map((activityLog) => (
                                   <li key={activityLog._id}>
@@ -163,16 +165,14 @@ export default function TaskModalDetails({projectId, canEditNotes, canEditTasks}
                         </div>
                       ) : null}
 
-                      <div className="my-16u">
-                        <label className="bg-white font-bold px-3 rounded-t text-primary-400 border-2 border-primary-700">
-                          Estado Actual:
-                        </label>
+                      <div className="">
+                        <Label >Estado Actual:</Label>
 
                         {canEditTasks ? (
                           <select
                             name=""
                             id=""
-                            className="w-full p-3 bg-white no-border-focus border-primary-700 border-2 rounded-b"
+                            className="w-full p-3 bg-white no-border-focus border-gray-300 border rounded-b"
                             defaultValue={data.status}
                             onChange={handleChange}
                           >
