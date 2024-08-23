@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title: "Webtheek: Tu biblioteca de recursos web",
   description: "Crea tus proyectos, tests, curriculum y más, todo ello lo puedes hacer aquí",
   icons: {
-    icon: "/logo.png",
+    icon: "/logosinborde.png",
   },
   openGraph: {
     images: ["https://webtheek.com/"]
