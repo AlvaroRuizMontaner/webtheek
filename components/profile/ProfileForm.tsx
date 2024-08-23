@@ -8,6 +8,7 @@ import Form from "../form/Form"
 import Title from "../title/Title"
 import Subtitle from "../title/Subtitle"
 import Input from "../form/input/Input"
+import Separator from "../separator/Separator"
 
 type ProfileFormProps = {
     data: User
@@ -75,7 +76,7 @@ export default function ProfileForm({ data }: ProfileFormProps) {
             <SubmitInput isLoading={isPending} value="Guardar cambios" />
           </Form>
 
-          <section className="mt-6u"></section>
+          <Separator />
         </div>
       </>
     );

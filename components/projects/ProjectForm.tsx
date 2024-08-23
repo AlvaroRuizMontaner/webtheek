@@ -1,6 +1,7 @@
 import { FieldErrors, UseFormRegister } from "react-hook-form";
-import ErrorMessage from "../ErrorMessage";
 import { ProjectFormData } from "@/types";
+import Input from "../form/input/Input";
+import Textarea from "../form/input/Textarea";
 
 type ProjectFormProps = {
     register: UseFormRegister<ProjectFormData>
@@ -9,62 +10,33 @@ type ProjectFormProps = {
 
 export default function ProjectForm({register, errors}: ProjectFormProps) {
     return (
-        <>
-            <div className="mb-5 space-y-3">
-                <label htmlFor="projectName" className="text-sm uppercase font-bold text-primary-500">
-                    Nombre del Proyecto
-                </label>
-                <input
-                    id="projectName"
-                    className="w-full p-3  border border-gray-200"
-                    type="text"
-                    placeholder="Nombre del Proyecto"
-                    {...register("projectName", {
-                        required: "El Titulo del Proyecto es obligatorio",
-                    })}
-                />
-
-                {errors.projectName && (
-                    <ErrorMessage>{errors.projectName.message}</ErrorMessage>
-                )}
-            </div>
-
-            <div className="mb-5 space-y-3">
-                <label htmlFor="clientName" className="text-sm uppercase font-bold text-primary-500">
-                    Nombre Cliente
-                </label>
-                <input
-                    id="clientName"
-                    className="w-full p-3  border border-gray-200"
-                    type="text"
-                    placeholder="Nombre del Cliente"
-                    {...register("clientName", {
-                        required: "El Nombre del Cliente es obligatorio",
-                    })}
-                />
-
-                {errors.clientName && (
-                    <ErrorMessage>{errors.clientName.message}</ErrorMessage>
-                )}
-            </div>
-
-            <div className="mb-5 space-y-3">
-                <label htmlFor="description" className="text-sm uppercase font-bold text-primary-500">
-                    Descripción
-                </label>
-                <textarea
-                    id="description"
-                    className="w-full p-3  border border-gray-200"
-                    placeholder="Descripción del Proyecto"
-                    {...register("description", {
-                        required: "Una descripción del proyecto es obligatoria"
-                    })}
-                />
-
-                {errors.description && (
-                    <ErrorMessage>{errors.description.message}</ErrorMessage>
-                )}
-            </div>
-        </>
-    )
+      <>
+        <Input
+          label="Nombre del Proyecto"
+          name="projectName"
+          id="projectName"
+          placeholder="Nombre del Proyecto"
+          register={register}
+          errors={errors}
+          required="El Titulo del Proyecto es obligatorio"
+        />
+        <Input
+          label="Nombre del Cliente"
+          name="clientName"
+          id="clientName"
+          placeholder="Nombre del Cliente"
+          register={register}
+          errors={errors}
+          required="El Nombre del cliente es obligatorio"
+        />
+        <Textarea
+          label="Descripción"
+          name="description"
+          id="description"
+          placeholder="Descripción del Proyecto"
+          register={register}
+          required="El Nombre del cliente es obligatorio"
+        />
+      </>
+    );
 }
