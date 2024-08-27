@@ -24,13 +24,13 @@ export default function AppLayout({children}: AppLayoutProps): ReactNode {
           className="max-w-screen-2xl mx-auto flex sm:flex-row gap-6
             justify-between items-center container"
         >
-          <div className="w-32">
+          <div className="w-28">
             <Link href="/">
               <Logo />
             </Link>
           </div>
 
-          <section className='hidden h-[173px] sm:block'>
+          <section className='hidden h-[151px] sm:block'>
             <DesktopNav />
           </section>
 

@@ -48,7 +48,7 @@ export default function ProfileForm({ data }: ProfileFormProps) {
           />
 
           <Form onSubmit={handleSubmit(handleEditProfile)}
-            className="shadow-4"
+            className="shadow-y-4"
           >
 
           <Input
