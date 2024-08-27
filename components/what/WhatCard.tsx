@@ -11,7 +11,7 @@ const WhatCard = ({
       <section
         className="
         w-[16rem] sm:w-[18rem] bg-white mx-auto md:mx-0 p-6 flex flex-col gap-2
-        rounded-lg shadow-3
+        rounded-lg shadow-y-3
      "
       >
         <div className="relative w-full h-20 bg-primary-200 rounded-lg">

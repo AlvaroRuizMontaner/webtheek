@@ -123,7 +123,7 @@ export default function TaskList({tasks, projectId, canEdit}: TaskListProps) {
 
               <h3 
                 className={`capitalize text-xl font-light border border-slate-300 bg-white
-                p-3 border-t-8 shadow-2 ${statusStyles[status]}`}
+                p-3 border-t-8 shadow-y-2 ${statusStyles[status]}`}
               >{statusTranslations[status]}</h3>
 
               {showDropTask && <DropTask status={status} />}

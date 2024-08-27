@@ -30,7 +30,7 @@ export default function MobileNavItem({url, name}: NavItem) : JSX.Element {
 
     return (
       <div
-        className={`cursor-pointer text-white ${isPath && " border-b-2 text-accent-warning-200 border-accent-warning-200 w-fit"}`}
+        className={`cursor-pointer text-white ${isPath && " border-b-2 !text-accent-warning-300 border-accent-warning-300 w-fit"}`}
       >
         {url || url === "" ? (
           <div className="w-fit p-2">
