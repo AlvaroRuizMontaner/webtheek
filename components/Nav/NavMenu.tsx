@@ -7,12 +7,12 @@ import MobileNavItem from './MobileNavItem'
 
 
 
-export default function NavMenu(): JSX.Element {
+export default function MobileNav(): JSX.Element {
 
   return (
     <Popover className="">
       <PopoverButton className="inline-flex items-center gap-x-1 text-sm font-semibold leading-6 p-1 rounded-lg bg-primary-900">
-        <Bars3Icon className='w-8 h-8 text-white ' />
+        <Bars3Icon className='w-12 h-12 text-white ' />
       </PopoverButton>
 
       <Transition
@@ -24,8 +24,8 @@ export default function NavMenu(): JSX.Element {
         leaveFrom="opacity-100 translate-y-0"
         leaveTo="opacity-0 translate-y-1"
       >
-        <PopoverPanel className="absolute left-0 sm:left-auto sm:right-0 z-10 px-4 full-width-with-bar mt-5 flex">
-          <div className=" shrink rounded-xl w-full bg-white p-4 text-sm font-semibold leading-6 text-gray-900 shadow-lg ring-1 ring-gray-900/5">
+        <PopoverPanel className="absolute top-[180px] left-0 sm:left-auto sm:right-0 z-10 px-4 mt-5 flex w-full">
+          <div className=" shrink rounded-xl w-full bg-primary-900 p-4 text-sm font-semibold leading-6 text-gray-900 shadow-lg ring-1 ring-gray-900/5">
             {/* {data && <p className='sm:text-center px-2 sm:px-0'>Hola: {data.name}</p>} */}
             {navItemsInfo.map((item, index) => (
               <div key={index} className="">
