@@ -22,7 +22,7 @@ export default function DashboardView() {
     <>
       <Head>{renderPageSeo(seoHome, "index")}</Head>
       <div className="space-y-16 mb-10 mt-4 divide-y-2">
-        <section className='flex flex-col mx-auto border-4 border-primary-400 rounded max-w-[1200px]'>
+        <section className='flex flex-col mx-auto rounded max-w-[1200px]'>
           <h1 className="text-center headline1 font-bold bg-primary-400 text-white">¿Qué es Webtheek?</h1>
 
           <div className="flex justify-center p-4 bg-white">

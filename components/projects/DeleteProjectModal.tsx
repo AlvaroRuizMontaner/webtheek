@@ -8,10 +8,10 @@ import { checkPassword } from '@/services/AuthAPI';
 import { toast } from 'react-toastify';
 import { deleteProject } from '@/services/ProjectAPI';
 import SubmitInput from '../form/input/SubmitInput';
-import { XMarkIcon } from '@heroicons/react/20/solid';
 import Subtitle from '../title/Subtitle';
 import Title from '../title/Title';
 import Input from '../form/input/Input';
+import XMark from '../tasks/XMark/XMark';
 
 export default function DeleteProjectModal() {
     const initialValues: checkPasswordForm = {
@@ -86,7 +86,7 @@ export default function DeleteProjectModal() {
                     className="absolute inline-block top-2 right-2 sm:top-5 sm:right-5 cursor-pointer"
                     onClick={() => router.push(path)}
                   >
-                    <XMarkIcon className="w-8 h-8 text-black" />
+                    <XMark/>
                   </span>
 
                   <Title variant="dark">Eliminar Proyecto</Title>

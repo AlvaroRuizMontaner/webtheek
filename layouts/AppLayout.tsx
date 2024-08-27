@@ -3,11 +3,11 @@ import React, { ReactNode } from 'react'
 import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css"
 import Logo from '@/components/Logo'
-import NavMenu from '@/components/Nav/NavMenu';
 import Link from 'next/link';
 import Footer from '@/components/Footer';
 import DesktopNav from '@/components/Nav/DesktopNav';
 import { getSectionFromRouter } from '@/utils/router';
+import MobileNav from '@/components/Nav/NavMenu';
 
 interface AppLayoutProps {
     children: React.ReactNode
@@ -19,23 +19,23 @@ export default function AppLayout({children}: AppLayoutProps): ReactNode {
 
   return (
     <>
-      <header className=" bg-primary-900 py-5">
+      <header className=" bg-primary-900 py-2u">
         <div
           className="max-w-screen-2xl mx-auto flex sm:flex-row gap-6
             justify-between items-center container"
         >
-          <div className="w-14">
+          <div className="w-32">
             <Link href="/">
               <Logo />
             </Link>
           </div>
 
-          <section className='w-full hidden sm:block'>
+          <section className='hidden h-[173px] sm:block'>
             <DesktopNav />
           </section>
 
           <section className='sm:hidden'>
-            <NavMenu/>
+            <MobileNav/>
           </section>
         </div>
       </header>

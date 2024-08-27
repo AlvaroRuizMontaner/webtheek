@@ -20,6 +20,11 @@ const config: Config = {
         center: true,
         padding: "2rem",
       },
+      fontSize: {
+        '1u': '1rem',  // Configuración del tamaño de texto personalizado
+        "1.5u": "1.5rem",
+        "2u": "2rem"
+      },
       /* Paleta de colores */
       colors: {
         primary: "#6366F1",
@@ -118,6 +123,7 @@ const config: Config = {
         '64u': '256px',// 16 x 16
       },
       borderWidth: {
+        "1u": "4px",
         sm: "2px",
         md: "4px",
         lg: "10px"
@@ -125,10 +131,11 @@ const config: Config = {
       boxShadow: {
         /* '1': "2px 2px 4px 2px rgba(0,0,0,0.3)", */
         "1": "0 1px 3px hsla(0, 0%, 0%,0.2)",
-        "2": "0 4px 6px hsla(0, 0%, 0%,0.2)",
-        "3": "0 5px 15px hsla(0, 0%, 0%,0.2)",
-        "4": "0 10px 24px hsla(0, 0%, 0%,0.2)",
-        "5": "0 15px 35px hsla(0, 0%, 0%,0.2)",
+        "2": "0 2px 4px hsla(0, 0%, 0%,0.2)",
+        "3": "0 4px 6px hsla(0, 0%, 0%,0.2)",
+        "4": "0 5px 15px hsla(0, 0%, 0%,0.2)",
+        "5": "0 10px 24px hsla(0, 0%, 0%,0.2)",
+        "6": "0 15px 35px hsla(0, 0%, 0%,0.2)",
         inset: 'inset 0 1px 0 hsla(229, 100%, 77%, 1), 0 1px 3px hsla(0, 0%, 0%, 0.2)',
         "combined-1": "4px 6px hsla(0, 0%, 0%,0.7), 5px 15px hsla(0, 0%, 0%,0.1)",
         "no-blur": "0 3px 0 hsl(230, 7%, 83%)"
@@ -137,14 +144,14 @@ const config: Config = {
         lato: ["Lato", "sans-serif"],
         "rubik": ["Rubik", "sans-serif"],
       },
-      fontSize: {
+/*       fontSize: {
         body: ["14px", { lineHeight: "1.5", letterSpacing: "0.05em" }],
         headline: ["30px", { lineHeight: "1.5", letterSpacing: "-0.02em" }],
         "headline-lg": [
           "36px",
           { lineHeight: "1.5", letterSpacing: "-0.02em" },
         ],
-      },
+      }, */
     },
   },
   plugins: [

@@ -9,13 +9,14 @@ import { secondRenderUseEffect } from '@/hooks/useEffect';
 import { formatDate } from '@/utils/formatDate';
 import { statusTranslations } from '@/locales/es';
 import NotesPanel from '../notes/NotesPanel';
-import { XMarkIcon, ChevronDownIcon } from "@heroicons/react/20/solid";
+import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import Collapse from '../collapse/Collapse';
-import styles from '../collapse/collapse.module.css'
-import "./task.css"
+import styles from '../collapse/collapse.module.css';
+import "./task.css";
 import Subtitle from '../title/Subtitle';
 import Title from '../title/Title';
 import Label from '../title/Label';
+import XMark from './XMark/XMark';
 
 type TaskModalDetailsProps = {
     projectId: Project["_id"]
@@ -111,7 +112,7 @@ export default function TaskModalDetails({projectId, canEditNotes, canEditTasks}
                       className="absolute inline-block top-2 right-2 sm:top-5 sm:right-5 cursor-pointer"
                       onClick={() => router.push(path)}
                     >
-                      <XMarkIcon className="w-8 h-8 text-black" />
+                      <XMark/>
                     </span>
                     <p className="text-sm text-slate-400">
                       Agregada el: {formatDate(data.createdAt)}{" "}

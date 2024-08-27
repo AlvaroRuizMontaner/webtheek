@@ -1,5 +1,5 @@
 import { deleteTask } from '@/services/TaskAPI'
-import { Project, TaskProject } from '@/types'
+import { Project, Task, TaskProject } from '@/types'
 import { Menu, Transition } from '@headlessui/react'
 import { EllipsisVerticalIcon } from '@heroicons/react/20/solid'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
@@ -13,9 +13,18 @@ type TaskCardProps = {
     task: TaskProject
     projectId: Project["_id"]
     canEdit: boolean
+    status: Task["status"]
 }
 
-export default function TaskCard({task, projectId, canEdit}: TaskCardProps) {
+const statusStyles: {[key: string]: string} = {
+  pending: "border-gray-500 shadow-gray-500",
+  onHold: "border-accent-danger-500 shadow-accent-danger-500",
+  inProgress: "border-primary-500 shadow-primary-500",
+  underReview: "border-accent-warning-500 shadow-accent-warning-500",
+  completed: "border-accent-500 shadow-accent-500"
+}
+
+export default function TaskCard({task, projectId, canEdit, status}: TaskCardProps) {
 
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
     id: task._id
@@ -45,7 +54,7 @@ export default function TaskCard({task, projectId, canEdit}: TaskCardProps) {
     {...attributes}
     ref={setNodeRef}
     style={style}
-    className="p-3 sm:p-5 bg-white border border-gray-200 flex justify-between gap-3 shadow-2">
+    className={`p-3 sm:p-5 bg-white border-2 ${statusStyles[status]} flex justify-between gap-3 shadow-2`}>
       <div className=" min-w-0 flex flex-col gap-y-4 max-h-48">
         <button
           type="button"
