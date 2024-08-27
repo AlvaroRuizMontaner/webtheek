@@ -1,5 +1,5 @@
 import { deleteTask } from '@/services/TaskAPI'
-import { Project, Task, TaskProject } from '@/types'
+import { Project, TaskProject } from '@/types'
 import { Menu, Transition } from '@headlessui/react'
 import { EllipsisVerticalIcon } from '@heroicons/react/20/solid'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
@@ -13,7 +13,7 @@ type TaskCardProps = {
     task: TaskProject
     projectId: Project["_id"]
     canEdit: boolean
-    status: Task["status"]
+    status: string
 }
 
 const statusStyles: {[key: string]: string} = {

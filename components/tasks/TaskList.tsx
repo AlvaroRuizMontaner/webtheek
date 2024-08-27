@@ -155,7 +155,7 @@ export default function TaskList({tasks, projectId, canEdit}: TaskListProps) {
                     No Hay tareas
                   </li>
                 ) : (
-                  tasks.map((task) => <TaskCard projectId={projectId} key={task._id} task={task} canEdit={canEdit} />)
+                  tasks.map((task) => <TaskCard status={status} projectId={projectId} key={task._id} task={task} canEdit={canEdit} />)
                 )}
               </ul>
             </div>
