@@ -24,3 +24,44 @@
 .backlog-card {
     background: linear-gradient(to bottom, var(--primary-400) -50%, var(--primary-100) 50%, var(--primary-400) 150%);
 }
+
+.pattern_school {
+    position: relative;
+    z-index: 1; /* Asegúrate de que el contenido esté en el nivel superior */
+};
+
+.pattern_school::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("/backgrounds/pattern_school.jpg");
+    background-size: cover;
+    background-position: center;
+    filter: opacity(0.5);
+    z-index: -1;
+}
+
+.pattern_school::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-width: 1472px; /* El ancho maximo del tablon menos los paddings actuales de 32px a izq y derecha */
+    height: 100%;
+    background-image: url("/backgrounds/pattern_school.jpg");
+    z-index: -1;
+    filter: opacity(0.2);
+}
+
+.thumbtack {
+    background-image: url("/icons/thumbtack.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: absolute;
+    left:0%;
+    top: -10px;
+}
