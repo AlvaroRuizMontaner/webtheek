@@ -1,13 +1,20 @@
-import { Project, TaskProject, TaskStatus } from '@/types'
-import React, { useState } from 'react'
-import TaskCard from './TaskCard'
-import { statusTranslations } from '@/locales/es'
-import DropTask from './DropTask'
-import { DndContext, DragEndEvent, MouseSensor, TouchSensor, useSensor, useSensors } from '@dnd-kit/core'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { toast } from 'react-toastify'
-import { updateStatus } from '@/services/TaskAPI'
-import BackLogList from './BackLogList'
+import { AiOutlineCheckCircle } from "react-icons/ai";
+import { BiPause } from "react-icons/bi";
+import { AiOutlineCalendar } from "react-icons/ai";
+import { BsEye } from "react-icons/bs";
+import { Project, TaskProject, TaskStatus } from '@/types';
+import { useState } from 'react';
+import TaskCard from './TaskCard';
+import { statusTranslations } from '@/locales/es';
+import DropTask from './DropTask';
+import { DndContext, DragEndEvent, MouseSensor, TouchSensor, useSensor, useSensors } from '@dnd-kit/core';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { toast } from 'react-toastify';
+import { updateStatus } from '@/services/TaskAPI';
+import BackLogList from './BackLogList';
+import "./task.css";
+import Clock from '../../public/icons/clock.svg';
+import { IconType } from "react-icons/lib";
 
 type TaskListProps = {
     tasks: TaskProject[]
@@ -110,44 +117,101 @@ export default function TaskList({tasks, projectId, canEdit}: TaskListProps) {
       setShowDropTask(true)
     }
 
+    const mapFields = ([status, tasks]: [
+      string,
+      {
+        name: string;
+        status:
+          | "backlog"
+          | "pending"
+          | "onHold"
+          | "inProgress"
+          | "underReview"
+          | "completed";
+        _id: string;
+        description: string;
+      }[],
+    ]) => {
+
+      const statusIcons: { [key: string]: IconType } = {
+        backlog: AiOutlineCalendar,
+        pending: AiOutlineCalendar,
+        onHold: BiPause,
+        inProgress: Clock,
+        underReview: BsEye,
+        completed: AiOutlineCheckCircle,
+      };
+      
+      const statusComponents = Object.keys(statusTranslations).reduce<{ [key: string]: IconType }>((acc, key) => {
+        acc[key] = statusIcons[key]; // El generico de arriba ayuda a TS a entender el tipo de acc y acc[key]
+        return acc;
+      }, {});
+
+      function StatusIcon({ status }: {status: string}) {
+        const IconComponent = statusComponents[status];
+        return IconComponent ? <IconComponent className="text-gray-500 w-8 h-6" /> : null;
+      }
+
+      return (
+        <div key={status} className="2xl:min-w-0 2xl:w-1/5 taskWidth">
+          <div
+            className={`p-3 h-[61px] border-t-8 shadow-y-2 flex border border-slate-300 bg-white ${statusStyles[status]}`}
+          >
+            <h3
+              className={`capitalize text-xl font-light
+              ${statusStyles[status]}`}
+            >
+              {statusTranslations[status]}
+            </h3>
+            <div className="relative flex-1 h-full flex items-center">
+              <StatusIcon status={status} />
+            </div>
+          </div>
+  
+          {showDropTask && <DropTask status={status} />}
+  
+          <ul className="mt-5 space-y-5">
+            {tasks.length === 0 ? (
+              <li className="text-gray-700 text-center pt-3">No Hay tareas</li>
+            ) : (
+              tasks.map((task) => (
+                <TaskCard
+                  status={status}
+                  projectId={projectId}
+                  key={task._id}
+                  task={task}
+                  canEdit={canEdit}
+                />
+              ))
+            )}
+          </ul>
+        </div>
+      )
+    };
+
 
   return (
     <>
-      <h2 className="headline2 font-black my-10">Tareas</h2>
+      <h2 className="headline2 font-black my-8u">Tablón de tareas</h2>
 
-      <div className="flex gap-5 overflow-x-scroll 2xl:overflow-auto pb-8 ">
+      <div className="flex gap-5 overflow-x-scroll 2xl:overflow-auto pb-8 pattern_school ">
         {canEdit ? (
-          <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd} sensors={sensors}>
-          {fieldGroupedTasks.map(([status, tasks]) => (
-            <div key={status} className="2xl:min-w-0 2xl:w-1/5 taskWidth">
-
-              <h3 
-                className={`capitalize text-xl font-light border border-slate-300 bg-white
-                p-3 border-t-8 shadow-y-2 ${statusStyles[status]}`}
-              >{statusTranslations[status]}</h3>
-
-              {showDropTask && <DropTask status={status} />}
-
-              <ul className="mt-5 space-y-5">
-                {tasks.length === 0 ? (
-                  <li className="text-gray-700 text-center pt-3">
-                    No Hay tareas
-                  </li>
-                ) : (
-                  tasks.map((task) => <TaskCard status={status} projectId={projectId} key={task._id} task={task} canEdit={canEdit} />)
-                )}
-              </ul>
-            </div>
-          ))}
-        </DndContext>
+          <DndContext
+            onDragStart={handleDragStart}
+            onDragEnd={handleDragEnd}
+            sensors={sensors}
+          >
+            {fieldGroupedTasks.map(mapFields)}
+          </DndContext>
         ) : (
           fieldGroupedTasks.map(([status, tasks]) => (
             <div key={status} className="taskWidth 2xl:min-w-0 2xl:w-1/5">
-
-              <h3 
+              <h3
                 className={`capitalize text-xl font-light border border-slate-300 bg-white
                 p-3 border-t-8 ${statusStyles[status]}`}
-              >{statusTranslations[status]}</h3>
+              >
+                {statusTranslations[status]}
+              </h3>
 
               <ul className="mt-5 space-y-5">
                 {tasks.length === 0 ? (
@@ -155,15 +219,33 @@ export default function TaskList({tasks, projectId, canEdit}: TaskListProps) {
                     No Hay tareas
                   </li>
                 ) : (
-                  tasks.map((task) => <TaskCard status={status} projectId={projectId} key={task._id} task={task} canEdit={canEdit} />)
+                  tasks.map((task) => (
+                    <TaskCard
+                      status={status}
+                      projectId={projectId}
+                      key={task._id}
+                      task={task}
+                      canEdit={canEdit}
+                    />
+                  ))
                 )}
               </ul>
             </div>
           ))
         )}
       </div>
+      <a
+        className="text-center w-full block text-[10px]"
+        href="https://www.vecteezy.com/free-vector/kids-school-pattern"
+      >
+        Kids School Pattern Vectors by Vecteezy
+      </a>
 
-      <BackLogList backlogGroupedTasks={backlogGroupedTasks} canEdit={canEdit} projectId={projectId} />
+      <BackLogList
+        backlogGroupedTasks={backlogGroupedTasks}
+        canEdit={canEdit}
+        projectId={projectId}
+      />
     </>
   );
 }

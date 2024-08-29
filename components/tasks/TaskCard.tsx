@@ -8,6 +8,7 @@ import React, { Fragment } from 'react'
 import { toast } from 'react-toastify'
 import { useDraggable } from "@dnd-kit/core"
 import {CSS} from '@dnd-kit/utilities';
+import Thumbtack from './Thumtack/Thumbtack'
 
 type TaskCardProps = {
     task: TaskProject
@@ -49,23 +50,31 @@ export default function TaskCard({task, projectId, canEdit, status}: TaskCardPro
     }
 
   return (
-    <li 
-    {...listeners}
-    {...attributes}
-    ref={setNodeRef}
-    style={style}
-    className={`p-3 sm:p-5 bg-white border-2 ${statusStyles[status]} flex justify-between gap-3 shadow-z-2`}>
+    <li
+      {...listeners}
+      {...attributes}
+      ref={setNodeRef}
+      style={style}
+      className={`p-3 sm:p-5 bg-white border-2 ${statusStyles[status]} flex justify-between gap-3 shadow-z-2 relative`}
+    >
       <div className=" min-w-0 flex flex-col gap-y-4 max-h-48">
-        <button
-          type="button"
-          className="body2 font-bold text-slate-600 text-left"
-          onClick={() =>
-            router.push(location.pathname + `?viewTask=${task._id}`)
-          }
-        >
-          {task.name}
-        </button>
-        {task.description && <p className="text-slate-500 body3 text-ellipsis overflow-hidden ">{task.description}</p>}
+        <div className='flex gap-4'>
+          <Thumbtack />
+          <button
+            type="button"
+            className="body2 font-bold text-slate-600 text-left"
+            onClick={() =>
+              router.push(location.pathname + `?viewTask=${task._id}`)
+            }
+          >
+            {task.name}
+          </button>
+        </div>
+        {task.description && (
+          <p className="text-slate-500 body3 text-ellipsis overflow-hidden ">
+            {task.description}
+          </p>
+        )}
       </div>
 
       <div className="flex shrink-0  gap-x-6">
