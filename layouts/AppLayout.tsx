@@ -1,13 +1,14 @@
 "use client"
-import React, { ReactNode } from 'react'
+import React, { ReactNode } from 'react';
 import { ToastContainer } from 'react-toastify';
-import "react-toastify/dist/ReactToastify.css"
-import Logo from '@/components/Logo'
+import "react-toastify/dist/ReactToastify.css";
+import Logo from '@/components/Logo';
 import Link from 'next/link';
 import Footer from '@/components/Footer';
 import DesktopNav from '@/components/Nav/DesktopNav';
 import { getSectionFromRouter } from '@/utils/router';
 import MobileNav from '@/components/Nav/NavMenu';
+import { useInertialScroll } from '@/hooks/useInertialScroll';
 
 interface AppLayoutProps {
     children: React.ReactNode
@@ -16,6 +17,8 @@ interface AppLayoutProps {
 export default function AppLayout({children}: AppLayoutProps): ReactNode {
 
   getSectionFromRouter
+
+  useInertialScroll()
 
   return (
     <>

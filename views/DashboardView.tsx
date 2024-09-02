@@ -1,13 +1,13 @@
-import { renderPageSeo, seoHome } from '@/seo'
-import WhatCard from '@/components/what/WhatCard'
+import { renderPageSeo, seoHome } from '@/seo';
+import WhatCard from '@/components/what/WhatCard';
 import { whatInfo } from '@/components/what/whatCard.info';
-import Head from 'next/head'
-import React, { useRef, useState } from 'react'
+import Head from 'next/head';
+import { useRef, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Swiper as SwiperType } from 'swiper';
 import 'swiper/css';
-import { useDeviceSize } from '@/hooks/window';
 import { ArrowLeftCircleIcon, ArrowRightCircleIcon } from '@heroicons/react/20/solid';
+import { useDeviceSize } from '@/hooks/useDeviceSize';
 
 
 export default function DashboardView() {
@@ -16,6 +16,40 @@ export default function DashboardView() {
   const [slideIndex, setSlideIndex] = useState(1)
 
   const swiperRef = useRef<SwiperType>();
+
+/*   useEffect(() => {
+    let scrollPosition = window.scrollY;
+    let targetScrollPosition = scrollPosition;
+    let scrollSpeed = 0;
+
+    function smoothScroll() {
+      // Calcular la diferencia entre la posición actual y la posición objetivo
+      const difference = targetScrollPosition - scrollPosition;
+
+      // Ajustar la velocidad de acuerdo a la diferencia
+      scrollSpeed += difference * 0.1; // La velocidad aumenta en función de la diferencia
+      scrollSpeed *= 0.1; // Factor de amortiguación para reducir la velocidad gradualmente
+
+      // Actualizar la posición actual del scroll
+      scrollPosition += scrollSpeed;
+
+      // Desplazar la ventana a la nueva posición
+      window.scrollTo(0, scrollPosition);
+
+      // Continuar la animación mientras la velocidad sea significativa
+      if (Math.abs(scrollSpeed) > 0.5 || Math.abs(difference) > 0.5) {
+        requestAnimationFrame(smoothScroll);
+      }
+    }
+
+    window.addEventListener('wheel', function(event) {
+    // Ajustar la posición objetivo de acuerdo al scroll del usuario
+    targetScrollPosition += event.deltaY;
+
+    // Iniciar la animación
+    requestAnimationFrame(smoothScroll);
+  })}, []) */
+
 
 
   return (
@@ -85,6 +119,7 @@ export default function DashboardView() {
           )}
         </section>
       </div>
+      <hr />
     </>
   );
 }
