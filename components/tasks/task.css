@@ -49,11 +49,24 @@
     position: absolute;
     top: 0;
     left: 0;
-    min-width: 1472px; /* El ancho maximo del tablon menos los paddings actuales de 32px a izq y derecha */
+    right: 0;
     height: 100%;
     background-image: url("/backgrounds/pattern_school.jpg");
     z-index: -1;
-    filter: opacity(0.2);
+    filter: opacity(0.08);
+
+    min-width: calc(((100vw - 32px * 2) * 5) - 18px);
+}
+
+@media screen and (min-width: 440px) {
+    .pattern_school::after {
+        min-width: calc(290px * 5 - 18px); /* Ancho de cada tarjeta por 5 menos el ancho de la barra de scroll */
+    }
+}
+@media screen and (min-width: 1536px) {
+    .pattern_school::after {
+        min-width: 1472px; /* Ancho maximo del parent */
+    }
 }
 
 .thumbtack {

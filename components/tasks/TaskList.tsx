@@ -1,7 +1,8 @@
 import { AiOutlineCheckCircle } from "react-icons/ai";
-import { BiPause } from "react-icons/bi";
 import { AiOutlineCalendar } from "react-icons/ai";
 import { BsEye } from "react-icons/bs";
+import Clock from '../../public/icons/clock.svg';
+import PauseCircle from '../../public/icons/pause_circle.svg';
 import { Project, TaskProject, TaskStatus } from '@/types';
 import { useState } from 'react';
 import TaskCard from './TaskCard';
@@ -13,7 +14,6 @@ import { toast } from 'react-toastify';
 import { updateStatus } from '@/services/TaskAPI';
 import BackLogList from './BackLogList';
 import "./task.css";
-import Clock from '../../public/icons/clock.svg';
 import { IconType } from "react-icons/lib";
 
 type TaskListProps = {
@@ -136,7 +136,7 @@ export default function TaskList({tasks, projectId, canEdit}: TaskListProps) {
       const statusIcons: { [key: string]: IconType } = {
         backlog: AiOutlineCalendar,
         pending: AiOutlineCalendar,
-        onHold: BiPause,
+        onHold: PauseCircle,
         inProgress: Clock,
         underReview: BsEye,
         completed: AiOutlineCheckCircle,
@@ -147,9 +147,18 @@ export default function TaskList({tasks, projectId, canEdit}: TaskListProps) {
         return acc;
       }, {});
 
+      const statusComponentStyles: { [key: string]: string } = {
+        backlog: "",
+        pending: "text-gray-500",
+        onHold: "text-accent-danger-500",
+        inProgress: "text-primary-500",
+        underReview: "text-accent-warning-500",
+        completed: "text-accent-500",
+      }
+
       function StatusIcon({ status }: {status: string}) {
         const IconComponent = statusComponents[status];
-        return IconComponent ? <IconComponent className="text-gray-500 w-8 h-6" /> : null;
+        return IconComponent ? <IconComponent className={`${statusComponentStyles[status]} w-8 h-6`} /> : null;
       }
 
       return (
@@ -157,15 +166,15 @@ export default function TaskList({tasks, projectId, canEdit}: TaskListProps) {
           <div
             className={`p-3 h-[61px] border-t-8 shadow-y-2 flex border border-slate-300 bg-white ${statusStyles[status]}`}
           >
+            <div className="relative h-full flex items-center">
+              <StatusIcon status={status} />
+            </div>
             <h3
               className={`capitalize text-xl font-light
               ${statusStyles[status]}`}
             >
               {statusTranslations[status]}
             </h3>
-            <div className="relative flex-1 h-full flex items-center">
-              <StatusIcon status={status} />
-            </div>
           </div>
   
           {showDropTask && <DropTask status={status} />}
