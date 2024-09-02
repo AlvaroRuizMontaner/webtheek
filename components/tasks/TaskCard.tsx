@@ -19,10 +19,10 @@ type TaskCardProps = {
 
 const statusStyles: {[key: string]: string} = {
   pending: "border-gray-300 shadow-gray-500",
-  onHold: "border-gray-300 shadow-accent-danger-500",
-  inProgress: "border-gray-300 shadow-primary-500",
-  underReview: "border-gray-300 shadow-accent-warning-500",
-  completed: "border-gray-300 shadow-accent-500"
+  onHold: "border-gray-300 shadow-gray-500",
+  inProgress: "border-gray-300 shadow-gray-500",
+  underReview: "border-gray-300 shadow-gray-500",
+  completed: "border-gray-300 shadow-gray-500"
 }
 
 export default function TaskCard({task, projectId, canEdit, status}: TaskCardProps) {
@@ -55,7 +55,7 @@ export default function TaskCard({task, projectId, canEdit, status}: TaskCardPro
       {...attributes}
       ref={setNodeRef}
       style={style}
-      className={`p-3 sm:p-5 bg-white border-2 ${statusStyles[status]} flex justify-between gap-3 shadow-z-2 relative`}
+      className={`p-3 sm:p-5 bg-white border-2 ${statusStyles[status]} flex justify-between gap-3 shadow-y-2 relative`}
     >
       <div className=" min-w-0 flex flex-col gap-y-4 max-h-48">
         <div className='flex gap-4'>
