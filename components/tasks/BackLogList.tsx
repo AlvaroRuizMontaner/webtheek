@@ -11,7 +11,7 @@ export default function BackLogList({backlogGroupedTasks, canEdit, projectId}: B
 
     return (
         <>
-          <div className='mt-10 font-black headline3'>
+          <div className='mt-16u mb-8u sm:mt-24u sm:mb-12u font-black headline3'>
             <p>Backlog</p>
           </div>
           {backlogGroupedTasks.length !== 0 ? (

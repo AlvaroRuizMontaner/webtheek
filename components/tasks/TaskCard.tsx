@@ -57,12 +57,12 @@ export default function TaskCard({task, projectId, canEdit, status}: TaskCardPro
       style={style}
       className={`p-3 sm:p-5 bg-white border-2 ${statusStyles[status]} flex justify-between gap-3 shadow-y-2 relative`}
     >
-      <div className=" min-w-0 flex flex-col gap-y-4 max-h-48">
+      <div className=" min-w-0 flex justify-center flex-col gap-y-4 max-h-48">
         <div className='flex gap-4'>
           <Thumbtack />
           <button
             type="button"
-            className="body2 font-bold text-slate-600 text-left"
+            className=" text-base font-bold text-slate-600 text-left"
             onClick={() =>
               router.push(location.pathname + `?viewTask=${task._id}`)
             }
@@ -71,15 +71,15 @@ export default function TaskCard({task, projectId, canEdit, status}: TaskCardPro
           </button>
         </div>
         {task.description && (
-          <p className="text-slate-500 body3 text-ellipsis overflow-hidden ">
+          <p className="text-slate-500 body3 ellipsis ">
             {task.description}
           </p>
         )}
       </div>
 
       <div className="flex shrink-0  gap-x-6">
-        <Menu as="div" className="relative flex-none">
-          <Menu.Button className="-m-2.5 block p-2.5 text-gray-500 hover:text-gray-900">
+        <Menu as="div" className="relative w-2 flex-none">
+          <Menu.Button className="-m-2.5 absolute top-1 right-0 sm:top-0 sm:-right-1 block text-gray-500 hover:text-gray-900">
             <span className="sr-only">opciones</span>
             <EllipsisVerticalIcon className="h-9 w-9" aria-hidden="true" />
           </Menu.Button>
