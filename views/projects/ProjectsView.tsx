@@ -49,14 +49,14 @@ export default function ProjectsView() {
                     <div>
                       {isManager(project.manager, user._id) ? (
                         <p
-                          className="font-bold text-xs uppercase bg-primary-100 text-primary-500 border-sm
+                          className="font-bold text-xs uppercase bg-primary-50 text-primary-500 border-sm
                         border-primary-500 rounded-lg inline-block py-1u px-6u mb-2"
                         >
                           Manager
                         </p>
                       ) : (
                         <p
-                          className="font-bold text-xs uppercase bg-accent-100 text-accent-500 border-sm
+                          className="font-bold text-xs uppercase bg-accent-50 text-accent-500 border-sm
                         border-accent-500 rounded-lg inline-block py-1 px-5 mb-2"
                         >
                           Colaborador
