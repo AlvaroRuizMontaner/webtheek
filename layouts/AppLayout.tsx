@@ -19,8 +19,11 @@ export default function AppLayout({children}: AppLayoutProps): ReactNode {
 
   getSectionFromRouter
 
-  useInertialScrollDesktop()
-  useInertialScrollMobile()
+  if (typeof window !== 'undefined') {
+    useInertialScrollDesktop()
+    useInertialScrollMobile()
+  }
+    
 
   return (
     <>
