@@ -27,10 +27,12 @@ export default function ProjectsView() {
   if (data && user)
     return (
       <>
-        <Title variant="dark">Proyectos</Title>
-        <Subtitle variant="dark" text="Maneja y administra tus proyectos" />
+        <div className="mb-8u sm:mb-12u">
+          <Title variant="dark">Tus proyectos</Title>
+          <Subtitle variant="dark" text="Maneja y administra tus proyectos" />
 
-        <Button text="Nuevo proyecto" href="/projects/create" />
+          <Button text="Nuevo proyecto" href="/projects/create" />
+        </div>
 
         {data.length ? (
           <ul
