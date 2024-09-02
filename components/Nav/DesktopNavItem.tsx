@@ -30,7 +30,7 @@ export default function DesktopNavItem({name, url}: NavItem) {
     }
 
   return (
-    <div className={`cursor-pointer h-full py-8u text-lg flex items-center ${isPath && "border-b-4 text-accent-warning-300 border-accent-warning-300"}`}>
+    <div className={`cursor-pointer text-primary-100 h-full py-8u text-lg flex items-center ${isPath && "border-b-4 !text-accent-300 border-accent-300"}`}>
         {(url || url === "") ? (
             <Link href={`/${url}`}>{name}</Link>
         ): (

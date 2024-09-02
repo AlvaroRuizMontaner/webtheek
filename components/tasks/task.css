@@ -22,7 +22,7 @@
 }
 
 .backlog-card {
-    background: linear-gradient(to bottom, var(--primary-400) -50%, var(--primary-100) 50%, var(--primary-400) 150%);
+    background: linear-gradient(to bottom, var(--primary-400) -50%, var(--primary-50) 50%, var(--primary-400) 150%);
 }
 
 .pattern_school {

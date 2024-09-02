@@ -30,21 +30,21 @@ export default function MobileNavItem({url, name}: NavItem) : JSX.Element {
 
     return (
       <div
-        className={`cursor-pointer text-white ${isPath && " border-b-2 !text-accent-warning-300 border-accent-warning-300 w-fit"}`}
+        className={`cursor-pointer text-white ${isPath && " border-b-2 !text-accent-300 border-accent-300 w-fit"}`}
       >
         {url || url === "" ? (
           <div className="w-fit p-2">
-            <Link className="hover:text-accent-warning-500" href={`/${url}`}>
+            <Link className="hover:text-accent-500" href={`/${url}`}>
               {name}
             </Link>
           </div>
         ) : isLogged ? (
-          <button className="p-2 hover:text-accent-warning-500" onClick={logout}>
+          <button className="p-2 hover:text-accent-500" onClick={logout}>
             {name}
           </button>
         ) : (
           <div className="w-fit p-2">
-            <Link href={"/auth/login"} className="hover:text-accent-warning-500">
+            <Link href={"/auth/login"} className="hover:text-accent-500">
               Iniciar sesión
             </Link>
           </div>
