@@ -67,7 +67,7 @@ const config: Config = {
         "gray-900": "#10101e", // hsla(240, 32%, 9%, 1)
 
 
-        "accent-50": "#e5ffff", // hsla(180, 88%, 95%, 1)
+        "accent-50": "#e5ffff", // hsla(180, 100%, 95%, 1)
         "accent-100": "#cff", // hsla(180, 100%, 90%, 1)
         "accent-200": "#97eded", // hsla(180, 70%, 76%, 1)
         "accent-300": "#74dcdc", // hsla(180, 60%, 66%, 1)
