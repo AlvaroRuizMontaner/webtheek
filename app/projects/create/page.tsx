@@ -43,12 +43,14 @@ return (
   <>
     <div className=" max-w-3xl mx-auto">
       <Title variant="dark">Crear proyecto</Title>
-        <Subtitle
-          variant="dark"
-          text="Llena el siguiente formulario para crear un proyecto"
-        />
+      <Subtitle
+        variant="dark"
+        text="Llena el siguiente formulario para crear un proyecto"
+      />
 
-      <Button text="Volver a proyectos" href="/projects" />
+      <div className="mb-8u sm:mb-12u">
+        <Button text="Volver a proyectos" href="/projects" />
+      </div>
 
       <Form
         className=" shadow-lg rounded-lg"
