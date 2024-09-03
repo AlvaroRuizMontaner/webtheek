@@ -9,7 +9,7 @@ export const useInertialScrollDesktop = (): void => {
       const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
 
       // Aplicar la velocidad al scroll actual
-      scrollPosition.current += scrollSpeed.current * 0.1;
+      scrollPosition.current += scrollSpeed.current * 0.075; // Reduce el movimiento causado al girar la rueda
 
       // Limitar scrollPosition a los límites de la página
       if (scrollPosition.current < 0) {
@@ -23,7 +23,7 @@ export const useInertialScrollDesktop = (): void => {
       window.scrollTo(0, scrollPosition.current);
 
       // Reducir gradualmente la velocidad
-      scrollSpeed.current *= 0.98;
+      scrollSpeed.current *= 0.98; // Factor de amortiguación
 
       // Continuar la animación mientras la velocidad sea significativa
       if (Math.abs(scrollSpeed.current) > 0.1) {
