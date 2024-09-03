@@ -12,7 +12,7 @@ import Title from "@/components/title/Title";
 import Subtitle from "@/components/title/Subtitle";
 import Button from "@/components/button/Button";
 import "./projects.css"
-import Permission from "@/components/permission/Permission";
+import PermissionTag from "@/components/permission-tag/PermissionTag";
 
 export default function ProjectsView() {
   const router = useRouter()
@@ -44,12 +44,12 @@ export default function ProjectsView() {
             {data.map((project) => (
               <li
                 key={project._id}
-                className="flex justify-between gap-x-6 px-6u py-8u project-card bg-white shadow-lg"
+                className="flex relative justify-between gap-x-6 px-6u py-8u project-card bg-white shadow-lg"
               >
                 <div className="flex min-w-0 gap-x-4">
                   <div className="min-w-0 flex-auto space-y-2u">
                     <div className="permission">
-                      <Permission isManager={isManager(project.manager, user._id)}/>
+                      <PermissionTag isManager={isManager(project.manager, user._id)}/>
                     </div>
                     <div>
                       <Link
