@@ -44,7 +44,7 @@ export default function ProjectsView() {
             {data.map((project) => (
               <li
                 key={project._id}
-                className="flex justify-between gap-x-6 px-4u py-6u sm:px-6u sm:py-8u project-card bg-white shadow-lg"
+                className="flex justify-between gap-x-6 px-6u py-8u project-card bg-white shadow-lg"
               >
                 <div className="flex min-w-0 gap-x-4">
                   <div className="min-w-0 flex-auto space-y-2u">
