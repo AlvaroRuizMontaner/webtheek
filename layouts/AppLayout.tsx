@@ -8,7 +8,7 @@ import Footer from '@/components/Footer';
 import DesktopNav from '@/components/Nav/DesktopNav';
 import { getSectionFromRouter } from '@/utils/router';
 import MobileNav from '@/components/Nav/NavMenu';
-import { useInertialScrollDesktop, useInertialScrollMobile } from '@/hooks/useInertialScroll';
+import { useInertialScrollDesktop } from '@/hooks/useInertialScroll';
 
 
 interface AppLayoutProps {
@@ -21,7 +21,7 @@ export default function AppLayout({children}: AppLayoutProps): ReactNode {
 
   if (typeof window !== 'undefined') {
     useInertialScrollDesktop()
-    useInertialScrollMobile()
+    //useInertialScrollMobile()
   }
     
 

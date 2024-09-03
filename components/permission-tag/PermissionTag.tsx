@@ -1,10 +1,10 @@
 import React from 'react'
 
-type PermissionProps = {
+type PermissionTagProps = {
     isManager: boolean
 }
 
-export default function Permission({isManager}: PermissionProps) {
+export default function PermissionTag({isManager}: PermissionTagProps) {
     const classNames = "font-bold text-xs uppercase border-sm inline-block py-1u px-10 mb-2"
     return (
     <div>
