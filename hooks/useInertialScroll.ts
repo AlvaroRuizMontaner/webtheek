@@ -61,6 +61,7 @@ export const useInertialScrollMobile = (): void => {
 
   useEffect(() => {
     let startY = 0; // Almacena la posición inicial del toque
+    const scrollFactor = 0.3; // Factor de ajuste para reducir el desplazamiento
 
     function smoothScroll() {
       const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
@@ -97,8 +98,9 @@ export const useInertialScrollMobile = (): void => {
     const handleTouchMove = (event: TouchEvent) => {
       if (isTouching.current) {
         const deltaY = startY - event.touches[0].clientY;
-        scrollPosition.current = window.scrollY + deltaY; // Actualizar el scroll en tiempo real
-        scrollSpeed.current = deltaY; // Establece la velocidad basada en el movimiento del dedo
+        const adjustedDeltaY = deltaY * scrollFactor; // Reducir la sensibilidad del desplazamiento
+        scrollPosition.current = window.scrollY + adjustedDeltaY;
+        scrollSpeed.current = adjustedDeltaY; // Establece la velocidad basada en el movimiento ajustado
         window.scrollTo(0, scrollPosition.current);
         startY = event.touches[0].clientY;
       }
