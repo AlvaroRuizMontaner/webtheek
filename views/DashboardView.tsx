@@ -17,47 +17,13 @@ export default function DashboardView() {
 
   const swiperRef = useRef<SwiperType>();
 
-/*   useEffect(() => {
-    let scrollPosition = window.scrollY;
-    let targetScrollPosition = scrollPosition;
-    let scrollSpeed = 0;
-
-    function smoothScroll() {
-      // Calcular la diferencia entre la posición actual y la posición objetivo
-      const difference = targetScrollPosition - scrollPosition;
-
-      // Ajustar la velocidad de acuerdo a la diferencia
-      scrollSpeed += difference * 0.1; // La velocidad aumenta en función de la diferencia
-      scrollSpeed *= 0.1; // Factor de amortiguación para reducir la velocidad gradualmente
-
-      // Actualizar la posición actual del scroll
-      scrollPosition += scrollSpeed;
-
-      // Desplazar la ventana a la nueva posición
-      window.scrollTo(0, scrollPosition);
-
-      // Continuar la animación mientras la velocidad sea significativa
-      if (Math.abs(scrollSpeed) > 0.5 || Math.abs(difference) > 0.5) {
-        requestAnimationFrame(smoothScroll);
-      }
-    }
-
-    window.addEventListener('wheel', function(event) {
-    // Ajustar la posición objetivo de acuerdo al scroll del usuario
-    targetScrollPosition += event.deltaY;
-
-    // Iniciar la animación
-    requestAnimationFrame(smoothScroll);
-  })}, []) */
-
-
 
   return (
     <>
       <Head>{renderPageSeo(seoHome, "index")}</Head>
       <div className="space-y-16 mb-10 mt-4 divide-y-2">
         <section className='flex flex-col mx-auto rounded max-w-[1200px]'>
-          <h1 className="text-center headline1 font-bold bg-primary-400 text-white">¿Qué es Webtheek?</h1>
+          <h1 className="text-center headline1 leading-[1.2] font-bold bg-primary-400 text-white">¿Qué es Webtheek?</h1>
 
           <div className="flex justify-center p-4 bg-white">
             <h2 className="text-center body1">
