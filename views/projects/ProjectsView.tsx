@@ -11,6 +11,8 @@ import { usePathname, useRouter } from "next/navigation";
 import Title from "@/components/title/Title";
 import Subtitle from "@/components/title/Subtitle";
 import Button from "@/components/button/Button";
+import "./projects.css"
+import Permission from "@/components/permission/Permission";
 
 export default function ProjectsView() {
   const router = useRouter()
@@ -37,33 +39,18 @@ export default function ProjectsView() {
         {data.length ? (
           <ul
             role="list"
-            className="divide-y divide-gray-300 border border-gray-100 my-10 bg-white shadow-lg"
+            className="space-y-4 my-10"
           >
             {data.map((project) => (
               <li
                 key={project._id}
-                className="flex justify-between gap-x-6 px-4u py-6u sm:px-6u sm:py-8u"
+                className="flex justify-between gap-x-6 px-4u py-6u sm:px-6u sm:py-8u project-card bg-white shadow-lg"
               >
                 <div className="flex min-w-0 gap-x-4">
                   <div className="min-w-0 flex-auto space-y-2u">
-                    <div>
-                      {isManager(project.manager, user._id) ? (
-                        <p
-                          className="font-bold text-xs uppercase bg-primary-50 text-primary-500 border-sm
-                        border-primary-500 rounded-lg inline-block py-1u px-6u mb-2"
-                        >
-                          Manager
-                        </p>
-                      ) : (
-                        <p
-                          className="font-bold text-xs uppercase bg-accent-50 text-accent-500 border-sm
-                        border-accent-500 rounded-lg inline-block py-1 px-5 mb-2"
-                        >
-                          Colaborador
-                        </p>
-                      )}
+                    <div className="permission">
+                      <Permission isManager={isManager(project.manager, user._id)}/>
                     </div>
-
                     <div>
                       <Link
                         href={`/projects/${project._id}`}
