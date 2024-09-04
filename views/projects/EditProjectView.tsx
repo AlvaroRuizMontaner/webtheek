@@ -1,3 +1,4 @@
+import ProjectsLoading from '@/components/loading-templates/ProjectsLoading';
 import EditProjectForm from '@/components/projects/EditProjectForm';
 import { getProjectById } from '@/services/ProjectAPI';
 import { Project } from '@/types';
@@ -12,7 +13,7 @@ export default function EditProjectView({projectId}:{projectId: Project["_id"]})
         retry: false
     });
 
-    if(isLoading) return "Cargando..."
+    if(isLoading) return <ProjectsLoading />
     if(isError) throw new Error(error.message);
 
     if(data) return <EditProjectForm data={data} projectId={projectId} />

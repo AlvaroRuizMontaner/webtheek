@@ -13,6 +13,7 @@ import Subtitle from "@/components/title/Subtitle";
 import Button from "@/components/button/Button";
 import "./projects.css"
 import PermissionTag from "@/components/permission-tag/PermissionTag";
+import ProjectsLoading from "@/components/loading-templates/ProjectsLoading";
 
 export default function ProjectsView() {
   const router = useRouter()
@@ -24,7 +25,7 @@ export default function ProjectsView() {
   });
 
 
-  if (isLoading && authLoading) return "cargando...";
+  if (isLoading && authLoading) return <ProjectsLoading />;
 
   if (data && user)
     return (

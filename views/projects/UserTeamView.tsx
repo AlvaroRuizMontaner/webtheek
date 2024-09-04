@@ -9,6 +9,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Swiper as SwiperType } from 'swiper';
 import { ArrowLeftCircleIcon, ArrowRightCircleIcon } from '@heroicons/react/20/solid';
 import SlideCard from '@/components/team/SlideCard/SlideCard';
+import ProjectsLoading from '@/components/loading-templates/ProjectsLoading';
 
 
 type UserTeamViewProps = {
@@ -41,7 +42,7 @@ export default function UserTeamView({projectId, userId}: UserTeamViewProps) {
 
   const swiperRef = useRef<SwiperType>();
 
-  if (isLoading) return "Cargando...";
+  if (isLoading) return <ProjectsLoading />
   if (isError) throw new Error("Error");
   if (data) return (
     <>
