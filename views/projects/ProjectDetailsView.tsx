@@ -1,4 +1,5 @@
 import Button from '@/components/button/Button';
+import ProjectsLoading from '@/components/loading-templates/ProjectsLoading';
 import AddTaskModal from '@/components/tasks/AddTaskModal';
 import EditTaskData from '@/components/tasks/EditTaskData';
 import TaskList from '@/components/tasks/TaskList';
@@ -28,7 +29,7 @@ export default function ProjectDetailsView({projectId}: {projectId: Project["_id
 
     const checkManager = useMemo(() => data?.manager === user?._id, [data, user])
 
-    if(isLoading && authLoading) return "Cargando..."
+    if(isLoading && authLoading) return <ProjectsLoading />
     if(isError) throw new Error(error.message);
     if(data && user) return (
       <>

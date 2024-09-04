@@ -8,6 +8,7 @@ import React, { useMemo } from 'react'
 import { toast } from 'react-toastify';
 import { TrashIcon } from "@heroicons/react/20/solid";
 import styles from "./Notes.module.css"
+import ProjectsLoading from '../loading-templates/ProjectsLoading';
 
 type NoteDetailProps  = {
     note: Note
@@ -33,7 +34,7 @@ export default function NoteDetail({note, projectId}: NoteDetailProps) {
         }
     })
 
-    if(isLoading) return "Cargando..."
+    if(isLoading) return <ProjectsLoading />
 
   return (
     <div className="flex justify-between items-center gap-2 body3">

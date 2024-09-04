@@ -1,3 +1,4 @@
+import ProjectsLoading from '@/components/loading-templates/ProjectsLoading'
 import AddMemberModal from '@/components/team/AddMemberModal'
 import { getProjectTeam, removeUserFromProject } from '@/services/TeamAPI'
 import { Project } from '@/types'
@@ -35,7 +36,7 @@ export default function ProjectTeamView({projectId}: ProjectTeamViewProps) {
     }
 })
 
-  if (isLoading) return "Cargando...";
+  if (isLoading) return <ProjectsLoading />;
   if (isError) throw new Error("Error");
   if (data) return (
       <>

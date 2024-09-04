@@ -1,0 +1,57 @@
+
+.loading-bar {
+    overflow: hidden;
+}
+
+.loading-bar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%; /* Comienza fuera de la barra */
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.2) 0%, rgba(77, 77, 203, 0.2) 50%, rgba(255, 255, 255, 0.2));
+    animation: shine 1.5s infinite ease-in-out;
+}
+
+.loading-bar:nth-child(2)::before {
+    animation-delay: 0.10s;
+}
+
+.loading-bar:nth-child(3)::before {
+    animation-delay: 0.15s;
+}
+
+.loading-bar:nth-child(4)::before {
+    animation-delay: 0.20s;
+}
+
+@keyframes shine {
+    0% {
+        left: -100%;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
+.loading-text {
+    width: 60%;
+    height: 16px;
+    background-color: #e0e0e0;
+    margin: 8px 0;
+    border-radius: 4px;
+    animation: pulse 1.5s infinite ease-in-out;
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
+}
