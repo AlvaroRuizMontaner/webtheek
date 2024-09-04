@@ -48,7 +48,7 @@ export default function ProjectsView() {
               >
                 <div className="flex min-w-0 gap-x-4">
                   <div className="min-w-0 flex-auto space-y-2u">
-                    <div className="permission">
+                    <div className="permissionTagWrapper">
                       <PermissionTag isManager={isManager(project.manager, user._id)}/>
                     </div>
                     <div>
@@ -68,7 +68,7 @@ export default function ProjectsView() {
                   </div>
                 </div>
                 <div className="flex shrink-0 items-center gap-x-6 w-fit">
-                  <Menu as="div" className="relative flex-none">
+                  <Menu as="div" className="relative z-10 flex-none">
                     <MenuButton className="-m-2.5 block text-gray-500 hover:text-gray-900">
                       <span className="sr-only">opciones</span>
                       <EllipsisVerticalIcon
