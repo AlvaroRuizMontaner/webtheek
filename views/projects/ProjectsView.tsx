@@ -44,9 +44,9 @@ export default function ProjectsView() {
             {data.map((project) => (
               <li
                 key={project._id}
-                className="flex relative justify-between gap-x-6 px-6u py-8u project-card bg-white shadow-lg"
+                className="flex relative justify-between gap-x-6 project-card bg-white shadow-lg"
               >
-                <div className="flex min-w-0 gap-x-4">
+                <div className="flex min-w-0 gap-x-4 pl-6u py-8u overflow-hidden">
                   <div className="min-w-0 flex-auto space-y-2u">
                     <div className="permissionTagWrapper">
                       <PermissionTag isManager={isManager(project.manager, user._id)}/>
@@ -67,7 +67,7 @@ export default function ProjectsView() {
                     </p>
                   </div>
                 </div>
-                <div className="flex shrink-0 items-center gap-x-6 w-fit">
+                <div className="flex shrink-0 items-center gap-x-6 w-fit pr-6u py-8u">
                   <Menu as="div" className="relative z-10 flex-none">
                     <MenuButton className="-m-2.5 block text-gray-500 hover:text-gray-900">
                       <span className="sr-only">opciones</span>
