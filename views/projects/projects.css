@@ -16,8 +16,9 @@
     top: 0;
     left: 0;
     background-image: url("/backgrounds/pattern_school.jpg");
-    background-position-y: 0%;
-    filter: opacity(0.1);
+    background-position-y: 10px;
+    background-position-x: -250px;
+    filter: opacity(0.085);
     z-index: 1;
 
 }
