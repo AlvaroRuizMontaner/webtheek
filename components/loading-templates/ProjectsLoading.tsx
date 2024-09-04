@@ -41,9 +41,9 @@ export default function ProjectsLoading() {
         <section className='loading-text'></section>
       </div>
       <ul role="list" className="space-y-4 my-10">
-        {ProjectsLoadingData.map((project) => (
+        {ProjectsLoadingData.map((project, index) => (
           <li
-            key={project._id}
+            key={project._id + index}
             className="flex relative justify-between gap-x-6 bg-white shadow-lg loading-bar h-[191px] sm:h-[198px] lg:h-[203px]"
           >
             <div className="flex min-w-0 gap-x-4 pl-6u py-8u overflow-hidden">

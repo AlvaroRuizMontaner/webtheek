@@ -23,7 +23,7 @@ export const useInertialScrollDesktop = (): void => {
       window.scrollTo(0, scrollPosition.current);
 
       // Reducir gradualmente la velocidad
-      scrollSpeed.current *= 0.98; // Factor de amortiguación
+      scrollSpeed.current *= 0.97; // Factor de amortiguación
 
       // Continuar la animación mientras la velocidad sea significativa
       if (Math.abs(scrollSpeed.current) > 0.1) {
