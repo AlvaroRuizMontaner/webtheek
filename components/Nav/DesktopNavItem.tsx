@@ -35,7 +35,7 @@ export default function DesktopNavItem({name, url}: NavItem) {
             <Link href={`/${url}`}>{name}</Link>
         ): (
           isLogged ? (
-            <span className='cursor-pointer' onClick={logout}>{name}</span>
+            <Link href={"/auth/login"} className='cursor-pointer' onClick={logout}>{name}</Link>
         ): (
             <Link
             href={"/auth/login"}
