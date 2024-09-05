@@ -21,7 +21,7 @@ export default function AuthLinks({info, variant}: AuthLinksProps) {
           {link.text && <span>{link.text}</span>}
           <Link
             href={link.href}
-            className={`text-center under font-bold text-accent-300 ${variant === "underline" ? "underline" : "no-underline"}`}
+            className={`text-center __link under font-bold text-accent-300 ${variant === "underline" ? "underline" : "no-underline"}`}
           >
             {link.linkText}
           </Link>

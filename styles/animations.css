@@ -1,0 +1,80 @@
+@import "./keyframes.css";
+@import "./colors.css";
+
+/* .__press {
+    input:focus + label {
+      animation: press 0.2s linear;
+    }
+} */
+
+.__press:active {
+    /* transform: scale(0.95); */
+    animation: press 0.2s linear;
+}
+
+/* --------------------------------------------------------------------------------------------- */
+  
+.__push {
+    animation: push 0.3s linear;
+}
+
+/* --------------------------------------------------------------------------------------------- */
+  
+.__link {
+    position: relative;
+    cursor: pointer;
+}
+
+.__link::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background: var(--accent-300);
+    left: 0;
+    bottom: -1px;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 200ms ease-in;
+}
+
+.__link:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+/* --------------------------------------------------------------------------------------------- */
+
+.__loading {
+    background-color: #e0e0e0;
+    animation: pulse 1.5s infinite ease-in-out;
+}
+
+/* --------------------------------------------------------------------------------------------- */
+
+.__shine {
+    overflow: hidden;
+}
+
+.__shine::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.2) 0%, rgba(77, 77, 203, 0.2) 50%, rgba(255, 255, 255, 0.2));
+    animation: shine 1.5s infinite ease-in-out;
+}
+
+.__shine:nth-child(2)::before {
+    animation-delay: 0.10s;
+}
+
+.__shine:nth-child(3)::before {
+    animation-delay: 0.15s;
+}
+
+.__shine:nth-child(4)::before {
+    animation-delay: 0.20s;
+}
