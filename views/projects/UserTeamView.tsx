@@ -10,6 +10,7 @@ import { Swiper as SwiperType } from 'swiper';
 import { ArrowLeftCircleIcon, ArrowRightCircleIcon } from '@heroicons/react/20/solid';
 import SlideCard from '@/components/team/SlideCard/SlideCard';
 import ProjectsLoading from '@/components/loading-templates/ProjectsLoading';
+import Button from '@/components/button/Button';
 
 
 type UserTeamViewProps = {
@@ -46,7 +47,16 @@ export default function UserTeamView({projectId, userId}: UserTeamViewProps) {
   if (isError) throw new Error("Error");
   if (data) return (
     <>
-      <h1 className=" font-black headline2">Editar permisos de <span className='text-primary-700'>{data.user.name}</span></h1>
+      <h2 className="headline2 font-black mb-8u sm:mb-12u">Editar permisos de <span className='text-primary-700'>{data.user.name}</span></h2>
+
+      <nav className="flex flex-col gap-3 sm:flex-row">
+        <Button
+          href={"/projects/" + projectId + "/team/"}
+          text="Volver a colaboradores"
+          variant="outline"
+        />
+      </nav>
+
 
       <div className='mt-10'>
         <div className='max-w-[600px] mx-auto flex items-center justify-center h-[260px] relative'>
