@@ -40,6 +40,8 @@ export default function ProjectTeamView({projectId}: ProjectTeamViewProps) {
     }
 })
 
+console.log(data)
+
   if (isLoading) return <ProjectsLoading />;
   if (isError) throw new Error("Error");
   if (data) return (
@@ -82,7 +84,7 @@ export default function ProjectTeamView({projectId}: ProjectTeamViewProps) {
                   </div>
                   <div>
                     <Link
-                      href={location.pathname + `/${member.user._id}`}
+                        href={`/projects/${projectId}/team/${member.user._id}`}
                       className="text-gray-600 cursor-pointer hover:underline headline3 font-bold"
                     >
                       {member.user.name}

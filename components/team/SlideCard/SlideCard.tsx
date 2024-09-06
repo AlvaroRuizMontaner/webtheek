@@ -1,4 +1,4 @@
-import { CheckIcon } from "@heroicons/react/20/solid";
+import { CheckIcon, XMarkIcon } from "@heroicons/react/20/solid";
 import { slideCardInfo } from './SlideCardInfo';
 import XMark from '@/components/tasks/XMark/XMark';
 
@@ -39,7 +39,7 @@ export default function SlideCard({level}: SlideCardProps) {
           .map((msg, index) => (
             <p key={index} className="flex items-center">
               <span className="w-8 h-8 flex items-center justify-center">
-                <XMark />
+                <XMarkIcon className="w-8 h-8 text-accent-danger-600" />
               </span>
               <span>{msg}</span>
             </p>
