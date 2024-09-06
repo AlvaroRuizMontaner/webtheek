@@ -1,6 +1,5 @@
 import { CheckIcon, XMarkIcon } from "@heroicons/react/20/solid";
 import { slideCardInfo } from './SlideCardInfo';
-import XMark from '@/components/tasks/XMark/XMark';
 
 type SlideCardProps = {
     level: number
