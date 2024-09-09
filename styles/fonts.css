@@ -10,102 +10,131 @@
         line-height: 1;
     }
 
+    /* Tamaños base (móviles y pantallas pequeñas), typescaling de 1.125 */
     .headline1 {
-        font-size: 36px;
-
-        @media screen and (min-width: 640px) {
-            font-size: 48px;
-        }
-        @media screen and (min-width: 1024px) {
-            font-size: 60px;
-        }
-        @media screen and (min-width: 1536px) {
-            font-size: 72px;
-        }
+        font-size: 28px;
     }
     .headline2 {
-        font-size: 30px;
-
-        @media screen and (min-width: 640px) {
-            font-size: 36px;
-        }
-        @media screen and (min-width: 1024px) {
-            font-size: 48px;
-        }
-        @media screen and (min-width: 1536px) {
-            font-size: 60px;
-        }
+        font-size: 25px;
     }
     .headline3 {
-        font-size: 24px;
-
-        @media screen and (min-width: 640px) {
-            font-size: 30px;
-        }
-        @media screen and (min-width: 1024px) {
-            font-size: 36px;
-        }
-        @media screen and (min-width: 1536px) {
-            font-size: 48px;
-        }
+        font-size: 22px;
     }
     .headline4 {
         font-size: 20px;
+    }
 
-        @media screen and (min-width: 640px) {
-            font-size: 24px;
+    /* Tamaño para el resto, typescaling de 1.25 */
+
+    @media screen and (min-width: 640px) {
+        .headline1 {
+            font-size: 48px;
         }
-        @media screen and (min-width: 1024px) {
+        .headline2 {
+            font-size: 38px;
+        }
+        .headline3 {
             font-size: 30px;
         }
-        @media screen and (min-width: 1536px) {
+        .headline4 {
+            font-size: 24px;
+        }
+    }
+
+    @media screen and (min-width: 1024px) {
+        .headline1 {
+            font-size: 60px;
+        }
+        .headline2 {
+            font-size: 48px;
+        }
+        .headline3 {
+            font-size: 38px;
+        }
+        .headline4 {
+            font-size: 30px;
+        }
+    }
+
+    @media screen and (min-width: 1536px) {
+        .headline1 {
+            font-size: 70px;
+        }
+        .headline2 {
+            font-size: 56px;
+        }
+        .headline3 {
+            font-size: 45px;
+        }
+        .headline4 {
             font-size: 36px;
         }
     }
+
+    /* Propuesta alternativa de encabezados usando clamp */
+/*     .headline1 {
+        font-size: clamp(28px, 5vw, 70px);
+    }
+
+    .headline2 {
+        font-size: clamp(25px, 4.5vw, 56px);
+    }
+
+    .headline3 {
+        font-size: clamp(22px, 4vw, 45px);
+    }
+
+    .headline4 {
+        font-size: clamp(20px, 3.5vw, 36px);
+    } */
 
     .body1, .body2, .body3 {
         line-height: 1.5;
         letter-spacing: -0.02em;
     }
 
+    /* Tamaños sin typescaling, más humano y práctico para cuerpo */
     .body1 {
         font-size: 18px;
+    }
+    .body2 {
+        font-size: 16px;
+    }
+    .body3 {
+        font-size: 14px;
+    }
 
-        @media screen and (min-width: 640px) {
+    @media screen and (min-width: 640px) {
+        .body1 {
             font-size: 20px;
         }
-        @media screen and (min-width: 1024px) {
+        .body2 {
+            font-size: 18px;
+        }
+        .body3 {
+            font-size: 16px;
+        }
+    }
+    @media screen and (min-width: 1024px) {
+        .body1 {
             font-size: 22px;
         }
-        @media screen and (min-width: 1536px) {
+        .body2 {
+            font-size: 20px;
+        }
+        .body3 {
+            font-size: 18px;
+        }
+    }
+    @media screen and (min-width: 1536px) {
+        .body1 {
             font-size: 24px;
         }
-      }
-    
-      .body2 {
-        font-size: 16px;
-
-        @media screen and (min-width: 640px) {
-            font-size: 18px;
-        }
-        @media screen and (min-width: 1024px) {
-            font-size: 20px;
-        }
-        @media screen and (min-width: 1536px) {
+        .body2 {
             font-size: 22px;
         }
-      }
-      .body3 {
-        font-size: 14px;
-
-        @media screen and (min-width: 640px) {
-            font-size: 16px;
+        .body3 {
+            font-size: 20px;
         }
-        @media screen and (min-width: 1024px) {
-            font-size: 16px;
-        }
-        @media screen and (min-width: 1536px) {
-            font-size: 18px;
-        }
-      }
+    }
 }
