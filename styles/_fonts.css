@@ -1,0 +1,218 @@
+@import "breakpoints.css";
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&display=swap');
+@tailwind utilities;
+
+
+@layer utilities {
+    .headline1, .headline2, .headline3, .headline4 {
+        --grid-unit: 4px;
+        --line-height-base: 1.5;
+        --line-height-base: 1.5;
+        --scale-factor: 1.25;
+        --scale-factor-mobile: 1.125;
+        --font-size-base: 20px;
+
+        font-family: Lato;
+        letter-spacing: -0.02em;
+        line-height: var(--line-height-base);
+    }
+
+    /* Tamaños base (móviles y pantallas pequeñas), typescaling de 1.125 */
+    /* Vertical rhythm adjustments */
+    .headline1 {
+        --font-size-h1-mobile: calc(var(--font-size-base) * var(--scale-factor-mobile) * var(--scale-factor-mobile) * var(--scale-factor-mobile));
+        font-size: var(--font-size-h1-mobile);
+        line-height: calc(var(--font-size-h1-mobile) * var(--line-height-base));
+        margin-bottom: calc(2 * var(--grid-unit)); /* 8px */
+        margin-top: calc(2 * var(--grid-unit)); /* 8px de separación superior */
+    }
+
+    .headline2 {
+        --font-size-h2-mobile: calc(var(--font-size-base) * var(--scale-factor-mobile) * var(--scale-factor-mobile));
+        font-size: var(--font-size-h2-mobile);
+        line-height: calc(var(--font-size-h2-mobile) * var(--line-height-base));
+        margin-bottom: calc(2 * var(--grid-unit)); /* 8px */
+    }
+
+    .headline3 {
+        --font-size-h3-mobile: calc(var(--font-size-base) * var(--scale-factor-mobile));
+        font-size: var(--font-size-h3-mobile);
+        line-height: calc(var(--font-size-h3-mobile) * var(--line-height-base));
+        margin-bottom: calc(1 * var(--grid-unit)); /* 8px */
+    }
+
+    .headline4 {
+        --font-size-h4-mobile: var(--font-size-base); /* Base font size */
+        font-size: var(--font-size-h4-mobile);
+        line-height: calc(var(--font-size-h4-mobile) * var(--line-height-base));
+        margin-bottom: calc(1 * var(--grid-unit)); /* 8px */
+    }
+
+    /* Tamaño para el resto, typescaling de 1.25 */
+    @media screen and (min-width: 640px) {
+        .headline1, .headline2, .headline3, .headline4 {
+            --font-size-h4: calc(round(var(--font-size-base) * var(--scale-factor) / var(--grid-unit)) * var(--grid-unit)); /* x1.25 */
+            --font-size-h3: calc(var(--font-size-h4) * var(--scale-factor));
+            --font-size-h2: calc(var(--font-size-h3) * var(--scale-factor));
+            --font-size-h1: calc(var(--font-size-h2) * var(--scale-factor));
+        }
+
+        .headline1 {
+            font-size: var(--font-size-h1);
+            line-height: calc(var(--font-size-h1) * var(--line-height-base));
+            margin-bottom: calc(3 * var(--grid-unit)); /* 12px si el grid unit es 4px */
+            margin-top: calc(3 * var(--grid-unit));
+        }
+    
+        .headline2 {
+            font-size: var(--font-size-h2);
+            line-height: calc(var(--font-size-h2) * var(--line-height-base));
+            margin-bottom: calc(2 * var(--grid-unit)); /* 8px */
+        }
+    
+        .headline3 {
+            font-size: var(--font-size-h3);
+            line-height: calc(var(--font-size-h3) * var(--line-height-base));
+            margin-bottom: calc(2 * var(--grid-unit)); /* 8px para evitar decimales */
+        }
+    
+        .headline4 { /* Base font size en pantallas no móviles */
+            font-size: var(--font-size-h4);
+            line-height: calc(var(--font-size-h4) * var(--line-height-base));
+            margin-bottom: calc(1 * var(--grid-unit)); /* 4px */
+        }
+    }
+
+    @media screen and (min-width: 1024px) {
+        .headline1, .headline2, .headline3, .headline4 {
+            --font-size-h4: calc(round(var(--font-size-base) * var(--scale-factor) * var(--scale-factor) / var(--grid-unit)) * var(--grid-unit)); /* x1.25^2 */
+            --font-size-h3: calc(round(var(--font-size-h4) * var(--scale-factor) / var(--grid-unit)) * var(--grid-unit));
+            --font-size-h2: calc(round(var(--font-size-h3) * var(--scale-factor) / var(--grid-unit)) * var(--grid-unit));
+            --font-size-h1: calc(round(var(--font-size-h2) * var(--scale-factor) / var(--grid-unit)) * var(--grid-unit));
+        }
+        .headline1 {
+            font-size: var(--font-size-h1);
+            line-height: calc(var(--font-size-h1) * var(--line-height-base));
+            margin-bottom: calc(4 * var(--grid-unit)); /* Aumenta a 16px */
+            margin-top: calc(4 * var(--grid-unit));
+        }
+    
+        .headline2 {
+            font-size: var(--font-size-h2);
+            line-height: calc(var(--font-size-h2) * var(--line-height-base));
+            margin-bottom: calc(3 * var(--grid-unit)); /* 12px */
+        }
+    
+        .headline3 {
+            font-size: var(--font-size-h3);
+            line-height: calc(var(--font-size-h3) * var(--line-height-base));
+            margin-bottom: calc(2 * var(--grid-unit)); /* 8px */
+        }
+    
+        .headline4 { /* Base font size en pantallas no móviles */
+            font-size: var(--font-size-h4);
+            line-height: calc(var(--font-size-h4) * var(--line-height-base));
+            margin-bottom: calc(2 * var(--grid-unit)); /* 8px */
+        }
+    }
+
+    @media screen and (min-width: 1536px) {
+        .headline1, .headline2, .headline3, .headline4 {
+            --font-size-h4: --font-size-h4: calc(round(var(--font-size-base) * var(--scale-factor) * var(--scale-factor) * var(--scale-factor) / var(--grid-unit)) * var(--grid-unit)); /* x1.25^3 */
+            --font-size-h3: calc(round(var(--font-size-h4) * var(--scale-factor) / var(--grid-unit)) * var(--grid-unit));
+            --font-size-h2: calc(round(var(--font-size-h3) * var(--scale-factor) / var(--grid-unit)) * var(--grid-unit));
+            --font-size-h1: calc(round(var(--font-size-h2) * var(--scale-factor) / var(--grid-unit)) * var(--grid-unit));
+        }
+        .headline1 {
+            font-size: var(--font-size-h1);
+            line-height: calc(var(--font-size-h1) * var(--line-height-base));
+            margin-bottom: calc(5 * var(--grid-unit)); /* 20px */
+            margin-top: calc(5 * var(--grid-unit));
+        }
+    
+        .headline2 {
+            font-size: var(--font-size-h2);
+            line-height: calc(var(--font-size-h2) * var(--line-height-base));
+            margin-bottom: calc(4 * var(--grid-unit)); /* 16px */
+        }
+    
+        .headline3 {
+            font-size: var(--font-size-h3);
+            line-height: calc(var(--font-size-h3) * var(--line-height-base));
+            margin-bottom: calc(3 * var(--grid-unit)); /* 12px */
+        }
+    
+        .headline4 { /* Base font size en pantallas no móviles */
+            font-size: var(--font-size-h4);
+            line-height: calc(var(--font-size-h4) * var(--line-height-base));
+            margin-bottom: calc(2 * var(--grid-unit)); /* 8px */
+        }
+    }
+
+    /* Propuesta alternativa de encabezados usando clamp */
+/*     .headline1 {
+        font-size: clamp(28px, 5vw, 70px);
+    }
+
+    .headline2 {
+        font-size: clamp(25px, 4.5vw, 56px);
+    }
+
+    .headline3 {
+        font-size: clamp(22px, 4vw, 45px);
+    }
+
+    .headline4 {
+        font-size: clamp(20px, 3.5vw, 36px);
+    } */
+
+    .body1, .body2, .body3 {
+        line-height: 1.5;
+        letter-spacing: -0.02em;
+    }
+
+    /* Tamaños sin typescaling, más humano y práctico para cuerpo */
+    .body1 {
+        font-size: 18px;
+    }
+    .body2 {
+        font-size: 16px;
+    }
+    .body3 {
+        font-size: 14px;
+    }
+
+    @media screen and (min-width: 640px) {
+        .body1 {
+            font-size: 20px;
+        }
+        .body2 {
+            font-size: 18px;
+        }
+        .body3 {
+            font-size: 16px;
+        }
+    }
+    @media screen and (min-width: 1024px) {
+        .body1 {
+            font-size: 22px;
+        }
+        .body2 {
+            font-size: 20px;
+        }
+        .body3 {
+            font-size: 18px;
+        }
+    }
+    @media screen and (min-width: 1536px) {
+        .body1 {
+            font-size: 24px;
+        }
+        .body2 {
+            font-size: 22px;
+        }
+        .body3 {
+            font-size: 20px;
+        }
+    }
+}
