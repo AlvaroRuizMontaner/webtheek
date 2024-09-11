@@ -1,0 +1,3 @@
+@function scale-font-size($base-size, $scale-factor, $grid-unit, $steps: 1) {
+    @return round($base-size * pow($scale-factor, $steps) / $grid-unit) * $grid-unit;
+}

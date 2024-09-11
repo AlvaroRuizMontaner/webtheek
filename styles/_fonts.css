@@ -1,26 +1,30 @@
-@import "breakpoints.css";
+@import "breakpoints.scss";
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&display=swap');
 @tailwind utilities;
 
 
 @layer utilities {
-    .headline1, .headline2, .headline3, .headline4 {
+    :root {
         --grid-unit: 4px;
-        --line-height-base: 1.5;
         --line-height-base: 1.5;
         --scale-factor: 1.25;
         --scale-factor-mobile: 1.125;
         --font-size-base: 20px;
-
-        font-family: Lato;
+    }
+    .headline1, .headline2, .headline3, .headline4 {
+        font-family: 'Lato', sans-serif; 
         letter-spacing: -0.02em;
         line-height: var(--line-height-base);
+
+        --font-size-h4-mobile: calc(round(var(--font-size-base) / var(--grid-unit)) * var(--grid-unit));
+        --font-size-h3-mobile: calc(round(var(--font-size-h4-mobile) * var(--scale-factor) / var(--grid-unit)) * var(--grid-unit));
+        --font-size-h3-mobile: calc(round(var(--font-size-h3-mobile) * var(--scale-factor)  / var(--grid-unit)) * var(--grid-unit));
+        --font-size-h1-mobile: calc(round(var(--font-size-h2-mobile) * var(--scale-factor) / var(--grid-unit)) * var(--grid-unit));
     }
 
     /* Tamaños base (móviles y pantallas pequeñas), typescaling de 1.125 */
     /* Vertical rhythm adjustments */
     .headline1 {
-        --font-size-h1-mobile: calc(var(--font-size-base) * var(--scale-factor-mobile) * var(--scale-factor-mobile) * var(--scale-factor-mobile));
         font-size: var(--font-size-h1-mobile);
         line-height: calc(var(--font-size-h1-mobile) * var(--line-height-base));
         margin-bottom: calc(2 * var(--grid-unit)); /* 8px */
@@ -28,21 +32,18 @@
     }
 
     .headline2 {
-        --font-size-h2-mobile: calc(var(--font-size-base) * var(--scale-factor-mobile) * var(--scale-factor-mobile));
         font-size: var(--font-size-h2-mobile);
         line-height: calc(var(--font-size-h2-mobile) * var(--line-height-base));
         margin-bottom: calc(2 * var(--grid-unit)); /* 8px */
     }
 
     .headline3 {
-        --font-size-h3-mobile: calc(var(--font-size-base) * var(--scale-factor-mobile));
         font-size: var(--font-size-h3-mobile);
         line-height: calc(var(--font-size-h3-mobile) * var(--line-height-base));
         margin-bottom: calc(1 * var(--grid-unit)); /* 8px */
     }
 
     .headline4 {
-        --font-size-h4-mobile: var(--font-size-base); /* Base font size */
         font-size: var(--font-size-h4-mobile);
         line-height: calc(var(--font-size-h4-mobile) * var(--line-height-base));
         margin-bottom: calc(1 * var(--grid-unit)); /* 8px */
@@ -50,12 +51,12 @@
 
     /* Tamaño para el resto, typescaling de 1.25 */
     @media screen and (min-width: 640px) {
-        .headline1, .headline2, .headline3, .headline4 {
-            --font-size-h4: calc(round(var(--font-size-base) * var(--scale-factor) / var(--grid-unit)) * var(--grid-unit)); /* x1.25 */
-            --font-size-h3: calc(var(--font-size-h4) * var(--scale-factor));
-            --font-size-h2: calc(var(--font-size-h3) * var(--scale-factor));
-            --font-size-h1: calc(var(--font-size-h2) * var(--scale-factor));
-        }
+    .headline1, .headline2, .headline3, .headline4 {
+        --font-size-h4: calc(round(var(--font-size-base) * var(--scale-factor) / var(--grid-unit)) * var(--grid-unit)); /* x1.25 */
+        --font-size-h3: calc(round(var(--font-size-h4) * var(--scale-factor) / var(--grid-unit)) * var(--grid-unit));
+        --font-size-h2: calc(round(var(--font-size-h3) * var(--scale-factor) / var(--grid-unit)) * var(--grid-unit));
+        --font-size-h1: calc(round(var(--font-size-h2) * var(--scale-factor) / var(--grid-unit)) * var(--grid-unit));
+    }
 
         .headline1 {
             font-size: var(--font-size-h1);

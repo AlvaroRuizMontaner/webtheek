@@ -11,7 +11,7 @@ import { usePathname, useRouter } from "next/navigation";
 import Title from "@/components/title/Title";
 import Subtitle from "@/components/title/Subtitle";
 import Button from "@/components/button/Button";
-import "./projects.css"
+import "./projects.scss"
 import PermissionTag from "@/components/permission-tag/PermissionTag";
 import ProjectsLoading from "@/components/loading-templates/ProjectsLoading";
 
@@ -32,6 +32,9 @@ export default function ProjectsView() {
       <>
         <div className="mb-8u sm:mb-12u">
           <Title variant="dark">Tus proyectos</Title>
+          <Title as="h2" variant="dark">Tus proyectos</Title>
+          <Title as="h3" variant="dark">Tus proyectos</Title>
+          <Title as="h4" variant="dark">Tus proyectos</Title>
           <Subtitle variant="dark" text="Maneja y administra tus proyectos" />
 
           <Button text="Nuevo proyecto" href="/projects/create" />

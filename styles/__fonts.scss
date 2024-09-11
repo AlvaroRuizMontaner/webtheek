@@ -1,0 +1,147 @@
+@import "breakpoints.scss";
+@import "functions.scss";
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&display=swap');
+@tailwind utilities;
+
+    $grid-unit: 4px;
+    $line-height-base: 1.5;
+    $scale-factor: 1.25;
+    $scale-factor-mobile: 1.125;
+    $font-size-base: 20px;
+
+
+@layer utilities {
+    .headline1, .headline2, .headline3, .headline4 {
+        font-family: 'Lato', sans-serif; 
+        letter-spacing: -0.02em;
+        line-height: $line-height-base;
+    }
+
+    /* Tamaños base (móviles y pantallas pequeñas), typescaling de 1.125 */
+    /* Vertical rhythm adjustments */
+    $font-size-h1-mobile: round($font-size-base * $scale-factor-mobile * $scale-factor-mobile * $scale-factor-mobile / $grid-unit) * $grid-unit;
+    $font-size-h2-mobile: round($font-size-base * $scale-factor-mobile * $scale-factor-mobile/ $grid-unit) * $grid-unit;
+    $font-size-h3-mobile: round($font-size-base * $scale-factor-mobile/ $grid-unit) * $grid-unit;
+    $font-size-h4-mobile: round($font-size-base/ $grid-unit) * $grid-unit;
+    .headline1 {
+        font-size: $font-size-h1-mobile;
+        line-height: $font-size-h1-mobile * $line-height-base;
+        margin-bottom: 2 * $grid-unit; /* 8px */
+        margin-top: 2 * $grid-unit; /* 8px de separación superior */
+    }
+
+    .headline2 {
+        font-size: $font-size-h2-mobile;
+        line-height: $font-size-h2-mobile * $line-height-base;
+        margin-bottom: 2 * $grid-unit; /* 8px */
+    }
+
+    .headline3 {
+        font-size: $font-size-h3-mobile;
+        line-height: $font-size-h3-mobile * $line-height-base;
+        margin-bottom: 1 * $grid-unit;  /* 8px */
+    }
+
+    .headline4 {
+        font-size: $font-size-h4-mobile;
+        line-height: $font-size-h4-mobile * $line-height-base;
+        margin-bottom: 1 * $grid-unit; /* 8px */
+    }
+
+    $font-size-h4: round($font-size-base * $scale-factor / $grid-unit) * $grid-unit;
+    $font-size-h3: round($font-size-h4 * $scale-factor / $grid-unit) * $grid-unit;
+    $font-size-h2: round($font-size-h3 * $scale-factor / $grid-unit) * $grid-unit;
+    $font-size-h1: round($font-size-h2 * $scale-factor / $grid-unit) * $grid-unit;
+
+    @media screen and (min-width: 640px) {
+        .headline1 {
+        font-size: $font-size-h1;
+        line-height: $font-size-h1 * $line-height-base;
+        margin-bottom: 3 * $grid-unit; /* 8px */
+        margin-top: 3 * $grid-unit; /* 8px de separación superior */
+    }
+
+    .headline2 {
+        font-size: $font-size-h2;
+        line-height: $font-size-h2 * $line-height-base;
+        margin-bottom: 2 * $grid-unit; /* 8px */
+    }
+
+    .headline3 {
+        font-size: $font-size-h3;
+        line-height: $font-size-h3 * $line-height-base;
+        margin-bottom: 2 * $grid-unit;  /* 8px */
+    }
+
+    .headline4 {
+        font-size: $font-size-h4;
+        line-height: $font-size-h4 * $line-height-base;
+        margin-bottom: 1 * $grid-unit; /* 8px */
+    }
+    }
+
+
+    $font-size-h4: round($font-size-base * $scale-factor * $scale-factor / $grid-unit) * $grid-unit;
+    $font-size-h3: round($font-size-h4 * $scale-factor / $grid-unit) * $grid-unit;
+    $font-size-h2: round($font-size-h3 * $scale-factor / $grid-unit) * $grid-unit;
+    $font-size-h1: round($font-size-h2 * $scale-factor / $grid-unit) * $grid-unit;
+
+    @media screen and (min-width: 1024px) {
+        .headline1 {
+        font-size: $font-size-h1;
+        line-height: $font-size-h1 * $line-height-base;
+        margin-bottom: 4 * $grid-unit; /* 8px */
+        margin-top: 4 * $grid-unit; /* 8px de separación superior */
+    }
+
+    .headline2 {
+        font-size: $font-size-h2;
+        line-height: $font-size-h2 * $line-height-base;
+        margin-bottom: 3 * $grid-unit; /* 8px */
+    }
+
+    .headline3 {
+        font-size: $font-size-h3;
+        line-height: $font-size-h3 * $line-height-base;
+        margin-bottom: 2 * $grid-unit;  /* 8px */
+    }
+
+    .headline4 {
+        font-size: $font-size-h4;
+        line-height: $font-size-h4 * $line-height-base;
+        margin-bottom: 2 * $grid-unit; /* 8px */
+    }
+    }
+
+    $font-size-h4: round($font-size-base * $scale-factor * $scale-factor * $scale-factor / $grid-unit) * $grid-unit;
+    $font-size-h3: round($font-size-h4 * $scale-factor / $grid-unit) * $grid-unit;
+    $font-size-h2: round($font-size-h3 * $scale-factor / $grid-unit) * $grid-unit;
+    $font-size-h1: round($font-size-h2 * $scale-factor / $grid-unit) * $grid-unit;
+
+    @media screen and (min-width: 1536px) {
+        .headline1 {
+        font-size: $font-size-h1;
+        line-height: $font-size-h1 * $line-height-base;
+        margin-bottom: 5 * $grid-unit; /* 8px */
+        margin-top: 5 * $grid-unit; /* 8px de separación superior */
+    }
+
+    .headline2 {
+        font-size: $font-size-h2;
+        line-height: $font-size-h2 * $line-height-base;
+        margin-bottom: 4 * $grid-unit; /* 8px */
+    }
+
+    .headline3 {
+        font-size: $font-size-h3;
+        line-height: $font-size-h3 * $line-height-base;
+        margin-bottom: 3 * $grid-unit;  /* 8px */
+    }
+
+    .headline4 {
+        font-size: $font-size-h4;
+        line-height: $font-size-h4 * $line-height-base;
+        margin-bottom: 2 * $grid-unit; /* 8px */
+    }
+    }
+}
