@@ -49,7 +49,7 @@ export default function AppLayout({children}: AppLayoutProps): ReactNode {
 
       {/* <Redirect /> */}
 
-      <section className=" max-w-screen-2xl flex-1 mx-auto my-12u container">
+      <section className=" max-w-screen-2xl flex-1 mx-auto my-12u container showgrid">
           {children}
       </section>
 
