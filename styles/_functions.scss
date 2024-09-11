@@ -6,3 +6,12 @@
   $line-height-px: round(($font-size * $line-height-base) / $grid-unit) * $grid-unit; // Redondeo a múltiplo de grid-unit
   @return $line-height-px / $font-size; // Devolver la proporción de line-height
 }
+
+@function line-height-compensation($font-size, $line-height-base, $line-height, $grid-unit) {
+  $line-height-compensation-px: round(($font-size * ($line-height-base - $line-height)) / $grid-unit) * $grid-unit; // Redondeo a múltiplo de grid-unit
+  @return $line-height-compensation-px / $font-size;
+}
+
+@function round-to-grid($value, $grid-unit) {
+    @return round($value / $grid-unit) * $grid-unit;
+}
