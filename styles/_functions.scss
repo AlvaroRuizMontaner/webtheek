@@ -1,0 +1,8 @@
+@function scale-font-size($base-size, $scale-factor, $grid-unit, $steps: 1) {
+    @return round($base-size * pow($scale-factor, $steps) / $grid-unit) * $grid-unit;
+}
+
+@function calc-line-height($font-size, $line-height-base, $grid-unit) {
+  $line-height-px: round(($font-size * $line-height-base) / $grid-unit) * $grid-unit; // Redondeo a múltiplo de grid-unit
+  @return $line-height-px / $font-size; // Devolver la proporción de line-height
+}
