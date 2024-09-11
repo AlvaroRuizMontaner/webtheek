@@ -1,7 +1,6 @@
 @import "_breakpoints.scss";
 @import "_functions.scss";
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@100;300;400;700;900&display=swap');
 @tailwind utilities;
 
     $grid-unit: 4px;
@@ -10,14 +9,17 @@
     $scale-factor-mobile: 1.125;
     $font-size-base: 20px;
 
+    $line-height-h1: 1.2;
+    $line-height-h2: 1.3;
+    $line-height-h3: 1.4;
+
 
 @layer utilities {
     .headline1, .headline2, .headline3, .headline4 {
-        font-family: 'Rubik', sans-serif; 
+        font-family: 'Lato', sans-serif; 
         letter-spacing: -0.02em;
         line-height: $line-height-base;
         vertical-align: middle;
-        text-transform: uppercase;
     }
 
     /* Tamaños base (móviles y pantallas pequeñas), typescaling de 1.125 */
@@ -26,23 +28,31 @@
     $font-size-h2-mobile: round($font-size-base * $scale-factor-mobile * $scale-factor-mobile/ $grid-unit) * $grid-unit;
     $font-size-h3-mobile: round($font-size-base * $scale-factor-mobile/ $grid-unit) * $grid-unit;
     $font-size-h4-mobile: round($font-size-base/ $grid-unit) * $grid-unit;
+
+    $h1-compensation: line-height-compensation($font-size-h1-mobile, $line-height-base, $line-height-h1, $grid-unit);
+    $h2-compensation: line-height-compensation($font-size-h2-mobile, $line-height-base, $line-height-h2, $grid-unit);
+    $h3-compensation: line-height-compensation($font-size-h3-mobile, $line-height-base, $line-height-h3, $grid-unit);
+
+    // La reducción de line-height de los encabezados grandes se compensa aumentando los margenes. En el caso
+    // del h1, al dividirse este termino entre 2 hay que redondear de nuevo
+
     .headline1 {
         font-size: $font-size-h1-mobile;
-        line-height: calc-line-height($font-size-h1-mobile, $line-height-base, $grid-unit);
-        margin-bottom: 2 * $grid-unit; /* 8px */
-        margin-top: 2 * $grid-unit; /* 8px de separación superior */
+        line-height: calc-line-height($font-size-h1-mobile, $line-height-base, $grid-unit) - $h1-compensation;
+        margin-bottom: 2 * $grid-unit + round-to-grid($h1-compensation * $font-size-h1-mobile / 2, $grid-unit);
+        margin-top: 2 * $grid-unit + round-to-grid($h1-compensation * $font-size-h1-mobile / 2, $grid-unit);
     }
 
     .headline2 {
         font-size: $font-size-h2-mobile;
-        line-height: calc-line-height($font-size-h2-mobile, $line-height-base, $grid-unit);
-        margin-bottom: 2 * $grid-unit; /* 8px */
+        line-height: calc-line-height($font-size-h2-mobile, $line-height-base, $grid-unit) - $h2-compensation;
+        margin-bottom: 2 * $grid-unit + ($h2-compensation * $font-size-h2-mobile);
     }
 
     .headline3 {
         font-size: $font-size-h3-mobile;
-        line-height: calc-line-height($font-size-h3-mobile, $line-height-base, $grid-unit);
-        margin-bottom: 1 * $grid-unit;  /* 8px */
+        line-height: calc-line-height($font-size-h3-mobile, $line-height-base, $grid-unit) - $h3-compensation;
+        margin-bottom: 1 * $grid-unit + ($h3-compensation * $font-size-h3-mobile);
     }
 
     .headline4 {
@@ -56,24 +66,28 @@
     $font-size-h2: round($font-size-h3 * $scale-factor / $grid-unit) * $grid-unit;
     $font-size-h1: round($font-size-h2 * $scale-factor / $grid-unit) * $grid-unit;
 
+    $h1-compensation: line-height-compensation($font-size-h1, $line-height-base, $line-height-h1, $grid-unit);
+    $h2-compensation: line-height-compensation($font-size-h2, $line-height-base, $line-height-h2, $grid-unit);
+    $h3-compensation: line-height-compensation($font-size-h3, $line-height-base, $line-height-h3, $grid-unit);
+
     @media screen and (min-width: 640px) {
         .headline1 {
         font-size: $font-size-h1;
-        line-height: calc-line-height($font-size-h1, $line-height-base, $grid-unit);
-        margin-bottom: 3 * $grid-unit; /* 8px */
-        margin-top: 3 * $grid-unit; /* 8px de separación superior */
+        line-height: calc-line-height($font-size-h1, $line-height-base, $grid-unit) - $h1-compensation;
+        margin-bottom: 3 * $grid-unit  + round-to-grid($h1-compensation * $font-size-h1 / 2, $grid-unit);
+        margin-top: 3 * $grid-unit + round-to-grid($h1-compensation * $font-size-h1 / 2, $grid-unit); 
     }
 
     .headline2 {
         font-size: $font-size-h2;
-        line-height: calc-line-height($font-size-h2, $line-height-base, $grid-unit);
-        margin-bottom: 2 * $grid-unit; /* 8px */
+        line-height: calc-line-height($font-size-h2, $line-height-base, $grid-unit) - $h2-compensation;
+        margin-bottom: 2 * $grid-unit + ($h2-compensation * $font-size-h2);
     }
 
     .headline3 {
         font-size: $font-size-h3;
-        line-height: calc-line-height($font-size-h3, $line-height-base, $grid-unit);
-        margin-bottom: 2 * $grid-unit;  /* 8px */
+        line-height: calc-line-height($font-size-h3, $line-height-base, $grid-unit) - $h3-compensation;
+        margin-bottom: 2 * $grid-unit  + ($h3-compensation * $font-size-h3);  /* 8px */
     }
 
     .headline4 {
@@ -89,24 +103,28 @@
     $font-size-h2: round($font-size-h3 * $scale-factor / $grid-unit) * $grid-unit;
     $font-size-h1: round($font-size-h2 * $scale-factor / $grid-unit) * $grid-unit;
 
+    $h1-compensation: line-height-compensation($font-size-h1, $line-height-base, $line-height-h1, $grid-unit);
+    $h2-compensation: line-height-compensation($font-size-h2, $line-height-base, $line-height-h2, $grid-unit);
+    $h3-compensation: line-height-compensation($font-size-h3, $line-height-base, $line-height-h3, $grid-unit);
+
     @media screen and (min-width: 1024px) {
         .headline1 {
         font-size: $font-size-h1;
-        line-height: calc-line-height($font-size-h1, $line-height-base, $grid-unit);
-        margin-bottom: 4 * $grid-unit; /* 8px */
-        margin-top: 4 * $grid-unit; /* 8px de separación superior */
+        line-height: calc-line-height($font-size-h1, $line-height-base, $grid-unit) - $h1-compensation;
+        margin-bottom: 4 * $grid-unit + round-to-grid($h1-compensation * $font-size-h1 / 2, $grid-unit);
+        margin-top: 4 * $grid-unit + round-to-grid($h1-compensation * $font-size-h1 / 2, $grid-unit);
     }
 
     .headline2 {
         font-size: $font-size-h2;
-        line-height: calc-line-height($font-size-h2, $line-height-base, $grid-unit);
-        margin-bottom: 3 * $grid-unit; /* 8px */
+        line-height: calc-line-height($font-size-h2, $line-height-base, $grid-unit) - $h2-compensation;
+        margin-bottom: 3 * $grid-unit + ($h2-compensation * $font-size-h2); 
     }
 
     .headline3 {
         font-size: $font-size-h3;
-        line-height: calc-line-height($font-size-h3, $line-height-base, $grid-unit);
-        margin-bottom: 2 * $grid-unit;  /* 8px */
+        line-height: calc-line-height($font-size-h3, $line-height-base, $grid-unit) - $h3-compensation;
+        margin-bottom: 2 * $grid-unit  + ($h3-compensation * $font-size-h3); 
     }
 
     .headline4 {
@@ -121,24 +139,28 @@
     $font-size-h2: round($font-size-h3 * $scale-factor / $grid-unit) * $grid-unit;
     $font-size-h1: round($font-size-h2 * $scale-factor / $grid-unit) * $grid-unit;
 
+    $h1-compensation: line-height-compensation($font-size-h1, $line-height-base, $line-height-h1, $grid-unit);
+    $h2-compensation: line-height-compensation($font-size-h2, $line-height-base, $line-height-h2, $grid-unit);
+    $h3-compensation: line-height-compensation($font-size-h3, $line-height-base, $line-height-h3, $grid-unit);
+
     @media screen and (min-width: 1536px) {
         .headline1 {
         font-size: $font-size-h1;
-        line-height: calc-line-height($font-size-h1, $line-height-base, $grid-unit);
-        margin-bottom: 5 * $grid-unit; /* 8px */
-        margin-top: 5 * $grid-unit; /* 8px de separación superior */
+        line-height: calc-line-height($font-size-h1, $line-height-base, $grid-unit) - $h1-compensation;
+        margin-bottom: 5 * $grid-unit + round-to-grid($h1-compensation * $font-size-h1 / 2, $grid-unit); 
+        margin-top: 5 * $grid-unit + round-to-grid($h1-compensation * $font-size-h1 / 2, $grid-unit); 
     }
 
     .headline2 {
         font-size: $font-size-h2;
-        line-height: calc-line-height($font-size-h2, $line-height-base, $grid-unit);
-        margin-bottom: 4 * $grid-unit; /* 8px */
+        line-height: calc-line-height($font-size-h2, $line-height-base, $grid-unit) - $h2-compensation;
+        margin-bottom: 4 * $grid-unit + ($h2-compensation * $font-size-h2);
     }
 
     .headline3 {
         font-size: $font-size-h3;
-        line-height: calc-line-height($font-size-h3, $line-height-base, $grid-unit);
-        margin-bottom: 3 * $grid-unit;  /* 8px */
+        line-height: calc-line-height($font-size-h3, $line-height-base, $grid-unit) - $h3-compensation;
+        margin-bottom: 3 * $grid-unit + ($h3-compensation * $font-size-h3); 
     }
 
     .headline4 {
