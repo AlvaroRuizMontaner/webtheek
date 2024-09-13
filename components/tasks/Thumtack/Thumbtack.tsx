@@ -1,5 +1,5 @@
 import React from 'react'
-import "../task.css"
+import "../task.scss"
 
 export default function Thumbtack() {
   return (

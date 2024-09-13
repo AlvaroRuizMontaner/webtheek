@@ -1,5 +1,5 @@
 import { Fragment } from 'react'
-import "./task.css"
+import "./task.scss"
 import { Menu, Transition } from '@headlessui/react'
 import { EllipsisVerticalIcon } from '@heroicons/react/20/solid'
 import { Project, TaskProject } from '@/types'

@@ -14,7 +14,7 @@
     $line-height-h3: 1.4;
 
 
-@layer utilities {
+@layer base {
     .headline1, .headline2, .headline3, .headline4 {
         font-family: 'Lato', sans-serif; 
         letter-spacing: -0.02em;
@@ -177,47 +177,73 @@
     }
 
     /* Tamaños sin typescaling, más humano y práctico para cuerpo */
+    $font-size-body1: 18px;
+    $font-size-body2: 16px;
+    $font-size-body3: 14px;
     .body1 {
-        font-size: 18px;
+        font-size: $font-size-body1;
+        line-height: calc-line-height($font-size-body1, $line-height-base, $grid-unit) 
     }
     .body2 {
-        font-size: 16px;
+        font-size: $font-size-body2;
+        line-height: calc-line-height($font-size-body2, $line-height-base, $grid-unit) 
     }
     .body3 {
-        font-size: 14px;
+        font-size: $font-size-body3;
+        line-height: calc-line-height($font-size-body3, $line-height-base, $grid-unit) 
     }
 
+    $font-size-body1: 20px;
+    $font-size-body2: 18px;
+    $font-size-body3: 16px;
     @media screen and (min-width: 640px) {
         .body1 {
-            font-size: 20px;
+            font-size: $font-size-body1;
+            line-height: calc-line-height($font-size-body1, $line-height-base, $grid-unit) 
         }
         .body2 {
-            font-size: 18px;
+            font-size: $font-size-body2;
+            line-height: calc-line-height($font-size-body2, $line-height-base, $grid-unit) 
         }
         .body3 {
-            font-size: 16px;
+            font-size: $font-size-body3;
+            line-height: calc-line-height($font-size-body3, $line-height-base, $grid-unit) 
         }
     }
+
+    $font-size-body1: 22px;
+    $font-size-body2: 20px;
+    $font-size-body3: 18px;
     @media screen and (min-width: 1024px) {
         .body1 {
-            font-size: 22px;
+            font-size: $font-size-body1;
+            line-height: calc-line-height($font-size-body1, $line-height-base, $grid-unit) 
         }
         .body2 {
-            font-size: 20px;
+            font-size: $font-size-body2;
+            line-height: calc-line-height($font-size-body2, $line-height-base, $grid-unit) 
         }
         .body3 {
-            font-size: 18px;
+            font-size: $font-size-body3;
+            line-height: calc-line-height($font-size-body3, $line-height-base, $grid-unit) 
         }
     }
+
+    $font-size-body1: 24px;
+    $font-size-body2: 22px;
+    $font-size-body3: 20px;
     @media screen and (min-width: 1536px) {
         .body1 {
-            font-size: 24px;
+            font-size: $font-size-body1;
+            line-height: calc-line-height($font-size-body1, $line-height-base, $grid-unit) 
         }
         .body2 {
-            font-size: 22px;
+            font-size: $font-size-body2;
+            line-height: calc-line-height($font-size-body2, $line-height-base, $grid-unit) 
         }
         .body3 {
-            font-size: 20px;
+            font-size: $font-size-body3;
+            line-height: calc-line-height($font-size-body3, $line-height-base, $grid-unit) 
         }
     }
 }

@@ -13,7 +13,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import { updateStatus } from '@/services/TaskAPI';
 import BackLogList from './BackLogList';
-import "./task.css";
+import "./task.scss";
 import { IconType } from "react-icons/lib";
 
 type TaskListProps = {

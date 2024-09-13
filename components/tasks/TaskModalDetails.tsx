@@ -12,7 +12,7 @@ import NotesPanel from '../notes/NotesPanel';
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import Collapse from '../collapse/Collapse';
 import styles from '../collapse/collapse.module.css';
-import "./task.css";
+import "./task.scss";
 import Subtitle from '../title/Subtitle';
 import Title from '../title/Title';
 import Label from '../title/Label';
