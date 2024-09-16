@@ -78,11 +78,11 @@ export default function Page(): JSX.Element {
         </div>
 
       </div>
-      <div className="bg-yellow-200 relative">
+      <div className="bg-gray-100 relative h-[72px]">
         <button
           onClick={handleClick}
-          className="py-4 px-10 max-h-[56px] bg-secondary shadow-y-1 rounded-lg
-          mx-auto block absolute left-1/2 -translate-x-1/2 w-[200px] h-[56px]"
+          className="py-4 px-10 max-h-[56px] bg-accent-700 shadow-y-1 rounded-lg
+          mx-auto block absolute left-1/2 -translate-x-1/2 w-[200px] text-white h-[56px] text-[16px]"
         >
           {isLoading ? <Spinner/> : "Convert to pdf"}
         </button>
