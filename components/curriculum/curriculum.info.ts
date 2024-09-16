@@ -102,8 +102,8 @@ export const seccionCuerpoCentralExperienceInfo = {
     info: [
         {
             main: "Full-Stack Developer",
-            detail: "MásMóvil Alarms Project (Subcontracted on TalentoMobile)",
-            date: "May 2022 - February 2024",
+            detail: "MásMóvil Alarms Project", /* (Subcontracted on TalentoMobile) */
+            date: "June 2022 - July 2024",
             list: [
                 "Solely responsible of developing of three websites related to the MásMóvil alarms project.",
                 "Debugging, update, optimization, and separate deployment of the backend (Express + PostgreSQL), and the frontend (React + Next.js + Typescript).",
@@ -648,8 +648,8 @@ export const cuerpoCentralPagina2: seccionCuerpocentralInfoType[] = [
         info: [
             {
                 main: "Full-Stack Developer",
-                detail: "MásMóvil Alarms Project (Subcontracted on TalentoMobile)",
-                date: "May 2022 - February 2024",
+                detail: "MásMóvil Alarms Project", /* (Subcontracted on TalentoMobile) */
+                date: "June 2022 - July 2024",
                 list: [
                     "Solely responsible of developing of three websites related to the MásMóvil alarms project.",
                     "Debugging, update, optimization, and separate deployment of the backend (Express + PostgreSQL), and the frontend (React + Next.js + Typescript).",
