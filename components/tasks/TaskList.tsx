@@ -203,7 +203,7 @@ export default function TaskList({tasks, projectId, canEdit}: TaskListProps) {
     <>
       <h2 className="headline2 font-black mt-16u mb-8u sm:mt-24u sm:mb-12u">Tablón de tareas</h2>
 
-      <div className="flex gap-5 overflow-x-scroll 2xl:overflow-auto pb-8 pattern_school ">
+      <div className="flex gap-5 overflow-x-scroll 2xl:overflow-auto pb-8 pattern ">
         {canEdit ? (
           <DndContext
             onDragStart={handleDragStart}
@@ -243,12 +243,6 @@ export default function TaskList({tasks, projectId, canEdit}: TaskListProps) {
           ))
         )}
       </div>
-      <a
-        className="text-center w-full block text-[10px]"
-        href="https://www.vecteezy.com/free-vector/kids-school-pattern"
-      >
-        Kids School Pattern Vectors by Vecteezy
-      </a>
 
       <BackLogList
         backlogGroupedTasks={backlogGroupedTasks}
