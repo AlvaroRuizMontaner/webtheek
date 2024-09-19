@@ -1,3 +1,5 @@
+import BannerHome from '@/components/banner/BannerHome';
+import Container from '@/components/container/Container';
 import What from '@/components/what/What';
 import { renderPageSeo, seoHome } from '@/seo';
 import Head from 'next/head';
@@ -9,8 +11,8 @@ export default function DashboardView() {
   return (
     <>
       <Head>{renderPageSeo(seoHome, "index")}</Head>
-      <div className="space-y-16 mb-10 mt-4 divide-y-2">
-        <section className='flex flex-col mx-auto rounded max-w-[1200px]'>
+      <div className="space-y-16 divide-y-2">
+{/*         <section className='flex flex-col mx-auto rounded max-w-[1200px]'>
           <h1 className="text-center headline1 mb-0 font-bold bg-primary-400 text-white font-lato">¿Qué es Webtheek?</h1>
 
           <div className="flex justify-center p-4 bg-white">
@@ -20,9 +22,12 @@ export default function DashboardView() {
               recursos web de todo tipo, una webteca.
             </h2>
           </div>
-        </section>
+        </section> */}
+        <BannerHome />
+        <Container>
+          <What />
+        </Container>
         
-        <What />
       </div>
       <hr />
     </>

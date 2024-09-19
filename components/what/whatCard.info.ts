@@ -1,5 +1,5 @@
 export const whatInfo: WhatInfoProps = {
-    title: "¿Qué ofrece a día de hoy?",
+    title: "¿Qué ofrece Webtheek a día de hoy?",
     cards: [
       {
         /* name: "Herramientas de archivos e imágenes", */

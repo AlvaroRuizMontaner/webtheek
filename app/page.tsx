@@ -1,4 +1,4 @@
-import AppLayout from "@/layouts/AppLayout";
+import HomeLayout from "@/layouts/HomeLayout";
 import DashboardView from "@/views/DashboardView";
 
 // `app/page.tsx` is the UI for the `/` URL
@@ -8,9 +8,9 @@ export default function Page(): JSX.Element {
   return (
 
     <>
-    <AppLayout>
+    <HomeLayout>
       <DashboardView />
-    </AppLayout>
+    </HomeLayout>
     </>
   );
 }
