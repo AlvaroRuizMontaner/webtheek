@@ -40,7 +40,7 @@ export default function ProjectsView() {
         {data.length ? (
           <ul
             role="list"
-            className="space-y-4 my-10"
+            className="space-y-8u my-10"
           >
             {data.map((project) => (
               <li
@@ -60,10 +60,10 @@ export default function ProjectsView() {
                         {project.projectName}
                       </Link>
                     </div>
-                    <p className="text-sm text-gray-400">
+                    <p className="text-gray-400">
                       Cliente: {project.clientName}
                     </p>
-                    <p className="text-sm text-gray-400">
+                    <p className="text-gray-400">
                       {project.description}
                     </p>
                   </div>

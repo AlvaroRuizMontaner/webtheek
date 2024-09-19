@@ -25,19 +25,20 @@
     background: linear-gradient(to bottom, var(--primary-400) -50%, var(--primary-50) 50%, var(--primary-400) 150%);
 }
 
-.pattern_school {
+.pattern {
     position: relative;
     z-index: 1; /* Asegúrate de que el contenido esté en el nivel superior */
 };
 
-.pattern_school::after {
+.pattern::after {
     content: "";
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     height: 100%;
-    background-image: url("/backgrounds/pattern_school.jpg");
+    background-image: url("/backgrounds/pattern_square.png");
+    background-size: 60%;
     z-index: -1;
     filter: opacity(0.08);
 
@@ -45,12 +46,12 @@
 }
 
 @media screen and (min-width: 440px) {
-    .pattern_school::after {
+    .pattern::after {
         min-width: calc(290px * 5 - 18px); /* Ancho de cada tarjeta por 5 menos el ancho de la barra de scroll */
     }
 }
 @media screen and (min-width: 1536px) {
-    .pattern_school::after {
+    .pattern::after {
         min-width: 1472px; /* Ancho maximo del parent */
     }
 }

@@ -1,0 +1,11 @@
+$font-size-button: 16px;
+$line-height-button: 1.5;
+$border-button: 2px;
+$grid-unit: 4px;
+
+.button {
+    font-size: $font-size-button;
+    line-height: $line-height-button;
+    padding-block: calc((round(($font-size-button * $line-height-button) / $grid-unit) * $grid-unit - $border-button * 2) / 2);
+    border: $border-button solid black;
+}
