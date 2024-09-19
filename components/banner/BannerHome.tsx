@@ -9,11 +9,11 @@ export default function BannerHome() {
         <div className="container grid md:grid-cols-2 h-full">
           <article className="w-fit h-full flex flex-col justify-end md:justify-center">
             <div className="content-banner p-6u sm:p-8u rounded-lg space-y-6u">
-              <ul className="space-y-6u list-disc pl-5 text-lg">
-                <li className="font-bold">
+              <ul className="space-y-6u list-disc pl-5 text-lg text-white">
+                <li className="">
                   Planea y crea proyectos con tu equipo
                 </li>
-                <li className="font-bold">
+                <li className="">
                   Controla y dirige a tus colaboradores
                 </li>
               </ul>
