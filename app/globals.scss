@@ -54,9 +54,11 @@
 }
 @layer base {
 .container-element {
-  max-width: 1200px;
-  margin-inline: auto;
-  @apply px-8u;
+  & {
+    max-width: 1200px;
+    margin-inline: auto;
+    @apply px-8u;
+  }
 }
 }
 
