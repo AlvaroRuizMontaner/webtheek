@@ -1,10 +1,18 @@
 @import "../../styles/_breakpoints";
 
+.contenedor-banner-home {
+    height: 800px;
+
+    @media screen and (min-width: $small) {
+        height: 600px;
+    }
+}
+
 .banner-home {
     background-image: url("/backgrounds/Banner.png");
     background-size: cover;
     background-repeat: no-repeat;
-    background-position: calc(100% + 20px) center;
+    background-position: calc(100% + 130px) center;
 
     @media screen and (min-width: $small) {
         background-position: center 10%;
