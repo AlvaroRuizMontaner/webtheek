@@ -71,7 +71,7 @@ export default function TaskCard({task, projectId, canEdit, status}: TaskCardPro
           </button>
         </div>
         {task.description && (
-          <p className="text-slate-500 body3 ellipsis ">
+          <p className="text-slate-500 body3 md:text-base ellipsis ">
             {task.description}
           </p>
         )}
