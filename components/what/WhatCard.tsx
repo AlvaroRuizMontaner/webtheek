@@ -10,11 +10,11 @@ const WhatCard = ({
   return (
       <section
         className="
-        max-w-[16rem] sm:max-w-[18rem] bg-primary-900 text-white mx-auto md:mx-0 p-6 flex flex-col gap-2
+        max-w-[16rem] sm:max-w-[19rem] bg-primary-900 text-white mx-auto md:mx-0 p-6 flex flex-col gap-2
         rounded-lg shadow-lg shadow-primary-900
      "
       >
-        <div className="relative w-full h-20 bg-gray-200 rounded-lg">
+        <div className="relative w-full h-20 bg-primary-100 rounded-lg">
           <Image className="" fill src={image} alt={`Image ${name}`} />
         </div>
         <h3 className="h-20 leading-6 text-accent-300 font-black body2 flex items-center justify-center text-center">

@@ -13,16 +13,16 @@ function isEven(index: number) {
 
 export default function Zigzag({info}: ZigzagProps) {
   return (
-    <div className='my-8u sm:my-48u'>
+    <div className=''>
     {info.map((item, index) => {
         return (
-          <section key={item.title} className={`py-4u md:py-12u lg:py-24u ${isEven(index) ? "bg-primary-100" : "bg-accent-100"}`}>
+          <section key={item.title} className={`py-8u md:py-12u lg:py-24u ${isEven(index) ? "bg-primary-100" : "bg-accent-100"}`}>
             <div
               key={item.title}
               className="md:h-[400px] body2 md:body3 container-element"
             >
               <div
-                className={`flex flex-col md:flex-row h-full gap-4u md:gap-12u lg:gap-24u ${isEven(index) ? "md:flex-row-reverse" : "md:flex-row"}`}
+                className={`flex flex-col md:flex-row h-full gap-8u md:gap-12u lg:gap-24u ${isEven(index) ? "md:flex-row-reverse" : "md:flex-row"}`}
               >
                 <div className="relative image-item flex-1 flex-basis-[80%] md:min-w-[400px] md:max-w-[400px]">
                   <Image
