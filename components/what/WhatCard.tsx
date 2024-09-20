@@ -17,9 +17,9 @@ const WhatCard = ({
         <div className="relative w-full h-20 bg-primary-100 rounded-lg">
           <Image className="" fill src={image} alt={`Image ${name}`} />
         </div>
-        <h3 className="h-20 leading-6 text-accent-300 font-black body2 flex items-center justify-center text-center">
+        <h2 className="h-20 leading-6 text-accent-300 font-black body2 flex items-center justify-center text-center">
           {name}
-        </h3>
+        </h2>
         <div className="text-center">{description}</div>
       </section>
   );
