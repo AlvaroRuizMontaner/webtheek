@@ -16,31 +16,32 @@ function isEven(index: number) {
 export default function Zigzag({info}: ZigzagProps) {
 
     
-    const [isVisible, setIsVisible] = useState(false);
-    const elementRef = useRef<HTMLDivElement>(null);
+  // Crear un estado para cada elemento basado en la longitud de `info`
+  const [isVisible, setIsVisible] = useState<boolean[]>(new Array(info.length).fill(false));
 
-    useEffect(() => {
-        if(typeof window !== undefined) {
-            console.log(document.documentElement.scrollHeight, "document.documentElement.scrollHeight")
-            console.log(window.innerHeight, "window.innerHeight")
-            console.log(window.scrollY, "window.scrollY")
-        }
-    },[])
+  // Crear un array de referencias para cada elemento
+  const elementRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-    useEffect(() => {
-    const handleScroll = () => {
-        if (elementRef.current) {
-        const rect = elementRef.current.getBoundingClientRect();
 
-        // Si el elemento está entrando en el viewport
-        if (rect.top <= window.scrollY && rect.bottom >= 0) {
-            setIsVisible(true);
+  useEffect(() => {
+      const handleScroll = () => {
+      elementRefs.current.forEach((ref, index) => {
+        if (ref) {
+          const rect = ref.getBoundingClientRect();
+          /* if (rect.top <= window.scrollY + window.innerHeight + 150) { */
+          if (rect.top <= window.innerHeight * 0.75 && rect.bottom >= 0) {
+            setIsVisible((prev) => {
+              const newIsVisible = [...prev];
+              newIsVisible[index] = true;
+              return newIsVisible;
+            });
+          }
         }
-        }
+      });
     };
 
   window.addEventListener('scroll', handleScroll);
-  handleScroll(); // Ejecuta para comprobar la visibilidad en carga inicial
+  //handleScroll(); // Ejecuta para comprobar la visibilidad en carga inicial
 
   return () => window.removeEventListener('scroll', handleScroll);
 }, []);
@@ -67,7 +68,17 @@ export default function Zigzag({info}: ZigzagProps) {
                     className="rounded-xl object-contain md:object-cover"
                   />
                 </div>
-                <div ref={elementRef} className={`h-full flex-1 flex gap-4 flex-col justify-center md:leading-6 lg:leading-8 relative ${isVisible ? "opacity-1 __fade" : "opacity-0 "}`}>
+                <div
+                   ref={(el) => {
+                    if (el) {
+                      elementRefs.current[index] = el;
+                    }
+                  }} // Asignar referencia a cada elemento
+                    className={`h-full flex-1 flex gap-4 flex-col justify-center md:leading-6 lg:leading-8
+                    relative ${isVisible[index] ? 'opacity-1 __fade' : 'opacity-0'
+                    }`}
+                /* ref={elementRef1} className={`h-full flex-1 flex gap-4 flex-col justify-center md:leading-6 lg:leading-8 relative ${isVisible1 ? "opacity-1 __fade" : "opacity-0 "}`} */
+                >
                   <Title as="h3" className='text-primary-500 headline4'>{item.title}</Title>
                   <div>{item.text}</div>
                 </div>
