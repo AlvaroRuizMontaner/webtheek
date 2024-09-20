@@ -12,10 +12,13 @@
     background-image: url("/backgrounds/BannerHome.webp");
     background-size: cover;
     background-repeat: no-repeat;
-    background-position: calc(100% + 130px) center;
+    background-position: calc(50%) center;
 
     @media screen and (min-width: $small) {
         background-position: center 20%;
+    }
+    @media screen and (min-width: $extra-extra-large) {
+        background-position: center 0%;
     }
 }
 
