@@ -1,7 +1,7 @@
 @import "../../styles//breakpoints";
 
 .image-item {
-    @media screen and (max-width: #{$medium + 1px}) {
+    @media screen and (max-width: #{$medium - 1px}) {
         margin: auto;
         width: 90vw;
         height: 70vw;

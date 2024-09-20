@@ -6,6 +6,7 @@ import WhatCard from './WhatCard';
 import { Swiper as SwiperType } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { ArrowLeftCircleIcon, ArrowRightCircleIcon } from '@heroicons/react/20/solid';
+import Title from '../title/Title';
 
 export default function What() {
     const [width] = useDeviceSize()
@@ -16,10 +17,10 @@ export default function What() {
   return (
     <section className="max-w-[1200px] mx-auto">
       {width > 865 ? (
-        <div className="my-16 flex flex-col gap-14">
-          <h2 className="text-center text-3xl font-bold font-lato">
+        <div className="my-24u flex flex-col gap-14">
+          <Title as="h1" className='text-center text-primary-500 headline2'>
             {whatInfo.title}
-          </h2>
+          </Title>
           <div className="grid grid-cols-1 md:flex gap-10 justify-center">
             {whatInfo.cards.map((card) => (
               <WhatCard key={card.name} {...card} />
@@ -28,9 +29,9 @@ export default function What() {
         </div>
       ) : (
         <div className="max-w-[600px] mx-auto flex flex-col my-16u items-center justify-center relative">
-          <h2 className="text-center text-3xl font-bold font-lato">
+          <Title as="h1" className='text-center text-primary-500 text-3xl'>
             {whatInfo.title}
-          </h2>
+          </Title>
           <div className="swiper-container-home ml-0 md:ml-0">
             <Swiper
               spaceBetween={50}
@@ -44,7 +45,7 @@ export default function What() {
             >
               {whatInfo.cards.map((card, index) => (
                 <SwiperSlide key={index} className="text-center">
-                  <div className="h-[450px] flex justify-center items-center">
+                  <div className="h-[400px] flex justify-center items-center">
                     <WhatCard key={card.name} {...card} />
                   </div>
                 </SwiperSlide>
