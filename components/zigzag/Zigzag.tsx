@@ -1,4 +1,5 @@
-import React from 'react'
+"use client"
+import React, { useEffect, useRef, useState } from 'react'
 import { ZigzagItem } from './zigzag.info'
 import Image from 'next/image'
 import "./zigzag.scss"
@@ -13,6 +14,38 @@ function isEven(index: number) {
 }
 
 export default function Zigzag({info}: ZigzagProps) {
+
+    
+    const [isVisible, setIsVisible] = useState(false);
+    const elementRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if(typeof window !== undefined) {
+            console.log(document.documentElement.scrollHeight, "document.documentElement.scrollHeight")
+            console.log(window.innerHeight, "window.innerHeight")
+            console.log(window.scrollY, "window.scrollY")
+        }
+    },[])
+
+    useEffect(() => {
+    const handleScroll = () => {
+        if (elementRef.current) {
+        const rect = elementRef.current.getBoundingClientRect();
+
+        // Si el elemento está entrando en el viewport
+        if (rect.top <= window.scrollY && rect.bottom >= 0) {
+            setIsVisible(true);
+        }
+        }
+    };
+
+  window.addEventListener('scroll', handleScroll);
+  handleScroll(); // Ejecuta para comprobar la visibilidad en carga inicial
+
+  return () => window.removeEventListener('scroll', handleScroll);
+}, []);
+
+
   return (
     <div className=''>
     {info.map((item, index) => {
@@ -34,7 +67,7 @@ export default function Zigzag({info}: ZigzagProps) {
                     className="rounded-xl object-contain md:object-cover"
                   />
                 </div>
-                <div className="h-full flex-1 flex gap-4 flex-col justify-center md:leading-6 lg:leading-8">
+                <div ref={elementRef} className={`h-full flex-1 flex gap-4 flex-col justify-center md:leading-6 lg:leading-8 relative ${isVisible ? "opacity-1 __fade" : "opacity-0 "}`}>
                   <Title as="h3" className='text-primary-500 headline4'>{item.title}</Title>
                   <div>{item.text}</div>
                 </div>

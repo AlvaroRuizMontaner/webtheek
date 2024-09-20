@@ -1,4 +1,4 @@
-@import "../../styles//breakpoints";
+@import "../../styles/_breakpoints";
 
 .image-item {
     @media screen and (max-width: #{$medium - 1px}) {
