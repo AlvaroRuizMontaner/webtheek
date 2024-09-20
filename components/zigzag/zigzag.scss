@@ -1,0 +1,12 @@
+@import "../../styles//breakpoints";
+
+.image-item {
+    @media screen and (max-width: #{$medium + 1px}) {
+        margin: auto;
+        width: 90vw;
+        height: 70vw;
+        min-height: 90vw;
+        max-height: 100%;
+        max-width: 100%;
+    }
+}
