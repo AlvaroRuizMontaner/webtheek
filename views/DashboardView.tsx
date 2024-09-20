@@ -13,14 +13,11 @@ export default function DashboardView() {
   return (
     <>
       <Head>{renderPageSeo(seoHome, "index")}</Head>
-      <div className="space-y-16 divide-y-2">
         <BannerHome />
         <Container>
           <What />
-          <Zigzag info={zigzagInfoHome} />
         </Container>
-        
-      </div>
+        <Zigzag info={zigzagInfoHome} />
       <hr />
     </>
   );
