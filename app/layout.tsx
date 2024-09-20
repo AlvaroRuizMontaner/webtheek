@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     icon: "/logosinborde.png",
   },
   openGraph: {
-    images: ["https://webtheek.com/"]
+    images: ["https://webtheek.com/logosinborde.png"]
   }
 };
 
