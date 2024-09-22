@@ -12,7 +12,14 @@ export const metadata: Metadata = {
     icon: "/logosinborde.png",
   },
   openGraph: {
-    images: ["https://webtheek.com/logosinborde.png"]
+    images: [
+      {
+        url: "https://webtheek.com/logosinborde.png",
+        width: 1200,  // Opcional, pero recomendable
+        height: 630,  // Opcional, pero recomendable
+        alt: "Webtheek logo",  // Opcional pero recomendado
+      }
+    ],
   }
 };
 

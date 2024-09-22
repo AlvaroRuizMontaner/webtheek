@@ -24,7 +24,7 @@ export default function Zigzag({info}: ZigzagProps) {
 
 
   useEffect(() => {
-      const handleScroll = () => {
+    const handleScroll = () => {
       elementRefs.current.forEach((ref, index) => {
         if (ref) {
           const rect = ref.getBoundingClientRect();
