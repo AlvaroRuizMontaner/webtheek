@@ -9,6 +9,7 @@ import { toast } from 'react-toastify'
 import { useDraggable } from "@dnd-kit/core"
 import {CSS} from '@dnd-kit/utilities';
 import Thumbtack from './Thumtack/Thumbtack'
+import { linkify } from '@/utils/linkify'
 
 type TaskCardProps = {
     task: TaskProject
@@ -62,7 +63,7 @@ export default function TaskCard({task, projectId, canEdit, status}: TaskCardPro
           <Thumbtack />
           <button
             type="button"
-            className=" text-base font-bold text-slate-600 text-left"
+            className=" text-base font-bold text-slate-600 text-left ellipsis"
             onClick={() =>
               router.push(location.pathname + `?viewTask=${task._id}`)
             }
@@ -72,7 +73,7 @@ export default function TaskCard({task, projectId, canEdit, status}: TaskCardPro
         </div>
         {task.description && (
           <p className="text-slate-500 body3 md:text-base ellipsis ">
-            {task.description}
+            {linkify(task.description)}
           </p>
         )}
       </div>
