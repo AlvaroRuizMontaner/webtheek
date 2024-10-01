@@ -14,15 +14,15 @@ type RadioPermissionInputProps = {
 export default function RadioPermissionInput({className="", index, name, selectState, title, onChange}: RadioPermissionInputProps) {
   return (
     <div
-      className={`${className} ${selectState === index ? "bg-accent-100" : "bg-primary-100"}`}
+      className={`${className} cursor-pointer ${selectState === index ? "bg-accent-100" : "bg-primary-100"}`}
     >
-      <label htmlFor={name + index} className="flex flex-col h-full relative">
+      <label htmlFor={name + index} className="flex flex-col h-full relative cursor-pointer">
         <input
           type="radio"
           name={name}
           value={index}
           id={name + index}
-          className="absolute opacity-0 pointer-events-none"
+          className="absolute opacity-0"
           onChange={onChange}
         />
         <h4 className="text-center">
