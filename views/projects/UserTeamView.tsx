@@ -5,7 +5,7 @@ import 'swiper/css';
 import { toast } from 'react-toastify';
 import ProjectsLoading from '@/components/loading-templates/ProjectsLoading';
 import Button from '@/components/button/Button';
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useEffect } from 'react';
 import RadioPermissionInput from '@/components/form/input/radioPermissionInput/RadioPermissionInput';
 
 
@@ -34,8 +34,6 @@ export default function UserTeamView({projectId, userId}: UserTeamViewProps) {
         queryClient.invalidateQueries({queryKey: ["userTeam", projectId]})
     }
   })
-
-  const [permissionLevel, setPermissionLevel] = useState<number>(0)
   
   useEffect(() => {
     if(!isLoading && !isError && data) {
@@ -51,7 +49,26 @@ export default function UserTeamView({projectId, userId}: UserTeamViewProps) {
       permissionFormData: {
         permissionLevel: Number(e.target.value),
       },
-    });
+    })
+
+    queryClient.setQueryData(
+      ["userTeam", projectId],
+      (prevData: {
+        user: {
+          _id: string;
+          name: string;
+          email: string;
+        };
+        permissionLevel: number;
+      }) => {
+        console.log(prevData);
+
+        return {
+          user: prevData.user,
+          permissionLevel: Number(e.target.value),
+        };
+      }
+    );
   }
 
 
@@ -78,9 +95,9 @@ export default function UserTeamView({projectId, userId}: UserTeamViewProps) {
 
         }
         <div className='flex flex-col sm:flex-row gap-8u flex-wrap lg:flex-nowrap justify-center items-center'>
-          {Array(3).fill().map((el, index) => (
+          {Array(3).fill(1).map((el, index) => (
             <RadioPermissionInput 
-              className="lg:w-70 lg:h-70 w-full h-52 sm:w-60 sm:h-60 px-2u py-4u border-2 border-primary-700 rounded-lg" 
+              className="lg:w-64 lg:h-64 w-full h-52 sm:w-60 sm:h-60 px-2u py-4u border-2 border-primary-700 rounded-lg" 
               name="permission"
               index={index + 1}
               key={"permission" + (index + 1)}
