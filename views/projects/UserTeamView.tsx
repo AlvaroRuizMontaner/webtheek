@@ -5,6 +5,8 @@ import 'swiper/css';
 import { toast } from 'react-toastify';
 import ProjectsLoading from '@/components/loading-templates/ProjectsLoading';
 import Button from '@/components/button/Button';
+import { ChangeEvent, useEffect, useState } from 'react';
+import RadioPermissionInput from '@/components/form/input/radioPermissionInput/RadioPermissionInput';
 
 
 type UserTeamViewProps = {
@@ -33,12 +35,31 @@ export default function UserTeamView({projectId, userId}: UserTeamViewProps) {
     }
   })
 
+  const [permissionLevel, setPermissionLevel] = useState<number>(0)
+  
+  useEffect(() => {
+    if(!isLoading && !isError && data) {
+      console.log(data.permissionLevel)
+    }
+  },[isLoading, isError, data])
+
+  function handleChange(e: ChangeEvent<HTMLInputElement>) {
+    console.log(e.target.value)
+    mutate({
+      projectId,
+      userId,
+      permissionFormData: {
+        permissionLevel: Number(e.target.value),
+      },
+    });
+  }
+
 
   if (isLoading) return <ProjectsLoading />
   if (isError) throw new Error("Error");
   if (data) return (
     <>
-      <h2 className="headline2 font-black mb-8u sm:mb-12u">Editar permisos de <span className='text-primary-700'>{data.user.name}</span></h2>
+      <h2 className="headline2 font-black mb-8u sm:mb-12u">Permisos de <span className='text-primary-700'>{data.user.name}</span></h2>
 
       <nav className="flex flex-col gap-3 sm:flex-row">
         <Button
@@ -48,30 +69,26 @@ export default function UserTeamView({projectId, userId}: UserTeamViewProps) {
         />
       </nav>
 
-      <section className='py-8u px-4u sm:px-8u bg-primary-100 space-y-6u mt-8u'>
+      <section className='py-8u px-4u sm:px-8u bg-gray-200 space-y-6u mt-8u'>
         <div className=''>
           <h3 className='body1 font-bold'>Cambiar nivel de permisos</h3>
         </div>
         <hr className='border-gray-900 border-2' />
-        <div className='flex flex-col sm:flex-row gap-4u  justify-center items-center'>
-          <div className='lg:w-80 lg:h-80 w-40 h-40 sm:w-60 sm:h-60 p-2u border-2 border-primary-700 rounded-lg'>
-            <label htmlFor="permission1" className='block h-full relative'>
-            <input type="radio" name="permission" value="1" id="permission1" className='absolute opacity-0 pointer-events-none' onChange={(e) => console.log(e.target.value)}/>
-            <span>Permission 1</span>
-            </label>
-          </div>
-          <div className='lg:w-80 lg:h-80 w-40 h-40 sm:w-60 sm:h-60 p-2u border-2 border-primary-700 rounded-lg'>
-            <label htmlFor="permission2" className='block h-full relative'>
-            <input type="radio" name="permission" value="2" id="permission2" className='absolute opacity-0 pointer-events-none' onChange={(e) => console.log(e.target.value)}/>
-            <span>Permission 2</span>
-            </label>
-          </div>
-          <div className='lg:w-80 lg:h-80 w-40 h-40 sm:w-60 sm:h-60 p-2u border-2 border-primary-700 rounded-lg'>
-            <label htmlFor="permission3" className='block h-full relative'>
-            <input type="radio" name="permission" value="3" id="permission3" className='absolute opacity-0 pointer-events-none' onChange={(e) => console.log(e.target.value)}/>
-            <span>Permission 3</span>
-            </label>
-          </div>
+        {
+
+        }
+        <div className='flex flex-col sm:flex-row gap-8u flex-wrap lg:flex-nowrap justify-center items-center'>
+          {Array(3).fill().map((el, index) => (
+            <RadioPermissionInput 
+              className="lg:w-70 lg:h-70 w-full h-52 sm:w-60 sm:h-60 px-2u py-4u border-2 border-primary-700 rounded-lg" 
+              name="permission"
+              index={index + 1}
+              key={"permission" + (index + 1)}
+              onChange={handleChange}
+              title={"Nivel de permiso" + " " + (index + 1)}
+              selectState={data.permissionLevel}
+            />
+          ))}
         </div>
       </section>
 
