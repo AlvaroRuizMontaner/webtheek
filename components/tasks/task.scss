@@ -28,6 +28,7 @@
 .pattern {
     position: relative;
     z-index: 1; /* Asegúrate de que el contenido esté en el nivel superior */
+    scrollbar-color: #202097 #8998f5;
 };
 
 .pattern::after {
