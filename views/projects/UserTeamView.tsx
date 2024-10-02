@@ -5,7 +5,7 @@ import 'swiper/css';
 import { toast } from 'react-toastify';
 import ProjectsLoading from '@/components/loading-templates/ProjectsLoading';
 import Button from '@/components/button/Button';
-import { ChangeEvent, useEffect } from 'react';
+import { ChangeEvent } from 'react';
 import RadioPermissionInput from '@/components/form/input/radioPermissionInput/RadioPermissionInput';
 
 
@@ -35,12 +35,6 @@ export default function UserTeamView({projectId, userId}: UserTeamViewProps) {
     }
   })
   
-  useEffect(() => {
-    if(!isLoading && !isError && data) {
-      console.log(data.permissionLevel)
-    }
-  },[isLoading, isError, data])
-
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     console.log(e.target.value)
     mutate({
@@ -61,7 +55,6 @@ export default function UserTeamView({projectId, userId}: UserTeamViewProps) {
         };
         permissionLevel: number;
       }) => {
-        console.log(prevData);
 
         return {
           user: prevData.user,
@@ -86,23 +79,23 @@ export default function UserTeamView({projectId, userId}: UserTeamViewProps) {
         />
       </nav>
 
-      <section className='py-8u px-4u sm:px-8u bg-gray-200 space-y-6u mt-8u'>
+      <section className='py-8u space-y-6u mt-8u'>
         <div className=''>
-          <h3 className='body1 font-bold'>Cambiar nivel de permisos</h3>
+          <h3 className='body1 font-bold leading-none'>Cambiar nivel de permisos</h3>
         </div>
-        <hr className='border-gray-900 border-2' />
+        <hr className='border-0 bg-gray-900 h-[1px]' />
         {
 
         }
         <div className='flex flex-col sm:flex-row gap-8u flex-wrap lg:flex-nowrap justify-center items-center'>
           {Array(3).fill(1).map((el, index) => (
             <RadioPermissionInput 
-              className="lg:w-64 lg:h-64 w-full h-52 sm:w-60 sm:h-60 px-2u py-4u border-2 border-primary-700 rounded-lg" 
+              className="lg:w-64 lg:h-64 w-full h-60 sm:w-60 sm:h-60 px-2u py-4u shadow-lg rounded-lg" 
               name="permission"
               index={index + 1}
               key={"permission" + (index + 1)}
               onChange={handleChange}
-              title={"Nivel de permiso" + " " + (index + 1)}
+              title={"Nivel"}
               selectState={data.permissionLevel}
             />
           ))}
