@@ -14,6 +14,7 @@ import { toast } from 'react-toastify';
 import { updateStatus } from '@/services/TaskAPI';
 import "./task.scss";
 import { IconType } from "react-icons/lib";
+import { groupTasks } from "@/utils/policies";
 
 type TaskListProps = {
     tasks: TaskProject[]
@@ -21,18 +22,6 @@ type TaskListProps = {
     canEdit: boolean
 }
 
-type GroupedTasks = {
-    [key: string]: TaskProject[]
-}
-
-const initialStatusGroups: GroupedTasks = {
-    backlog: [],
-    pending: [],
-    onHold: [],
-    inProgress: [],
-    underReview: [],
-    completed: []
-}
 
 const statusStyles: {[key: string]: string} = {
   pending: "border-t-gray-500",
@@ -59,13 +48,8 @@ export default function TaskList({tasks, projectId, canEdit}: TaskListProps) {
       }
   })
 
-    const groupedTasks = tasks.reduce((acc, task) => {
-        let currentGroup = acc[task.status] ? [...acc[task.status]] : [];
-        currentGroup = [...currentGroup, task]
-        return { ...acc, [task.status]: currentGroup };
-    }, initialStatusGroups);
 
-    const fieldGroupedTasks = Object.entries(groupedTasks).filter(([status]) => status !== "backlog")
+    const fieldGroupedTasks = groupTasks(tasks)
 
     const mouseSensor = useSensor(MouseSensor, {
       activationConstraint: {
