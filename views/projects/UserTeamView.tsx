@@ -79,7 +79,7 @@ export default function UserTeamView({projectId, userId}: UserTeamViewProps) {
         />
       </nav>
 
-      <section className='py-8u space-y-6u mt-8u'>
+      <section className='py-8u space-y-8u mt-8u'>
         <div className=''>
           <h3 className='body1 font-bold leading-none'>Cambiar nivel de permisos</h3>
         </div>
