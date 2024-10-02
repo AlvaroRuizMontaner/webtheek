@@ -12,7 +12,6 @@ import { DndContext, DragEndEvent, MouseSensor, TouchSensor, useSensor, useSenso
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import { updateStatus } from '@/services/TaskAPI';
-import BackLogList from './BackLogList';
 import "./task.scss";
 import { IconType } from "react-icons/lib";
 
@@ -67,7 +66,6 @@ export default function TaskList({tasks, projectId, canEdit}: TaskListProps) {
     }, initialStatusGroups);
 
     const fieldGroupedTasks = Object.entries(groupedTasks).filter(([status]) => status !== "backlog")
-    const backlogGroupedTasks = groupedTasks["backlog"]
 
     const mouseSensor = useSensor(MouseSensor, {
       activationConstraint: {
@@ -243,12 +241,6 @@ export default function TaskList({tasks, projectId, canEdit}: TaskListProps) {
           ))
         )}
       </div>
-
-      <BackLogList
-        backlogGroupedTasks={backlogGroupedTasks}
-        canEdit={canEdit}
-        projectId={projectId}
-      />
     </>
   );
 }

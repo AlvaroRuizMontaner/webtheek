@@ -1,15 +1,22 @@
-import { Project, TaskProject } from '@/types'
+import { Project, User } from '@/types'
 import BacklogCard from './BacklogCard'
 import Title from '../title/Title'
 import Subtitle from '../title/Subtitle'
+import { GroupedTasks, havePermission, isManager } from '@/utils/policies'
+import Button from '../button/Button'
+import { useRouter } from 'next/navigation'
 
 type BackLogListProps = {
-    backlogGroupedTasks: TaskProject[]
+    backlogGroupedTasks: GroupedTasks["backlog"]
     canEdit: boolean
     projectId: Project["_id"]
+    data: Project
+    user: User
 }
 
-export default function BackLogList({backlogGroupedTasks, canEdit, projectId}: BackLogListProps) {
+export default function BackLogList({backlogGroupedTasks, canEdit, projectId, data, user}: BackLogListProps) {
+
+  const router = useRouter()
 
     return (
       <>
@@ -18,7 +25,7 @@ export default function BackLogList({backlogGroupedTasks, canEdit, projectId}: B
             Backlog
           </Title>
           <Subtitle variant="dark" text="Buzón de tareas" />
-{/*           <nav className="flex flex-col gap-3 sm:flex-row">
+          <nav className="flex flex-col gap-3 sm:flex-row">
             {(isManager(data.manager, user._id) ||
               havePermission(data.team, user._id, 3)) && (
               <Button
@@ -26,7 +33,7 @@ export default function BackLogList({backlogGroupedTasks, canEdit, projectId}: B
                 onClick={() => router.push("?newTask=true")}
               />
             )}
-          </nav> */}
+          </nav>
         </div>
         {backlogGroupedTasks.length !== 0 ? (
           <ul className="my-6 space-y-2">
