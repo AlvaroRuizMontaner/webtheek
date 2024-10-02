@@ -30,7 +30,7 @@ export default function BackLogList({backlogGroupedTasks, canEdit, projectId, da
               havePermission(data.team, user._id, 3)) && (
               <Button
                 text="Agregar Tarea"
-                onClick={() => router.push("?newTask=true")}
+                onClick={() => router.push("?newTask=backlog")}
               />
             )}
           </nav>
