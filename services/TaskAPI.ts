@@ -19,6 +19,16 @@ export async function createTask({formData, projectId}: Pick<TaskAPI, "formData"
         throw new Error(error.response.data.error) // Hay que lanzar el error para que vaya al onError de mutate
     }
 }
+export async function createBacklogTask({formData, projectId}: Pick<TaskAPI, "formData" | "projectId">) {
+    try {
+        const url = `/projects/${projectId}/tasks?status=backlog`
+        const { data } = await api.post<string>(url, formData)
+        return data
+    } catch (error) {
+        if(isAxiosError(error) && error.response)
+        throw new Error(error.response.data.error) // Hay que lanzar el error para que vaya al onError de mutate
+    }
+}
 
 export async function getTaskById({projectId, taskId}: Pick<TaskAPI, "projectId" | "taskId">) {
     try {

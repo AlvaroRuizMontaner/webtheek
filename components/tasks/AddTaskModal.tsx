@@ -4,7 +4,7 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import TaskForm from './TaskForm';
 import { Project, TaskFormData } from '@/types';
 import { useForm } from 'react-hook-form';
-import { createTask } from '@/services/TaskAPI';
+import { createBacklogTask, createTask } from '@/services/TaskAPI';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import SubmitInput from '../form/input/SubmitInput';
@@ -17,6 +17,7 @@ export default function AddTaskModal({projectId}: {projectId: Project["_id"]}) {
     const searchParams = useSearchParams()
     const search = searchParams.get('newTask')
     const show = search ? true : false
+    const isBacklogTask = search === "backlog"
 
     const initialvalues: TaskFormData = {
         name: "",
@@ -27,7 +28,7 @@ export default function AddTaskModal({projectId}: {projectId: Project["_id"]}) {
 
     const queryClient = useQueryClient()
     const { mutate, isPending } = useMutation({
-        mutationFn: createTask,
+        mutationFn: isBacklogTask ? createBacklogTask : createTask,
         onError: (error) => {
             toast.error(error.message)
         },
