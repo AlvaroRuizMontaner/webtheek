@@ -1,6 +1,7 @@
 import { slideCardInfo } from '@/components/team/SlideCard/SlideCardInfo';
 import { CheckIcon, XMarkIcon } from '@heroicons/react/20/solid';
 import React from 'react'
+import "./radioPermissionInput.scss"
 
 type RadioPermissionInputProps = {
     className?: string;
@@ -14,7 +15,7 @@ type RadioPermissionInputProps = {
 export default function RadioPermissionInput({className="", index, name, selectState, title, onChange}: RadioPermissionInputProps) {
   return (
     <div
-      className={`${className} cursor-pointer border-2 ${selectState === index ? "bg-accent-50 border-accent-500" : "bg-white border-transparent"}`}
+      className={`${className} cursor-pointer border-2 radio-permission ${selectState === index ? "bg-accent-50 border-accent-500" : "bg-white border-transparent"}`}
     >
       <label htmlFor={name + index} className="flex flex-col gap-2 h-full relative cursor-pointer">
         <input

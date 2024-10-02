@@ -38,7 +38,8 @@
     right: 0;
     height: 100%;
     background-image: url("/backgrounds/pattern_charts3.webp");
-    filter: grayscale(1) opacity(0.3);
+    filter: grayscale(1);
+    opacity: 0.15;
     background-size: cover;
     background-repeat: no-repeat;
     z-index: -1;
