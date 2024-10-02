@@ -5,6 +5,7 @@ import Subtitle from '../title/Subtitle'
 import { GroupedTasks, havePermission, isManager } from '@/utils/policies'
 import Button from '../button/Button'
 import { useRouter } from 'next/navigation'
+import EmptyState from '../empty-state/EmptyState'
 
 type BackLogListProps = {
     backlogGroupedTasks: GroupedTasks["backlog"]
@@ -47,7 +48,9 @@ export default function BackLogList({backlogGroupedTasks, canEdit, projectId, da
             ))}
           </ul>
         ) : (
-          <div className="my-6 body3">No hay tareas en el backlog</div>
+          <div className='h-64'>
+            <EmptyState text="No hay tareas en el backlog, aún..."/>
+          </div>
         )}
       </>
     );

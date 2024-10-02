@@ -14,6 +14,7 @@ import Button from "@/components/button/Button";
 import "./projects.scss"
 import PermissionTag from "@/components/permission-tag/PermissionTag";
 import ProjectsLoading from "@/components/loading-templates/ProjectsLoading";
+import EmptyState from "@/components/empty-state/EmptyState";
 
 export default function ProjectsView() {
   const router = useRouter()
@@ -38,10 +39,7 @@ export default function ProjectsView() {
         </div>
 
         {data.length ? (
-          <ul
-            role="list"
-            className="space-y-8u my-10"
-          >
+          <ul role="list" className="space-y-8u my-10">
             {data.map((project) => (
               <li
                 key={project._id}
@@ -50,7 +48,9 @@ export default function ProjectsView() {
                 <div className="flex min-w-0 gap-x-4 pl-6u py-8u overflow-hidden">
                   <div className="min-w-0 flex-auto space-y-2u">
                     <div className="permissionTagWrapper">
-                      <PermissionTag isManager={isManager(project.manager, user._id)}/>
+                      <PermissionTag
+                        isManager={isManager(project.manager, user._id)}
+                      />
                     </div>
                     <div>
                       <Link
@@ -63,9 +63,7 @@ export default function ProjectsView() {
                     <p className="text-gray-400">
                       Cliente: {project.clientName}
                     </p>
-                    <p className="text-gray-400">
-                      {project.description}
-                    </p>
+                    <p className="text-gray-400">{project.description}</p>
                   </div>
                 </div>
                 <div className="flex shrink-0 items-center gap-x-6 w-fit pr-6u py-8u">
@@ -129,15 +127,17 @@ export default function ProjectsView() {
             ))}
           </ul>
         ) : (
-          <p className="text-center py-20">
-            No hay proyectos aún. {""}
+          <div className="text-center py-20 flex flex-col gap-2">
+            <div className="h-64">
+              <EmptyState text="No hay proyectos, aún..." />
+            </div>
             <Link
               className=" text-accent-300 font-bold"
               href="/projects/create"
             >
               Crear proyecto
             </Link>
-          </p>
+          </div>
         )}
 
         <DeleteProjectModal />

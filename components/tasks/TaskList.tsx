@@ -163,7 +163,7 @@ export default function TaskList({tasks, projectId, canEdit}: TaskListProps) {
   
           <ul className="mt-5 space-y-5">
             {tasks.length === 0 ? (
-              <li className="text-gray-700 text-center pt-3">No Hay tareas</li>
+              <li className="text-gray-700 text-center pt-3">{""}</li>
             ) : (
               tasks.map((task) => (
                 <TaskCard
@@ -185,7 +185,7 @@ export default function TaskList({tasks, projectId, canEdit}: TaskListProps) {
     <>
       <h2 className="headline2 font-black mt-16u mb-8u sm:mt-24u sm:mb-12u">Tablón de tareas</h2>
 
-      <div className="flex gap-5 overflow-x-scroll 2xl:overflow-auto pb-8 pattern ">
+      <div className="flex gap-5 overflow-x-scroll 2xl:overflow-auto pb-8 pattern min-h-[500px]">
         {canEdit ? (
           <DndContext
             onDragStart={handleDragStart}
@@ -207,7 +207,7 @@ export default function TaskList({tasks, projectId, canEdit}: TaskListProps) {
               <ul className="mt-5 space-y-5">
                 {tasks.length === 0 ? (
                   <li className="text-gray-500 text-center pt-3">
-                    No Hay tareas
+                    {""}
                   </li>
                 ) : (
                   tasks.map((task) => (
