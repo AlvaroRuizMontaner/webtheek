@@ -33,3 +33,14 @@ export async function deleteNote({projectId, taskId, noteId}: Pick<NoteAPIType, 
         }
     }
 }
+export async function editNote({projectId, taskId, noteId}: NoteAPIType) {
+    try {
+        const url = `/projects/${projectId}/tasks/${taskId}/notes/${noteId}`
+        const { data } = await api.put<string>(url)
+        return data
+    } catch (error) {
+        if(isAxiosError(error) && error.response) {
+            throw new Error(error.response.data.error)
+        }
+    }
+}
