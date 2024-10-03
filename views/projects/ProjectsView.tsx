@@ -132,7 +132,7 @@ export default function ProjectsView() {
               <EmptyState text="No hay proyectos, aún..." />
             </div>
             <Link
-              className=" text-accent-300 font-bold"
+              className=" text-primary-500 font-bold"
               href="/projects/create"
             >
               Crear proyecto
