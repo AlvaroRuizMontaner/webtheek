@@ -10,7 +10,6 @@ import { TrashIcon, PencilSquareIcon } from "@heroicons/react/20/solid";
 import styles from "./Notes.module.css"
 import ProjectsLoading from '../loading-templates/ProjectsLoading';
 import { useForm } from 'react-hook-form';
-import Spinner from '../spinners/Spinner';
 import SubmitInput from '../form/input/SubmitInput';
 
 type NoteDetailProps  = {
@@ -109,7 +108,7 @@ export default function NoteDetail({note, projectId}: NoteDetailProps) {
                 })}
               ></textarea>
               <div className="mt-2 w-72 m-auto">
-                <SubmitInput isLoading={isPending} value="Actualizar nota" />
+                <SubmitInput disabled={Boolean(errors.content)} isLoading={isPending} value="Actualizar nota" />
               </div>
             </form>
           ) : (
