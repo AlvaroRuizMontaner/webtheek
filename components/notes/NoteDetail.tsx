@@ -11,6 +11,7 @@ import styles from "./Notes.module.css"
 import ProjectsLoading from '../loading-templates/ProjectsLoading';
 import { useForm } from 'react-hook-form';
 import Spinner from '../spinners/Spinner';
+import SubmitInput from '../form/input/SubmitInput';
 
 type NoteDetailProps  = {
     note: Note
@@ -27,7 +28,7 @@ export default function NoteDetail({note, projectId}: NoteDetailProps) {
       content: note.content
   }
 
-  const { register, handleSubmit, formState: { errors, isLoading: isLoadingEdit } } = useForm<NoteFormData>({ defaultValues: initialValues });
+  const { register, handleSubmit, formState: { errors } } = useForm<NoteFormData>({ defaultValues: initialValues });
 
     const queryClient = useQueryClient()
 
@@ -43,10 +44,11 @@ export default function NoteDetail({note, projectId}: NoteDetailProps) {
         }
     })
 
-    const { mutate: editMutate } = useMutation({
+    const { mutate: editMutate, isPending } = useMutation({
         mutationFn: editNote,
         onError: (error) => toast.error(error.message),
         onSuccess: (data) => {
+            setIsEdit(false)
             toast.success(data)
             queryClient.invalidateQueries({queryKey: ["task", taskId]})
         }
@@ -54,12 +56,6 @@ export default function NoteDetail({note, projectId}: NoteDetailProps) {
 
     const handleEditNote = (formData: NoteFormData) => {
       editMutate({projectId, taskId, noteId: note._id, formData})
-      setIsEdit(false)
-    }
-
-    const makeConsolLog = (e) => {
-      e.preventDefault()
-      console.log("Hola aqui estoy")
     }
 
     if(isLoading) return <ProjectsLoading />
@@ -94,26 +90,27 @@ export default function NoteDetail({note, projectId}: NoteDetailProps) {
         </div>
         <div className="flex gap-2 justify-between flex-col sm:flex-row bg-white p-1">
           {isEdit ? (
-            <form onClick={makeConsolLog} className="flex-1" onSubmit={makeConsolLog}>
+            <form
+              className="flex-1"
+              onSubmit={handleSubmit(handleEditNote)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault(); // Previene que se haga un salto de línea
+                  handleSubmit(handleEditNote)();
+                }
+              }}
+            >
               <textarea
-              onClick={makeConsolLog}
                 className="block w-full"
                 id="content"
                 {...register("content", {
+                  minLength: 1,
                   required: true,
                 })}
               ></textarea>
-              {!isLoadingEdit ? (
-                <input
-                  className="flex w-full justify-center font-bold text-accent-500 p-1 cursor-pointer"
-                  type="submit"
-                  value="Actualizar nota"
-                  disabled={errors ? true : false}
-                  onClick={makeConsolLog}
-                />
-              ) : (
-                <Spinner />
-              )}
+              <div className="mt-2 w-72 m-auto">
+                <SubmitInput isLoading={isPending} value="Actualizar nota" />
+              </div>
             </form>
           ) : (
             <p className={`${styles["note-content"]}`}>{note.content}</p>

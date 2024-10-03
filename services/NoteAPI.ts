@@ -33,10 +33,10 @@ export async function deleteNote({projectId, taskId, noteId}: Pick<NoteAPIType, 
         }
     }
 }
-export async function editNote({projectId, taskId, noteId}: NoteAPIType) {
+export async function editNote({projectId, taskId, noteId, formData}: NoteAPIType) {
     try {
         const url = `/projects/${projectId}/tasks/${taskId}/notes/${noteId}`
-        const { data } = await api.put<string>(url)
+        const { data } = await api.put<string>(url, formData)
         return data
     } catch (error) {
         if(isAxiosError(error) && error.response) {
