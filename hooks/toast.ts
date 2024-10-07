@@ -5,7 +5,6 @@ export const useToastSuccess = (id="customId"): void => {
     useEffect(() => {
         const message = localStorage.getItem('toastMessage');
         if (message) {
-          console.log(message)
             toast.success(message, {
                 toastId: id
             });

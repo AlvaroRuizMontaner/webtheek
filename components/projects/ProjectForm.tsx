@@ -35,7 +35,7 @@ export default function ProjectForm({register, errors}: ProjectFormProps) {
           id="description"
           placeholder="Descripción del Proyecto"
           register={register}
-          required="El Nombre del cliente es obligatorio"
+          required="La descripción es obligatoria"
         />
       </>
     );
