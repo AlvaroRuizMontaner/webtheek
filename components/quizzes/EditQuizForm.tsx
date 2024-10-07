@@ -1,9 +1,5 @@
-import React from 'react'
-import ProjectForm from './ProjectForm'
-import { Project, ProjectFormData } from '@/types';
 import { useForm } from 'react-hook-form';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { updateProject } from '@/services/ProjectAPI';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 import SubmitInput from '../form/input/SubmitInput';
@@ -12,58 +8,60 @@ import Subtitle from '../title/Subtitle';
 import Button from '../button/Button';
 import Form from '../form/Form';
 import Separator from '../separator/Separator';
+import { Quiz, QuizFormData } from '@/types/quiz';
+import { updateQuiz } from '@/services/QuizAPI';
+import QuizForm from './QuizForm';
 
-type EditProjectFormProps = {
-    data: ProjectFormData,
-    projectId: Project["_id"]
+type EditQuizFormProps = {
+    data: QuizFormData,
+    quizId: Quiz["_id"]
 }
 
-export default function EditProjectForm({data, projectId}: EditProjectFormProps) {
+export default function EditQuizForm({data, quizId}: EditQuizFormProps) {
 
     const router = useRouter()
 
       const {register, handleSubmit, formState: {errors}} = useForm({defaultValues: {
-        projectName: data.projectName,
-        clientName: data.clientName,
+        name: data.name,
         description: data.description,
       }})
 
       const queryClient = useQueryClient()
       const { mutate, isPending } = useMutation({
-        mutationFn: updateProject,
+        mutationFn: updateQuiz,
         onError: (error) => {
             toast.error(error.message)
         },
         onSuccess: (data) => {
-            queryClient.invalidateQueries({queryKey: ["projects"]})
-            queryClient.invalidateQueries({queryKey: ["editProject", projectId]})
+            queryClient.invalidateQueries({queryKey: ["quizzes"]})
+            queryClient.invalidateQueries({queryKey: ["editQuiz", quizId]})
             data && localStorage.setItem('toastMessage', data);
-            router.push("/projects")
+            router.push("/quizzes")
         }
       })
 
-      const handleForm = (formData: ProjectFormData) => {
+      const handleForm = (formData: QuizFormData) => {
         mutate({
             formData,
-            projectId
+            quizId
         })
       }
 
   return (
     <>
       <div className=" max-w-3xl mx-auto">
-        <Title variant="dark">Editar proyecto</Title>
+        <Title variant="dark">Editar quiz</Title>
         <Subtitle
           variant="dark"
-          text="Llena el siguiente formulario para editar un proyecto"
+          text="Llena el siguiente formulario para editar un quiz"
         />
 
-        <div className="mb-8u">
-          <Button text="Volver a proyectos" href="/projects" />
+        <div className='mb-8u'>
+          <Button text="Volver a quizzes" href="/quizzes" />
         </div>
 
         <Form onSubmit={handleSubmit(handleForm)}>
-          <ProjectForm register={register} errors={errors} />
+          <QuizForm register={register} errors={errors} />
           <SubmitInput isLoading={isPending} value="Guardar cambios" />
         </Form>
 
