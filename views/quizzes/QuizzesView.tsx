@@ -14,6 +14,7 @@ import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { Fragment } from "react";
+import "./quizzes.scss"
 
 
 
@@ -44,7 +45,7 @@ export default function QuizzesView() {
                 {data.map((quiz) => (
                   <li
                     key={quiz._id}
-                    className="flex relative justify-between gap-x-6 project-card bg-white shadow-lg"
+                    className="flex relative justify-between gap-x-6 quiz-card bg-white shadow-lg"
                   >
                     <div className="flex min-w-0 gap-x-4 pl-6u py-8u overflow-hidden">
                       <div className="min-w-0 flex-auto space-y-2u">
