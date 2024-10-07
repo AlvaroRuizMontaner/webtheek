@@ -1,0 +1,31 @@
+.quiz-card {
+    position: relative;
+    /* z-index: 3; */
+    /* overflow: hidden; */
+}
+
+.quiz-card > * {
+    z-index: 2;
+}
+
+.quiz-card::after {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-image: url("/backgrounds/question-marks.webp");
+    background-position-x: 50%;
+    background-position-y: 20%;
+    background-size: 150%;
+    filter: opacity(0.1);
+    z-index: 1;
+
+}
+
+.permissionTagWrapper {
+    position: relative;
+    top: 0;
+    left: 0;
+}

@@ -1,15 +1,19 @@
 "use client"
-import { useToastSuccess } from "@/hooks/toast"
-import QuizzesView from "@/views/quizzes/QuizzesView";
+import QuizDetailsView from "@/views/quizzes/QuizDetailsView";
 
-// `app/page.tsx` is the UI for the `/` URL
-export default function Page(): JSX.Element {
+type PageProps = {
+  params: {
+    quizId: string 
+  } 
+}
 
-  useToastSuccess()
+export default function Page({params}: PageProps): JSX.Element {
+  const {quizId} = params
+
   return (
-
     <>
-      <QuizzesView />
+      <QuizDetailsView quizId={quizId} />
     </>
   );
 }
+
