@@ -33,10 +33,10 @@ export default function QuizDetailsView({quizId}: {quizId: Quiz["_id"]}) {
     }
   }) */
 
- const [newQuestions, setNewQuestions] = useState<QuestionFormData[]>([])
+ const [stateQuestions, setStateQuestions] = useState<QuestionFormData[]>([])
 
  function addQuestion() {
-  setNewQuestions((prev) => {
+  setStateQuestions((prev) => {
     return [
       ...prev,
       {
@@ -64,9 +64,19 @@ export default function QuizDetailsView({quizId}: {quizId: Quiz["_id"]}) {
  }
 
  function popQuestion() {
-  setNewQuestions((prev) => {
+  setStateQuestions((prev) => {
     const newPrev = [...prev]
     newPrev.pop()
+    return [
+      ...newPrev,
+    ]
+  })
+ }
+
+ function spliceQuestion(index: number) {
+  setStateQuestions((prev) => {
+    const newPrev = [...prev]
+    newPrev.splice(index, 1)
     return [
       ...newPrev,
     ]
@@ -102,14 +112,14 @@ export default function QuizDetailsView({quizId}: {quizId: Quiz["_id"]}) {
             <button onClick={addQuestion} className="w-8 h-8 rounded-full bg-accent-200 flex items-center justify-center font-bold">
               +
             </button>
-            <button onClick={popQuestion} className="w-8 h-8 rounded-full bg-accent-danger-200 flex items-center justify-center font-bold">
+            <button onClick={() => popQuestion()} className="w-8 h-8 rounded-full bg-accent-danger-200 flex items-center justify-center font-bold">
               -
             </button>
             <p className="w-8 h-8 text-center font-bold">M</p>
           </div>
         </section>
 
-        <Questions quizId={quizId} dataQuestions={data.questions} stateQuestions={newQuestions} />
+        <Questions spliceQuestion={spliceQuestion} quizId={quizId} dataQuestions={data.questions} stateQuestions={stateQuestions} />
       </div>
     </div>
   );
