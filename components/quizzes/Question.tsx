@@ -3,7 +3,7 @@ import Option from './Option';
 
 
 type QuestionProps = {
-  question: QuestionQuiz
+  question: Pick<QuestionQuiz, "statement" | "options">
   questionIndex: number
 }
 
