@@ -1,22 +1,29 @@
 import React from 'react'
-import { UseFormRegister } from 'react-hook-form';
+import { UseFormRegister, UseFormSetValue } from 'react-hook-form';
 
 type RadioOptionProps = {
   name: string;
   questionIndex: number
   optionIndex: number
-  register: UseFormRegister<{
-    isCorrect: number;
+  correctIndex: number
+  setValue: UseFormSetValue<{
+    correctIndex: number;
+    statement: string;
     options: {
-        isCorrect: boolean;
         text: string;
-        _id: string;
+    }[];
+}>
+  register: UseFormRegister<{
+    correctIndex: number;
+    options: {
+        text: string;
     }[];
     statement: string;
 }>
 }
 
-export default function RadioOption({name, questionIndex, optionIndex, register}: RadioOptionProps) {
+export default function RadioOption({name, questionIndex, optionIndex, register, correctIndex, setValue}: RadioOptionProps) {
+  setValue("correctIndex", correctIndex)
   return (
     <div className='flex gap-2 items-center'>
       <input

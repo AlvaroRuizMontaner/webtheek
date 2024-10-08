@@ -8,7 +8,7 @@ import { addQuestion } from '@/services/QuestionAPI';
 
 
 type WritableQuestionProps = {
-  question: Pick<QuestionQuiz, "statement" | "options">
+  question: Pick<QuestionQuiz, "statement" | "options" | "correctIndex">
   questionIndex: number
   stateQuestionIndex: number
   quizId: Quiz["_id"]
@@ -18,25 +18,24 @@ type WritableQuestionProps = {
 
 
 export default function WritableQuestion({question, questionIndex, quizId, stateQuestionIndex, spliceQuestion}: WritableQuestionProps) {
-    const {register, handleSubmit} = useForm({defaultValues: {
+    const {register, handleSubmit, setValue} = useForm({defaultValues: {
         ...question,
-        isCorrect: 0
+        correctIndex: 0
     }})
     
-    const onSubmit = (formData: Pick<QuestionQuiz, "statement" | "options"> & {isCorrect: number}) => {
+    const onSubmit = (formData: Pick<QuestionQuiz, "statement" | "options" | "correctIndex"> & {correctIndex: number}) => {
       const newFormData = {
         ...formData,
-        isCorrect: Number(formData.isCorrect),
+        correctIndex: Number(formData.correctIndex),
         options: formData.options.map((option, formIndex) => {
           return {
             text: option.text,
-            isCorrect: Number(formData.isCorrect) === formIndex
+            correctIndex: Number(formData.correctIndex) === formIndex
           }
         })
       }
-      console.log(newFormData, stateQuestionIndex)
       mutate({quizId, newFormData})  
-      //spliceQuestion(stateQuestionIndex)
+      spliceQuestion(stateQuestionIndex)
     };
 
     const queryClient = useQueryClient()
@@ -45,7 +44,7 @@ export default function WritableQuestion({question, questionIndex, quizId, state
     onError: (error) => toast.error(error.message),
     onSuccess: (data) => {
         toast.success(data)
-        queryClient.invalidateQueries({queryKey: ["question", quizId]})
+        queryClient.invalidateQueries({queryKey: ["quiz", quizId]})
     }
   })
 
@@ -60,13 +59,15 @@ export default function WritableQuestion({question, questionIndex, quizId, state
         {...register("statement")}
         type="text"
       />
-      {question.options.map((option, optionIndex) => (
+      {question.options.map((_, optionIndex) => (
         <RadioOption
           key={"option" + questionIndex + optionIndex}
-          name="isCorrect"
+          name="correctIndex"
           optionIndex={optionIndex}
           questionIndex={questionIndex}
+          correctIndex={question.correctIndex}
           register={register}
+          setValue={setValue}
         />
       ))}
       <div className='w-52 mx-auto'>
