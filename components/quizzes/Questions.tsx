@@ -1,3 +1,4 @@
+import InputQuestion from './InputQuestion';
 import Question from './Question';
 import { QuestionFormData, Quiz } from '@/types/quiz';
 
@@ -26,7 +27,7 @@ export default function Questions({dataQuestions, stateQuestions}: QuestionsProp
 
       {stateQuestions.length !==0 &&<div className="bg-gray-100 space-y-8u last:rounded-b-md pt-8u">
         {stateQuestions.map((question, stateQuestionIndex) => (
-          <Question
+          <InputQuestion
             key={"questionName" + calculateIndexOfStateQuestion(dataQuestions.length, stateQuestionIndex)}
             question={question}
             questionIndex={calculateIndexOfStateQuestion(dataQuestions.length, stateQuestionIndex)}
