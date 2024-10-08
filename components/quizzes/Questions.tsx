@@ -1,13 +1,14 @@
-import InputQuestion from './InputQuestion';
 import Question from './Question';
 import { QuestionFormData, Quiz } from '@/types/quiz';
+import WritableQuestion from './WritableQuestion';
 
 type QuestionsProps = {
     dataQuestions: Quiz["questions"]
     stateQuestions: QuestionFormData[]
+    quizId: Quiz["_id"]
 }
 
-export default function Questions({dataQuestions, stateQuestions}: QuestionsProps) {
+export default function Questions({dataQuestions, stateQuestions, quizId}: QuestionsProps) {
 
   function calculateIndexOfStateQuestion(dataQuestionsLength: number, stateQuestionIndex: number) {
     return dataQuestionsLength + stateQuestionIndex
@@ -15,7 +16,7 @@ export default function Questions({dataQuestions, stateQuestions}: QuestionsProp
 
   return (
     <section className="border bg-primary-200 w-full rounded-t-md p-6">
-      <div className="bg-gray-100 space-y-8u first:rounded-t-md">
+      <div className="bg-primary-200 space-y-8u first:rounded-t-md">
         {dataQuestions.map((question, questionIndex) => (
           <Question
             key={"questionName" + questionIndex}
@@ -25,9 +26,10 @@ export default function Questions({dataQuestions, stateQuestions}: QuestionsProp
         ))}
       </div>
 
-      {stateQuestions.length !==0 &&<div className="bg-gray-100 space-y-8u last:rounded-b-md pt-8u">
+      {stateQuestions.length !==0 &&<div className="bg-primary-200 space-y-8u last:rounded-b-md pt-8u">
         {stateQuestions.map((question, stateQuestionIndex) => (
-          <InputQuestion
+          <WritableQuestion
+            quizId={quizId}
             key={"questionName" + calculateIndexOfStateQuestion(dataQuestions.length, stateQuestionIndex)}
             question={question}
             questionIndex={calculateIndexOfStateQuestion(dataQuestions.length, stateQuestionIndex)}
