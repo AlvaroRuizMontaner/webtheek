@@ -1,9 +1,17 @@
 import api from "@/lib/axios"
-import { QuestionFormData, Quiz } from "@/types/quiz"
+import { Question, QuestionFormData, Quiz } from "@/types/quiz"
 import { isAxiosError } from "axios"
 
 
-export async function addQuestion(quizId: Quiz["_id"], formData: QuestionFormData) {
+type QuestionAPI = {
+    formData: QuestionFormData,
+    quizId: Quiz["_id"],
+    questionId: Question["_id"],
+}
+
+type AddAPI = Pick<QuestionAPI, "quizId" | "formData">
+
+export async function addQuestion({quizId, formData}: AddAPI) {
     try {
         const { data } = await api.post(`/quizzes/${quizId}`, formData)
         return data

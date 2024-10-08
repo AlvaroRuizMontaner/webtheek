@@ -2,7 +2,7 @@ import { QuestionQuiz, Quiz } from '@/types/quiz';
 import { useForm } from 'react-hook-form';
 import RadioOption from '../form/input/RadioOption';
 import SubmitInput from '../form/input/SubmitInput';
-import { QueryClient, useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import { addQuestion } from '@/services/QuestionAPI';
 
@@ -22,19 +22,20 @@ export default function WritableQuestion({question, questionIndex, quizId}: Writ
     }})
     
     
-    const onSubmit = (data: any) => {
-        mutate(quizId, data)  
+    const onSubmit = (formData: any) => {
+      console.log(quizId, formData)  
+      mutate({quizId, formData})  
     };
 
+    const queryClient = useQueryClient()
     const { mutate, isPending: addIsPending } = useMutation({
     mutationFn: addQuestion,
     onError: (error) => toast.error(error.message),
     onSuccess: (data) => {
         toast.success(data)
-        QueryClient.invalidateQueries({queryKey: ["question", quizId]})
+        queryClient.invalidateQueries({queryKey: ["question", quizId]})
     }
   })
-
 
 
   return (

@@ -10,7 +10,6 @@ import { havePermission, isManager } from '@/utils/policies';
 import { useQuery } from '@tanstack/react-query';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import RadioFormExample from './RadioExample';
 
 
 export default function QuizDetailsView({quizId}: {quizId: Quiz["_id"]}) {

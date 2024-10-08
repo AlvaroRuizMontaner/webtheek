@@ -32,14 +32,14 @@ export default function DeleteQuizModal() {
         onError: (error) => toast.error(error.message)
     })
 
-    const QueryClient = useQueryClient()
+    const queryClient = useQueryClient()
     const deleteQuizMutation = useMutation({
         mutationFn: deleteQuiz,
         onError: (error) => {
           toast.error(error.message)
         },
         onSuccess: (data) => {
-          QueryClient.invalidateQueries({queryKey: ["quizzes"]})
+          queryClient.invalidateQueries({queryKey: ["quizzes"]})
           toast.success(data)
           router.push(path)
         }
