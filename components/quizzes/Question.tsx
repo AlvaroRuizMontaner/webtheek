@@ -9,7 +9,7 @@ type QuestionProps = {
 
 export default function Question({question, questionIndex}: QuestionProps) {
   return (
-    <div className="bg-white rounded-md p-6">
+    <div className="bg-white rounded-md p-6 space-y-4u">
       <div className="mb-8u">{question.statement}</div>
       {question.options.map((option, optionIndex) => (
         <Option key={"option" + questionIndex + optionIndex} option={option} questionIndex={questionIndex} />
