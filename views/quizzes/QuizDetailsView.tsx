@@ -5,7 +5,7 @@ import Subtitle from '@/components/title/Subtitle';
 import Title from '@/components/title/Title';
 import { useAuth } from '@/hooks/useAuth';
 import { getFullQuiz } from '@/services/QuizAPI';
-import { Question, QuestionFormData, Quiz } from '@/types/quiz';
+import { QuestionFormData, Quiz } from '@/types/quiz';
 import { havePermission, isManager } from '@/utils/policies';
 import { useQuery } from '@tanstack/react-query';
 import { usePathname } from 'next/navigation';
@@ -51,9 +51,20 @@ export default function QuizDetailsView({quizId}: {quizId: Quiz["_id"]}) {
         statement: "Insertar enunciado",
         options: [
           {
-            text: "Insertar pregunta",
+            _id: "",
+            text: "Insertar pregunta 1",
+            isCorrect: true
+          },
+          {
+            _id: "",
+            text: "Insertar pregunta 2",
             isCorrect: false
-          }
+          },
+          {
+            _id: "",
+            text: "Insertar pregunta 3",
+            isCorrect: false
+          },
         ]
       }
     ]
