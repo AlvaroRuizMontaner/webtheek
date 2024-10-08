@@ -1,17 +1,19 @@
 import { z } from "zod"
 
 /* Questions */
+export const optionSchema = z.object({
+    _id: z.string(),
+    text: z.string(),
+    isCorrect: z.boolean()
+})
+
 export const questionSchema = z.object({
     _id: z.string(),
     statement: z.string(),
     quiz: z.string(),
-    options: z.array(z.object({
-        _id: z.string(),
-        text: z.string(),
-        isCorrect: z.boolean()
-    })),
-    createdAt: z.string(),
-    updatedAt: z.string()
+    options: z.array(optionSchema),
+    createdAt: z.string(), //Provisional
+    updatedAt: z.string() //Provisional
 })
 
 export const questionQuizSchema = questionSchema.pick({
@@ -21,6 +23,7 @@ export const questionQuizSchema = questionSchema.pick({
 
 })
 
+export type OptionType = z.infer<typeof optionSchema>
 export type Question = z.infer<typeof questionSchema>
 export type QuestionFormData = Pick<Question, "statement" | "options">
 export type QuestionQuiz = z.infer<typeof questionQuizSchema>
