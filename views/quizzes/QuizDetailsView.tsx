@@ -1,5 +1,6 @@
 import Button from '@/components/button/Button';
 import ProjectsLoading from '@/components/loading-templates/ProjectsLoading';
+import Questions from '@/components/quizzes/Questions';
 import Subtitle from '@/components/title/Subtitle';
 import Title from '@/components/title/Title';
 import { useAuth } from '@/hooks/useAuth';
@@ -75,31 +76,7 @@ export default function QuizDetailsView({quizId}: {quizId: Quiz["_id"]}) {
           </div>
         </section>
 
-        <section className="border bg-primary-200  w-full rounded-md p-6">
-          <div className='bg-gray-100 h-full space-y-8u rounded-md'>
-            {data.questions.map((question, index) => (
-              <div
-                key={"questionName" + index}
-                className="bg-white rounded-md p-6"
-              >
-                <div className="mb-8u">{question.statement}</div>
-                {question.options.map((option, optionIndex) => (
-                  <div
-                    className="flex gap-2 items-center"
-                    key={"option" + index + optionIndex}
-                  >
-                    <input
-                      type="radio"
-                      name={"question" + index}
-                      id={"question" + index}
-                    />
-                    <div>{option.text}</div>
-                  </div>
-                ))}
-              </div>
-            ))}
-          </div>
-        </section>
+        <Questions questions={data.questions} />
       </div>
     </div>
   );
