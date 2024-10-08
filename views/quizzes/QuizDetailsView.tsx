@@ -71,6 +71,16 @@ export default function QuizDetailsView({quizId}: {quizId: Quiz["_id"]}) {
   })
  }
 
+ function popQuestion() {
+  setNewQuestions((prev) => {
+    const newPrev = [...prev]
+    newPrev.pop()
+    return [
+      ...newPrev,
+    ]
+  })
+ }
+
   useEffect(() => {
     if(data) console.log(data)
   }, [data])
@@ -100,14 +110,14 @@ export default function QuizDetailsView({quizId}: {quizId: Quiz["_id"]}) {
             <button onClick={addQuestion} className="w-8 h-8 rounded-full bg-accent-200 flex items-center justify-center font-bold">
               +
             </button>
-            <button className="w-8 h-8 rounded-full bg-accent-danger-200 flex items-center justify-center font-bold">
+            <button onClick={popQuestion} className="w-8 h-8 rounded-full bg-accent-danger-200 flex items-center justify-center font-bold">
               -
             </button>
             <p className="w-8 h-8 text-center font-bold">M</p>
           </div>
         </section>
 
-        <Questions questions={[...data.questions, ...newQuestions]} />
+        <Questions dataQuestions={data.questions} stateQuestions={newQuestions} />
       </div>
     </div>
   );
