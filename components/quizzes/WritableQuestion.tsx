@@ -21,10 +21,19 @@ export default function WritableQuestion({question, questionIndex, quizId}: Writ
         isCorrect: 0
     }})
     
-    
-    const onSubmit = (formData: any) => {
-      console.log(quizId, formData)  
-      mutate({quizId, formData})  
+    const onSubmit = (formData: Pick<QuestionQuiz, "statement" | "options"> & {isCorrect: number}) => {
+      const newFormData = {
+        ...formData,
+        isCorrect: Number(formData.isCorrect),
+        options: formData.options.map((option, formIndex) => {
+          return {
+            ...option,
+            isCorrect: Number(formData.isCorrect) === formIndex
+          }
+        })
+      }
+      console.log(newFormData, questionIndex)
+      mutate({quizId, newFormData})  
     };
 
     const queryClient = useQueryClient()

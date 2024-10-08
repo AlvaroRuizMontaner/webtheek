@@ -4,16 +4,16 @@ import { isAxiosError } from "axios"
 
 
 type QuestionAPI = {
-    formData: QuestionFormData,
+    newFormData: QuestionFormData,
     quizId: Quiz["_id"],
     questionId: Question["_id"],
 }
 
-type AddAPI = Pick<QuestionAPI, "quizId" | "formData">
+type AddAPI = Pick<QuestionAPI, "quizId" | "newFormData">
 
-export async function addQuestion({quizId, formData}: AddAPI) {
+export async function addQuestion({quizId, newFormData}: AddAPI) {
     try {
-        const { data } = await api.post(`/quizzes/${quizId}`, formData)
+        const { data } = await api.post(`/quizzes/${quizId}`, newFormData)
         return data
     } catch (error) {
         if(isAxiosError(error) && error.response)
