@@ -10,12 +10,14 @@ import { addQuestion } from '@/services/QuestionAPI';
 type WritableQuestionProps = {
   question: Pick<QuestionQuiz, "statement" | "options">
   questionIndex: number
+  stateQuestionIndex: number
   quizId: Quiz["_id"]
+  spliceQuestion: (idx: number) => void
 }
 
 
 
-export default function WritableQuestion({question, questionIndex, quizId}: WritableQuestionProps) {
+export default function WritableQuestion({question, questionIndex, quizId, stateQuestionIndex, spliceQuestion}: WritableQuestionProps) {
     const {register, handleSubmit} = useForm({defaultValues: {
         ...question,
         isCorrect: 0
@@ -27,13 +29,14 @@ export default function WritableQuestion({question, questionIndex, quizId}: Writ
         isCorrect: Number(formData.isCorrect),
         options: formData.options.map((option, formIndex) => {
           return {
-            ...option,
+            text: option.text,
             isCorrect: Number(formData.isCorrect) === formIndex
           }
         })
       }
-      console.log(newFormData, questionIndex)
+      console.log(newFormData, stateQuestionIndex)
       mutate({quizId, newFormData})  
+      //spliceQuestion(stateQuestionIndex)
     };
 
     const queryClient = useQueryClient()

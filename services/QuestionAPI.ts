@@ -13,7 +13,7 @@ type AddAPI = Pick<QuestionAPI, "quizId" | "newFormData">
 
 export async function addQuestion({quizId, newFormData}: AddAPI) {
     try {
-        const { data } = await api.post(`/quizzes/${quizId}`, newFormData)
+        const { data } = await api.post<string>(`/quizzes/${quizId}/questions`, newFormData)
         return data
     } catch (error) {
         if(isAxiosError(error) && error.response)

@@ -6,9 +6,10 @@ type QuestionsProps = {
     dataQuestions: Quiz["questions"]
     stateQuestions: QuestionFormData[]
     quizId: Quiz["_id"]
+    spliceQuestion: (idx: number) => void
 }
 
-export default function Questions({dataQuestions, stateQuestions, quizId}: QuestionsProps) {
+export default function Questions({dataQuestions, stateQuestions, quizId, spliceQuestion}: QuestionsProps) {
 
   function calculateIndexOfStateQuestion(dataQuestionsLength: number, stateQuestionIndex: number) {
     return dataQuestionsLength + stateQuestionIndex
@@ -33,6 +34,8 @@ export default function Questions({dataQuestions, stateQuestions, quizId}: Quest
             key={"questionName" + calculateIndexOfStateQuestion(dataQuestions.length, stateQuestionIndex)}
             question={question}
             questionIndex={calculateIndexOfStateQuestion(dataQuestions.length, stateQuestionIndex)}
+            stateQuestionIndex= {stateQuestionIndex}
+            spliceQuestion={spliceQuestion}
           />
         ))}
       </div>}
