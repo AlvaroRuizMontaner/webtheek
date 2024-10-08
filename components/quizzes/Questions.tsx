@@ -1,8 +1,8 @@
-import React from 'react'
-import Question, { QuestionType } from './Question';
+import Question from './Question';
+import { Quiz } from '@/types/quiz';
 
 type QuestionsProps = {
-    questions: QuestionType[]
+    questions: Quiz["questions"]
 }
 
 export default function Questions({questions}: QuestionsProps) {

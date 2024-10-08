@@ -5,11 +5,11 @@ import Subtitle from '@/components/title/Subtitle';
 import Title from '@/components/title/Title';
 import { useAuth } from '@/hooks/useAuth';
 import { getFullQuiz } from '@/services/QuizAPI';
-import { Quiz } from '@/types/quiz';
+import { Question, QuestionFormData, Quiz } from '@/types/quiz';
 import { havePermission, isManager } from '@/utils/policies';
 import { useQuery } from '@tanstack/react-query';
 import { usePathname } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 
 export default function QuizDetailsView({quizId}: {quizId: Quiz["_id"]}) {
@@ -41,9 +41,29 @@ export default function QuizDetailsView({quizId}: {quizId: Quiz["_id"]}) {
     }
   }) */
 
+ const [newQuestions, setNewQuestions] = useState<QuestionFormData[]>([])
+
+ function addQuestion() {
+  setNewQuestions((prev) => {
+    return [
+      ...prev,
+      {
+        statement: "Insertar enunciado",
+        options: [
+          {
+            text: "Insertar pregunta",
+            isCorrect: false
+          }
+        ]
+      }
+    ]
+  })
+ }
+
   useEffect(() => {
     if(data) console.log(data)
   }, [data])
+
 
   if(isLoading && authLoading) return <ProjectsLoading />
   if(isError) throw new Error(error.message);
@@ -66,7 +86,7 @@ export default function QuizDetailsView({quizId}: {quizId: Quiz["_id"]}) {
       <div className="flex gap-6">
         <section className="relative left-0 top-[10vh] h-32 bg-primary-200 p-2 rounded-md w-fit">
           <div className="flex flex-col gap-2">
-            <button className="w-8 h-8 rounded-full bg-accent-200 flex items-center justify-center font-bold">
+            <button onClick={addQuestion} className="w-8 h-8 rounded-full bg-accent-200 flex items-center justify-center font-bold">
               +
             </button>
             <button className="w-8 h-8 rounded-full bg-accent-danger-200 flex items-center justify-center font-bold">
@@ -76,7 +96,7 @@ export default function QuizDetailsView({quizId}: {quizId: Quiz["_id"]}) {
           </div>
         </section>
 
-        <Questions questions={data.questions} />
+        <Questions questions={[...data.questions, ...newQuestions]} />
       </div>
     </div>
   );
