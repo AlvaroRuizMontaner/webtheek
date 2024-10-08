@@ -1,15 +1,15 @@
 import Question from './Question';
-import { Quiz } from '@/types/quiz';
+import { QuestionFormData, Quiz } from '@/types/quiz';
 
 type QuestionsProps = {
     dataQuestions: Quiz["questions"]
-    stateQuestions: any
+    stateQuestions: QuestionFormData[]
 }
 
 export default function Questions({dataQuestions, stateQuestions}: QuestionsProps) {
 
-  function calculateIndexOfStateQuestion(dataQuestions, stateQuestionIndex) {
-    return dataQuestions.length + stateQuestionIndex
+  function calculateIndexOfStateQuestion(dataQuestionsLength: number, stateQuestionIndex: number) {
+    return dataQuestionsLength + stateQuestionIndex
   }
 
   return (
@@ -24,15 +24,15 @@ export default function Questions({dataQuestions, stateQuestions}: QuestionsProp
         ))}
       </div>
 
-      <div className="bg-gray-100 space-y-8u last:rounded-b-md pt-8u">
+      {stateQuestions.length !==0 &&<div className="bg-gray-100 space-y-8u last:rounded-b-md pt-8u">
         {stateQuestions.map((question, stateQuestionIndex) => (
           <Question
-            key={"questionName" + calculateIndexOfStateQuestion(dataQuestions, stateQuestionIndex)}
+            key={"questionName" + calculateIndexOfStateQuestion(dataQuestions.length, stateQuestionIndex)}
             question={question}
-            questionIndex={calculateIndexOfStateQuestion(dataQuestions, stateQuestionIndex)}
+            questionIndex={calculateIndexOfStateQuestion(dataQuestions.length, stateQuestionIndex)}
           />
         ))}
-      </div>
+      </div>}
     </section>
   );
 }
