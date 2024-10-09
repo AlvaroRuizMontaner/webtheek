@@ -19,9 +19,9 @@ type WritableQuestionProps = {
 
 export default function WritableQuestion({question, questionIndex, quizId, stateQuestionIndex, spliceQuestion}: WritableQuestionProps) {
 
-    const {register: testRegister, handleSubmit: testHandleSubmit} = useForm({defaultValues: {
+    const {register, handleSubmit} = useForm({defaultValues: {
       ...question,
-      correctIndex: "1"
+      correctIndex: "0"
     }})
     
     const onSubmit = (formData: Pick<QuestionQuiz, "statement" | "options" | "correctIndex"> & {correctIndex: string}) => {
@@ -53,12 +53,12 @@ export default function WritableQuestion({question, questionIndex, quizId, state
 
   return (
     <form
-      onSubmit={testHandleSubmit(onSubmit)}
+      onSubmit={handleSubmit(onSubmit)}
       className="bg-white rounded-md p-6 space-y-4u"
     >
       <input
         className="mb-8u block w-full"
-        {...testRegister("statement")}
+        {...register("statement")}
         type="text"
       />
 
@@ -68,7 +68,7 @@ export default function WritableQuestion({question, questionIndex, quizId, state
           name="correctIndex"
           optionIndex={optionIndex}
           questionIndex={questionIndex}
-          register={testRegister}
+          register={register}
         />
       ))}
 
