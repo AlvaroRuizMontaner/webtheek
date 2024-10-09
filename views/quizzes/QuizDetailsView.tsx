@@ -41,7 +41,7 @@ export default function QuizDetailsView({quizId}: {quizId: Quiz["_id"]}) {
       ...prev,
       {
         statement: "Insertar enunciado",
-        correctIndex: 0,
+        correctIndex: "0",
         options: [
           {
             text: "Insertar pregunta 1"

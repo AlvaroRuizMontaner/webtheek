@@ -1,20 +1,13 @@
 import React from 'react'
-import { UseFormRegister, UseFormSetValue } from 'react-hook-form';
+import { UseFormRegister } from 'react-hook-form';
 
 type RadioOptionProps = {
   name: string;
   questionIndex: number
   optionIndex: number
-  correctIndex: number
-  setValue: UseFormSetValue<{
-    correctIndex: number;
-    statement: string;
-    options: {
-        text: string;
-    }[];
-}>
+  correctIndex: string
   register: UseFormRegister<{
-    correctIndex: number;
+    correctIndex: string;
     options: {
         text: string;
     }[];
@@ -22,15 +15,15 @@ type RadioOptionProps = {
 }>
 }
 
-export default function RadioOption({name, questionIndex, optionIndex, register, correctIndex, setValue}: RadioOptionProps) {
-  setValue("correctIndex", correctIndex)
+export default function RadioOption({name, questionIndex, optionIndex, register, correctIndex}: RadioOptionProps) {
   return (
-    <div className='flex gap-2 items-center'>
+    <div className={`flex gap-2 items-center`}>
       <input
         {...register(name as any)}
-        value={optionIndex} // El valor será el índice de la opción
+        value={optionIndex.toString()} // El valor será el índice de la opción
         type="radio"
         id={`question-${questionIndex}-${optionIndex}`}
+        className={`${correctIndex === optionIndex.toString() ? "border-accent-200" : ""}`}
       />
       <input
         className='w-full'

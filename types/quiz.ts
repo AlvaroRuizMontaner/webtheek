@@ -10,7 +10,7 @@ export const questionSchema = z.object({
     statement: z.string(),
     quiz: z.string(),
     options: z.array(optionSchema),
-    correctIndex: z.number(),
+    correctIndex: z.string(),
     createdAt: z.string(), //Provisional
     updatedAt: z.string() //Provisional
 })
