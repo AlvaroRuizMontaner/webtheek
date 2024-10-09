@@ -18,22 +18,24 @@ type WritableQuestionProps = {
 
 
 export default function WritableQuestion({question, questionIndex, quizId, stateQuestionIndex, spliceQuestion}: WritableQuestionProps) {
-    const {register, handleSubmit, setValue} = useForm({defaultValues: {
-        ...question,
-        correctIndex: 0
+
+    const {register: testRegister, handleSubmit: testHandleSubmit} = useForm({defaultValues: {
+      ...question,
+      correctIndex: "1"
     }})
     
-    const onSubmit = (formData: Pick<QuestionQuiz, "statement" | "options" | "correctIndex"> & {correctIndex: number}) => {
+    const onSubmit = (formData: Pick<QuestionQuiz, "statement" | "options" | "correctIndex"> & {correctIndex: string}) => {
       const newFormData = {
         ...formData,
-        correctIndex: Number(formData.correctIndex),
+        correctIndex: formData.correctIndex,
         options: formData.options.map((option, formIndex) => {
           return {
             text: option.text,
-            correctIndex: Number(formData.correctIndex) === formIndex
+            correctIndex: formData.correctIndex === formIndex.toString()
           }
         })
       }
+      console.log(formData)
       mutate({quizId, newFormData})  
       spliceQuestion(stateQuestionIndex)
     };
@@ -51,14 +53,15 @@ export default function WritableQuestion({question, questionIndex, quizId, state
 
   return (
     <form
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={testHandleSubmit(onSubmit)}
       className="bg-white rounded-md p-6 space-y-4u"
     >
       <input
         className="mb-8u block w-full"
-        {...register("statement")}
+        {...testRegister("statement")}
         type="text"
       />
+
       {question.options.map((_, optionIndex) => (
         <RadioOption
           key={"option" + questionIndex + optionIndex}
@@ -66,11 +69,11 @@ export default function WritableQuestion({question, questionIndex, quizId, state
           optionIndex={optionIndex}
           questionIndex={questionIndex}
           correctIndex={question.correctIndex}
-          register={register}
-          setValue={setValue}
+          register={testRegister}
         />
       ))}
-      <div className='w-52 mx-auto'>
+
+      <div className="w-52 mx-auto">
         <SubmitInput isLoading={addIsPending} value={"Enviar"} />
       </div>
     </form>
