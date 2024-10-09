@@ -5,7 +5,6 @@ type RadioOptionProps = {
   name: string;
   questionIndex: number
   optionIndex: number
-  correctIndex: string
   register: UseFormRegister<{
     correctIndex: string;
     options: {
@@ -15,7 +14,7 @@ type RadioOptionProps = {
 }>
 }
 
-export default function RadioOption({name, questionIndex, optionIndex, register, correctIndex}: RadioOptionProps) {
+export default function RadioOption({name, questionIndex, optionIndex, register}: RadioOptionProps) {
   return (
     <div className={`flex gap-2 items-center`}>
       <input
@@ -23,7 +22,7 @@ export default function RadioOption({name, questionIndex, optionIndex, register,
         value={optionIndex.toString()} // El valor será el índice de la opción
         type="radio"
         id={`question-${questionIndex}-${optionIndex}`}
-        className={`${correctIndex === optionIndex.toString() ? "border-accent-200" : ""}`}
+        
       />
       <input
         className='w-full'
@@ -31,6 +30,7 @@ export default function RadioOption({name, questionIndex, optionIndex, register,
         type="text"
         name={`options.${optionIndex}.text`}
         id=""
+        
       />
     </div>
   );

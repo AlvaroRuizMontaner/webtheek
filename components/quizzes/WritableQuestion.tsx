@@ -68,7 +68,6 @@ export default function WritableQuestion({question, questionIndex, quizId, state
           name="correctIndex"
           optionIndex={optionIndex}
           questionIndex={questionIndex}
-          correctIndex={question.correctIndex}
           register={testRegister}
         />
       ))}
