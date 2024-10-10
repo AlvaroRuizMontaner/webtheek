@@ -23,6 +23,7 @@ export default function Questions({dataQuestions, stateQuestions, quizId, splice
             key={"questionName" + questionIndex}
             question={question}
             questionIndex={questionIndex}
+            quizId={quizId}
           />
         ))}
       </div>

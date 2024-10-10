@@ -24,16 +24,6 @@ export default function QuizDetailsView({quizId}: {quizId: Quiz["_id"]}) {
       retry: false
   });
 
-
-/*   const { mutate: deleteMutate, isPending: deleteIsPending } = useMutation({
-    mutationFn: deleteQuestion,
-    onError: (error) => toast.error(error.message),
-    onSuccess: (data) => {
-        toast.success(data)
-        QueryClient.invalidateQueries({queryKey: ["task", quizId]})
-    }
-  }) */
-
  const [stateQuestions, setStateQuestions] = useState<QuestionFormData[]>([])
 
  function addQuestion() {
