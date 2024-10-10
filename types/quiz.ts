@@ -11,6 +11,7 @@ export const questionSchema = z.object({
     quiz: z.string(),
     options: z.array(optionSchema),
     correctIndex: z.string(),
+    selectedIndex: z.string(),
     createdAt: z.string(), //Provisional
     updatedAt: z.string() //Provisional
 })
@@ -62,5 +63,6 @@ export const solvableQuizSchema = quizSchema.pick({
     questions: true
 })
 
+export type SolvableQuiz = z.infer<typeof solvableQuizSchema>
 export type Quiz = z.infer<typeof quizSchema>
 export type QuizFormData = Pick<Quiz, "name" | "description">
