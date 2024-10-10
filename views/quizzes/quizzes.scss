@@ -1,3 +1,5 @@
+@import "../../styles/breakpoints";
+
 .quiz-card {
     position: relative;
     /* z-index: 3; */
@@ -28,4 +30,29 @@
     position: relative;
     top: 0;
     left: 0;
+}
+
+.remote-control {
+    position: fixed;
+    left: 2rem;
+    top: calc(50vh - 111px);
+    height: 8rem;
+    left: 0;
+
+    &> div {
+        flex-direction: column;
+        
+        p {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+    
+
+    @media screen and (min-width: $small) {
+        position: sticky;
+        left: 0;
+        
+    }
 }

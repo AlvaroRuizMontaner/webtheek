@@ -10,6 +10,7 @@ import { havePermission, isManager } from '@/utils/policies';
 import { useQuery } from '@tanstack/react-query';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import "./quizzes.scss"
 
 
 export default function QuizDetailsView({quizId}: {quizId: Quiz["_id"]}) {
@@ -101,8 +102,8 @@ export default function QuizDetailsView({quizId}: {quizId: Quiz["_id"]}) {
         )}
       </nav>
 
-      <div className="flex gap-6">
-        <section className="relative left-0 top-[10vh] h-32 bg-primary-200 p-2 rounded-md w-fit">
+      <div className="flex gap-8 relative">
+        <section className=" remote-control h-32 bg-primary-200 p-2 rounded-md w-fit">
           <div className="flex flex-col gap-2">
             <button onClick={addQuestion} className="w-8 h-8 rounded-full bg-accent-200 flex items-center justify-center font-bold">
               +
