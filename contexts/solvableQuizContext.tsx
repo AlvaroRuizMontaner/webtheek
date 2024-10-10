@@ -20,7 +20,7 @@ export const SolvableQuizContext = createContext({
   dispatch: () => null, // una función vacía
 });
 
-export const usesolvableQuizContext = (): any => useContext(SolvableQuizContext);
+export const useSolvableQuizContext = (): any => useContext(SolvableQuizContext);
 
 
 
