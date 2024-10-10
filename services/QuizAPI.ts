@@ -1,5 +1,5 @@
 import api from "@/lib/axios";
-import { Quiz, QuizFormData, dashboardQuizSchema, editQuizSchema, quizSchema } from "@/types/quiz";
+import { Quiz, QuizFormData, dashboardQuizSchema, editQuizSchema, quizSchema, solvableQuizSchema } from "@/types/quiz";
 import { isAxiosError } from "axios";
 
 export async function createQuiz(formData: QuizFormData) {
@@ -30,6 +30,21 @@ export async function getQuizById(id: Quiz["_id"]) {
     try {
         const { data } = await api(`/quizzes/${id}`)
         const response = editQuizSchema.safeParse(data)
+        if(response.success) {
+            return response.data
+        }
+
+    } catch (error) {
+        if(isAxiosError(error) && error.response)
+        throw new Error(error.response.data.error) // Hay que lanzar el error para que vaya al onError de mutate
+    }
+}
+
+export async function getSolvableQuizById(id: Quiz["_id"]) {
+    try {
+        const { data } = await api(`/quizzes/${id}`)
+        const response = solvableQuizSchema.safeParse(data)
+        console.log(data)
         if(response.success) {
             return response.data
         }
