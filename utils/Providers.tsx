@@ -1,5 +1,6 @@
 "use client"
 
+import { SolvableQuizProvider } from "@/contexts/solvableQuizContext";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ReactNode, useState } from "react";
@@ -18,7 +19,9 @@ export default function Provider({children}: {children: ReactNode}): JSX.Element
     return (
         <QueryClientProvider client={queryClient}>
             <ReactQueryDevtools initialIsOpen={false} />
-            {children}
+            <SolvableQuizProvider>
+              {children}
+            </SolvableQuizProvider>
         </QueryClientProvider>
     )
 }

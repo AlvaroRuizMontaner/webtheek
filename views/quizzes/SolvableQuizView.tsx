@@ -1,15 +1,19 @@
 import ProjectsLoading from '@/components/loading-templates/ProjectsLoading';
-import Questions from '@/components/quizzes/Questions';
+import SolvableQuestions from '@/components/quizzes/SolvableQuestions';
 import Subtitle from '@/components/title/Subtitle';
 import Title from '@/components/title/Title';
 import { getSolvableQuizById } from '@/services/QuizAPI';
-import { QuestionFormData, Quiz } from '@/types/quiz';
+import { Question, Quiz } from '@/types/quiz';
 import { useQuery } from '@tanstack/react-query';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 type SolvableQuizViewProps = {
     quizId: Quiz["_id"]
 }
+
+export type QuestionWithSelectedIndex = Question & {
+  selectedIndex: string;
+};
 
 export default function SolvableQuizView({quizId}: SolvableQuizViewProps) {
 
@@ -20,33 +24,30 @@ export default function SolvableQuizView({quizId}: SolvableQuizViewProps) {
         retry: false
     });
 
-    const [stateQuestions, setStateQuestions] = useState<QuestionFormData[]>([])
+    const [questions, setQuestions] = useState<QuestionWithSelectedIndex[]>([])
+    //const [table, setTable] = useState([])
 
-   
-    function spliceQuestion(index: number) {
-     setStateQuestions((prev) => {
-       const newPrev = [...prev]
-       newPrev.splice(index, 1)
-       return [
-         ...newPrev,
-       ]
-     })
+   useEffect(() => {
+    if (data) {
+      setQuestions(
+        ([...data.questions] as QuestionWithSelectedIndex[]).map((question) => ({
+          ...question,
+          selectedIndex: "",
+        }))
+      );
     }
+  }, [data]);
 
     if(isLoading) return <ProjectsLoading />
     if(isError) throw new Error(error.message);
-    if(data) return (
+    if(data && questions) return (
         <div className="relative">
         <Title variant="dark">{data.name}</Title>
         <Subtitle variant="dark" text={data.description} />
   
   
         <div className="flex gap-8 relative">
-          <section className=" remote-control h-fit bg-primary-200 p-2 rounded-md w-fit">
-
-          </section>
-  
-          <Questions spliceQuestion={spliceQuestion} quizId={quizId} dataQuestions={data.questions} stateQuestions={stateQuestions} />
+          <SolvableQuestions quizId={quizId} questions={questions} />
         </div>
       </div>
     )
