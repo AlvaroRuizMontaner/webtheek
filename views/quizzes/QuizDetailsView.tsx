@@ -103,7 +103,7 @@ export default function QuizDetailsView({quizId}: {quizId: Quiz["_id"]}) {
       </nav>
 
       <div className="flex gap-8 relative">
-        <section className=" remote-control h-32 bg-primary-200 p-2 rounded-md w-fit">
+        <section className=" remote-control h-fit bg-primary-200 p-2 rounded-md w-fit">
           <div className="flex flex-col gap-2">
             <button onClick={addQuestion} className="w-8 h-8 rounded-full bg-accent-200 flex items-center justify-center font-bold">
               +
@@ -111,7 +111,7 @@ export default function QuizDetailsView({quizId}: {quizId: Quiz["_id"]}) {
             <button onClick={() => popQuestion()} className="w-8 h-8 rounded-full bg-accent-danger-200 flex items-center justify-center font-bold">
               -
             </button>
-            <p className="w-8 h-8 text-center font-bold">M</p>
+            {/* <div className="w-8 h-8 text-center font-bold cursor-pointer">?</div> */}
           </div>
         </section>
 
