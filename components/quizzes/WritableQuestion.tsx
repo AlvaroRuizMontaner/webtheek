@@ -73,7 +73,7 @@ export default function WritableQuestion({question, questionIndex, quizId, state
       ))}
 
       <div className="w-52 mx-auto">
-        <SubmitInput isLoading={addIsPending} value={"Enviar"} />
+        <SubmitInput isLoading={addIsPending} value={"Crear"} />
       </div>
     </form>
   );

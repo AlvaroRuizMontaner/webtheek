@@ -128,7 +128,7 @@ export default function QuizzesView() {
             ) : (
               <div className="text-center py-20 flex flex-col gap-2">
                 <div className="h-64">
-                  <EmptyState text="No hay proyectos, aún..." />
+                  <EmptyState text="No hay quizzes, aún..." />
                 </div>
                 <Link
                   className=" text-primary-500 font-bold"
