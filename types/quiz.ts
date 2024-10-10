@@ -56,5 +56,11 @@ export const editQuizSchema = quizSchema.pick({
     description: true,
 })
 
+export const solvableQuizSchema = quizSchema.pick({
+    name: true,
+    description: true,
+    questions: true
+})
+
 export type Quiz = z.infer<typeof quizSchema>
 export type QuizFormData = Pick<Quiz, "name" | "description">
