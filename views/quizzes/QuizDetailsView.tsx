@@ -1,4 +1,4 @@
-import Button from '@/components/button/Button';
+/* import Button from '@/components/button/Button'; */
 import ProjectsLoading from '@/components/loading-templates/ProjectsLoading';
 import Questions from '@/components/quizzes/Questions';
 import Subtitle from '@/components/title/Subtitle';
@@ -6,16 +6,16 @@ import Title from '@/components/title/Title';
 import { useAuth } from '@/hooks/useAuth';
 import { getFullQuiz } from '@/services/QuizAPI';
 import { QuestionFormData, Quiz } from '@/types/quiz';
-import { havePermission, isManager } from '@/utils/policies';
+/* import { havePermission, isManager } from '@/utils/policies'; */
 import { useQuery } from '@tanstack/react-query';
-import { usePathname } from 'next/navigation';
+/* import { usePathname } from 'next/navigation'; */
 import { useEffect, useState } from 'react';
 import "./quizzes.scss"
 
 
 export default function QuizDetailsView({quizId}: {quizId: Quiz["_id"]}) {
 
-  const path = usePathname()
+  /* const path = usePathname() */
 
   const { data: user, isLoading: authLoading } = useAuth()
   const { data, isLoading, isError, error } = useQuery({
@@ -35,13 +35,13 @@ export default function QuizDetailsView({quizId}: {quizId: Quiz["_id"]}) {
         correctIndex: "0",
         options: [
           {
-            text: "Insertar pregunta 1"
+            text: "Insertar respuesta 1"
           },
           {
-            text: "Insertar pregunta 2"
+            text: "Insertar respuesta 2"
           },
           {
-            text: "Insertar pregunta 3"
+            text: "Insertar respuesta 3"
           },
         ]
       }
@@ -81,7 +81,7 @@ export default function QuizDetailsView({quizId}: {quizId: Quiz["_id"]}) {
       <Title variant="dark">{data.name}</Title>
       <Subtitle variant="dark" text={data.description} />
 
-      <nav className="flex flex-col gap-3 sm:flex-row mb-8u">
+{/*       <nav className="flex flex-col gap-3 sm:flex-row mb-8u">
         {(isManager(data.manager, user._id) ||
           havePermission(data.team, user._id, 4)) && (
           <Button
@@ -90,7 +90,7 @@ export default function QuizDetailsView({quizId}: {quizId: Quiz["_id"]}) {
             href={path + "/team"}
           />
         )}
-      </nav>
+      </nav> */}
 
       <div className="flex gap-8 relative">
         <section className=" remote-control h-fit bg-primary-200 p-2 rounded-md w-fit">
