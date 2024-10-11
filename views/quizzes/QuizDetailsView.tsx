@@ -81,12 +81,12 @@ export default function QuizDetailsView({quizId}: {quizId: Quiz["_id"]}) {
       <Subtitle variant="dark" text={data.description} />
 
       <nav className="flex flex-col gap-3 sm:flex-row mb-8u">
-      <Button
-            text="Resolver"
-            variant="outline"
-            href={"/browse" + "/quizzes" + "/" + quizId}
-      />
-{/*         {(isManager(data.manager, user._id) ||
+        <Button
+          text="Resolver"
+          variant="outline"
+          href={"/browse" + "/quizzes" + "/" + quizId}
+        />
+        {/*         {(isManager(data.manager, user._id) ||
           havePermission(data.team, user._id, 4)) && (
           <Button
             text="Colaboradores"
@@ -96,20 +96,48 @@ export default function QuizDetailsView({quizId}: {quizId: Quiz["_id"]}) {
         )} */}
       </nav>
 
-      <div className="flex gap-8 relative">
+      <div className="flex sm:gap-8 relative">
         <section className=" remote-control h-fit bg-primary-200 p-2 rounded-md w-fit">
           <div className="flex flex-col gap-2">
-            <button onClick={addQuestion} className="w-8 h-8 rounded-full bg-accent-200 flex items-center justify-center font-bold">
+            <button
+              onClick={addQuestion}
+              className="w-8 h-8 rounded-full bg-accent-200 flex items-center justify-center font-bold"
+            >
               +
             </button>
-            <button onClick={() => popQuestion()} className="w-8 h-8 rounded-full bg-accent-danger-200 flex items-center justify-center font-bold">
+            <button
+              onClick={() => popQuestion()}
+              className="w-8 h-8 rounded-full bg-accent-danger-200 flex items-center justify-center font-bold"
+            >
               -
             </button>
-            {/* <div className="w-8 h-8 text-center font-bold cursor-pointer">?</div> */}
           </div>
         </section>
+        <section className='mobile-remote-control'>
+          <section className=" absolute h-fit bg-primary-200 p-2 rounded-md w-fit">
+            <div className="flex flex-col gap-2">
+              <button
+                onClick={addQuestion}
+                className="w-8 h-8 rounded-full bg-accent-200 flex items-center justify-center font-bold"
+              >
+                +
+              </button>
+              <button
+                onClick={() => popQuestion()}
+                className="w-8 h-8 rounded-full bg-accent-danger-200 flex items-center justify-center font-bold"
+              >
+                -
+              </button>
+            </div>
+          </section>
+        </section>
 
-        <Questions spliceQuestion={spliceQuestion} quizId={quizId} dataQuestions={data.questions} stateQuestions={stateQuestions} />
+        <Questions
+          spliceQuestion={spliceQuestion}
+          quizId={quizId}
+          dataQuestions={data.questions}
+          stateQuestions={stateQuestions}
+        />
       </div>
     </div>
   );

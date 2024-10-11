@@ -33,11 +33,11 @@
 }
 
 .remote-control {
-    position: fixed;
-    left: 2rem;
+    position: sticky;
     top: calc(50vh - 154px);
     /* height: 8rem; */
     left: 0;
+    display: none;
 
     &> div {
         flex-direction: column;
@@ -53,6 +53,31 @@
     @media screen and (min-width: $small) {
         position: sticky;
         left: 0;
+        display: block;
+    }
+}
+
+.mobile-remote-control {
+    position: sticky;
+    top: calc(50vh - 111px);
+    height: 88px;
+    left: 0;
+    width: 0;
+    z-index: 2;
+
+    &> div {
+        flex-direction: column;
+        
+        p {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+    
+
+    @media screen and (min-width: $small) {
+        display: none
         
     }
 }
