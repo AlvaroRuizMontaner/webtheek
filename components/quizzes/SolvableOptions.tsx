@@ -22,7 +22,7 @@ export default function SolvableOptions({question, questionIndex, question:{isSu
   return (
     <form className="space-y-4u">
       <div className="mb-8u flex items-center gap-2 font-bold">
-        <div className="h-8 w-8 p-2 bg-primary-400 rounded-full text-white flex items-center justify-center">{questionIndex + 1}</div>
+        <div className="h-8 min-w-8 p-2 bg-primary-400 rounded-full text-white flex items-center justify-center">{questionIndex + 1}</div>
         <div>{question.statement}</div>
       </div>
       {question.options.map((option, optionIndex) => (
