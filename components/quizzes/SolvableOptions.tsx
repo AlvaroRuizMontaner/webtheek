@@ -9,17 +9,26 @@ type SolvableOptionsProps = {
     quizId: Quiz["_id"]
 }
 
-export default function SolvableOptions({question, questionIndex}:SolvableOptionsProps) {
+export default function SolvableOptions({question, questionIndex, question:{isSubmit}}:SolvableOptionsProps) {
 
   const { dispatch } = useSolvableQuizContext();
 
+  function checkAnswer(selectedIndex: string , correctIndex: string, optionIndex: number) {
+    if(selectedIndex !== "" && optionIndex.toString() === selectedIndex) {
+      return selectedIndex.toString() === correctIndex.toString() ? "!bg-accent-300" : "!bg-accent-danger-300"
+    }
+  }
+
   return (
     <form className="space-y-4u">
-      <div className="mb-8u">{question.statement}</div>
+      <div className="mb-8u flex items-center gap-2 font-bold">
+        <div className="h-8 w-8 p-2 bg-primary-400 rounded-full text-white flex items-center justify-center">{questionIndex + 1}</div>
+        <div>{question.statement}</div>
+      </div>
       {question.options.map((option, optionIndex) => (
         <div
           key={"editableOption" + questionIndex + optionIndex}
-          className={`flex gap-2 items-center min-h-[42px]`}
+          className={`flex gap-2 items-center min-h-[42px] ${isSubmit ? checkAnswer(question.selectedIndex, question.correctIndex, optionIndex) : undefined}`}
         >
           <input
             type="radio"
