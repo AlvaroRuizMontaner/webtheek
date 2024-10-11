@@ -9,13 +9,16 @@ export type solvableQuizTypes =
   | "CHANGE_CHECK_VALUE" */
   | "CHANGE_SELECTED_INDEX"
   | "BUILD_STATE"
+  | "SUBMIT"
   | "RESET";
 
-type PayloadProps = {
+
+export type PayloadProps = {
     questionIndex?: number
     optionIndex?: number
     selectedIndex?: string
     questions?: QuestionWithSelectedIndex[]
+    isSubmit?: boolean
 }
 
 export function solvableQuizReducer(
@@ -33,7 +36,7 @@ export function solvableQuizReducer(
         const {questionIndex, selectedIndex} = payload
         const newState = state.map((question, index) =>
             index === questionIndex
-              ? { ...question, selectedIndex: selectedIndex }
+              ? { ...question, selectedIndex: selectedIndex, isSubmit: false }
               : question
             );
           console.log(newState)
@@ -45,6 +48,18 @@ export function solvableQuizReducer(
           const newState = [...questions].map((question) => ({
             ...question,
             selectedIndex: "",
+          }))
+          return newState
+        }
+        return questions
+      }
+
+      case "SUBMIT": {
+        const {questions} = payload
+        if(questions) {
+          const newState = [...questions].map((question) => ({
+            ...question,
+            isSubmit: true,
           }))
           return newState
         }

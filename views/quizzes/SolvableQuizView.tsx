@@ -1,4 +1,6 @@
+import Button from '@/components/button/Button';
 import ProjectsLoading from '@/components/loading-templates/ProjectsLoading';
+import Recount from '@/components/quizzes/Recount';
 import SolvableQuestions from '@/components/quizzes/SolvableQuestions';
 import Subtitle from '@/components/title/Subtitle';
 import Title from '@/components/title/Title';
@@ -14,11 +16,12 @@ type SolvableQuizViewProps = {
 
 export type QuestionWithSelectedIndex = Question & {
   selectedIndex: string;
+  isSubmit: boolean
 };
 
 export default function SolvableQuizView({quizId}: SolvableQuizViewProps) {
 
-  const { dispatch } = useSolvableQuizContext();
+  const { state, dispatch } = useSolvableQuizContext();
   const [isBuilt, setIsBuilt] = useState(false)
       
     const { data, isLoading, isError, error } = useQuery({
@@ -27,21 +30,22 @@ export default function SolvableQuizView({quizId}: SolvableQuizViewProps) {
         retry: false
     });
 
-    //const [questions, setQuestions] = useState<QuestionWithSelectedIndex[]>([])
-    //const [table, setTable] = useState([])
-
    useEffect(() => {
     if (data) {
       dispatch({type: "BUILD_STATE", payload: {questions: data.questions}})
       setIsBuilt(true)
-/*       setQuestions(
-        ([...data.questions] as QuestionWithSelectedIndex[]).map((question) => ({
-          ...question,
-          selectedIndex: "",
-        }))
-      ); */
     }
   }, [data]);
+
+  function calculateCorrectAnswers(questions: QuestionWithSelectedIndex[]){
+    return questions.reduce((acc, question) => {
+      if(question.correctIndex === question.selectedIndex) {
+        return acc + 1
+      } else {
+        return acc
+      }
+    },0)
+  }
 
     if(isLoading) return <ProjectsLoading />
     if(isError) throw new Error(error.message);
@@ -52,7 +56,13 @@ export default function SolvableQuizView({quizId}: SolvableQuizViewProps) {
   
   
         <div className="flex gap-8 relative">
-          <SolvableQuestions quizId={quizId} />
+          <div className='w-full space-y-8u'>
+            <SolvableQuestions quizId={quizId} />
+            <div className='flex justify-center'><Button onClick={() => dispatch({type: "SUBMIT", payload: {questions: state}})} text={"Resolver"} /></div>
+            {state[0].isSubmit && (
+              <Recount numberOfCorrectAnswers={calculateCorrectAnswers(state)} numberOfQuestions={state.length}/>
+            )}
+          </div>
         </div>
       </div>
     )
