@@ -23,9 +23,10 @@ export default function SolvableQuizView({quizId}: SolvableQuizViewProps) {
 
   const { state, dispatch } = useSolvableQuizContext();
   const [isBuilt, setIsBuilt] = useState(false)
+
       
     const { data, isLoading, isError, error } = useQuery({
-        queryKey: ["quiz", quizId],
+        queryKey: ["solvableQuiz", quizId],
         queryFn: () => getSolvableQuizById(quizId),
         retry: false
     });
@@ -47,6 +48,10 @@ export default function SolvableQuizView({quizId}: SolvableQuizViewProps) {
     },0)
   }
 
+  function submit() {
+    dispatch({type: "SUBMIT", payload: {questions: state}})
+  }
+
     if(isLoading) return <ProjectsLoading />
     if(isError) throw new Error(error.message);
     if(data && isBuilt) return (
@@ -58,8 +63,8 @@ export default function SolvableQuizView({quizId}: SolvableQuizViewProps) {
         <div className="flex gap-8 relative">
           <div className='w-full space-y-8u'>
             <SolvableQuestions quizId={quizId} />
-            <div className='flex justify-center'><Button onClick={() => dispatch({type: "SUBMIT", payload: {questions: state}})} text={"Resolver"} /></div>
-            {state[0].isSubmit && (
+            <div className='flex justify-center'><Button onClick={submit} text={"Resolver"} /></div>
+            {state.every((question: QuestionWithSelectedIndex) => question.isSubmit === true) && (
               <Recount numberOfCorrectAnswers={calculateCorrectAnswers(state)} numberOfQuestions={state.length}/>
             )}
           </div>
