@@ -11,6 +11,7 @@ export default function Recount({numberOfCorrectAnswers, numberOfQuestions}: Rec
       <p>Número de preguntas: {numberOfQuestions}</p>
       <p>Número de preguntas correctas: {numberOfCorrectAnswers}</p>
       <p>Nota del quiz: {(numberOfCorrectAnswers/numberOfQuestions)*10}</p>
+      <p>Nota del quiz: {Math.round(numberOfCorrectAnswers/numberOfQuestions * 1000) / 1000 * 10}</p>
     </div>
   );
 }
