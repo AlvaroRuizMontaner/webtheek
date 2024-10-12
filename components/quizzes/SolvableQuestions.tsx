@@ -13,7 +13,7 @@ export default function SolvableQuestions({quizId}: SolvableQuestionsProps) {
   console.log(questions)
 
   if(questions) return (
-    <section className={`border bg-primary-200 w-full rounded-t-md p-6 ${(questions.length === 0) ? "hidden":""}`}>
+    <section className={`bg-primary-200 w-full rounded-t-md p-6 ${(questions.length === 0) ? "hidden":""}`}>
       <div className="bg-primary-200 space-y-8u first:rounded-t-md">
         {questions.map((question: QuestionWithSelectedIndex, questionIndex: number) => (
           <SolvableQuestion

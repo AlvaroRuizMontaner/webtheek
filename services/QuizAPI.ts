@@ -42,9 +42,9 @@ export async function getQuizById(id: Quiz["_id"]) {
 
 export async function getSolvableQuizById(id: Quiz["_id"]) {
     try {
-        const { data } = await api(`/quizzes/${id}`)
+        const { data } = await api(`/browse/quizzes/${id}`)
         const response = solvableQuizSchema.safeParse(data)
-        console.log(data)
+
         if(response.success) {
             return response.data
         }
