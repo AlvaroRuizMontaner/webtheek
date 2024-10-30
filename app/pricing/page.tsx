@@ -26,7 +26,7 @@ export default async function PricingPage() {
             <div key={price.id} className="bg-slate-300 mb-2 p-7">
               <h3>{price.nickname}</h3>
               <h2 className='text-3xl font-bold'>{(price.unit_amount as number) / 100}$</h2>
-              <ButtonCheckout priceId={price.id} />
+              <ButtonCheckout {...price} />
             </div>
           ))}
         </div>
