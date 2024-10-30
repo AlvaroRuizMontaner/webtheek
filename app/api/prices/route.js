@@ -1,9 +1,12 @@
 import {NextResponse} from "next/server"
+import {Stripe} from "stripe"
 
 // Una pequeña muestra sobre como poner una ruta de backend en Next
 
-export function GET() {
-    return NextResponse.json({
-        message: "Hello from /api/prices"
-    })
+export async function GET() {
+    const stripe = new Stripe(process.env.NEXT_PUBLIC_STRIPE_API_SECRET)
+    const prices = await stripe.prices.list()
+    console.log(prices)
+
+    return NextResponse.json(prices.data)
 }
