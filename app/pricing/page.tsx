@@ -14,6 +14,7 @@ async function loadPrices() {
 export default async function PricingPage() {
 
   const prices = await loadPrices()
+  console.log(prices)
 
   return (
     <div className="flex justify-center items-center h-screen">
@@ -24,7 +25,7 @@ export default async function PricingPage() {
         <div className='flex gap-x-2'>
           {prices.map((price) => (
             <div key={price.id} className="bg-slate-300 mb-2 p-7">
-              <h3>{price.nickname}</h3>
+              <h3>{`Plan ${price.nickname}`}</h3>
               <h2 className='text-3xl font-bold'>{(price.unit_amount as number) / 100}$</h2>
               <ButtonCheckout {...price} />
             </div>

@@ -2,10 +2,12 @@ import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 
+// Muestra de webhook en Next (deshuso)
+
 const stripe = new Stripe(process.env.NEXT_PUBLIC_STRIPE_API_SECRET as string)
 
 // sign secret del webhook
-const endpointSecret = "whsec_AROzi1q14Xa9OQPxXpmRB8OKQNcuPgFJ"
+const endpointSecret = ""
 
 export async function POST(request: Request) {
 

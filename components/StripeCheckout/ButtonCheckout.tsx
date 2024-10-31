@@ -4,13 +4,15 @@ import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import React from 'react'
 import { toast } from 'react-toastify'
+import SubmitInput from '../form/input/SubmitInput'
 
 type ButtonCheckoutProps = {
   id: string
   nickname: string | null
+  unit_amount: number | null
 }
 
-export default function ButtonCheckout({id, nickname}: ButtonCheckoutProps) {
+export default function ButtonCheckout({id, nickname, unit_amount}: ButtonCheckoutProps) {
 
   const router = useRouter()
 
@@ -26,7 +28,15 @@ export default function ButtonCheckout({id, nickname}: ButtonCheckoutProps) {
   })
 
   return (
-    <button
+    <div
+      className=" shadow-lg rounded-lg"
+      onClick={() => {
+        mutate({id, planType: nickname ?? "default name", unit_amount: unit_amount ?? 400})
+      }}
+  >
+    <SubmitInput isLoading={isPending} value="Buy" />
+  </div>
+/*     <button
     className="bg-sky-500 text-white px-4 py-2 rounded"
     onClick={async () => {
         const res = await fetch('/api/checkout', {
@@ -44,6 +54,6 @@ export default function ButtonCheckout({id, nickname}: ButtonCheckoutProps) {
       }}
     >
       Buy
-    </button>
+    </button> */
   );
 }

@@ -3,14 +3,16 @@ import { isAxiosError } from "axios";
 
 type StripeAPIType = {
     id: string;
-    name: string;
+    planType: string;
+    unit_amount: number;
 }
 
 
-export async function createSession({id, name}: Pick<StripeAPIType, "id" | "name">) {
+export async function createSession({id, planType, unit_amount}: Pick<StripeAPIType, "id" | "planType" | "unit_amount">) {
     const body = {
         id,
-        name
+        planType,
+        unit_amount
     }
     try {
         const url = `/checkout`
