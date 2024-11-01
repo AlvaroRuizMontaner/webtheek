@@ -17,16 +17,16 @@ export default async function PricingPage() {
   console.log(prices)
 
   return (
-    <div className="flex justify-center items-center h-screen">
-      <div>
-        <header>
-          <h1 className='text-center my-5'>Pricing</h1>
-        </header>
-        <div className='flex gap-x-2'>
+    <div className='h-screen flex flex-col items-center justify-center gap-8'>
+      <header>
+        <h1 className='text-center my-5 text-5xl'>Pricing</h1>
+      </header>
+      <div className="w-full">
+        <div className='flex-col sm:flex-row flex px-4 justify-center items-center gap-4'>
           {prices.map((price) => (
-            <div key={price.id} className="bg-slate-300 mb-2 p-7">
-              <h3>{`Plan ${price.nickname}`}</h3>
-              <h2 className='text-3xl font-bold'>{(price.unit_amount as number) / 100}$</h2>
+            <div key={price.id} className="bg-primary-100 mb-2 p-5 lg:p-7 space-y-5 shadow-md flex-1 max-w-60 min-w-52 rounded-md">
+              <h3 className='text-primary-600 text-center text-xl'>{`Plan ${price.nickname}`}</h3>
+              <h2 className='text-3xl font-bold text-center'>{(price.unit_amount as number) / 100}$</h2>
               <ButtonCheckout {...price} />
             </div>
           ))}
