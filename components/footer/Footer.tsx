@@ -6,7 +6,7 @@ const Footer = (): JSX.Element => {
     <footer className="footer">
       <img src="/logoconborde.png" width={50} alt="" className="logo" />
       <div className="socials">
-        <div className="w-[50px] relative bg-white rounded-md">
+        <div className="w-[67px] relative bg-white rounded-md">
             <Link
               target="_blank"
               href="https://www.linkedin.com/in/%C3%A1lvaro-ruiz-montaner-221a2b206"
