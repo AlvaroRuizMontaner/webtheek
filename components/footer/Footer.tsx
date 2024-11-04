@@ -1,24 +1,32 @@
+import Link from "next/link";
 import "./footer.scss"
 
 const Footer = (): JSX.Element => {
   return (
     <footer className="footer">
-        <img src="/logoconborde.png" alt="" className="logo" />
+      <img src="/logoconborde.png" width={50} alt="" className="logo" />
       <div className="socials">
-        <a className="fa-brands fa-linkedin">ln</a>
+        <div className="w-[50px] relative bg-white rounded-md">
+            <Link
+              target="_blank"
+              href="https://www.linkedin.com/in/%C3%A1lvaro-ruiz-montaner-221a2b206"
+            >
+              <img src="/icons/linkedin.png" />
+            </Link>
+        </div>
       </div>
       <div className="links">
         <ul>
           <li>
-            <h2>Services</h2>
+            <h2>Servicios</h2>
           </li>
           <li>
-            <a>Staking</a>
+            <Link href="/projects">Proyectos</Link>
           </li>
           <li>
-            <a>Hardware</a>
+            <Link href="/quizzes">Quizzes</Link>
           </li>
-          <li>
+          {/*           <li>
             <a>Monitoring</a>
           </li>
           <li>
@@ -26,19 +34,19 @@ const Footer = (): JSX.Element => {
           </li>
           <li>
             <a>Endpoints</a>
-          </li>
+          </li> */}
         </ul>
         <ul>
           <li>
-            <h2>Resources</h2>
+            <h2>Recursos</h2>
           </li>
           <li>
-            <a>Pricing</a>
+            <Link href="/pricing">Precios</Link>
           </li>
-          <li>
+          {/*           <li>
             <a>Listings</a>
-          </li>
-          <li>
+          </li> */}
+          {/*           <li>
             <a>Reports</a>
           </li>
           <li>
@@ -46,61 +54,36 @@ const Footer = (): JSX.Element => {
           </li>
           <li>
             <a>FAQ</a>
-          </li>
+          </li> */}
         </ul>
         <ul>
           <li>
-            <h2>Company</h2>
+            <h2>Compañía</h2>
           </li>
           <li>
-            <a>Blog</a>
+            <Link href="/privacy-policy">Privacidad</Link>
           </li>
           <li>
-            <a>Newsroom</a>
+            <Link href="/legal-advice">Aviso legal</Link>
           </li>
-          <li>
-            <a>About us</a>
-          </li>
-          <li>
+{/*           <li>
+            <Link href="/about">Acerca de</Link>
+          </li> */}
+          {/*           <li>
             <a>Assets</a>
-          </li>
+          </li> */}
         </ul>
         <ul>
           <li>
-            <h2>Alltools Inc.</h2>
+            <h2>Webtheek Studio</h2>
           </li>
           <li>
-            <address>
-              12546 Hopeful St.
-              <br />
-              LA, CA 34543
-              <br />
-              +1 (345) 432 4332
-            </address>
+          <a className="ellipsis" href="mailto:contacto@webtheekstudio.com">Support</a>
           </li>
         </ul>
       </div>
     </footer>
   );
 };
-/*     <div className="w-full h-40 flex flex-col gap-2 justify-center bg-primary-900 space-y-3u py-4u">
-      <div className="text-center font-bold text-white">
-        Web en desarrollo por Álvaro Ruiz Montaner
-      </div>
-
-      <div className="text-center text-white">
-        LinkedIn:{" "}
-        <a
-          className=" underline text-accent-warning-300"
-          href="https://www.linkedin.com/in/%C3%A1lvaro-ruiz-montaner-221a2b206"
-        >
-          https://www.linkedin.com/in/%C3%A1lvaro-ruiz-montaner-221a2b206
-        </a>
-      </div>
-
-      <div>
-        <p className='text-center text-accent-danger-200'>Todos los derechos reservados {new Date().getFullYear()}</p>
-      </div>
-    </div> */
 
 export default Footer;
