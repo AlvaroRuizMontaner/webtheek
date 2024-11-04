@@ -1,4 +1,5 @@
-import Footer from "@/components/Footer";
+import Footer from "@/components/footer/Footer";
+
 
 export default function Bedroom({
   children, // will be a page or nested layout

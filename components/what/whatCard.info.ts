@@ -6,15 +6,15 @@ export const whatInfo: WhatInfoProps = {
         name: "Crear y gestionar tus proyectos",
         image: "icons/settings.svg",
         description:
-          "Crea proyectos para tus quehaceres, dales forma, trae colaboradores, y elige quién puede verlo y ayudarte",
+          "Crea proyectos para tus quehaceres, asigna tareas y notas, trae colaboradores, y elige quién puede verlo y ayudar",
       },
       {
         /* name: "Simulaciones y gráficos", */
-        name: "Asignación de tareas y notas",
+        name: "Creación de quizzes",
         image: "/icons/graphic.svg",
         description:
          /*  "Tú y tu equipo juntos podréis coordinaros con la realización de tareas e interactuar con notas", */
-          "Asigna, mueve o elimina tareas a realizar, interactúa o puntualiza lo que quieras usando notas en cada tarea",
+          "Coloca preguntas y las posibles respuestas, comparte el link y deja que quien quieras lo resuelva",
       },
       {
         name: "Tu perfil donde almacenarlos",

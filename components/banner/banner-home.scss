@@ -37,9 +37,21 @@
             height: 100%;
             top: 0;
             left: 0;
-            background-color: gray;
+            background-color: var(--gray-400);
             opacity: 80%;
             @apply rounded-lg;
+        }
+    }
+
+    .grid-container {
+        display: grid;
+        grid-template-columns: 1fr;
+
+        @media screen and (min-width: $medium) {
+            grid-template-columns: 10fr 5fr;
+        }
+        @media screen and (min-width: $large) {
+            grid-template-columns: 5fr 4fr;
         }
     }
 

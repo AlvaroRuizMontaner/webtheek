@@ -8,13 +8,13 @@ export type ZigzagItem = {
 export const zigzagInfoHome = [
     {
         image: "/zigzag/zigzag1.png",
-        title: "Organiza tus proyectos de manera eficiente",
-        text: "Puedes crear proyectos fácilmente y gestionar cada una de sus fases de manera efectiva. Cada proyecto te permite desglosar las tareas necesarias, asignar responsables, y agregar descripciones claras para asegurarte de que todo tu equipo esté alineado. Ya no tienes que preocuparte por perder el control de los detalles, tendrás toda la información en un solo lugar."
+        title: "Organiza tus tareas de manera eficiente",
+        text: "Puedes crear proyectos fácilmente y gestionar cada una de sus fases de manera efectiva. Cada proyecto te permite desglosar las tareas necesarias, asignar colaboradores y utilizar un tablero visual donde arrastrar y soltar dichas tareas. De un vistazo, podrás ver el estado actual de cada tarea y asegurarte de que tu equipo esté alineado en cada fase del proyecto."
     },
     {
         image: "/zigzag/zigzag2.png",
-        title: "Visualiza el progreso en un tablero interactivo",
-        text: "Mantén el control total sobre el avance de tus proyectos utilizando un tablero visual de tareas. Arrastra y suelta tareas entre diferentes columnas de estado, de inicio a final. De un vistazo, podrás ver el estado actual de cada tarea y asegurarte de que tu equipo esté alineado en cada fase del proyecto. Optimiza el flujo de trabajo y asegúrate de cumplir con los plazos establecidos."
+        title: "Crea tus propios cuestionarios",
+        text: "Con nuestra herramienta de Quizzes, puedes crear cuestionarios completamente personalizados. Tú decides el enunciado, las opciones de respuesta y cuál es la correcta, permitiéndote adaptar cada pregunta a tus necesidades específicas. ¡Explora, aprende y desafía a otros con cuestionarios hechos a tu medida!"
     },
     {
         image: "/zigzag/zigzag3.png",
