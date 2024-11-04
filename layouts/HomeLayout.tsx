@@ -4,10 +4,10 @@ import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import Logo from '@/components/Logo';
 import Link from 'next/link';
-import Footer from '@/components/Footer';
 import DesktopNav from '@/components/Nav/DesktopNav';
 import MobileNav from '@/components/Nav/NavMenu';
 import { useInertialScrollDesktop } from '@/hooks/useInertialScroll';
+import Footer from '@/components/footer/Footer';
 
 
 interface AppLayoutProps {
