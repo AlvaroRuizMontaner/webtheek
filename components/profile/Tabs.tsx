@@ -1,4 +1,4 @@
-import { FingerPrintIcon, UserIcon } from '@heroicons/react/20/solid'
+import { FingerPrintIcon, UserIcon, TrophyIcon } from '@heroicons/react/20/solid'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useRouter } from 'next/navigation'
@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation'
 const tabs = [
     { name: 'Mi Cuenta', href: '/profile', icon: UserIcon },
     { name: 'Cambiar Password', href: '/profile/password', icon: FingerPrintIcon },
+    { name: 'Status', href: '/profile/pricing', icon: TrophyIcon },
 ]
 
 function classNames(...classes: string[]) {
@@ -26,7 +27,7 @@ export default function Tabs() {
                 <select
                     id="tabs"
                     name="tabs"
-                    className="block w-full rounded-md border-gray-300 focus:border-purple-800 focus:ring-purple-800"
+                    className="block w-full rounded-md border-gray-300 focus:border-primary-800 focus:ring-primary-800"
                     onChange={ (e: React.ChangeEvent<HTMLSelectElement>) => router.push(e.target.value) }
                     value={currentTab}
                 >

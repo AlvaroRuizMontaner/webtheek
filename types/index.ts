@@ -4,6 +4,7 @@ import { z } from "zod"
 const authSchema = z.object({
     name: z.string(),
     email: z.string().email(),
+    planType: z.string(),
     current_password: z.string(),
     password: z.string(),
     password_confirmation: z.string(),
@@ -35,7 +36,8 @@ export type TaskStatus = z.infer<typeof taskStatusSchema>
 /* Users */
 export const userSchema = authSchema.pick({
     name: true,
-    email: true
+    email: true,
+    planType: true
 }).extend({
     _id: z.string()
 })

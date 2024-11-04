@@ -34,7 +34,7 @@ export default function ButtonCheckout({id, nickname, unit_amount}: ButtonChecko
         mutate({id, planType: nickname ?? "default name", unit_amount: unit_amount ?? 400})
       }}
   >
-    <SubmitInput isLoading={isPending} value="Buy" />
+    <SubmitInput isLoading={isPending} value="Comprar" />
   </div>
 /*     <button
     className="bg-sky-500 text-white px-4 py-2 rounded"

@@ -173,7 +173,7 @@ export default function TaskModalDetails({projectId, canEditNotes, canEditTasks}
                           <select
                             name=""
                             id=""
-                            className="w-full p-3 bg-white no-border-focus border-gray-300 border rounded-b"
+                            className="w-full p-3 bg-white no-border-focus border-gray-300 border rounded-b focus:border-primary-800 focus:ring-primary-800"
                             defaultValue={data.status}
                             onChange={handleChange}
                           >
