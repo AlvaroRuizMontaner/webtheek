@@ -659,6 +659,17 @@ export const cuerpoCentralPagina2: seccionCuerpocentralInfoType[] = [
                     "Collaboration with Byside for improvement of marketing campaigns and user conversions"
                 ]
             },
+            {
+                main: "Freelancing Developer",
+                detail: "Freelance",
+                date: "April 2021 - June 2022",
+                list: [
+                    "Social Media built on top of React & Firebase",
+                    "Basic authentication, account creation and basic validation",
+                    "Hosted images on Imgur and integrated with its API",
+                    "Enabled features for commenting, following, making posts, and configuring user profiles",
+                ]
+            },
         ],
     },
     {
@@ -675,23 +686,13 @@ export const cuerpoCentralPagina2: seccionCuerpocentralInfoType[] = [
                 list: [
                     "Built on top of MongoDB, Express, React, Node (MERN)",
                     "MVC and decoupled architectures",
-                    "App similar to Jira and Zendesk, enabling creation, editing and deletion of projects, tasks and notes, with the ability to add collaborators",
+                    "One section is similar to Jira and Zendesk, enabling creation, editing and deletion of projects, tasks and notes, with the ability to add collaborators",
+                    "Includes another section which enables the creation of quizzes with any statement, answers and the capability of sharing to another person for solving",
                     "Lets you manage collaborator permissions and your user profile",
                     "Secured routes with JWT for authentication",
                     "Back-End validation, email authentication, password recovery by email (emails by Zoho)",
                     "Typescript, ZOD, Jest",
                     "Currently developing a curriculum PDF creator for profiles"
-                ]
-            },
-            {
-                main: "Social Media App",
-                detail: "https://todonotasworld.web.app/",
-                date: "2021 - 2022",
-                list: [
-                    "Social Media built on top of React & Firebase",
-                    "Basic authentication, account creation and basic validation",
-                    "Hosted images on Imgur and integrated with its API",
-                    "Enabled features for commenting, following, making posts, and configuring user profiles",
                 ]
             },
         ],
