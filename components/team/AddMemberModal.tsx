@@ -46,9 +46,9 @@ export default function AddMemberModal({projectId}: AddMemberModalProps) {
                                 leaveTo="opacity-0 scale-95"
                             >
                                 <DialogPanel className="w-full max-w-4xl transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all p-16">
-                                <span className='absolute inline-block top-2 right-2 sm:top-5 sm:right-5 cursor-pointer' onClick={() => router.push(path)}>
-                                <XMark/>
-                                </span>
+                                    <span className='absolute inline-block top-2 right-2 sm:top-5 sm:right-5 cursor-pointer' onClick={() => router.push(path)}>
+                                        <XMark/>
+                                    </span>
                                     <DialogTitle
                                         as="h3"
                                         className="font-black text-4xl  my-5"
@@ -56,7 +56,7 @@ export default function AddMemberModal({projectId}: AddMemberModalProps) {
                                         Agregar Integrante al equipo
                                     </DialogTitle>
                                     <p className="text-xl font-bold">Busca el nuevo integrante por email {''}
-                                        <span className="text-accent-300">para agregarlo al proyecto</span>
+                                        <span className="text-accent-300">para agregarlo al equipo</span>
                                     </p>
 
                                     <AddMemberForm projectId={projectId}/>

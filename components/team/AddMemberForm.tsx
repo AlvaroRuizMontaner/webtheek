@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import ErrorMessage from "../ErrorMessage";
 import { Project, TeamMemberForm } from "@/types";
-import { finduserByEmail } from "@/services/TeamAPI";
+import { findUserByEmail } from "@/services/TeamAPI";
 import SearchResult from "./SearchResult";
 import SubmitInput from "../form/input/SubmitInput";
 
@@ -18,7 +18,7 @@ export default function AddMemberForm({projectId}: AddMemberFormProps) {
     const { register, handleSubmit, reset, formState: { errors } } = useForm({ defaultValues: initialValues })
 
     const mutation = useMutation({
-        mutationFn: finduserByEmail
+        mutationFn: findUserByEmail
     })
 
     const handleSearchUser = async (formData: TeamMemberForm) => {

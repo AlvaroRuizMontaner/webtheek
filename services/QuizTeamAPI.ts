@@ -1,20 +1,21 @@
 import api from "@/lib/axios";
-import { Project, TeamMember, TeamMemberForm, User, teamMembersSchema, userTeamSchema } from "@/types";
+import { TeamMember, TeamMemberForm, User, teamMembersSchema, userTeamSchema } from "@/types";
+import { Quiz } from "@/types/quiz";
 import { isAxiosError } from "axios";
 
 
 type TeamAPI = {
     formData: TeamMemberForm,
-    projectId: Project["_id"],
+    quizId: Quiz["_id"],
     userId: User["_id"],
     permissionFormData: {
         permissionLevel: number
     }
 }
 
-export async function findUserByEmail({projectId, formData}: Pick<TeamAPI, "projectId" | "formData">) {
+export async function findUserByEmail({quizId, formData}: Pick<TeamAPI, "quizId" | "formData">) {
     try {
-        const url = `/projects/${projectId}/team/find`
+        const url = `/quizzes/${quizId}/team/find`
         const { data } = await api.post(url, formData)
         return data
     } catch (error) {
@@ -24,9 +25,9 @@ export async function findUserByEmail({projectId, formData}: Pick<TeamAPI, "proj
     }
 }
 
-export async function addUserToProject({projectId, id}: {projectId: Project["_id"], id: TeamMember["_id"]}) {
+export async function addUserToQuiz({quizId, id}: {quizId: Quiz["_id"], id: TeamMember["_id"]}) {
     try {
-        const url = `/projects/${projectId}/team`
+        const url = `/quizzes/${quizId}/team`
         const { data } = await api.post<string>(url, {id})
         return data
     } catch (error) {
@@ -36,9 +37,9 @@ export async function addUserToProject({projectId, id}: {projectId: Project["_id
     }
 }
 
-export async function getProjectTeam(projectId: Project["_id"]) {
+export async function getQuizTeam(quizId: Quiz["_id"]) {
     try {
-        const url = `/projects/${projectId}/team`
+        const url = `/quizzes/${quizId}/team`
         const { data } = await api(url)
         const response = teamMembersSchema.safeParse(data)
         if(response.success) return response.data
@@ -49,9 +50,9 @@ export async function getProjectTeam(projectId: Project["_id"]) {
     }
 }
 
-export async function removeUserFromProject({projectId, userId}: {projectId: Project["_id"], userId: TeamMember["_id"]}) {
+export async function removeUserFromQuiz({quizId, userId}: {quizId: Quiz["_id"], userId: TeamMember["_id"]}) {
     try {
-        const url = `/projects/${projectId}/team/${userId}`
+        const url = `/quizzes/${quizId}/team/${userId}`
         const { data } = await api.delete<string>(url)
         return data
     } catch (error) {
@@ -61,9 +62,9 @@ export async function removeUserFromProject({projectId, userId}: {projectId: Pro
     }
 }
 
-export async function editUserFromProject({projectId, userId, permissionFormData}: Pick<TeamAPI, "projectId" | "userId" | "permissionFormData">) {
+export async function editUserFromQuiz({quizId, userId, permissionFormData}: Pick<TeamAPI, "quizId" | "userId" | "permissionFormData">) {
     try {
-        const url = `/projects/${projectId}/team/${userId}`
+        const url = `/quizzes/${quizId}/team/${userId}`
         const { data } = await api.put<string>(url, permissionFormData)
         return data
     } catch (error) {
@@ -73,9 +74,9 @@ export async function editUserFromProject({projectId, userId, permissionFormData
     }
 }
 
-export async function getUserTeamById({projectId, userId}: Pick<TeamAPI, "projectId" | "userId">) {
+export async function getUserTeamById({quizId, userId}: Pick<TeamAPI, "quizId" | "userId">) {
     try {
-        const url = `/projects/${projectId}/team/${userId}`
+        const url = `/quizzes/${quizId}/team/${userId}`
         const { data } = await api.get<string>(url)
         const response = userTeamSchema.safeParse(data)
         if(response.success) return response.data

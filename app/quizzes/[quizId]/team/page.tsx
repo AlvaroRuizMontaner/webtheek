@@ -1,18 +1,19 @@
 "use client"
-import ProjectTeamView from "@/views/projects/ProjectTeamView";
+
+import QuizTeamView from "@/views/quizzes/QuizTeamView"
 
 export type TeamPageProps = {
   params: {
-    projectId: string 
+    quizId: string 
   } 
 }
 
 export default function Page({params}: TeamPageProps): JSX.Element {
-    const {projectId} = params
-    console.log(projectId)
+    const {quizId} = params
+    console.log(quizId)
   return (
     <>
-      <ProjectTeamView projectId={projectId} />
+      <QuizTeamView quizId={quizId} />
     </>
   );
 }

@@ -1,4 +1,3 @@
-/* import Button from '@/components/button/Button'; */
 import ProjectsLoading from '@/components/loading-templates/ProjectsLoading';
 import Questions from '@/components/quizzes/Questions';
 import Subtitle from '@/components/title/Subtitle';
@@ -6,9 +5,7 @@ import Title from '@/components/title/Title';
 import { useAuth } from '@/hooks/useAuth';
 import { getFullQuiz } from '@/services/QuizAPI';
 import { QuestionFormData, Quiz } from '@/types/quiz';
-/* import { havePermission, isManager } from '@/utils/policies'; */
 import { useQuery } from '@tanstack/react-query';
-/* import { usePathname } from 'next/navigation'; */
 import { useEffect, useState } from 'react';
 import "./quizzes.scss"
 import Button from '@/components/button/Button';
@@ -24,6 +21,8 @@ export default function QuizDetailsView({quizId}: {quizId: Quiz["_id"]}) {
   });
 
  const [stateQuestions, setStateQuestions] = useState<QuestionFormData[]>([])
+
+/*  const path = usePathname() */
 
  function addQuestion() {
   setStateQuestions((prev) => {
@@ -86,7 +85,7 @@ export default function QuizDetailsView({quizId}: {quizId: Quiz["_id"]}) {
           variant="outline"
           href={"/browse" + "/quizzes" + "/" + quizId}
         />
-        {/*         {(isManager(data.manager, user._id) ||
+{/*         {(isManager(data.manager, user._id) ||
           havePermission(data.team, user._id, 4)) && (
           <Button
             text="Colaboradores"

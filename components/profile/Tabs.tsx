@@ -1,19 +1,22 @@
-import { FingerPrintIcon, UserIcon, TrophyIcon } from '@heroicons/react/20/solid'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useRouter } from 'next/navigation'
-
-const tabs = [
-    { name: 'Mi Cuenta', href: '/profile', icon: UserIcon },
-    { name: 'Cambiar Password', href: '/profile/password', icon: FingerPrintIcon },
-    { name: 'Status', href: '/profile/pricing', icon: TrophyIcon },
-]
+import { ForwardRefExoticComponent, RefAttributes, SVGProps } from 'react'
 
 function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ')
 }
 
-export default function Tabs() {
+type TabsProps = {
+    name: string;
+    href: string;
+    icon: ForwardRefExoticComponent<Omit<SVGProps<SVGSVGElement>, "ref"> & {
+        title?: string | undefined;
+        titleId?: string | undefined;
+    } & RefAttributes<SVGSVGElement>>;
+}[]
+
+export default function Tabs(tabs: TabsProps) {
     const router = useRouter()
     const path = usePathname()
     const currentTab = tabs.filter(tab => tab.href === path)[0].href

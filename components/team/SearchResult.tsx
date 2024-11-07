@@ -43,7 +43,7 @@ export default function SearchResult({user, projectId, reset}: SearchResultProps
                 onClick={handleAddUserToProject}
                 className='text-purple-600 hover:bg-purple-100 px-10 py-3 font-bold cursor-pointer'
             >
-                Agregar al Proyecto
+                Agregar al Equipo
             </button>
         </div>
     </>
