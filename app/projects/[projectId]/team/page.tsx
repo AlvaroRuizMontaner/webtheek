@@ -1,5 +1,5 @@
 "use client"
-import ProjectTeamView from "@/views/projects/ProjectTeamView";
+import TeamView from "@/views/team/TeamView";
 
 export type TeamPageProps = {
   params: {
@@ -9,10 +9,11 @@ export type TeamPageProps = {
 
 export default function Page({params}: TeamPageProps): JSX.Element {
     const {projectId} = params
+    const queryKey= "ProjectTeam"
 
   return (
     <>
-      <ProjectTeamView toolId={projectId} />
+      <TeamView toolId={projectId} tool="projects" queryKey={queryKey} />
     </>
   );
 }

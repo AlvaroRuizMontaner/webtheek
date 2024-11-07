@@ -5,10 +5,10 @@ import { Swiper as SwiperType } from 'swiper';
 import { ArrowLeftCircleIcon, ArrowRightCircleIcon } from '@heroicons/react/20/solid'
 import SlideCard from '@/components/team/SlideCard/SlideCard'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { editUserFromProject, getUserTeamById } from '@/services/TeamAPI';
 import { toast } from 'react-toastify';
 import ProjectsLoading from '../loading-templates/ProjectsLoading';
 import { Project, User } from '@/types';
+import { editUserFromTeam, getUserTeamById } from '@/services/TeamAPI';
 
 type SwiperSlideChangeProps = {
     projectId: Project["_id"]
@@ -33,14 +33,14 @@ export default function SwiperSlideChange({projectId, userId}: SwiperSlideChange
 
     const { data, isLoading, isError } = useQuery({
         queryKey: ["userTeam", projectId],
-        queryFn: () => getUserTeamById({toolId: projectId, userId}),
+        queryFn: () => getUserTeamById({toolId: projectId, userId, tool: "projects"}),
         retry: false,
       });
     
       const queryClient = useQueryClient()
     
       const {mutate} = useMutation({
-        mutationFn: editUserFromProject,
+        mutationFn: editUserFromTeam,
         onError: (error) => {
             toast.error(error.message)
         },
@@ -74,6 +74,7 @@ export default function SwiperSlideChange({projectId, userId}: SwiperSlideChange
                   permissionFormData: {
                     permissionLevel: e.activeIndex + 1,
                   },
+                  tool: "projects"
                 });
               }
               setSlideIndex(e.activeIndex + 1);

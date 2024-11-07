@@ -1,5 +1,4 @@
-import { addUserToProject } from '@/services/TeamAPI'
-import { addUserToQuiz } from '@/services/QuizTeamAPI'
+import { addUserToTeam } from '@/services/TeamAPI'
 import { Project, TeamMember, ToolType } from '@/types'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import React from 'react'
@@ -13,16 +12,12 @@ type SearchResultProps = {
     tool: ToolType
 }
 
-export function getMutationFn(tool: ToolType) {
-    return tool === "projects" ? addUserToProject : addUserToQuiz
-}
-
 export default function SearchResult({user, toolId, reset, queryKey, tool}: SearchResultProps) {
     
     const queryClient = useQueryClient()
     
     const {mutate} = useMutation({
-        mutationFn: getMutationFn(tool),
+        mutationFn: addUserToTeam,
         onError: (error) => {
             toast.error(error.message)
         },
@@ -36,7 +31,8 @@ export default function SearchResult({user, toolId, reset, queryKey, tool}: Sear
     const handleAddUserToProject = () => {
         const data = {
             toolId,
-            id: user._id
+            id: user._id,
+            tool
         }
         mutate(data)
     }

@@ -4,8 +4,9 @@ import PermissionTag from '@/components/permission-tag/PermissionTag'
 import AddMemberModal from '@/components/team/AddMemberModal'
 import Subtitle from '@/components/title/Subtitle'
 import Title from '@/components/title/Title'
-import { getProjectTeam, removeUserFromProject } from '@/services/TeamAPI'
-import { Project } from '@/types'
+import { getTeam, removeUserFromTeam } from '@/services/TeamAPI'
+import { Project, ToolType } from '@/types'
+import { Quiz } from '@/types/quiz'
 import { Menu, MenuButton, MenuItem, MenuItems, Transition } from '@headlessui/react'
 import { EllipsisVerticalIcon } from '@heroicons/react/20/solid'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
@@ -14,25 +15,25 @@ import { useRouter } from 'next/navigation'
 import React, { Fragment } from 'react'
 import { toast } from 'react-toastify'
 
-type ProjectTeamViewProps = {
-    toolId: Project["_id"]
+type TeamViewProps = {
+    toolId: Project["_id"] | Quiz["_id"]
+    queryKey: string
+    tool: ToolType
 }
 
-export default function ProjectTeamView({toolId}: ProjectTeamViewProps) {
+export default function TeamView({toolId, queryKey, tool}: TeamViewProps) {
   const router = useRouter();
-  const queryKey = "projectTeam"
 
   const { data, isLoading, isError } = useQuery({
     queryKey: [queryKey, toolId],
-    queryFn: () => getProjectTeam(toolId),
+    queryFn: () => getTeam(toolId, tool),
     retry: false,
   });
 
   const queryClient = useQueryClient()
 
-
   const {mutate} = useMutation({
-    mutationFn: removeUserFromProject,
+    mutationFn: removeUserFromTeam,
     onError: (error) => {
         toast.error(error.message)
     },
@@ -56,8 +57,8 @@ export default function ProjectTeamView({toolId}: ProjectTeamViewProps) {
           onClick={() => router.push("?addMember=true")}
         />
         <Button
-          href={"/projects/" + toolId}
-          text="Volver a proyecto"
+          href={`/${tool}/` + toolId}
+          text={`Volver a ${tool === "projects" ? "proyecto" : "quiz"}`}
           variant="outline"
         />
       </nav>
@@ -85,7 +86,7 @@ export default function ProjectTeamView({toolId}: ProjectTeamViewProps) {
                   </div>
                   <div>
                     <Link
-                        href={`/projects/${toolId}/team/${member.user._id}`}
+                        href={`/${tool}/${toolId}/team/${member.user._id}`}
                       className="text-gray-600 cursor-pointer hover:underline headline3 font-bold"
                     >
                       {member.user.name}
@@ -134,7 +135,7 @@ export default function ProjectTeamView({toolId}: ProjectTeamViewProps) {
                           type="button"
                           className="block px-3 py-1 text-sm leading-6 text-red-500"
                           onClick={() =>
-                            mutate({ toolId, userId: member.user._id })
+                            mutate({ toolId, userId: member.user._id, tool })
                           }
                         >
                           Eliminar del Equipo
@@ -151,7 +152,7 @@ export default function ProjectTeamView({toolId}: ProjectTeamViewProps) {
         <p className="text-center py-20">No hay miembros en este equipo</p>
       )}
 
-      <AddMemberModal tool={"projects"} queryKey={queryKey} toolId={toolId} />
+      <AddMemberModal tool={tool} queryKey={queryKey} toolId={toolId} />
     </>
   );
 }

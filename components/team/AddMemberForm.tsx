@@ -6,16 +6,11 @@ import SearchResult from "./SearchResult";
 import SubmitInput from "../form/input/SubmitInput";
 import { Quiz } from "@/types/quiz";
 import { findUserByEmail } from "@/services/TeamAPI";
-import { findUserByEmail as QuizFindUserByEmail } from "@/services/QuizTeamAPI";
 
 type AddMemberFormProps = {
     toolId: Project["_id"] | Quiz["_id"]
     queryKey: string
     tool: ToolType
-}
-
-export function getMutationFn(tool: ToolType) {
-    return tool === "projects" ? findUserByEmail : QuizFindUserByEmail
 }
 
 export default function AddMemberForm({toolId, tool, queryKey}: AddMemberFormProps) {
@@ -26,11 +21,11 @@ export default function AddMemberForm({toolId, tool, queryKey}: AddMemberFormPro
     const { register, handleSubmit, reset, formState: { errors } } = useForm({ defaultValues: initialValues })
 
     const mutation = useMutation({
-        mutationFn: getMutationFn(tool)
+        mutationFn: findUserByEmail
     })
 
     const handleSearchUser = async (formData: TeamMemberForm) => {
-        const data =  { toolId, formData }
+        const data =  { toolId, formData, tool }
         mutation.mutate(data)
     }
 

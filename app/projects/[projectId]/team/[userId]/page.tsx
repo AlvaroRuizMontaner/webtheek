@@ -1,6 +1,8 @@
 "use client"
 
-import UserTeamView from "@/views/projects/UserTeamView"
+import UserTeamView from "@/views/team/UserTeamView"
+
+
 
 export type UserPageProps = {
   params: {

@@ -6,8 +6,7 @@ import ProjectsLoading from '@/components/loading-templates/ProjectsLoading';
 import Button from '@/components/button/Button';
 import { ChangeEvent } from 'react';
 import RadioPermissionInput from '@/components/form/input/radioPermissionInput/RadioPermissionInput';
-import { editUserFromQuiz, getUserTeamById } from '@/services/QuizTeamAPI';
-import { editUserFromProject, getUserTeamById as getUserTeamByIdProject } from '@/services/TeamAPI';
+import { editUserFromTeam, getUserTeamById } from '@/services/TeamAPI';
 
 
 type UserTeamViewProps = {
@@ -17,34 +16,28 @@ type UserTeamViewProps = {
     queryKey: string
 }
 
-export function getQueryFn(tool: ToolType) {
-  return tool === "projects" ? getUserTeamByIdProject : getUserTeamById
-}
-export function getEditFn(tool: ToolType) {
-  return tool === "projects" ? editUserFromProject : editUserFromQuiz
-}
+
 
 export default function UserTeamView({toolId, tool, userId, queryKey}: UserTeamViewProps) {
 
-  const queryFn = getQueryFn(tool)
-  const editFn = getEditFn(tool)
+  const newQueryKey = queryKey + userId // Cada user tiene un queryKey unico
 
   const { data, isLoading, isError } = useQuery({
-    queryKey: [queryKey, toolId],
-    queryFn: () => queryFn({toolId, userId}),
+    queryKey: [newQueryKey, toolId],
+    queryFn: () => getUserTeamById({toolId, userId, tool}),
     retry: false,
   });
 
   const queryClient = useQueryClient()
 
   const {mutate} = useMutation({
-    mutationFn: editFn,
+    mutationFn: editUserFromTeam,
     onError: (error) => {
         toast.error(error.message)
     },
     onSuccess: (data) => {
         toast.success(data)
-        queryClient.invalidateQueries({queryKey: [queryKey, toolId]})
+        queryClient.invalidateQueries({queryKey: [newQueryKey, toolId]})
     }
   })
   
@@ -55,11 +48,12 @@ export default function UserTeamView({toolId, tool, userId, queryKey}: UserTeamV
       permissionFormData: {
         permissionLevel: Number(e.target.value),
       },
+      tool
     })
 
     // Actualización optimista
     queryClient.setQueryData(
-      [queryKey, toolId],
+      [newQueryKey, toolId],
       (prevData: {
         user: {
           _id: string;
@@ -68,6 +62,8 @@ export default function UserTeamView({toolId, tool, userId, queryKey}: UserTeamV
         };
         permissionLevel: number;
       }) => {
+
+        console.log(prevData)
 
         return {
           user: prevData.user,

@@ -1,6 +1,6 @@
 "use client"
 
-import QuizTeamView from "@/views/quizzes/QuizTeamView"
+import TeamView from "@/views/team/TeamView"
 
 export type TeamPageProps = {
   params: {
@@ -10,10 +10,11 @@ export type TeamPageProps = {
 
 export default function Page({params}: TeamPageProps): JSX.Element {
     const {quizId} = params
+    const queryKey = "QuizTeam"
 
   return (
     <>
-      <QuizTeamView tool={"quizzes"} toolId={quizId} />
+      <TeamView toolId={quizId} tool="quizzes" queryKey={queryKey} />
     </>
   );
 }
