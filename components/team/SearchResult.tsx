@@ -1,34 +1,41 @@
 import { addUserToProject } from '@/services/TeamAPI'
-import { Project, TeamMember } from '@/types'
+import { addUserToQuiz } from '@/services/QuizTeamAPI'
+import { Project, TeamMember, ToolType } from '@/types'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import React from 'react'
 import { toast } from 'react-toastify'
 
 type SearchResultProps = {
     user: TeamMember
-    projectId: Project["_id"]
+    toolId: Project["_id"]
     reset: () => void
+    queryKey: string
+    tool: ToolType
 }
 
-export default function SearchResult({user, projectId, reset}: SearchResultProps) {
+export function getMutationFn(tool: ToolType) {
+    return tool === "projects" ? addUserToProject : addUserToQuiz
+}
+
+export default function SearchResult({user, toolId, reset, queryKey, tool}: SearchResultProps) {
     
     const queryClient = useQueryClient()
     
     const {mutate} = useMutation({
-        mutationFn: addUserToProject,
+        mutationFn: getMutationFn(tool),
         onError: (error) => {
             toast.error(error.message)
         },
         onSuccess: (data) => {
             toast.success(data)
             reset()
-            queryClient.invalidateQueries({queryKey: ["projectTeam", projectId]})
+            queryClient.invalidateQueries({queryKey: [queryKey, toolId]})
         }
     })
 
     const handleAddUserToProject = () => {
         const data = {
-            projectId,
+            toolId,
             id: user._id
         }
         mutate(data)
@@ -41,7 +48,7 @@ export default function SearchResult({user, projectId, reset}: SearchResultProps
             <p>{user.name}</p>
             <button
                 onClick={handleAddUserToProject}
-                className='text-purple-600 hover:bg-purple-100 px-10 py-3 font-bold cursor-pointer'
+                className='text-primary-600 hover:bg-purple-100 px-10 py-3 font-bold cursor-pointer'
             >
                 Agregar al Equipo
             </button>

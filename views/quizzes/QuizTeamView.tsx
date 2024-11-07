@@ -5,6 +5,7 @@ import AddMemberModal from '@/components/team/AddMemberModal'
 import Subtitle from '@/components/title/Subtitle'
 import Title from '@/components/title/Title'
 import { getQuizTeam, removeUserFromQuiz } from '@/services/QuizTeamAPI'
+import { ToolType } from '@/types'
 import { Quiz } from '@/types/quiz'
 import { Menu, MenuButton, MenuItem, MenuItems, Transition } from '@headlessui/react'
 import { EllipsisVerticalIcon } from '@heroicons/react/20/solid'
@@ -15,17 +16,22 @@ import React, { Fragment } from 'react'
 import { toast } from 'react-toastify'
 
 type QuizTeamViewProps = {
-    quizId: Quiz["_id"]
+    toolId: Quiz["_id"]
+    tool: ToolType
 }
 
-export default function QuizTeamView({quizId}: QuizTeamViewProps) {
+export default function QuizTeamView({toolId, tool}: QuizTeamViewProps) {
   const router = useRouter();
+  console.log(toolId)
+
+  const queryKey = "quizTeam"
 
   const { data, isLoading, isError } = useQuery({
-    queryKey: ["quizTeam", quizId],
-    queryFn: () => getQuizTeam(quizId),
+    queryKey: [queryKey, toolId],
+    queryFn: () => getQuizTeam(toolId),
     retry: false,
   });
+
 
   const queryClient = useQueryClient()
 
@@ -36,7 +42,7 @@ export default function QuizTeamView({quizId}: QuizTeamViewProps) {
     },
     onSuccess: (data) => {
         toast.success(data)
-        queryClient.invalidateQueries({queryKey: ["QuizTeam", quizId]})
+        queryClient.invalidateQueries({queryKey: [queryKey, toolId]})
     }
 })
 
@@ -55,7 +61,7 @@ console.log(data)
           onClick={() => router.push("?addMember=true")}
         />
         <Button
-          href={"/quizzes/" + quizId}
+          href={"/quizzes/" + toolId}
           text="Volver a quiz"
           variant="outline"
         />
@@ -84,7 +90,7 @@ console.log(data)
                   </div>
                   <div>
                     <Link
-                        href={`/projects/${quizId}/team/${member.user._id}`}
+                        href={`/${tool}/${toolId}/team/${member.user._id}`}
                       className="text-gray-600 cursor-pointer hover:underline headline3 font-bold"
                     >
                       {member.user.name}
@@ -133,10 +139,10 @@ console.log(data)
                           type="button"
                           className="block px-3 py-1 text-sm leading-6 text-red-500"
                           onClick={() =>
-                            mutate({ quizId, userId: member.user._id })
+                            mutate({ toolId, userId: member.user._id })
                           }
                         >
-                          Eliminar del Quiz
+                          Eliminar del Equipo
                         </button>
                       </MenuItem>
                     </MenuItems>
@@ -150,7 +156,7 @@ console.log(data)
         <p className="text-center py-20">No hay miembros en este equipo</p>
       )}
 
-      <AddMemberModal projectId={quizId} />
+      <AddMemberModal queryKey={queryKey} toolId={toolId} tool={"quizzes"} />
     </>
   );
 }

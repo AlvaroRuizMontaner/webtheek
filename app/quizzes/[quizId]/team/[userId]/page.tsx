@@ -1,20 +1,22 @@
 "use client"
 
+import { Quiz } from "@/types/quiz"
 import UserTeamView from "@/views/projects/UserTeamView"
 
 export type UserPageProps = {
   params: {
-    projectId: string,
+    quizId: Quiz["_id"],
     userId: string
   } 
 }
 
 export default function Page({params}: UserPageProps): JSX.Element {
-    const {projectId, userId} = params
-    console.log(projectId, userId)
+    const {quizId, userId} = params
+
+    const queryKey = "userTeamQuiz"
   return (
     <>
-      <UserTeamView projectId={projectId} userId={userId} />
+      <UserTeamView toolId={quizId} userId={userId} tool={"quizzes"} queryKey={queryKey} />
     </>
   );
 }

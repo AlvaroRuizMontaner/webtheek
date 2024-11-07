@@ -13,7 +13,7 @@ export default function Page({params}: TeamPageProps): JSX.Element {
     console.log(quizId)
   return (
     <>
-      <QuizTeamView quizId={quizId} />
+      <QuizTeamView tool={"quizzes"} toolId={quizId} />
     </>
   );
 }

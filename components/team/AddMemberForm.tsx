@@ -1,16 +1,24 @@
 import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import ErrorMessage from "../ErrorMessage";
-import { Project, TeamMemberForm } from "@/types";
-import { findUserByEmail } from "@/services/TeamAPI";
+import { Project, TeamMemberForm, ToolType } from "@/types";
 import SearchResult from "./SearchResult";
 import SubmitInput from "../form/input/SubmitInput";
+import { Quiz } from "@/types/quiz";
+import { findUserByEmail } from "@/services/TeamAPI";
+import { findUserByEmail as QuizFindUserByEmail } from "@/services/QuizTeamAPI";
 
 type AddMemberFormProps = {
-    projectId: Project["_id"]
+    toolId: Project["_id"] | Quiz["_id"]
+    queryKey: string
+    tool: ToolType
 }
 
-export default function AddMemberForm({projectId}: AddMemberFormProps) {
+export function getMutationFn(tool: ToolType) {
+    return tool === "projects" ? findUserByEmail : QuizFindUserByEmail
+}
+
+export default function AddMemberForm({toolId, tool, queryKey}: AddMemberFormProps) {
     const initialValues: TeamMemberForm = {
         email: ''
     }
@@ -18,11 +26,11 @@ export default function AddMemberForm({projectId}: AddMemberFormProps) {
     const { register, handleSubmit, reset, formState: { errors } } = useForm({ defaultValues: initialValues })
 
     const mutation = useMutation({
-        mutationFn: findUserByEmail
+        mutationFn: getMutationFn(tool)
     })
 
     const handleSearchUser = async (formData: TeamMemberForm) => {
-        const data = {projectId, formData}
+        const data =  { toolId, formData }
         mutation.mutate(data)
     }
 
@@ -76,7 +84,7 @@ export default function AddMemberForm({projectId}: AddMemberFormProps) {
             <div className="mt-10">
                 {mutation.isPending && <p className="text-center">Cargando...</p>}
                 {mutation.error && <p className="text-center">{mutation.error.message}</p>}
-                {mutation.data && <SearchResult projectId={projectId} user={mutation.data} reset={resetData}/>}
+                {mutation.data && <SearchResult tool={tool} queryKey={queryKey} toolId={toolId} user={mutation.data} reset={resetData}/>}
             </div>
         </>
     )

@@ -78,7 +78,7 @@ const Footer = (): JSX.Element => {
             <h2>Webtheek Studio</h2>
           </li>
           <li>
-          <a className="ellipsis" href="mailto:contacto@webtheekstudio.com">Support</a>
+          <a className="ellipsis" href="mailto:contacto@webtheekstudio.com">Soporte</a>
           </li>
         </ul>
       </div>

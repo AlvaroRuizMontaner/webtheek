@@ -133,6 +133,9 @@ export const userTeamSchema = z.object({
     user: teamMemberSchema,
     permissionLevel: z.number()
 })
+export type ToolType = "projects" | "quizzes"
+
+
 export const teamMembersSchema = z.array(userTeamSchema)
 export type TeamMember = z.infer<typeof teamMemberSchema>
 export type TeamMemberForm = Pick<TeamMember, "email">

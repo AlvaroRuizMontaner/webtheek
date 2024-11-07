@@ -15,19 +15,21 @@ import React, { Fragment } from 'react'
 import { toast } from 'react-toastify'
 
 type ProjectTeamViewProps = {
-    projectId: Project["_id"]
+    toolId: Project["_id"]
 }
 
-export default function ProjectTeamView({projectId}: ProjectTeamViewProps) {
+export default function ProjectTeamView({toolId}: ProjectTeamViewProps) {
   const router = useRouter();
+  const queryKey = "projectTeam"
 
   const { data, isLoading, isError } = useQuery({
-    queryKey: ["projectTeam", projectId],
-    queryFn: () => getProjectTeam(projectId),
+    queryKey: [queryKey, toolId],
+    queryFn: () => getProjectTeam(toolId),
     retry: false,
   });
 
   const queryClient = useQueryClient()
+
 
   const {mutate} = useMutation({
     mutationFn: removeUserFromProject,
@@ -36,7 +38,7 @@ export default function ProjectTeamView({projectId}: ProjectTeamViewProps) {
     },
     onSuccess: (data) => {
         toast.success(data)
-        queryClient.invalidateQueries({queryKey: ["projectTeam", projectId]})
+        queryClient.invalidateQueries({queryKey: [queryKey, toolId]})
     }
 })
 
@@ -55,7 +57,7 @@ console.log(data)
           onClick={() => router.push("?addMember=true")}
         />
         <Button
-          href={"/projects/" + projectId}
+          href={"/projects/" + toolId}
           text="Volver a proyecto"
           variant="outline"
         />
@@ -84,7 +86,7 @@ console.log(data)
                   </div>
                   <div>
                     <Link
-                        href={`/projects/${projectId}/team/${member.user._id}`}
+                        href={`/projects/${toolId}/team/${member.user._id}`}
                       className="text-gray-600 cursor-pointer hover:underline headline3 font-bold"
                     >
                       {member.user.name}
@@ -133,10 +135,10 @@ console.log(data)
                           type="button"
                           className="block px-3 py-1 text-sm leading-6 text-red-500"
                           onClick={() =>
-                            mutate({ projectId, userId: member.user._id })
+                            mutate({ toolId, userId: member.user._id })
                           }
                         >
-                          Eliminar del Proyecto
+                          Eliminar del Equipo
                         </button>
                       </MenuItem>
                     </MenuItems>
@@ -150,7 +152,7 @@ console.log(data)
         <p className="text-center py-20">No hay miembros en este equipo</p>
       )}
 
-      <AddMemberModal projectId={projectId} />
+      <AddMemberModal tool={"projects"} queryKey={queryKey} toolId={toolId} />
     </>
   );
 }

@@ -12,7 +12,7 @@ export default function Page({params}: TeamPageProps): JSX.Element {
     console.log(projectId)
   return (
     <>
-      <ProjectTeamView projectId={projectId} />
+      <ProjectTeamView toolId={projectId} />
     </>
   );
 }

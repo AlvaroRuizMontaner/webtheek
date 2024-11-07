@@ -9,6 +9,8 @@ import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import "./quizzes.scss"
 import Button from '@/components/button/Button';
+import { havePermission, isManager } from '@/utils/policies';
+import { usePathname } from 'next/navigation';
 
 
 export default function QuizDetailsView({quizId}: {quizId: Quiz["_id"]}) {
@@ -22,7 +24,7 @@ export default function QuizDetailsView({quizId}: {quizId: Quiz["_id"]}) {
 
  const [stateQuestions, setStateQuestions] = useState<QuestionFormData[]>([])
 
-/*  const path = usePathname() */
+ const path = usePathname()
 
  function addQuestion() {
   setStateQuestions((prev) => {
@@ -85,14 +87,14 @@ export default function QuizDetailsView({quizId}: {quizId: Quiz["_id"]}) {
           variant="outline"
           href={"/browse" + "/quizzes" + "/" + quizId}
         />
-{/*         {(isManager(data.manager, user._id) ||
+        {(isManager(data.manager, user._id) ||
           havePermission(data.team, user._id, 4)) && (
           <Button
             text="Colaboradores"
             variant="outline"
             href={path + "/team"}
           />
-        )} */}
+        )}
       </nav>
 
       <div className="flex sm:gap-8 relative">

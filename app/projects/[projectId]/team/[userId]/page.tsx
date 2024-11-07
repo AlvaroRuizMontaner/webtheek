@@ -11,10 +11,12 @@ export type UserPageProps = {
 
 export default function Page({params}: UserPageProps): JSX.Element {
     const {projectId, userId} = params
-    console.log(projectId, userId)
+
+    const queryKey = "userTeamProject"
+
   return (
     <>
-      <UserTeamView projectId={projectId} userId={userId} />
+      <UserTeamView toolId={projectId} userId={userId} tool={"projects"} queryKey={queryKey} />
     </>
   );
 }

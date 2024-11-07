@@ -2,14 +2,17 @@ import { Fragment } from 'react';
 import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from '@headlessui/react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import AddMemberForm from './AddMemberForm';
-import { Project } from '@/types';
+import { Project, ToolType } from '@/types';
 import XMark from '../tasks/XMark/XMark';
+import { Quiz } from '@/types/quiz';
 
 type AddMemberModalProps = {
-    projectId: Project["_id"]
+    toolId: Project["_id"] | Quiz["_id"]
+    queryKey: string
+    tool: ToolType
 }
 
-export default function AddMemberModal({projectId}: AddMemberModalProps) {
+export default function AddMemberModal({toolId, queryKey, tool}: AddMemberModalProps) {
 
     const path = usePathname()
     const router = useRouter()
@@ -59,7 +62,7 @@ export default function AddMemberModal({projectId}: AddMemberModalProps) {
                                         <span className="text-accent-300">para agregarlo al equipo</span>
                                     </p>
 
-                                    <AddMemberForm projectId={projectId}/>
+                                    <AddMemberForm toolId={toolId} tool={tool} queryKey={queryKey}/>
 
                                 </DialogPanel>
                             </TransitionChild>

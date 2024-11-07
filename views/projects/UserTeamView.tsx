@@ -1,5 +1,4 @@
-import { editUserFromProject, getUserTeamById } from '@/services/TeamAPI';
-import { Project, User } from '@/types';
+import { Project, ToolType, User } from '@/types';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import 'swiper/css';
 import { toast } from 'react-toastify';
@@ -7,46 +6,61 @@ import ProjectsLoading from '@/components/loading-templates/ProjectsLoading';
 import Button from '@/components/button/Button';
 import { ChangeEvent } from 'react';
 import RadioPermissionInput from '@/components/form/input/radioPermissionInput/RadioPermissionInput';
+import { editUserFromQuiz, getUserTeamById } from '@/services/QuizTeamAPI';
+import { editUserFromProject, getUserTeamById as getUserTeamByIdProject } from '@/services/TeamAPI';
 
 
 type UserTeamViewProps = {
-    projectId: Project["_id"]
+    toolId: Project["_id"]
     userId: User["_id"]
+    tool: ToolType
+    queryKey: string
 }
 
-export default function UserTeamView({projectId, userId}: UserTeamViewProps) {
+export function getQueryFn(tool: ToolType) {
+  return tool === "projects" ? getUserTeamByIdProject : getUserTeamById
+}
+export function getEditFn(tool: ToolType) {
+  return tool === "projects" ? editUserFromProject : editUserFromQuiz
+}
+
+export default function UserTeamView({toolId, tool, userId, queryKey}: UserTeamViewProps) {
+
+  const queryFn = getQueryFn(tool)
+  const editFn = getEditFn(tool)
 
   const { data, isLoading, isError } = useQuery({
-    queryKey: ["userTeam", projectId],
-    queryFn: () => getUserTeamById({projectId, userId}),
+    queryKey: [queryKey, toolId],
+    queryFn: () => queryFn({toolId, userId}),
     retry: false,
   });
 
   const queryClient = useQueryClient()
 
   const {mutate} = useMutation({
-    mutationFn: editUserFromProject,
+    mutationFn: editFn,
     onError: (error) => {
         toast.error(error.message)
     },
     onSuccess: (data) => {
         toast.success(data)
-        queryClient.invalidateQueries({queryKey: ["userTeam", projectId]})
+        queryClient.invalidateQueries({queryKey: [queryKey, toolId]})
     }
   })
   
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     console.log(e.target.value)
     mutate({
-      projectId,
+      toolId,
       userId,
       permissionFormData: {
         permissionLevel: Number(e.target.value),
       },
     })
 
+    // Actualización optimista
     queryClient.setQueryData(
-      ["userTeam", projectId],
+      [queryKey, toolId],
       (prevData: {
         user: {
           _id: string;
@@ -64,6 +78,11 @@ export default function UserTeamView({projectId, userId}: UserTeamViewProps) {
     );
   }
 
+  if(data) {
+    console.log(data.permissionLevel)
+  }
+
+
 
   if (isLoading) return <ProjectsLoading />
   if (isError) throw new Error("Error");
@@ -73,7 +92,7 @@ export default function UserTeamView({projectId, userId}: UserTeamViewProps) {
 
       <nav className="flex flex-col gap-3 sm:flex-row">
         <Button
-          href={"/projects/" + projectId + "/team/"}
+          href={`/${tool}/${toolId}/team/`}
           text="Volver a colaboradores"
           variant="outline"
         />
@@ -101,8 +120,6 @@ export default function UserTeamView({projectId, userId}: UserTeamViewProps) {
           ))}
         </div>
       </section>
-
-
     </>
   );
 }
