@@ -24,7 +24,6 @@ export default function DesktopNavItem({name, url}: NavItem) {
 
     const logout = () => {
       setIsLogged(false)
-      console.log(isLogged)
       localStorage.removeItem("AUTH_TOKEN")
       queryClient.invalidateQueries({queryKey: ["user"]})
     }

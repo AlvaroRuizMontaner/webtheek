@@ -49,7 +49,6 @@ export default function UserTeamView({toolId, tool, userId, queryKey}: UserTeamV
   })
   
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
-    console.log(e.target.value)
     mutate({
       toolId,
       userId,

@@ -6,7 +6,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { getFullQuiz } from '@/services/QuizAPI';
 import { QuestionFormData, Quiz } from '@/types/quiz';
 import { useQuery } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import "./quizzes.scss"
 import Button from '@/components/button/Button';
 import { havePermission, isManager } from '@/utils/policies';
@@ -68,10 +68,6 @@ export default function QuizDetailsView({quizId}: {quizId: Quiz["_id"]}) {
     ]
   })
  }
-
-  useEffect(() => {
-    if(data) console.log(data)
-  }, [data])
 
 
   if(isLoading && authLoading) return <ProjectsLoading />

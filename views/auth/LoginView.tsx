@@ -36,7 +36,6 @@ export default function LoginView() {
 
 
   const handleLogin = (formData: UserLoginForm) => {
-    console.log(isPending)
     mutate(formData)
 
   }

@@ -44,7 +44,6 @@ export default function EditableOptions({question, questionIndex, quizId, setOnE
         }
       })
     }
-    console.log(formData)
     mutate({quizId, questionId: question._id, newFormData})  
   };
 

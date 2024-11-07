@@ -28,7 +28,6 @@ export default function ProfileForm({ data }: ProfileFormProps) {
     })
 
     const handleEditProfile = (formData: UserProfileForm) => {
-        console.log(data, formData)
 
         if((data.name === formData.name) && (data.email === formData.email)) {
             setError("email", { type: 'custom', message: 'El nombre y el email no han cambiado' })

@@ -10,7 +10,7 @@ export type TeamPageProps = {
 
 export default function Page({params}: TeamPageProps): JSX.Element {
     const {quizId} = params
-    console.log(quizId)
+
   return (
     <>
       <QuizTeamView tool={"quizzes"} toolId={quizId} />

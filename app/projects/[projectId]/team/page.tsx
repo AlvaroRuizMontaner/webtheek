@@ -9,7 +9,7 @@ export type TeamPageProps = {
 
 export default function Page({params}: TeamPageProps): JSX.Element {
     const {projectId} = params
-    console.log(projectId)
+
   return (
     <>
       <ProjectTeamView toolId={projectId} />

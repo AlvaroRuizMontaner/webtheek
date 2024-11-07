@@ -35,7 +35,6 @@ export default function WritableQuestion({question, questionIndex, quizId, state
           }
         })
       }
-      console.log(formData)
       mutate({quizId, newFormData})  
       spliceQuestion(stateQuestionIndex)
     };

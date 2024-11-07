@@ -33,7 +33,7 @@ export default function SwiperSlideChange({projectId, userId}: SwiperSlideChange
 
     const { data, isLoading, isError } = useQuery({
         queryKey: ["userTeam", projectId],
-        queryFn: () => getUserTeamById({projectId, userId}),
+        queryFn: () => getUserTeamById({toolId: projectId, userId}),
         retry: false,
       });
     
@@ -69,7 +69,7 @@ export default function SwiperSlideChange({projectId, userId}: SwiperSlideChange
             onSlideChange={(e) => {
               if (swiperInitialized) {
                 mutate({
-                  projectId,
+                  toolId: projectId,
                   userId,
                   permissionFormData: {
                     permissionLevel: e.activeIndex + 1,

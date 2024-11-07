@@ -32,9 +32,6 @@ function handleDelete() {
   mutate({quizId, questionId: question._id})
 }
 
-if(question) console.log(question)
-
-
   return (
     <div className="bg-white rounded-md p-6 space-y-4u relative ">
       {onEdit ? <EditableOptions quizId={quizId} question={question} questionIndex={questionIndex} setOnEdit={setOnEdit} /> : <Options question={question} questionIndex={questionIndex}/>}

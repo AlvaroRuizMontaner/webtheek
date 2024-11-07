@@ -13,7 +13,7 @@ type AuthLinksProps = {
 }
 
 export default function AuthLinks({info, variant}: AuthLinksProps) {
-  console.log(variant)
+
   return (
     <nav className="mt-6u flex flex-col space-y-2u body2">
       {info.map((link, index) => (

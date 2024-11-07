@@ -42,7 +42,6 @@ export default function ProjectTeamView({toolId}: ProjectTeamViewProps) {
     }
 })
 
-console.log(data)
 
   if (isLoading) return <ProjectsLoading />;
   if (isError) throw new Error("Error");

@@ -10,7 +10,6 @@ type SolvableQuestionsProps = {
 export default function SolvableQuestions({quizId}: SolvableQuestionsProps) {
 
   const {state: questions} = useSolvableQuizContext()
-  console.log(questions)
 
   if(questions) return (
     <section className={`bg-primary-200 w-full rounded-t-md p-6 ${(questions.length === 0) ? "hidden":""}`}>

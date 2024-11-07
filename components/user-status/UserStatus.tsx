@@ -4,7 +4,6 @@ import React from 'react'
 
 export default function UserStatus() {
     const {data, isLoading} = useAuth()
-    console.log(data?.planType)
 
     if(data && !isLoading) return (
       <div className="space-y-12u">

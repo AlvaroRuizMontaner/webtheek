@@ -39,7 +39,6 @@ export function solvableQuizReducer(
               ? { ...question, selectedIndex: selectedIndex, isSubmit: false }
               : question
             );
-          console.log(newState)
         return newState
       }
       case "BUILD_STATE": {

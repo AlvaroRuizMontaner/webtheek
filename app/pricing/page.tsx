@@ -14,7 +14,6 @@ async function loadPrices() {
 export default async function PricingPage() {
 
   const prices = await loadPrices()
-  console.log(prices)
 
   return (
     <div className='h-screen flex flex-col items-center justify-center gap-8'>

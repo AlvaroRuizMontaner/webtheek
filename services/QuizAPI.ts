@@ -13,7 +13,6 @@ export async function createQuiz(formData: QuizFormData) {
 }
 
 export async function getQuizzes() {
-    console.log(process.env.NEXT_PUBLIC_API_URL, process.env.NEXT_PUBLIC_ENV)
     try {
         const { data } = await api("/quizzes")
         const response = dashboardQuizSchema.safeParse(data)

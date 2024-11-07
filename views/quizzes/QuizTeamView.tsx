@@ -22,7 +22,6 @@ type QuizTeamViewProps = {
 
 export default function QuizTeamView({toolId, tool}: QuizTeamViewProps) {
   const router = useRouter();
-  console.log(toolId)
 
   const queryKey = "quizTeam"
 
@@ -46,7 +45,6 @@ export default function QuizTeamView({toolId, tool}: QuizTeamViewProps) {
     }
 })
 
-console.log(data)
 
   if (isLoading) return <ProjectsLoading />;
   if (isError) throw new Error("Error");
