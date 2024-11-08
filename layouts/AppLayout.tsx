@@ -6,7 +6,6 @@ import Logo from '@/components/Logo';
 import Link from 'next/link';
 import DesktopNav from '@/components/Nav/DesktopNav';
 import MobileNav from '@/components/Nav/NavMenu';
-import { useInertialScrollDesktop } from '@/hooks/useInertialScroll';
 import Footer from '@/components/footer/Footer';
 
 
@@ -19,7 +18,7 @@ export default function AppLayout({children}: AppLayoutProps): ReactNode {
 /*   getSectionFromRouter */
 
   if (typeof window !== 'undefined') {
-    useInertialScrollDesktop()
+    //useInertialScrollDesktop()
     //useInertialScrollMobile()
   }
     
@@ -55,7 +54,7 @@ export default function AppLayout({children}: AppLayoutProps): ReactNode {
 
       <Footer/>
 
-{/*       <footer className="py-5">
+      {/* <footer className="py-5">
         <p className="text-center">
           Todos los derechos reservados {new Date().getFullYear()}
         </p>

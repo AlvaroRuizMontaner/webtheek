@@ -6,15 +6,15 @@ import Logo from '@/components/Logo';
 import Link from 'next/link';
 import DesktopNav from '@/components/Nav/DesktopNav';
 import MobileNav from '@/components/Nav/NavMenu';
-import { useInertialScrollDesktop } from '@/hooks/useInertialScroll';
 import Footer from '@/components/footer/Footer';
+import { useInertialScrollDesktop } from '@/hooks/useInertialScroll';
 
 
 interface AppLayoutProps {
     children: React.ReactNode
 }
 
-export default function AppLayout({children}: AppLayoutProps): ReactNode {
+export default function HomeLayout({children}: AppLayoutProps): ReactNode {
 
 /*   getSectionFromRouter */
 

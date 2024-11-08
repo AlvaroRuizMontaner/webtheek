@@ -1,3 +1,18 @@
 .tracker {
-    
+    position: sticky;
+    height: 0;
+    width: 0;
+    right: 0;
+    top: 10rem;
+
+    .tracker-content {
+        position: absolute;
+        top: -10rem;
+        right: 0;
+        height: min-content;
+        width: 172px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(24px, 1fr));
+        grid-template-rows: max-content;
+    }
 }
