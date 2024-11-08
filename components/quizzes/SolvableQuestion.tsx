@@ -16,7 +16,7 @@ export default function SolvableQuestion({question, questionIndex, quizId, quest
   }
 
   return (
-    <div className={`rounded-md p-6 space-y-4u relative ${isSubmit ? checkAnswer(question.selectedIndex, question.correctIndex) : undefined} bg-white`}>
+    <div id={`trackId${questionIndex}`} className={`rounded-md p-6 space-y-4u relative ${isSubmit ? checkAnswer(question.selectedIndex, question.correctIndex) : undefined} bg-white`}>
       <SolvableOptions quizId={quizId} question={question} questionIndex={questionIndex}/>
     </div>
   );

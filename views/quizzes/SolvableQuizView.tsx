@@ -2,6 +2,7 @@ import Button from '@/components/button/Button';
 import ProjectsLoading from '@/components/loading-templates/ProjectsLoading';
 import Recount from '@/components/quizzes/Recount';
 import SolvableQuestions from '@/components/quizzes/SolvableQuestions';
+import TrackingPanel from '@/components/quizzes/TrackingPanel';
 import Subtitle from '@/components/title/Subtitle';
 import Title from '@/components/title/Title';
 import { useSolvableQuizContext } from '@/contexts/solvableQuizContext';
@@ -33,7 +34,6 @@ export default function SolvableQuizView({quizId}: SolvableQuizViewProps) {
 
    useEffect(() => {
     if (data) {
-      console.log(data.questions)
       dispatch({type: "BUILD_STATE", payload: {questions: data.questions}})
       setIsBuilt(true)
     }
@@ -61,7 +61,7 @@ export default function SolvableQuizView({quizId}: SolvableQuizViewProps) {
         <Subtitle variant="dark" text={data.description} />
   
   
-        <div className="flex gap-8 relative">
+        <div className="flex relative">
           <div className='w-full space-y-8u'>
             <SolvableQuestions quizId={quizId} />
             <div className='flex justify-center'><Button onClick={submit} text={"Resolver"} /></div>
@@ -69,6 +69,7 @@ export default function SolvableQuizView({quizId}: SolvableQuizViewProps) {
               <Recount numberOfCorrectAnswers={calculateCorrectAnswers(state)} numberOfQuestions={state.length}/>
             )}
           </div>
+          <TrackingPanel />
         </div>
       </div>
     )

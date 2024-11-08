@@ -14,8 +14,8 @@ export default function SolvableOptions({question, questionIndex, question:{isSu
   const { dispatch } = useSolvableQuizContext();
 
   function checkAnswer(selectedIndex: string , correctIndex: string, optionIndex: number) {
-    if(selectedIndex !== "" && optionIndex.toString() === selectedIndex) {
-      return selectedIndex.toString() === correctIndex.toString() ? "!bg-accent-300" : "!bg-accent-danger-300"
+    if(selectedIndex !== "" && optionIndex.toString() === selectedIndex) { // Primero comprueba que la opcion ha sido seleccionada y luego se asegura que solo se pinte la opcion seleccionada
+      return selectedIndex.toString() === correctIndex.toString() ? "!bg-accent-300" : "!bg-accent-danger-300" // Comprueba que la opcion seleccionada coincide con la respuesta correcta
     }
   }
 
