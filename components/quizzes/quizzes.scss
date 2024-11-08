@@ -11,8 +11,11 @@
         right: 0;
         height: min-content;
         width: 172px;
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(24px, 1fr));
-        grid-template-rows: max-content;
+
+        section:nth-of-type(1) {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(24px, 1fr));
+            grid-template-rows: max-content;
+        }
     }
 }

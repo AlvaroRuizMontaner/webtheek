@@ -1,7 +1,16 @@
 import { solvableQuizReducer } from "@/reducers/solvableQuizReducer";
+import { Question } from "@/types/quiz";
 import { ReactNode, createContext, useContext, useReducer } from "react";
 
-const initialArray = [
+type QuizState = {
+  state: {
+    time: number,
+    questions: Question[]
+  };
+  dispatch: React.Dispatch<any>; // Si tienes acciones específicas, puedes tiparlas mejor
+};
+
+const initialArray: Question[] = [
     {
         _id: "",
         options: [],
@@ -13,14 +22,17 @@ const initialArray = [
         updatedAt: ""
     }
 ]
-export const initialState = JSON.parse(JSON.stringify(initialArray));
+export const initialState = JSON.parse(JSON.stringify({
+  questions: initialArray,
+  time: 10
+}));
 
 export const SolvableQuizContext = createContext({
   state: initialState,
   dispatch: () => null, // una función vacía
 });
 
-export const useSolvableQuizContext = (): any => useContext(SolvableQuizContext);
+export const useSolvableQuizContext = (): QuizState  => useContext(SolvableQuizContext);
 
 
 

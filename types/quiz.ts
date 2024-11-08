@@ -11,9 +11,10 @@ export const questionSchema = z.object({
     quiz: z.string(),
     options: z.array(optionSchema),
     correctIndex: z.string(),
-    selectedIndex: z.string(),
     createdAt: z.string(), //Provisional
-    updatedAt: z.string() //Provisional
+    updatedAt: z.string(), //Provisional
+    selectedIndex: z.string().optional(),
+    isSubmit: z.boolean().optional()
 })
 
 export const questionQuizSchema = questionSchema.pick({
@@ -37,6 +38,7 @@ export const quizSchema = z.object({
     description: z.string(),
     manager: z.string(),
     questions: z.array(questionQuizSchema),
+    time: z.number(),
     team: z.array(z.object({
         user: z.string(),
         permissionLevel: z.number()
@@ -60,7 +62,8 @@ export const editQuizSchema = quizSchema.pick({
 export const solvableQuizSchema = quizSchema.pick({
     name: true,
     description: true,
-    questions: true
+    questions: true,
+    time: true
 })
 
 export type SolvableQuiz = z.infer<typeof solvableQuizSchema>

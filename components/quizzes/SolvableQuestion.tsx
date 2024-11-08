@@ -1,10 +1,9 @@
-import { Quiz } from '@/types/quiz';
+import { Question, Quiz } from '@/types/quiz';
 import SolvableOptions from './SolvableOptions';
-import { QuestionWithSelectedIndex } from '@/views/quizzes/SolvableQuizView';
 
 
 type SolvableQuestionProps = {
-  question: QuestionWithSelectedIndex
+  question: Question
   questionIndex: number
   quizId: Quiz["_id"]
 }
@@ -16,7 +15,7 @@ export default function SolvableQuestion({question, questionIndex, quizId, quest
   }
 
   return (
-    <div id={`trackId${questionIndex}`} className={`rounded-md p-6 space-y-4u relative ${isSubmit ? checkAnswer(question.selectedIndex, question.correctIndex) : undefined} bg-white`}>
+    <div id={`trackId${questionIndex}`} className={`rounded-md p-6 space-y-4u relative ${isSubmit ? checkAnswer(question.selectedIndex as string, question.correctIndex) : undefined} bg-white`}>
       <SolvableOptions quizId={quizId} question={question} questionIndex={questionIndex}/>
     </div>
   );

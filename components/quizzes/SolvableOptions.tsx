@@ -1,10 +1,9 @@
-import { Quiz } from "@/types/quiz";
-import { QuestionWithSelectedIndex } from "@/views/quizzes/SolvableQuizView";
+import { Question, Quiz } from "@/types/quiz";
 import { useSolvableQuizContext } from "@/contexts/solvableQuizContext";
 
 
 type SolvableOptionsProps = {
-    question: QuestionWithSelectedIndex
+    question: Question
     questionIndex: number
     quizId: Quiz["_id"]
 }
@@ -28,7 +27,7 @@ export default function SolvableOptions({question, questionIndex, question:{isSu
       {question.options.map((option, optionIndex) => (
         <div
           key={"editableOption" + questionIndex + optionIndex}
-          className={`flex gap-2 items-center min-h-[42px] ${isSubmit ? checkAnswer(question.selectedIndex, question.correctIndex, optionIndex) : undefined}`}
+          className={`flex gap-2 items-center min-h-[42px] ${isSubmit ? checkAnswer(question.selectedIndex as string, question.correctIndex, optionIndex) : undefined}`}
         >
           <input
             type="radio"

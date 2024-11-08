@@ -15,11 +15,6 @@ type SolvableQuizViewProps = {
     quizId: Quiz["_id"]
 }
 
-export type QuestionWithSelectedIndex = Question & {
-  selectedIndex: string;
-  isSubmit: boolean
-};
-
 export default function SolvableQuizView({quizId}: SolvableQuizViewProps) {
 
   const { state, dispatch } = useSolvableQuizContext();
@@ -34,12 +29,12 @@ export default function SolvableQuizView({quizId}: SolvableQuizViewProps) {
 
    useEffect(() => {
     if (data) {
-      dispatch({type: "BUILD_STATE", payload: {questions: data.questions}})
+      dispatch({type: "BUILD_STATE", payload: {questions: data.questions, time: data.time}})
       setIsBuilt(true)
     }
   }, [data]);
 
-  function calculateCorrectAnswers(questions: QuestionWithSelectedIndex[]){
+  function calculateCorrectAnswers(questions: Question[]){
     return questions.reduce((acc, question) => {
       if(question.correctIndex === question.selectedIndex) {
         return acc + 1
@@ -50,7 +45,7 @@ export default function SolvableQuizView({quizId}: SolvableQuizViewProps) {
   }
 
   function submit() {
-    dispatch({type: "SUBMIT", payload: {questions: state}})
+    dispatch({type: "SUBMIT", payload: {questions: state.questions}})
   }
 
     if(isLoading) return <ProjectsLoading />
@@ -65,9 +60,9 @@ export default function SolvableQuizView({quizId}: SolvableQuizViewProps) {
           <div className='w-full space-y-8u'>
             <SolvableQuestions quizId={quizId} />
             <div className='flex justify-center'><Button onClick={submit} text={"Resolver"} /></div>
-            {state.every((question: QuestionWithSelectedIndex) => question.isSubmit === true) && (
-              <Recount numberOfCorrectAnswers={calculateCorrectAnswers(state)} numberOfQuestions={state.length}/>
-            )}
+              {state.questions.every((question: Question) => question.isSubmit === true) && (
+                <Recount numberOfCorrectAnswers={calculateCorrectAnswers(state.questions)} numberOfQuestions={state.questions.length}/>
+              )}
           </div>
           <TrackingPanel />
         </div>
