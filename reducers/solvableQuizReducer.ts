@@ -3,10 +3,6 @@ import { QuestionWithSelectedIndex } from "@/views/quizzes/SolvableQuizView";
 
 
 export type solvableQuizTypes =
-/*   | "CHANGE_LEVEL"
-  | "CHANGE_STEP"
-  | "CHANGE_RADIO_VALUE"
-  | "CHANGE_CHECK_VALUE" */
   | "CHANGE_SELECTED_INDEX"
   | "BUILD_STATE"
   | "SUBMIT"
@@ -28,7 +24,6 @@ export function solvableQuizReducer(
     switch (type) {
       case "RESET": {
         const newState = initialState;
-        //console.log(newState)
         return newState;
       }
 

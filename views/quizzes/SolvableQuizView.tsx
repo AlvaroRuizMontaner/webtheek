@@ -33,6 +33,7 @@ export default function SolvableQuizView({quizId}: SolvableQuizViewProps) {
 
    useEffect(() => {
     if (data) {
+      console.log(data.questions)
       dispatch({type: "BUILD_STATE", payload: {questions: data.questions}})
       setIsBuilt(true)
     }

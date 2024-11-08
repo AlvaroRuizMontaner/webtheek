@@ -12,6 +12,8 @@ async function loadPrices() {
     return sortedPrices
 }
 
+// Parece ser que esto es un server component, lo cual es necesario para que pueda ser asincrono, y ademas esto ocurre
+// a pesar de que esta envuelto por layouts que son client components
 export default async function PricingPage() {
 
   const prices = await loadPrices()

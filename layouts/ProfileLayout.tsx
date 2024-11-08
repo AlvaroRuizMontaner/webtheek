@@ -12,7 +12,7 @@ const tabs = [
 export default function ProfileLayout({children}:{children: ReactNode}) {
   return (
     <>
-        <Tabs {...tabs}/>
+        <Tabs tabs={tabs}/>
         <div>{children}</div>
     </>
   )

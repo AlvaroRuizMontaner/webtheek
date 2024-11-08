@@ -8,15 +8,17 @@ function classNames(...classes: string[]) {
 }
 
 type TabsProps = {
-    name: string;
-    href: string;
-    icon: ForwardRefExoticComponent<Omit<SVGProps<SVGSVGElement>, "ref"> & {
-        title?: string | undefined;
-        titleId?: string | undefined;
-    } & RefAttributes<SVGSVGElement>>;
-}[]
+    tabs:  {   
+        name: string;
+        href: string;
+        icon: ForwardRefExoticComponent<Omit<SVGProps<SVGSVGElement>, "ref"> & {
+            title?: string | undefined;
+            titleId?: string | undefined;
+        } & RefAttributes<SVGSVGElement>>;
+    }[]
+}
 
-export default function Tabs(tabs: TabsProps) {
+export default function Tabs({tabs}: TabsProps) {
     const router = useRouter()
     const path = usePathname()
     const currentTab = tabs.filter(tab => tab.href === path)[0].href
