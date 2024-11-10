@@ -51,12 +51,17 @@ export default function SolvableQuizView({quizId}: SolvableQuizViewProps) {
     if(isLoading) return <ProjectsLoading />
     if(isError) throw new Error(error.message);
     if(data && isBuilt) return (
-        <div className="relative">
-        <Title variant="dark">{data.name}</Title>
-        <Subtitle variant="dark" text={data.description} />
-  
-  
-        <div className="flex relative">
+      <div className="relative">
+        <div className='sm:hidden top-[59px] sticky z-10'>
+          <TrackingPanel />
+        </div>
+
+        <div className='sm:max-w-[65%]'>
+          <Title variant="dark">{data.name}</Title>
+          <Subtitle variant="dark" text={data.description} />
+        </div>
+
+        <div className="flex relative z-1">
           <div className='w-full space-y-8u'>
             <SolvableQuestions quizId={quizId} />
             <div className='flex justify-center'><Button onClick={submit} text={"Resolver"} /></div>
@@ -64,7 +69,9 @@ export default function SolvableQuizView({quizId}: SolvableQuizViewProps) {
                 <Recount numberOfCorrectAnswers={calculateCorrectAnswers(state.questions)} numberOfQuestions={state.questions.length}/>
               )}
           </div>
-          <TrackingPanel />
+          <div className='hidden sm:block sticky h-0 w-0 right-0 top-40'>
+            <TrackingPanel />
+          </div>
         </div>
       </div>
     )

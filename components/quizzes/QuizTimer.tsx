@@ -8,8 +8,7 @@ export default function QuizTimer() {
     useEffect(() => {
         // Inicia el intervalo
         const intervalId = setInterval(() => {
-
-            console.log(time)
+            
             // Si el tiempo se acaba, se resuelve con las respuestas que hayan
             if(time === 1) {
                 clearInterval(intervalId)

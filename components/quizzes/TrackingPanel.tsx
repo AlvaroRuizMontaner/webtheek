@@ -20,8 +20,7 @@ export default function TrackingPanel() {
     const path = usePathname()
 
   return (
-    <div className="tracker opacity-70">
-      <div className="tracker-content flex flex-col gap-2">
+      <div className="tracker flex sm:flex-col gap-2">
         <section className="bg-white border-2 rounded-md border-primary-400 shadow-md p-2 gap-2">
           {questions.map((question, questionIndex) => (
             <div className="h-fit" key={`track${questionIndex}`}>
@@ -35,10 +34,9 @@ export default function TrackingPanel() {
             </div>
           ))}
         </section>
-        <section className="bg-white w-fit border-2 rounded-md border-primary-400 shadow-md p-1 ml-auto">
+        <section className="bg-white w-fit border-2 rounded-md border-primary-400 shadow-md p-2 sm:p-1 ml-auto">
           <QuizTimer />
         </section>
       </div>
-    </div>
   );
 }
