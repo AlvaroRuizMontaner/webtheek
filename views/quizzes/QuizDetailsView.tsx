@@ -79,7 +79,6 @@ export default function QuizDetailsView({quizId}: {quizId: Quiz["_id"]}) {
     <div className="relative">
       <Title variant="dark">{data.name}</Title>
       <Subtitle variant="dark" text={data.description} />
-      <div>{data.time}</div>
 
       <nav className="flex flex-col gap-3 sm:flex-row mb-8u">
         <Button
