@@ -69,3 +69,5 @@ export const solvableQuizSchema = quizSchema.pick({
 export type SolvableQuiz = z.infer<typeof solvableQuizSchema>
 export type Quiz = z.infer<typeof quizSchema>
 export type QuizFormData = Pick<Quiz, "name" | "description">
+export type QuizTimeData = Pick<Quiz, "time">
+export type QuizTimeModal = Pick<Quiz, "_id" | "time">

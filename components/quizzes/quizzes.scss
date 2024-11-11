@@ -1,26 +1,35 @@
 @import "../../styles/breakpoints";
 
-    .tracker {
-        position: absolute;
-        right: 0;
-        height: min-content;
-        width: 100%;
-        top: -59px;
+    .tracker-container {
+        top: 150px;
+        position: sticky;
+        z-index: 2;
 
-        section:nth-of-type(1) {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(24px, 1fr));
-            grid-template-rows: max-content;
-            flex: 1;
-        }
-
-        section:nth-of-type(2) {
-            height: max-content;
+        .tracker {
+            position: absolute;
+            right: 0;
+            height: min-content;
+            width: 100%;
+            top: -150px;
+    
+            section:nth-of-type(1) {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(24px, 1fr));
+                grid-template-rows: max-content;
+                flex: 1;
+            }
+    
+            section:nth-of-type(2) {
+                height: max-content;
+            }
+    
         }
 
         @media screen and (min-width: $small) {
-            width: 172px;
-            top: -10rem;
-
+            top: 3rem;
+            .tracker {
+                width: 172px;
+                top: -3rem;
+            }
         }
     }

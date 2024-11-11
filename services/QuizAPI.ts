@@ -1,6 +1,11 @@
 import api from "@/lib/axios";
-import { Quiz, QuizFormData, dashboardQuizSchema, editQuizSchema, quizSchema, solvableQuizSchema } from "@/types/quiz";
+import { Quiz, QuizFormData, QuizTimeData, dashboardQuizSchema, editQuizSchema, quizSchema, solvableQuizSchema } from "@/types/quiz";
 import { isAxiosError } from "axios";
+
+type QuizTimeModalType = {
+    formData: QuizTimeData,
+    quizId: Quiz["_id"]
+}
 
 export async function createQuiz(formData: QuizFormData) {
     try {
@@ -71,6 +76,16 @@ export async function getFullQuiz(id: Quiz["_id"]) {
 type QuizApiType = {
     formData: QuizFormData,
     quizId: Quiz["_id"]
+}
+
+export async function addTime({formData, quizId}: QuizTimeModalType) {
+    try {
+        const { data } = await api.put(`/quizzes/${quizId}`, formData)
+        return data
+    } catch (error) {
+        if(isAxiosError(error) && error.response)
+        throw new Error(error.response.data.error) // Hay que lanzar el error para que vaya al onError de mutate
+    }
 }
 
 export async function updateQuiz({formData, quizId}: QuizApiType) {

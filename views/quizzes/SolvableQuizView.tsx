@@ -3,8 +3,6 @@ import ProjectsLoading from '@/components/loading-templates/ProjectsLoading';
 import Recount from '@/components/quizzes/Recount';
 import SolvableQuestions from '@/components/quizzes/SolvableQuestions';
 import TrackingPanel from '@/components/quizzes/TrackingPanel';
-import Subtitle from '@/components/title/Subtitle';
-import Title from '@/components/title/Title';
 import { useSolvableQuizContext } from '@/contexts/solvableQuizContext';
 import { getSolvableQuizById } from '@/services/QuizAPI';
 import { Question, Quiz } from '@/types/quiz';
@@ -51,15 +49,13 @@ export default function SolvableQuizView({quizId}: SolvableQuizViewProps) {
     if(isLoading) return <ProjectsLoading />
     if(isError) throw new Error(error.message);
     if(data && isBuilt) return (
-      <div className="relative">
-        <div className='sm:hidden top-[59px] sticky z-10'>
-          <TrackingPanel />
-        </div>
+      <div className="relative pt-32">
+        <TrackingPanel />
 
-        <div className='sm:max-w-[65%]'>
+{/*         <div className='sm:max-w-[65%]'>
           <Title variant="dark">{data.name}</Title>
           <Subtitle variant="dark" text={data.description} />
-        </div>
+        </div> */}
 
         <div className="flex relative z-1">
           <div className='w-full space-y-8u'>
@@ -68,9 +64,6 @@ export default function SolvableQuizView({quizId}: SolvableQuizViewProps) {
               {state.questions.every((question: Question) => question.isSubmit === true) && (
                 <Recount numberOfCorrectAnswers={calculateCorrectAnswers(state.questions)} numberOfQuestions={state.questions.length}/>
               )}
-          </div>
-          <div className='hidden sm:block sticky h-0 w-0 right-0 top-40'>
-            <TrackingPanel />
           </div>
         </div>
       </div>

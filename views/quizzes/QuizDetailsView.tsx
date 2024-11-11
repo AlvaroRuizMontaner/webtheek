@@ -9,11 +9,14 @@ import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import "./quizzes.scss"
 import Button from '@/components/button/Button';
+import { ClockIcon, MinusIcon, PlusIcon } from "@heroicons/react/20/solid";
 import { havePermission, isManager } from '@/utils/policies';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
+import AddTimeModal from '@/components/quizzes/AddTimeModal';
 
 
 export default function QuizDetailsView({quizId}: {quizId: Quiz["_id"]}) {
+  const router = useRouter()
 
   const { data: user, isLoading: authLoading } = useAuth()
   const { data, isLoading, isError, error } = useQuery({
@@ -76,6 +79,7 @@ export default function QuizDetailsView({quizId}: {quizId: Quiz["_id"]}) {
     <div className="relative">
       <Title variant="dark">{data.name}</Title>
       <Subtitle variant="dark" text={data.description} />
+      <div>{data.time}</div>
 
       <nav className="flex flex-col gap-3 sm:flex-row mb-8u">
         <Button
@@ -100,14 +104,23 @@ export default function QuizDetailsView({quizId}: {quizId: Quiz["_id"]}) {
               onClick={addQuestion}
               className="w-8 h-8 rounded-full bg-accent-200 flex items-center justify-center font-bold"
             >
-              +
+              <PlusIcon className='w-6 h-6' />
             </button>
             <button
               onClick={() => popQuestion()}
               className="w-8 h-8 rounded-full bg-accent-danger-200 flex items-center justify-center font-bold"
             >
-              -
+              <MinusIcon className='w-6 h-6' />
             </button>
+            {(isManager(data.manager, user._id) ||
+                havePermission(data.team, user._id, 3)) && (
+                <button
+                onClick={() => router.push("?addTime=true")}
+                className="w-8 h-8 rounded-full bg-white flex items-center justify-center font-bold"
+              >
+                <ClockIcon />
+              </button>
+              )}
           </div>
         </section>
         <section className='mobile-remote-control'>
@@ -117,14 +130,23 @@ export default function QuizDetailsView({quizId}: {quizId: Quiz["_id"]}) {
                 onClick={addQuestion}
                 className="w-8 h-8 rounded-full bg-accent-200 flex items-center justify-center font-bold"
               >
-                +
+                <PlusIcon className='w-6 h-6' />
               </button>
               <button
                 onClick={() => popQuestion()}
                 className="w-8 h-8 rounded-full bg-accent-danger-200 flex items-center justify-center font-bold"
               >
-                -
+                <MinusIcon className='w-6 h-6' />
               </button>
+              {(isManager(data.manager, user._id) ||
+                havePermission(data.team, user._id, 3)) && (
+                <button
+                onClick={() => router.push("?addTime=true")}
+                className="w-8 h-8 rounded-full bg-white flex items-center justify-center font-bold"
+              >
+                <ClockIcon />
+              </button>
+              )}
             </div>
           </section>
         </section>
@@ -135,6 +157,7 @@ export default function QuizDetailsView({quizId}: {quizId: Quiz["_id"]}) {
           dataQuestions={data.questions}
           stateQuestions={stateQuestions}
         />
+        <AddTimeModal time={data.time} quizId={quizId} />
       </div>
     </div>
   );
