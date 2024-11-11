@@ -78,7 +78,7 @@ export default function WritableQuestion({question, questionIndex, quizId, state
   );
 }
 
-  
+  /* Util para depuracion */
   {/* <pre>{JSON.stringify(watch(), null, 2)}</pre> */}
   {/*           <Option
               key={"option" + questionIndex + optionIndex}
