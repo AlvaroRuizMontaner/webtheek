@@ -1,4 +1,4 @@
-import { Fragment, useEffect } from 'react';
+import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useForm } from 'react-hook-form';
@@ -12,12 +12,10 @@ import { addTime } from '@/services/QuizAPI';
 
 type AddTimeModalProps = {
   quizId:  Quiz["_id"]
-  time: Quiz["time"]
+  data: Quiz
 }
 
-export default function AddTimeModal({quizId, time}: AddTimeModalProps) {
-
-  console.log(time)
+export default function AddTimeModal({quizId, data}: AddTimeModalProps) {
 
     const router = useRouter()
     const path = usePathname()
@@ -27,13 +25,13 @@ export default function AddTimeModal({quizId, time}: AddTimeModalProps) {
 
 
     const { register, handleSubmit, reset, formState: {errors} } = useForm({defaultValues: {
-      time: time
+      time: data.time
     }})
 
-    // Usa useEffect para actualizar el valor de `time` en el formulario cuando cambie
+/*     // Usa useEffect para actualizar el valor de `time` en el formulario cuando cambie
     useEffect(() => {
       reset({ time });
-    }, [time, reset]);
+    }, [time, reset]); */
 
     const queryClient = useQueryClient()
     const { mutate, isPending } = useMutation({
