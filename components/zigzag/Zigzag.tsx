@@ -28,8 +28,9 @@ export default function Zigzag({info}: ZigzagProps) {
       elementRefs.current.forEach((ref, index) => {
         if (ref) {
           const rect = ref.getBoundingClientRect();
-          /* if (rect.top <= window.scrollY + window.innerHeight + 150) { */
-          if (rect.top <= window.innerHeight * 0.75 && rect.bottom >= 0) {
+          // Comprobamos si el borde superior del elemento (rect.top) está dentro del 75% de la altura de la ventana (window.innerHeight * 0.75)
+          // y si el borde inferior (rect.bottom) está visible en la pantalla (>= 0).
+          if (rect.top <= window.innerHeight * 0.85 && rect.bottom >= 0) {
             setIsVisible((prev) => {
               const newIsVisible = [...prev];
               newIsVisible[index] = true;

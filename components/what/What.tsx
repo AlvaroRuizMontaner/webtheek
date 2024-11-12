@@ -1,14 +1,18 @@
 "use client"
 import { useDeviceSize } from '@/hooks/useDeviceSize';
 import React, { useRef, useState } from 'react'
-import { whatInfo } from './whatCard.info';
+import { WhatInfoProps } from './whatCard.info';
 import WhatCard from './WhatCard';
 import { Swiper as SwiperType } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { ArrowLeftCircleIcon, ArrowRightCircleIcon } from '@heroicons/react/20/solid';
 import Title from '../title/Title';
 
-export default function What() {
+type WhatProps = {
+  whatInfo: WhatInfoProps
+}
+
+export default function What({whatInfo}: WhatProps) {
     const [width] = useDeviceSize()
     const [slideIndex, setSlideIndex] = useState(1)
   
