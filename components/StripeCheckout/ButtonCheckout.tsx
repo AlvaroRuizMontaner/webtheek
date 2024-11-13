@@ -1,5 +1,5 @@
 "use client"
-import { createSession } from '@/services/StripeAPI'
+import { createDonateSession, createSession } from '@/services/StripeAPI'
 import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import React from 'react'
@@ -10,9 +10,10 @@ type ButtonCheckoutProps = {
   id: string
   nickname: string | null
   unit_amount: number | null
+  text?: string
 }
 
-export default function ButtonCheckout({id, nickname, unit_amount}: ButtonCheckoutProps) {
+export default function ButtonCheckout({id, unit_amount, text="Comprar"}: ButtonCheckoutProps) {
 
   const router = useRouter()
 
@@ -31,10 +32,10 @@ export default function ButtonCheckout({id, nickname, unit_amount}: ButtonChecko
     <div
       className=" shadow-lg rounded-lg"
       onClick={() => {
-        mutate({id, planType: nickname ?? "default name", unit_amount: unit_amount ?? 400})
+        mutate({id, unit_amount: unit_amount ?? 128})
       }}
   >
-    <SubmitInput isLoading={isPending} value="Comprar" />
+    <SubmitInput className="" isLoading={isPending} value={text} />
   </div>
 /*     <button
     className="bg-sky-500 text-white px-4 py-2 rounded"

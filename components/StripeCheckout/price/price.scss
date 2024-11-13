@@ -1,0 +1,23 @@
+@import "../../../styles/_breakpoints";
+
+.line-height-1 {
+    line-height: 1;
+
+    & * {
+        line-height: 1;
+    }
+}
+
+.price-number {
+    font-size: 40px;
+
+    @media screen and (min-width: $small) {
+        font-size: 44px
+    }
+    @media screen and (min-width: $medium) {
+        font-size: 48px
+    }
+    @media screen and (min-width: $large) {
+        font-size: 52px
+    }
+}

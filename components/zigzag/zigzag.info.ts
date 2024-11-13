@@ -43,7 +43,7 @@ export const zigzagInfoProyectos = [
 
 export const zigzagInfoQuizzes = [
     {
-        image: "/zigzag/zigzag1.png",
+        image: "/zigzag/zigzag_quiz1.webp",
         title: "Diseña y personaliza tus quizzes fácilmente",
         text: "Crea quizzes adaptados a cualquier tema y configura preguntas, opciones de respuesta, y resultados de forma sencilla. La plataforma te permite diseñar quizzes únicos que se ajustan a tus necesidades. Ya sea para entretenimiento o educación, Webtheek te da el control total sobre el contenido de cada quiz."
     },
@@ -53,8 +53,8 @@ export const zigzagInfoQuizzes = [
         text: "Envía tus quizzes a amigos, estudiantes o compañeros, los cuales obtendrán un resultado según lo que elijan. Las preguntas contarán con un cronómetro encargado de hacer que el desafío sea aún mayor."
     },
     {
-        image: "/zigzag/zigzag3.png",
+        image: "/zigzag/zigzag_quiz3.webp",
         title: "Incentiva el aprendizaje y la participación",
-        text: "Promueve la colaboración y el aprendizaje con quizzes interactivos que mantendrán a los participantes comprometidos. Facilita la discusión y la reflexión sobre los resultados, y crea un ambiente de aprendizaje dinámico. Con Webtheek, llevar la educación y el entretenimiento a otro nivel es fácil."
+        text: "Promueve la colaboración y el aprendizaje con quizzes interactivos que mantendrán a los participantes comprometidos. Agrega colaboradores que podrán ayudarte a añadir preguntas. Con Webtheek, llevar la educación y el entretenimiento a otro nivel es fácil."
     }
 ];
