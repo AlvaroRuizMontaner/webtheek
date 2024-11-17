@@ -5,8 +5,8 @@ import "react-toastify/dist/ReactToastify.css";
 import Logo from '@/components/Logo';
 import Link from 'next/link';
 import DesktopNav from '@/components/Nav/DesktopNav';
-import MobileNav from '@/components/Nav/NavMenu';
 import Footer from '@/components/footer/Footer';
+import MobileNav from '@/components/Nav/MobileNav';
 
 
 interface AppLayoutProps {

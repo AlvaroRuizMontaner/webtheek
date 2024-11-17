@@ -36,7 +36,7 @@ export default async function PricingPage() {
               <Price price={(price.unit_amount as number) / 100} />
             </h2>
             <p className='text-center text-[14px] lg:text-[16px]'>Ayúdanos a mejorar</p>
-            <ButtonCheckout text={"Donar"} {...price} />
+            <ButtonCheckout text={"Donar"} {...price} purpose="donation" />
           </div>
         ))}
       </div>

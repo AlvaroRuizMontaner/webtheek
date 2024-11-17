@@ -1,7 +1,7 @@
 import apiStripe from "@/lib/stripe";
 import { isAxiosError } from "axios";
 
-type StripeAPIType = {
+export type StripeAPIType = {
     id: string;
     planType: string;
     unit_amount: number;

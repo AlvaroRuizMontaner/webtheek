@@ -43,6 +43,9 @@ const Footer = (): JSX.Element => {
           <li>
             <Link href="/profile/pricing">Precios</Link>
           </li>
+          <li>
+            <Link href="/donation">Donaciones</Link>
+          </li>
           {/*           <li>
             <a>Listings</a>
           </li> */}

@@ -1,5 +1,5 @@
 "use client"
-import { createSession } from '@/services/StripeAPI'
+import { createDonateSession, createSession } from '@/services/StripeAPI'
 import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import React from 'react'
@@ -11,14 +11,16 @@ type ButtonCheckoutProps = {
   nickname: string | null
   unit_amount: number | null
   text?: string
+  purpose?: "donation" | "payment"
 }
 
-export default function ButtonCheckout({id, unit_amount, nickname, text="Comprar"}: ButtonCheckoutProps) {
+export default function ButtonCheckout({id, unit_amount, nickname, text="Comprar", purpose="payment"}: ButtonCheckoutProps) {
 
   const router = useRouter()
+  const isPayment = purpose === "payment"
 
   const { mutate, isPending } = useMutation({
-    mutationFn: createSession,
+    mutationFn: isPayment ? createSession : createDonateSession,
     onError: (error) => {
         toast.error(error.message)
     },
