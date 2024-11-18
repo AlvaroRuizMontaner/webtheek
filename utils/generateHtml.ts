@@ -4,7 +4,7 @@ export const getHtmlWithStyles = (htmlElement: MutableRefObject<HTMLDivElement |
     const element = htmlElement.current;
     if(element) {
         const html = element.innerHTML;
-        const styles = Array.from(document.styleSheets)
+        const styles = Array.from(document.styleSheets) // Convierte el array-like object en array
             .map((styleSheet) => {
                 try {
                     return Array.from(styleSheet.cssRules)

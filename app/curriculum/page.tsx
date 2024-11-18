@@ -15,15 +15,16 @@ import Spinner from "@/components/spinners/Spinner";
 export default function Page(): JSX.Element {
   const [pdfUrl, setPdfUrl] = useState("")
   const [isLoading, setIsLoading] = useState(false)
-  const { mutateAsync } = useMutation({
+  const { mutate } = useMutation({
     mutationFn: generatePDF,
     onError: (error) => {
       console.log(error);
       setIsLoading(false)
     },
-    onSuccess: () => {
+    onSuccess: (url) => {
       console.log("Exito");
       setIsLoading(false)
+      setPdfUrl(url)
     },
   });
 
@@ -38,14 +39,13 @@ export default function Page(): JSX.Element {
   }, [pdfUrl])
 
 
-  const handleClick = async () => {
+  const handleClick = () => {
     const html: string | undefined = getHtmlWithStyles(referrer);
     if (html) {
 /*       console.log(html);
       console.log(referrer.current?.offsetHeight) */
       setIsLoading(true)
-      const url = await mutateAsync(html);
-      setPdfUrl(url)
+      mutate(html);
     }
   };
 

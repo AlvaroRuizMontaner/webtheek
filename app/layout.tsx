@@ -3,7 +3,10 @@ import { Poppins } from "next/font/google";
 import "./globals.scss";
 import Provider from "@/utils/Providers";
 
-const poppins = Poppins({ weight: "400", subsets: ["latin"] });
+const poppins = Poppins({
+  subsets: ['latin'],
+  weight: ['400', '600', '700', '800', '900'], // Asegúrate de incluir todos los pesos que necesitas
+});
 
 export const metadata: Metadata = {
   title: "Webtheek: Tu biblioteca de recursos web",
