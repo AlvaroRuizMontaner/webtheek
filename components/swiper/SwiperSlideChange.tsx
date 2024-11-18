@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-import 'swiper/css'
+import 'swiper/css' /* asi se importan los estilos de swiper */
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Swiper as SwiperType } from 'swiper';
 import { ArrowLeftCircleIcon, ArrowRightCircleIcon } from '@heroicons/react/20/solid'
