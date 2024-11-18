@@ -1,0 +1,9 @@
+
+.contenedor {
+    display: grid;
+    grid-template-columns: 1fr 236px;
+    gap: 6px;
+    /* height: 297mm; */
+    /* min-height: 297mm; */
+    /* min-height: 594mm; 2 paginas*/
+}
