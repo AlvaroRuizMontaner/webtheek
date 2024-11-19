@@ -91,11 +91,12 @@ export default function Template({sections, indexObjects}: TemplateProps): JSX.E
     console.log(indexObjects)
   
     indexObjects.forEach((obj) => {
+    console.log(sections)
       const end = obj.cutIndex || sections.length; // Si `endIndex` es undefined, usar `sections.length`
       pages.push(sections.slice(start, end)); // Agregar el segmento actual
 
 
-        
+
 
 
 

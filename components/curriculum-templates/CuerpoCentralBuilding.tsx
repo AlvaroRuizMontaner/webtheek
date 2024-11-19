@@ -13,6 +13,7 @@ export type indexObjectType = {
   nestingLevel1CutIndex?: number
   nestingLevel2CutIndex?: number
   nestingLevel3CutIndex?: number
+  nestingLevel4CutIndex?: number
 }
 
 type indexObjectsType = indexObjectType[]
@@ -36,7 +37,8 @@ export default function CuerpoCentralBuilding({page, setIndexObjects, MAX_HEIGHT
           //deepIndices.push(deepIndex)
           indexObjects[page] = {
             ...indexObjects[page],
-            [`nestingLevel${nestingLevel}CutIndex`]: deepIndex
+            /* [`nestingLevel${nestingLevel}CutIndex`]: deepIndex */
+            [nestingLevel]: deepIndex
           }
           deeperChildren = Array.from(deepChild.children)
           moreDeepCurrentHeight = deepCurrentHeight - deepElementHeight
@@ -73,7 +75,8 @@ export default function CuerpoCentralBuilding({page, setIndexObjects, MAX_HEIGHT
           const deepChildren = Array.from(child.children)
           const [doubleDeepCurrentHeight, deeperChildren] = calculateDeepLevel(deepChildren, deepCurrentHeight, indexObjects, 1, page)
           const [tripleDeepCurrentHeight, moreDeeperChildren] = calculateDeepLevel((deeperChildren as Element[]), (doubleDeepCurrentHeight as number), indexObjects, 2, page)
-          calculateDeepLevel((moreDeeperChildren as Element[]), (tripleDeepCurrentHeight as number), indexObjects, 3, page)
+          const [cuadrupleDeepCurrentHeight, evenMoreDeeperChildren] = calculateDeepLevel((moreDeeperChildren as Element[]), (tripleDeepCurrentHeight as number), indexObjects, 3, page)
+          calculateDeepLevel((evenMoreDeeperChildren as Element[]), (cuadrupleDeepCurrentHeight as number), indexObjects, 4, page)
 
           page += 1
           currentHeight = elementHeight; // Resetear altura acumulada

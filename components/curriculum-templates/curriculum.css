@@ -16,3 +16,7 @@
 .subseccion-cuerpo-central > *:not(:last-child) {
   padding-bottom: 0.5rem; /* Espacio entre elementos */
 }
+
+.subseccion-info-cuerpo-central > *:not(:last-child) {
+  padding-bottom: 0.75rem; /* Espacio entre elementos */
+}
