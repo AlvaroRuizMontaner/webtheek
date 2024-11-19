@@ -18,7 +18,7 @@ type TemplateProps = {
 
 
 export default function BuildingTemplate({sections}: TemplateProps): JSX.Element {
-  const MAX_HEIGHT = 1122 /* 1139 */
+  const MAX_HEIGHT = 1122 /* 1139 */ /* 1162 */
   const [pdfUrl, setPdfUrl] = useState("")
   const [isLoading, setIsLoading] = useState(false)
   const { mutate } = useMutation({

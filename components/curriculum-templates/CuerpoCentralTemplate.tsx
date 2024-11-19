@@ -8,7 +8,7 @@ type CuerpoCentralTemplateProps = {
 export default function CuerpoCentralTemplate({page}: CuerpoCentralTemplateProps) {
 
   return (
-    <div className='flex flex-col justify-center space-y-10 p-[1.25rem]'>
+    <div className='flex flex-col justify-center px-[1.25rem]'>
         {page.map((seccion, seccionIndx) => (
             <SeccionCuerpoCentral key={seccionIndx} {...seccion}/>
         ))}

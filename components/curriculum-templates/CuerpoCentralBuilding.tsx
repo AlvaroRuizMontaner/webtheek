@@ -37,7 +37,7 @@ export default function CuerpoCentralBuilding({page, setPageIndices, MAX_HEIGHT}
     const calculatePages = () => {
       if (!sections.current) return;
 
-      let currentHeight = 0;
+      let currentHeight = 48 + 48; // Referente al padding-block de pagina
       const indices: number[] = [];
       const deepIndices: number[] = []
       const container = sections.current;
@@ -58,16 +58,6 @@ export default function CuerpoCentralBuilding({page, setPageIndices, MAX_HEIGHT}
           const [doubleDeepCurrentHeight, deeperChildren] = calculateDeepLevel(deepChildren, deepCurrentHeight, deepIndices)
           console.log(doubleDeepCurrentHeight, deeperChildren)
 
-/*           deepChildren.some((deepChild, deepIndex) => { // Se usa some para detener la iteración cuando necesite con el return true
-            const deepElementHeight = (deepChild as HTMLElement).offsetHeight;
-            deepCurrentHeight += deepElementHeight
-            console.log(deepCurrentHeight)
-            if (deepCurrentHeight > MAX_HEIGHT) {
-              deepIndices.push(deepIndex)
-              return true
-            }
-          }) */
-
           currentHeight = elementHeight; // Resetear altura acumulada
         }
       });
@@ -77,6 +67,7 @@ export default function CuerpoCentralBuilding({page, setPageIndices, MAX_HEIGHT}
         deepIndex: deepIndices[i] || null // Índice profundo, o null si no hay
       }));
 
+      console.log(pageData)
 
       setPageIndices(indices);
     };
@@ -89,7 +80,7 @@ export default function CuerpoCentralBuilding({page, setPageIndices, MAX_HEIGHT}
   }, [sections]);
 
   return (
-    <div ref={sections} className='flex flex-col justify-center space-y-10 p-[1.25rem]'>
+    <div ref={sections} className='flex flex-col justify-center px-[1.25rem]'>
         {page.map((seccion, seccionIndx) => (
             <SeccionCuerpoCentral key={seccionIndx} {...seccion}/>
         ))}
