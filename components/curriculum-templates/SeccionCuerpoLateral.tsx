@@ -1,12 +1,12 @@
 import React from 'react'
-import { seccionCuerpoLateralInfoType } from './curriculum.info'
+import { seccionCuerpoLateralInfoType } from './templates.info'
 
-export default function SeccionCuerpoLateral({titleIcon, title, info}: seccionCuerpoLateralInfoType) {
+export default function SeccionCuerpoLateral({title, info}: seccionCuerpoLateralInfoType) {
   return (
     <div className='flex flex-col gap-4'>
         <div className='flex gap-2 font-bold'>
-          <span className={titleIcon.className}>{titleIcon.name}</span>
-          <h2 className='text-xl'>{title}</h2>
+          <span className={title.classNameIcon}>{title.nameIcon}</span>
+          <h2 className='text-xl'>{title.text}</h2>
         </div>
 
         <div className='space-y-2'>

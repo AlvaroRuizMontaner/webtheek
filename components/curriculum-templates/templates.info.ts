@@ -1,9 +1,9 @@
 export type seccionCuerpoCentralInfoType = {
-    titleIcon: {
-        name: string;
-        className: string;
-    };
-    title: string;
+    title: {
+        text: string,
+        nameIcon: string,
+        classNameIcon: string
+    }
     info: {
         main: string;
         detail: string;
@@ -13,11 +13,11 @@ export type seccionCuerpoCentralInfoType = {
 }
 
 export type seccionCuerpoLateralInfoType = {
-    titleIcon: {
-        name: string;
-        className: string;
+    title: {
+        nameIcon: string;
+        classNameIcon: string;
+        text: string;
     };
-    title: string;
     info: {
         icon: {
             name: string;
@@ -34,11 +34,11 @@ export type seccionCuerpoLateralInfoType = {
 
 export const lateralPagina1: seccionCuerpoLateralInfoType[] = [
     {
-        titleIcon: {
-            name: "person",
-            className: "material-symbols-outlined"
+        title: {
+            text: "Contact",
+            nameIcon: "person",
+            classNameIcon: "material-symbols-outlined"
         },
-        title: "Contact",
         info: [
             {
                 icon: {
@@ -75,11 +75,11 @@ export const lateralPagina1: seccionCuerpoLateralInfoType[] = [
         ],
     },
     {
-        titleIcon: {
-            name: "translate",
-            className: "material-symbols-outlined"
+        title: {
+            text: "Languages",
+            nameIcon: "translate",
+            classNameIcon: "material-symbols-outlined"
         },
-        title: "Languages",
         info: [
             {
                 icon: {
@@ -116,11 +116,11 @@ export const lateralPagina1: seccionCuerpoLateralInfoType[] = [
         ],
     },
     {
-        titleIcon: {
-            name: "code",
-            className: "material-symbols-outlined"
+        title: {
+            text: "Code Skills",
+            nameIcon: "code",
+            classNameIcon: "material-symbols-outlined"
         },
-        title: "Code Skills",
         info: [
             {
                 icon: {
@@ -165,11 +165,11 @@ export const lateralPagina1: seccionCuerpoLateralInfoType[] = [
 
 export const cuerpoCentralPagina1: seccionCuerpoCentralInfoType[] = [
     {
-        titleIcon: {
-            name: "school",
-            className: "material-symbols-outlined"
+        title: {
+            text: "Education",
+            nameIcon: "school",
+            classNameIcon: "material-symbols-outlined"
         },
-        title: "Education",
         info: [
             {
                 main: "Chemical Engineering Degree",
@@ -199,11 +199,11 @@ export const cuerpoCentralPagina1: seccionCuerpoCentralInfoType[] = [
         ],
     },
     {
-        titleIcon: {
-            name: "manage_accounts",
-            className: "material-symbols-outlined"
+        title: {
+            text: "Career Profile",
+            nameIcon: "manage_accounts",
+            classNameIcon: "material-symbols-outlined"
         },
-        title: "Career Profile",
         info: [
             {
                 main: "Front-End Skills",
@@ -250,11 +250,11 @@ export const cuerpoCentralPagina1: seccionCuerpoCentralInfoType[] = [
 
 export const lateralPagina2: seccionCuerpoLateralInfoType[] = [
     {
-        titleIcon: {
-            name: "rocket_launch",
-            className: "material-symbols-outlined"
+        title: {
+            text: "Soft Skills",
+            nameIcon: "rocket_launch",
+            classNameIcon: "material-symbols-outlined"
         },
-        title: "Soft Skills",
         info: [
             {
                 icon: {
@@ -298,11 +298,11 @@ export const lateralPagina2: seccionCuerpoLateralInfoType[] = [
 
 export const cuerpoCentralPagina2: seccionCuerpoCentralInfoType[] = [
     {
-        titleIcon: {
-            name: "business_center",
-            className: "material-symbols-outlined"
+        title: {
+            text: "Experience",
+            nameIcon: "business_center",
+            classNameIcon: "material-symbols-outlined"
         },
-        title: "Experience",
         info: [
             {
                 main: "Full-Stack Developer",
@@ -331,11 +331,11 @@ export const cuerpoCentralPagina2: seccionCuerpoCentralInfoType[] = [
         ],
     },
     {
-        titleIcon: {
-            name: "settings_accessibility",
-            className: "material-symbols-outlined"
+        title: {
+            text: "Highlighted Own Projects",
+            nameIcon: "settings_accessibility",
+            classNameIcon: "material-symbols-outlined"
         },
-        title: "Highlighted Own Projects",
         info: [
             {
                 main: "Project Management App",
@@ -361,11 +361,11 @@ export const cuerpoCentralPagina2: seccionCuerpoCentralInfoType[] = [
 
 export const cuerpoCentralPaginas: seccionCuerpoCentralInfoType[] = [
     {
-        titleIcon: {
-            name: "school",
-            className: "material-symbols-outlined"
+        title: {
+            text: "Education",
+            nameIcon: "school",
+            classNameIcon: "material-symbols-outlined"
         },
-        title: "Education",
         info: [
             {
                 main: "Chemical Engineering Degree",
@@ -395,11 +395,11 @@ export const cuerpoCentralPaginas: seccionCuerpoCentralInfoType[] = [
         ],
     },
     {
-        titleIcon: {
-            name: "manage_accounts",
-            className: "material-symbols-outlined"
+        title: {
+            text: "Career Profile",
+            nameIcon: "manage_accounts",
+            classNameIcon: "material-symbols-outlined"
         },
-        title: "Career Profile",
         info: [
             {
                 main: "Front-End Skills",
@@ -440,11 +440,11 @@ export const cuerpoCentralPaginas: seccionCuerpoCentralInfoType[] = [
         ],
     },
     {
-        titleIcon: {
-            name: "business_center",
-            className: "material-symbols-outlined"
+        title: {
+            text: "Experience",
+            nameIcon: "business_center",
+            classNameIcon: "material-symbols-outlined"
         },
-        title: "Experience",
         info: [
             {
                 main: "Full-Stack Developer",
@@ -473,11 +473,11 @@ export const cuerpoCentralPaginas: seccionCuerpoCentralInfoType[] = [
         ],
     },
     {
-        titleIcon: {
-            name: "settings_accessibility",
-            className: "material-symbols-outlined"
+        title: {
+            text: "Highlighted Own Projects",
+            nameIcon: "settings_accessibility",
+            classNameIcon: "material-symbols-outlined"
         },
-        title: "Highlighted Own Projects",
         info: [
             {
                 main: "Project Management App",
@@ -501,11 +501,11 @@ export const cuerpoCentralPaginas: seccionCuerpoCentralInfoType[] = [
 
 export const lateralPaginas: seccionCuerpoLateralInfoType[] = [
     {
-        titleIcon: {
-            name: "person",
-            className: "material-symbols-outlined"
+        title: {
+            text: "Contact",
+            nameIcon: "person",
+            classNameIcon: "material-symbols-outlined"
         },
-        title: "Contact",
         info: [
             {
                 icon: {
@@ -542,11 +542,11 @@ export const lateralPaginas: seccionCuerpoLateralInfoType[] = [
         ],
     },
     {
-        titleIcon: {
-            name: "translate",
-            className: "material-symbols-outlined"
+        title: {
+            text: "Languages",
+            nameIcon: "translate",
+            classNameIcon: "material-symbols-outlined"
         },
-        title: "Languages",
         info: [
             {
                 icon: {
@@ -583,11 +583,11 @@ export const lateralPaginas: seccionCuerpoLateralInfoType[] = [
         ],
     },
     {
-        titleIcon: {
-            name: "code",
-            className: "material-symbols-outlined"
+        title: {
+            text: "Code Skills",
+            nameIcon: "code",
+            classNameIcon: "material-symbols-outlined"
         },
-        title: "Code Skills",
         info: [
             {
                 icon: {
@@ -628,11 +628,11 @@ export const lateralPaginas: seccionCuerpoLateralInfoType[] = [
         ],
     },
     {
-        titleIcon: {
-            name: "rocket_launch",
-            className: "material-symbols-outlined"
+        title: {
+            text: "Soft Skills",
+            nameIcon: "rocket_launch",
+            classNameIcon: "material-symbols-outlined"
         },
-        title: "Soft Skills",
         info: [
             {
                 icon: {

@@ -4,23 +4,25 @@ import { seccionCuerpoCentralInfoType } from './templates.info'
 
 type CuerpoCentralProps = {
   page: seccionCuerpoCentralInfoType[]
-  setPageIndices: Dispatch<SetStateAction<number[]>>
+  setIndexObjects: Dispatch<SetStateAction<indexObjectType[]>>
   MAX_HEIGHT: number
 }
 
-type indexesType = {
+export type indexObjectType = {
   cutIndex: number,
   nestingLevel1CutIndex?: number
   nestingLevel2CutIndex?: number
   nestingLevel3CutIndex?: number
-}[]
+}
 
-export default function CuerpoCentralBuilding({page, setPageIndices, MAX_HEIGHT}: CuerpoCentralProps) {
+type indexObjectsType = indexObjectType[]
+
+export default function CuerpoCentralBuilding({page, setIndexObjects, MAX_HEIGHT}: CuerpoCentralProps) {
   const sections = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     let page = 0
-    const calculateDeepLevel = (deepChildren: Element[], deepCurrentHeight: number, indexes: indexesType, nestingLevel: number, page: number) => {
+    const calculateDeepLevel = (deepChildren: Element[], deepCurrentHeight: number, indexObjects: indexObjectsType, nestingLevel: number, page: number) => {
       let moreDeepCurrentHeight = deepCurrentHeight
       let deeperChildren: Element[] = []
       deepChildren.some((deepChild, deepIndex) => { // Se usa some para detener la iteración cuando necesite con el return true
@@ -32,8 +34,8 @@ export default function CuerpoCentralBuilding({page, setPageIndices, MAX_HEIGHT}
 
         if (deepCurrentHeight > MAX_HEIGHT) {
           //deepIndices.push(deepIndex)
-          indexes[page] = {
-            ...indexes[page],
+          indexObjects[page] = {
+            ...indexObjects[page],
             [`nestingLevel${nestingLevel}CutIndex`]: deepIndex
           }
           deeperChildren = Array.from(deepChild.children)
@@ -49,9 +51,9 @@ export default function CuerpoCentralBuilding({page, setPageIndices, MAX_HEIGHT}
     const calculatePages = () => {
       if (!sections.current) return;
 
-      let currentHeight = 48 + 48; // Referente al padding-block de pagina
+      let currentHeight = 48 + 48; // Referente al padding-block de pagina (de elementos padre)
       const indices: number[] = [];
-      const indexes: indexesType = []
+      const indexObjects: indexObjectsType = []
       const container = sections.current;
 
       // Iterar sobre los hijos del contenedor para medir alturas acumuladas
@@ -61,7 +63,7 @@ export default function CuerpoCentralBuilding({page, setPageIndices, MAX_HEIGHT}
         
         if (currentHeight > MAX_HEIGHT) {
           indices.push(index); // Marcar dónde cortar
-          indexes.push({
+          indexObjects.push({
             cutIndex: index
           })
           console.log(`Altura de sobrepaso de pagina ${index+1}`,currentHeight)
@@ -69,17 +71,18 @@ export default function CuerpoCentralBuilding({page, setPageIndices, MAX_HEIGHT}
           const deepCurrentHeight = currentHeight - elementHeight
           console.log(`Altura anterior a corte de pagina ${index+1}`,deepCurrentHeight)
           const deepChildren = Array.from(child.children)
-          const [doubleDeepCurrentHeight, deeperChildren] = calculateDeepLevel(deepChildren, deepCurrentHeight, indexes, 1, page)
-          const [tripleDeepCurrentHeight, moreDeeperChildren] = calculateDeepLevel((deeperChildren as Element[]), (doubleDeepCurrentHeight as number), indexes, 2, page)
-          calculateDeepLevel((moreDeeperChildren as Element[]), (tripleDeepCurrentHeight as number), indexes, 3, page)
+          const [doubleDeepCurrentHeight, deeperChildren] = calculateDeepLevel(deepChildren, deepCurrentHeight, indexObjects, 1, page)
+          const [tripleDeepCurrentHeight, moreDeeperChildren] = calculateDeepLevel((deeperChildren as Element[]), (doubleDeepCurrentHeight as number), indexObjects, 2, page)
+          calculateDeepLevel((moreDeeperChildren as Element[]), (tripleDeepCurrentHeight as number), indexObjects, 3, page)
 
           page += 1
           currentHeight = elementHeight; // Resetear altura acumulada
         }
       });
 
-      console.log(indexes)
-      setPageIndices(indices);
+      console.log(indexObjects)
+      //setPageIndices(indices);
+      setIndexObjects(indexObjects);
     };
 
     calculatePages();

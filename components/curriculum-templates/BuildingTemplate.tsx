@@ -10,7 +10,7 @@ import Spinner from "@/components/spinners/Spinner";
 import EncabezadoLateral from "./EncabezadoLateral";
 import { seccionCuerpoCentralInfoType } from "./templates.info";
 import Template from "./Template";
-import CuerpoCentralBuilding from "./CuerpoCentralBuilding";
+import CuerpoCentralBuilding, { indexObjectType } from "./CuerpoCentralBuilding";
 
 type TemplateProps = {
   sections: seccionCuerpoCentralInfoType[]
@@ -83,7 +83,7 @@ export default function BuildingTemplate({sections}: TemplateProps): JSX.Element
   }, [height]); */
 
 
-  const [pageIndices, setPageIndices] = useState<number[]>([]); // Índices donde dividir
+  const [indexObjects, setIndexObjects] = useState<indexObjectType[]>([]); // Índices donde dividir
 
 /*   // Función para dividir el array en páginas
   const getPages = () => {
@@ -108,18 +108,18 @@ export default function BuildingTemplate({sections}: TemplateProps): JSX.Element
     <>
     {/* El referrer se ha colodado en un ancestro extra porque de otro modo no cogia el background-color */}
       <div ref={referrer}>
-          <div className=" bg-white min-w-[785px] overflow-x-scroll lg:overflow-x-hidden">
-            <div className="contenedor max-w-2xl bg-white  mx-auto p-12 px-0">
-              <section className="">
-                  <CuerpoCentralBuilding MAX_HEIGHT={MAX_HEIGHT} setPageIndices={setPageIndices} page={sections} />
-                {/* <CuerpoCentral page={buildCuerpoCentralPagina1(cuerpoCentralPaginas)} /> */}
-              </section>
-              <section className="bg-indigo-600">
-                <EncabezadoLateral />
-                {/* <CuerpoLateral page={buildCuerpoLateralPagina1(lateralPaginas)} /> */}
-              </section>
-            </div>
+        <div className=" bg-white min-w-[785px] overflow-x-scroll lg:overflow-x-hidden">
+          <div className="contenedor max-w-2xl bg-white  mx-auto p-12 px-0">
+            <section className="">
+                <CuerpoCentralBuilding MAX_HEIGHT={MAX_HEIGHT} setIndexObjects={setIndexObjects} page={sections} />
+              {/* <CuerpoCentral page={buildCuerpoCentralPagina1(cuerpoCentralPaginas)} /> */}
+            </section>
+            <section className="bg-indigo-600">
+              <EncabezadoLateral />
+              {/* <CuerpoLateral page={buildCuerpoLateralPagina1(lateralPaginas)} /> */}
+            </section>
           </div>
+        </div>
       </div>
       <div className="bg-gray-100 relative h-[72px]">
         <button
@@ -131,7 +131,7 @@ export default function BuildingTemplate({sections}: TemplateProps): JSX.Element
         </button>
         <Link ref={linkRef} target={"_blank"} href={pdfUrl} className="hidden absolute"></Link>
       </div>
-      <Template sections={sections} pageIndices={pageIndices} />
+      <Template sections={sections} indexObjects={indexObjects} />
     </>
   );
 }
