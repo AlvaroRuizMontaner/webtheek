@@ -3,11 +3,10 @@
 import { generatePDF } from "@/services/PDFAPI";
 import { getHtmlWithStyles } from "@/utils/generateHtml";
 import { useMutation } from "@tanstack/react-query";
-import { useEffect, useRef, useState, /* useState */ } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./curriculum.css";
 import Link from "next/link";
 import Spinner from "@/components/spinners/Spinner";
-import CuerpoCentral from "./CuerpoCentral";
 import EncabezadoLateral from "./EncabezadoLateral";
 import { seccionCuerpoCentralInfoType } from "./templates.info";
 import CuerpoCentralTemplate from "./CuerpoCentralTemplate";
@@ -19,7 +18,6 @@ type TemplateProps = {
 
 
 export default function Template({sections, pageIndices}: TemplateProps): JSX.Element {
-  const MAX_HEIGHT = 1122 /* 1139 */
   const [pdfUrl, setPdfUrl] = useState("")
   const [isLoading, setIsLoading] = useState(false)
   const { mutate } = useMutation({
@@ -90,7 +88,7 @@ export default function Template({sections, pageIndices}: TemplateProps): JSX.El
     const pages = [];
     let start = 0;
   
-    pageIndices.forEach((endIndex, i) => {
+    pageIndices.forEach((endIndex) => {
       const end = endIndex || sections.length; // Si `endIndex` es undefined, usar `sections.length`
       pages.push(sections.slice(start, end)); // Agregar el segmento actual
       start = end; // Actualizar `start` para la siguiente iteración

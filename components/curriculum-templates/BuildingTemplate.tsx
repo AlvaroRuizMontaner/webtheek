@@ -7,10 +7,10 @@ import { useEffect, useRef, useState, /* useState */ } from "react";
 import "./curriculum.css";
 import Link from "next/link";
 import Spinner from "@/components/spinners/Spinner";
-import CuerpoCentral from "./CuerpoCentral";
 import EncabezadoLateral from "./EncabezadoLateral";
 import { seccionCuerpoCentralInfoType } from "./templates.info";
 import Template from "./Template";
+import CuerpoCentralBuilding from "./CuerpoCentralBuilding";
 
 type TemplateProps = {
   sections: seccionCuerpoCentralInfoType[]
@@ -114,7 +114,7 @@ export default function BuildingTemplate({sections}: TemplateProps): JSX.Element
           <div className=" bg-white min-w-[785px] overflow-x-scroll lg:overflow-x-hidden">
             <div className="contenedor max-w-2xl bg-white  mx-auto p-12 px-0">
               <section className="">
-                  <CuerpoCentral MAX_HEIGHT={MAX_HEIGHT} setPageIndices={setPageIndices} page={sections} />
+                  <CuerpoCentralBuilding MAX_HEIGHT={MAX_HEIGHT} setPageIndices={setPageIndices} page={sections} />
                 {/* <CuerpoCentral page={buildCuerpoCentralPagina1(cuerpoCentralPaginas)} /> */}
               </section>
               <section className="bg-indigo-600">

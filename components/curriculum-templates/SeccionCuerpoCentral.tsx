@@ -1,9 +1,9 @@
 import React from 'react'
-import { seccionCuerpocentralInfoType } from './curriculum.info'
+import { seccionCuerpoCentralInfoType } from './templates.info'
 
-export default function SeccionCuerpoCentral({title, titleIcon, info}: seccionCuerpocentralInfoType) {
+export default function SeccionCuerpoCentral({title, titleIcon, info}: seccionCuerpoCentralInfoType) {
   return (
-    <div className='flex flex-col gap-3'>
+    <div className='flex flex-col space-y-3'>
         <div className='flex gap-2 items-center relative -translate-x-8'>
             <div className='bg-blue-500 h-8 w-8 rounded-full flex items-center justify-center'>
                 <span className={`text-white ${titleIcon.className}`}>{titleIcon.name}</span>
