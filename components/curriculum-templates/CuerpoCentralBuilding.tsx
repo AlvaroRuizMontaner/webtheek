@@ -8,11 +8,19 @@ type CuerpoCentralProps = {
   MAX_HEIGHT: number
 }
 
+type indexesType = {
+  cutIndex: number,
+  nestingLevel1?: number
+  nestingLevel2?: number
+  nestingLevel3?: number
+}[]
+
 export default function CuerpoCentralBuilding({page, setPageIndices, MAX_HEIGHT}: CuerpoCentralProps) {
   const sections = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    const calculateDeepLevel = (deepChildren: Element[], deepCurrentHeight: number, deepIndices: number[]) => {
+    let page = 0
+    const calculateDeepLevel = (deepChildren: Element[], deepCurrentHeight: number, indexes: indexesType, nestingLevel: number, page: number) => {
       let moreDeepCurrentHeight = deepCurrentHeight
       let deeperChildren: Element[] = []
       deepChildren.some((deepChild, deepIndex) => { // Se usa some para detener la iteración cuando necesite con el return true
@@ -20,10 +28,14 @@ export default function CuerpoCentralBuilding({page, setPageIndices, MAX_HEIGHT}
         const deepElementHeight = (deepChild as HTMLElement).offsetHeight;
         deepCurrentHeight += deepElementHeight
 
-        console.log(deepCurrentHeight)
+        console.log(`Altura de iteracion nesteada en elemento ${deepIndex+1}`,deepCurrentHeight)
 
         if (deepCurrentHeight > MAX_HEIGHT) {
-          deepIndices.push(deepIndex)
+          //deepIndices.push(deepIndex)
+          indexes[page] = {
+            ...indexes[page],
+            [`nestingLevel${nestingLevel}`]: nestingLevel
+          }
           deeperChildren = Array.from(deepChild.children)
           moreDeepCurrentHeight = deepCurrentHeight - deepElementHeight
           return true
@@ -39,7 +51,7 @@ export default function CuerpoCentralBuilding({page, setPageIndices, MAX_HEIGHT}
 
       let currentHeight = 48 + 48; // Referente al padding-block de pagina
       const indices: number[] = [];
-      const deepIndices: number[] = []
+      const indexes: indexesType = []
       const container = sections.current;
 
       // Iterar sobre los hijos del contenedor para medir alturas acumuladas
@@ -49,25 +61,29 @@ export default function CuerpoCentralBuilding({page, setPageIndices, MAX_HEIGHT}
         
         if (currentHeight > MAX_HEIGHT) {
           indices.push(index); // Marcar dónde cortar
-          console.log(currentHeight)
+          indexes.push({
+            cutIndex: index
+          })
+          console.log(`Altura de sobrepaso de pagina ${index+1}`,currentHeight)
           
           const deepCurrentHeight = currentHeight - elementHeight
-          console.log(deepCurrentHeight)
+          console.log(`Altura anterior a corte de pagina ${index+1}`,deepCurrentHeight)
           const deepChildren = Array.from(child.children)
 
-          const [doubleDeepCurrentHeight, deeperChildren] = calculateDeepLevel(deepChildren, deepCurrentHeight, deepIndices)
+          const [doubleDeepCurrentHeight, deeperChildren] = calculateDeepLevel(deepChildren, deepCurrentHeight, indexes, 1, page)
           console.log(doubleDeepCurrentHeight, deeperChildren)
 
+          page += 1
           currentHeight = elementHeight; // Resetear altura acumulada
         }
       });
 
-      const pageData = indices.map((index, i) => ({
+/*       const pageData = indices.map((index, i) => ({
         index, // Índice del primer nivel
         deepIndex: deepIndices[i] || null // Índice profundo, o null si no hay
-      }));
+      })); */
 
-      console.log(pageData)
+      console.log(indexes)
 
       setPageIndices(indices);
     };
