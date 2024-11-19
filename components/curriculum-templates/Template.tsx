@@ -97,6 +97,7 @@ export default function Template({sections, pageIndices}: TemplateProps): JSX.El
     if (start < sections.length) {
       pages.push(sections.slice(start));
     }
+    console.log(pages)
   
     return pages;
   };

@@ -69,9 +69,7 @@ export default function CuerpoCentralBuilding({page, setPageIndices, MAX_HEIGHT}
           const deepCurrentHeight = currentHeight - elementHeight
           console.log(`Altura anterior a corte de pagina ${index+1}`,deepCurrentHeight)
           const deepChildren = Array.from(child.children)
-
           const [doubleDeepCurrentHeight, deeperChildren] = calculateDeepLevel(deepChildren, deepCurrentHeight, indexes, 1, page)
-          //console.log(doubleDeepCurrentHeight, deeperChildren)
           const [tripleDeepCurrentHeight, moreDeeperChildren] = calculateDeepLevel((deeperChildren as Element[]), (doubleDeepCurrentHeight as number), indexes, 2, page)
           calculateDeepLevel((moreDeeperChildren as Element[]), (tripleDeepCurrentHeight as number), indexes, 3, page)
 
@@ -80,13 +78,7 @@ export default function CuerpoCentralBuilding({page, setPageIndices, MAX_HEIGHT}
         }
       });
 
-/*       const pageData = indices.map((index, i) => ({
-        index, // Índice del primer nivel
-        deepIndex: deepIndices[i] || null // Índice profundo, o null si no hay
-      })); */
-
       console.log(indexes)
-
       setPageIndices(indices);
     };
 
