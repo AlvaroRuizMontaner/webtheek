@@ -10,9 +10,9 @@ type CuerpoCentralProps = {
 
 type indexesType = {
   cutIndex: number,
-  nestingLevel1?: number
-  nestingLevel2?: number
-  nestingLevel3?: number
+  nestingLevel1CutIndex?: number
+  nestingLevel2CutIndex?: number
+  nestingLevel3CutIndex?: number
 }[]
 
 export default function CuerpoCentralBuilding({page, setPageIndices, MAX_HEIGHT}: CuerpoCentralProps) {
@@ -34,7 +34,7 @@ export default function CuerpoCentralBuilding({page, setPageIndices, MAX_HEIGHT}
           //deepIndices.push(deepIndex)
           indexes[page] = {
             ...indexes[page],
-            [`nestingLevel${nestingLevel}`]: nestingLevel
+            [`nestingLevel${nestingLevel}CutIndex`]: nestingLevel
           }
           deeperChildren = Array.from(deepChild.children)
           moreDeepCurrentHeight = deepCurrentHeight - deepElementHeight

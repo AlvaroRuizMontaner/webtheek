@@ -1,9 +1,10 @@
 import React from 'react'
 import { seccionCuerpoCentralInfoType } from './templates.info'
+import "./curriculum.css"
 
 export default function SeccionCuerpoCentral({title, titleIcon, info}: seccionCuerpoCentralInfoType) {
   return (
-    <div className='flex flex-col space-y-3 py-[1.25rem]'>
+    <div className='flex flex-col py-[1.25rem] seccion-cuerpo-central'>
         <div className='flex gap-2 items-center relative -translate-x-8'>
             <div className='bg-blue-500 h-8 w-8 rounded-full flex items-center justify-center'>
                 <span className={`text-white ${titleIcon.className}`}>{titleIcon.name}</span>
@@ -12,7 +13,7 @@ export default function SeccionCuerpoCentral({title, titleIcon, info}: seccionCu
         </div>
 
         {info.map((el, index) => (
-            <div className='space-y-2' key={index}>
+            <div className='subseccion-cuerpo-central' key={index}>
                 <p className='font-bold text-blue-900'>{el.main}</p>
                 <div className='flex justify-between text-gray-400 text-sm'>
                     <p className=' '>{el.detail}</p>

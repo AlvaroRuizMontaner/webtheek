@@ -6,4 +6,13 @@
     /* height: 297mm; */
     /* min-height: 297mm; */
     /* min-height: 594mm; 2 paginas*/
+    
+}
+
+.seccion-cuerpo-central > *:not(:last-child) {
+  padding-bottom: 0.75rem; /* Espacio entre elementos */
+}
+
+.subseccion-cuerpo-central > *:not(:last-child) {
+  padding-bottom: 0.5rem; /* Espacio entre elementos */
 }
