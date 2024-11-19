@@ -38,7 +38,6 @@ export default function BuildingTemplate({sections}: TemplateProps): JSX.Element
   const linkRef = useRef<HTMLAnchorElement | null>(null);
 
   useEffect(() => {
-    console.log(isLoading)
     if(pdfUrl && linkRef.current) {
       linkRef.current.click();
     }
@@ -104,8 +103,6 @@ export default function BuildingTemplate({sections}: TemplateProps): JSX.Element
   
     return pages;
   }; */
-
-  console.log(pageIndices)
 
   return (
     <>

@@ -34,7 +34,7 @@ export default function CuerpoCentralBuilding({page, setPageIndices, MAX_HEIGHT}
           //deepIndices.push(deepIndex)
           indexes[page] = {
             ...indexes[page],
-            [`nestingLevel${nestingLevel}CutIndex`]: nestingLevel
+            [`nestingLevel${nestingLevel}CutIndex`]: deepIndex
           }
           deeperChildren = Array.from(deepChild.children)
           moreDeepCurrentHeight = deepCurrentHeight - deepElementHeight
@@ -71,7 +71,9 @@ export default function CuerpoCentralBuilding({page, setPageIndices, MAX_HEIGHT}
           const deepChildren = Array.from(child.children)
 
           const [doubleDeepCurrentHeight, deeperChildren] = calculateDeepLevel(deepChildren, deepCurrentHeight, indexes, 1, page)
-          console.log(doubleDeepCurrentHeight, deeperChildren)
+          //console.log(doubleDeepCurrentHeight, deeperChildren)
+          const [tripleDeepCurrentHeight, moreDeeperChildren] = calculateDeepLevel((deeperChildren as Element[]), (doubleDeepCurrentHeight as number), indexes, 2, page)
+          calculateDeepLevel((moreDeeperChildren as Element[]), (tripleDeepCurrentHeight as number), indexes, 3, page)
 
           page += 1
           currentHeight = elementHeight; // Resetear altura acumulada

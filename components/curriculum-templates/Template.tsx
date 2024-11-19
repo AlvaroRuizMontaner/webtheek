@@ -37,7 +37,6 @@ export default function Template({sections, pageIndices}: TemplateProps): JSX.El
   const linkRef = useRef<HTMLAnchorElement | null>(null);
 
   useEffect(() => {
-    console.log(isLoading)
     if(pdfUrl && linkRef.current) {
       linkRef.current.click();
     }
