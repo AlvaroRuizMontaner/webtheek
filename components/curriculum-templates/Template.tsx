@@ -117,11 +117,13 @@ export default function Template({sections, indexArrays}: TemplateProps): JSX.El
       let start = 0;
   
       indices.forEach((end) => {
-        const sliced = data.slice(start, end);
+        const sliced = data.slice(start, end); // Contenido del primer corte
   
-        if (Array.isArray(sliced[0]) && level + 1 < indexArrays.length) {
+        if (Array.isArray(sliced[0]) && level + 1 < indices.length) {
+            console.log("hola")
           // Si el contenido es anidado, procesar el siguiente nivel recursivamente
           const deeperIndices = indexArrays[level + 1];
+          console.log(indexArrays[level + 1])
           const deeperPages = sliced.map((item) =>
             Array.isArray(item[1]) ? [item[0], recursiveSlice(item[1], deeperIndices, level + 1)] : item
           );
