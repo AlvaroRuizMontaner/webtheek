@@ -10,15 +10,15 @@ import Spinner from "@/components/spinners/Spinner";
 import EncabezadoLateral from "./EncabezadoLateral";
 import { seccionCuerpoCentralInfoType } from "./templates.info";
 import CuerpoCentralTemplate from "./CuerpoCentralTemplate";
-import { indexObjectType } from "./CuerpoCentralBuilding";
+import { indexArrayType } from "./CuerpoCentralBuilding";
 
 type TemplateProps = {
   sections: seccionCuerpoCentralInfoType[]
-  indexObjects: indexObjectType[]
+  indexArrays: indexArrayType[]
 }
 
 
-export default function Template({sections, indexObjects}: TemplateProps): JSX.Element {
+export default function Template({sections, indexArrays}: TemplateProps): JSX.Element {
   const [pdfUrl, setPdfUrl] = useState("")
   const [isLoading, setIsLoading] = useState(false)
   const { mutate } = useMutation({
@@ -88,11 +88,11 @@ export default function Template({sections, indexObjects}: TemplateProps): JSX.E
     const pages = [];
     let start = 0;
 
-    console.log(indexObjects)
+    console.log(indexArrays)
   
-    indexObjects.forEach((obj) => {
-    console.log(sections)
-      const end = obj.cutIndex || sections.length; // Si `endIndex` es undefined, usar `sections.length`
+    indexArrays.forEach((arr, indx) => {
+    console.log(arr, indx)
+      const end = arr[indx] || sections.length; // Si `endIndex` es undefined, usar `sections.length`
       pages.push(sections.slice(start, end)); // Agregar el segmento actual
 
 

@@ -10,7 +10,7 @@ import Spinner from "@/components/spinners/Spinner";
 import EncabezadoLateral from "./EncabezadoLateral";
 import { seccionCuerpoCentralInfoType } from "./templates.info";
 import Template from "./Template";
-import CuerpoCentralBuilding, { indexObjectType } from "./CuerpoCentralBuilding";
+import CuerpoCentralBuilding, { indexArrayType } from "./CuerpoCentralBuilding";
 
 type TemplateProps = {
   sections: seccionCuerpoCentralInfoType[]
@@ -83,7 +83,7 @@ export default function BuildingTemplate({sections}: TemplateProps): JSX.Element
   }, [height]); */
 
 
-  const [indexObjects, setIndexObjects] = useState<indexObjectType[]>([]); // Índices donde dividir
+  const [indexArrays, setIndexArrays] = useState<indexArrayType[]>([]); // Índices donde dividir
 
 /*   // Función para dividir el array en páginas
   const getPages = () => {
@@ -111,7 +111,7 @@ export default function BuildingTemplate({sections}: TemplateProps): JSX.Element
         <div className=" bg-white min-w-[785px] overflow-x-scroll lg:overflow-x-hidden">
           <div className="contenedor max-w-2xl bg-white  mx-auto p-12 px-0">
             <section className="">
-                <CuerpoCentralBuilding MAX_HEIGHT={MAX_HEIGHT} setIndexObjects={setIndexObjects} page={sections} />
+                <CuerpoCentralBuilding MAX_HEIGHT={MAX_HEIGHT} setIndexArrays={setIndexArrays} page={sections} />
               {/* <CuerpoCentral page={buildCuerpoCentralPagina1(cuerpoCentralPaginas)} /> */}
             </section>
             <section className="bg-indigo-600">
@@ -131,7 +131,7 @@ export default function BuildingTemplate({sections}: TemplateProps): JSX.Element
         </button>
         <Link ref={linkRef} target={"_blank"} href={pdfUrl} className="hidden absolute"></Link>
       </div>
-      <Template sections={sections} indexObjects={indexObjects} />
+      <Template sections={sections} indexArrays={indexArrays} />
     </>
   );
 }
