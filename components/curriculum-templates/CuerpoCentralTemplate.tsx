@@ -1,8 +1,8 @@
 import SeccionCuerpoCentral from './SeccionCuerpoCentral'
-import { seccionCuerpoCentralInfoType } from './templates.info'
+import { CuerpoCentralPaginas } from './templates.info'
 
 type CuerpoCentralTemplateProps = {
-  page: seccionCuerpoCentralInfoType[]
+  page: CuerpoCentralPaginas
 }
 
 export default function CuerpoCentralTemplate({page}: CuerpoCentralTemplateProps) {
@@ -10,7 +10,7 @@ export default function CuerpoCentralTemplate({page}: CuerpoCentralTemplateProps
   return (
     <div className='flex flex-col justify-center px-[1.25rem]'>
         {page.map((seccion, seccionIndx) => (
-            <SeccionCuerpoCentral key={seccionIndx} {...seccion}/>
+            <SeccionCuerpoCentral key={seccionIndx} title={seccion[0]} info={seccion[1]}/>
         ))}
     </div>
   )

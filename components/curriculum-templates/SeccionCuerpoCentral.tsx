@@ -1,8 +1,13 @@
 import React from 'react'
-import { seccionCuerpoCentralInfoType } from './templates.info'
+import { Section } from './templates.info'
 import "./curriculum.css"
 
-export default function SeccionCuerpoCentral({title, info}: seccionCuerpoCentralInfoType) {
+type SeccionCuerpoCentralProps = {
+    title: Section[0]
+    info: Section[1]
+}
+
+export default function SeccionCuerpoCentral({title, info}: SeccionCuerpoCentralProps) {
   return (
     <div className="flex flex-col py-[1.25rem] seccion-cuerpo-central">
       <div className="flex gap-2 items-center relative -translate-x-8">
@@ -19,14 +24,14 @@ export default function SeccionCuerpoCentral({title, info}: seccionCuerpoCentral
       <div className="subseccion-info-cuerpo-central">
         {info.map((el, index) => (
           <div className="subseccion-cuerpo-central" key={index}>
-            <p className="font-bold text-blue-900">{el.main}</p>
+            {el[0] && <p className="font-bold text-blue-900">{el[0]}</p>} {/* main */}
             <div className="flex justify-between text-gray-400 text-sm">
-              <p className=" ">{el.detail}</p>
-              {el.date && <p>{el.date}</p>}
+              <p className=" ">{el[1].detail}</p>
+              {el[1].date && <p>{el[1].date}</p>}
             </div>
-            {el.list && (
+            {el[2] && (
               <ul className=" text-[14px] list-disc">
-                {el.list.map((subEl, subIndex) => (
+                {el[2].map((subEl, subIndex) => (
                   <li key={"" + index + subIndex}>{subEl}</li>
                 ))}
               </ul>

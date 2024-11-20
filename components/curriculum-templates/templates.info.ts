@@ -1,4 +1,4 @@
-export type seccionCuerpoCentralInfoType = {
+/* export type seccionCuerpoCentralInfoType = {
     title: {
         text: string,
         nameIcon: string,
@@ -10,7 +10,28 @@ export type seccionCuerpoCentralInfoType = {
         date: string;
         list?: string[]
     }[];
-}
+    
+} */
+
+type DetailItem = [
+    string, // Título principal
+    {
+        detail: string; // Descripción o detalle
+        date: string;   // Fecha asociada
+    },
+    string[]?  // Lista opcional de elementos
+];
+    
+
+type SectionHeader = {
+    text: string;
+    nameIcon: string;
+    classNameIcon: string;
+};
+
+export type Section = [SectionHeader, DetailItem[]];
+export type CuerpoCentralPaginas = Section[];
+
 
 export type seccionCuerpoLateralInfoType = {
     title: {
@@ -32,7 +53,7 @@ export type seccionCuerpoLateralInfoType = {
 
 /* Pagina 1 */
 
-export const lateralPagina1: seccionCuerpoLateralInfoType[] = [
+/* export const lateralPagina1: seccionCuerpoLateralInfoType[] = [
     {
         title: {
             text: "Contact",
@@ -244,11 +265,11 @@ export const cuerpoCentralPagina1: seccionCuerpoCentralInfoType[] = [
         ],
     }
 ]
-
+ */
 
 /* Pagina 2 */
 
-export const lateralPagina2: seccionCuerpoLateralInfoType[] = [
+/* export const lateralPagina2: seccionCuerpoLateralInfoType[] = [
     {
         title: {
             text: "Soft Skills",
@@ -306,7 +327,7 @@ export const cuerpoCentralPagina2: seccionCuerpoCentralInfoType[] = [
         info: [
             {
                 main: "Full-Stack Developer",
-                detail: "MásMóvil Alarms Project", /* (Subcontracted on TalentoMobile) */
+                detail: "MásMóvil Alarms Project", 
                 date: "June 2022 - July 2024",
                 list: [
                     "Solely responsible of developing of three websites related to the MásMóvil alarms project.",
@@ -356,66 +377,80 @@ export const cuerpoCentralPagina2: seccionCuerpoCentralInfoType[] = [
         ],
     }
 ]
-
+ */
 /* --------------------------------------------------Páginas-------------------------------------------------- */
 
-export const cuerpoCentralPaginas: seccionCuerpoCentralInfoType[] = [
-    {
-        title: {
+export const cuerpoCentralPaginas: CuerpoCentralPaginas = [
+    [
+        {
             text: "Education",
             nameIcon: "school",
             classNameIcon: "material-symbols-outlined"
         },
-        info: [
-            {
-                main: "Chemical Engineering Degree",
-                detail: "Universidad de Cádiz",
-                date: "2012-2020"
-            },
-            {
-                main: "Python bootcamp 30h course",
-                detail: "Udemy - Online",
-                date: "2021"
-            },
-            {
-                main: "Web Developer Bootcamp 60h Course",
-                detail: "Udemy - Online",
-                date: "2021"
-            },
-            {
-                main: "Creation, programming, and design of websites with HTML5 and CSS3 210h Course",
-                detail: "SEPE - Online",
-                date: "2021"
-            },
-            {
-                main: "React & TypeScript - The Complete Guide Creating +10 Projects",
-                detail: "Udemy - Online",
-                date: "2024"
-            },
+        [
+            [
+                "Chemical Engineering Degree", /* main */
+                {
+                    detail: "Universidad de Cádiz",
+                    date: "2012-2020"
+                },
+            ],
+            [
+                "Python bootcamp 30h course", /* main */
+                {
+                    detail: "Udemy - Online",
+                    date: "2021"
+                }
+            ],
+            [
+                "Web Developer Bootcamp 60h Course", /* main */
+                {
+                    detail: "Udemy - Online",
+                    date: "2021"
+                }
+            ],
+            [
+                "Creation, programming, and design of websites with HTML5 and CSS3 210h Course", /* main */
+                {
+                    detail: "SEPE - Online",
+                    date: "2021"
+                }
+            ],
+            [
+                "React & TypeScript - The Complete Guide Creating +10 Projects", /* main */
+                {
+                    detail: "Udemy - Online",
+                    date: "2024"
+                }
+            ],
         ],
-    },
-    {
-        title: {
+    ],
+    [
+        {
             text: "Career Profile",
             nameIcon: "manage_accounts",
             classNameIcon: "material-symbols-outlined"
         },
-        info: [
-            {
-                main: "Front-End Skills",
-                detail: "CSS",
-                date: "",
-                list: [
+        [
+            [
+                "Front-End Skills", /* main */
+                {
+                    detail: "CSS",
+                    date: "",
+                },
+                [
                     "Flexbox, grid and multicolumn layouts",
                     "Frameworks like Tailwind, Sass and styled-components",
                     "Design systems and variables"
                 ]
-            },
-            {
-                main: "",
-                detail: "React",
-                date: "",
-                list: [
+            ],
+            [
+                "", /* main */
+                {
+                    detail: "React",
+                    date: "",
+                },
+                [
                     "TypeScript integrated",
                     "Function components, hooks, state, life cycles, routing",
                     "Testing with Jest and react-testing-library",
@@ -424,33 +459,37 @@ export const cuerpoCentralPaginas: seccionCuerpoCentralInfoType[] = [
                     "Communication with Restful APIs",
                     "SEO built on Next.js"
                 ]
-            },
-            {
-                main: "Full-Stack Skills",
-                detail: "MERN & PERN",
-                date: "",
-                list: [
+            ],
+            [
+                "Full-Stack Skills", /* main */
+                {
+                    detail: "MERN & PERN",
+                    date: "",
+                },
+                [
                     "MVC and decoupled architectures on express",
                     "CRUD APIs",
                     "Nested routing",
                     "Validation with ZOD and Express-validator",
                     "MongoDB and PostgreSQL"
                 ]
-            },
+            ],
         ],
-    },
-    {
-        title: {
+    ],
+    [
+        {
             text: "Experience",
             nameIcon: "business_center",
             classNameIcon: "material-symbols-outlined"
         },
-        info: [
-            {
-                main: "Full-Stack Developer",
-                detail: "MásMóvil Alarms Project", /* (Subcontracted on TalentoMobile) */
-                date: "June 2022 - July 2024",
-                list: [
+        [
+            [
+                "Full-Stack Developer", /* main */
+                {
+                    detail: "MásMóvil Alarms Project", 
+                    date: "June 2022 - July 2024",
+                },
+                [
                     "Solely responsible of developing of three websites related to the MásMóvil alarms project.",
                     "Debugging, update, optimization, and separate deployment of the backend (Express + PostgreSQL), and the frontend (React + Next.js + Typescript).",
                     "Conducted layouts tasks from Figma designs",
@@ -458,32 +497,36 @@ export const cuerpoCentralPaginas: seccionCuerpoCentralInfoType[] = [
                     "Implementation of functions from Google Analytics for user traffic measurements",
                     "Collaboration with Byside for improvement of marketing campaigns and user conversions"
                 ]
-            },
-            {
-                main: "Freelancing Developer",
-                detail: "Freelance",
-                date: "April 2021 - June 2022",
-                list: [
+            ],
+            [
+                "Freelancing Developer", /* main */
+                {
+                    detail: "Freelance",
+                    date: "April 2021 - June 2022",
+                },
+                [
                     "Social Media built on top of React & Firebase",
                     "Basic authentication, account creation and basic validation",
                     "Hosted images on Imgur and integrated with its API",
                     "Enabled features for commenting, following, making posts, and configuring user profiles",
                 ]
-            },
+            ],
         ],
-    },
-    {
-        title: {
+    ],
+    [
+        {
             text: "Highlighted Own Projects",
             nameIcon: "settings_accessibility",
             classNameIcon: "material-symbols-outlined"
         },
-        info: [
-            {
-                main: "Project Management App",
-                detail: "https://webtheek.com/",
-                date: "2024 - present",
-                list: [
+        [
+            [
+                "Project Management App", /* main */
+                {
+                    detail: "https://webtheek.com/",
+                    date: "2024 - present",
+                },
+                [
                     "Built on top of MongoDB, Express, React, Node (MERN)",
                     "MVC and decoupled architectures",
                     "One section is similar to Jira and Zendesk, enabling creation, editing and deletion of projects, tasks and notes, with the ability to add collaborators",
@@ -494,9 +537,9 @@ export const cuerpoCentralPaginas: seccionCuerpoCentralInfoType[] = [
                     "Typescript, ZOD, Jest",
                     "Currently developing a curriculum PDF creator for profiles"
                 ]
-            },
+            ],
         ],
-    }
+    ]
 ]
 
 export const lateralPaginas: seccionCuerpoLateralInfoType[] = [

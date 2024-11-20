@@ -1,9 +1,9 @@
 import React, { Dispatch, SetStateAction, useEffect, useRef } from 'react'
 import SeccionCuerpoCentral from './SeccionCuerpoCentral'
-import { seccionCuerpoCentralInfoType } from './templates.info'
+import { CuerpoCentralPaginas } from './templates.info'
 
 type CuerpoCentralProps = {
-  page: seccionCuerpoCentralInfoType[]
+  page: CuerpoCentralPaginas
   setIndexArrays: Dispatch<SetStateAction<indexArrayType[]>>
   MAX_HEIGHT: number
 }
@@ -91,7 +91,7 @@ export default function CuerpoCentralBuilding({page, setIndexArrays, MAX_HEIGHT}
   return (
     <div ref={sections} className='flex flex-col justify-center px-[1.25rem]'>
         {page.map((seccion, seccionIndx) => (
-            <SeccionCuerpoCentral key={seccionIndx} {...seccion}/>
+            <SeccionCuerpoCentral key={seccionIndx} title={seccion[0]} info={seccion[1]}/>
         ))}
     </div>
   )

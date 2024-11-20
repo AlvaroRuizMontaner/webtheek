@@ -8,17 +8,18 @@ import "./curriculum.css";
 import Link from "next/link";
 import Spinner from "@/components/spinners/Spinner";
 import EncabezadoLateral from "./EncabezadoLateral";
-import { seccionCuerpoCentralInfoType } from "./templates.info";
 import CuerpoCentralTemplate from "./CuerpoCentralTemplate";
 import { indexArrayType } from "./CuerpoCentralBuilding";
+import { CuerpoCentralPaginas, Section } from "./templates.info";
 
 type TemplateProps = {
-  sections: seccionCuerpoCentralInfoType[]
+  sections: CuerpoCentralPaginas
   indexArrays: indexArrayType[]
 }
 
 
 export default function Template({sections, indexArrays}: TemplateProps): JSX.Element {
+    /* page-break-inside: avoid; */
   const [pdfUrl, setPdfUrl] = useState("")
   const [isLoading, setIsLoading] = useState(false)
   const { mutate } = useMutation({
@@ -94,12 +95,6 @@ export default function Template({sections, indexArrays}: TemplateProps): JSX.El
     console.log(arr, indx)
       const end = arr[indx] || sections.length; // Si `endIndex` es undefined, usar `sections.length`
       pages.push(sections.slice(start, end)); // Agregar el segmento actual
-
-
-
-
-
-
       start = end; // Actualizar `start` para la siguiente iteración
     });
   
@@ -107,12 +102,56 @@ export default function Template({sections, indexArrays}: TemplateProps): JSX.El
     if (start < sections.length) {
       pages.push(sections.slice(start));
     }
-    console.log(pages)
   
     return pages;
   };
 
+  const getDeepPages = (sections: CuerpoCentralPaginas, indexArrays: number[][]): Section[][] => {
+    const recursiveSlice = (data: any[], indices: number[] | undefined, level: number) => {
+      if (!indices) {
+        // Si no hay índices definidos para este nivel, devolver el contenido original
+        return data;
+      }
+  
+      const finalPages = [];
+      let start = 0;
+  
+      indices.forEach((end) => {
+        const sliced = data.slice(start, end);
+  
+        if (Array.isArray(sliced[0]) && level + 1 < indexArrays.length) {
+          // Si el contenido es anidado, procesar el siguiente nivel recursivamente
+          const deeperIndices = indexArrays[level + 1];
+          const deeperPages = sliced.map((item) =>
+            Array.isArray(item[1]) ? [item[0], recursiveSlice(item[1], deeperIndices, level + 1)] : item
+          );
+          finalPages.push(deeperPages);
+        } else {
+          // Si no hay más niveles anidados, añadir el contenido cortado directamente
+          finalPages.push(sliced);
+        }
+  
+        start = end;
+      });
+  
+      // Añadir el contenido restante si queda algo
+      if (start < data.length) {
+        const remaining = data.slice(start);
+        finalPages.push(remaining);
+      }
+  
+      return finalPages;
+    };
+  
+    // Iniciar la recursión desde el primer nivel
+    return recursiveSlice(sections, indexArrays[0], 0);
+  };
+
   const pages = getPages()
+  const deepPages = getDeepPages(sections, indexArrays)
+
+  console.log(pages)
+  console.log(deepPages)
 
   return (
     <>

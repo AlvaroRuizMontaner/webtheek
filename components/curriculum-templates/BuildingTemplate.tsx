@@ -8,12 +8,12 @@ import "./curriculum.css";
 import Link from "next/link";
 import Spinner from "@/components/spinners/Spinner";
 import EncabezadoLateral from "./EncabezadoLateral";
-import { seccionCuerpoCentralInfoType } from "./templates.info";
+import { CuerpoCentralPaginas } from "./templates.info";
 import Template from "./Template";
 import CuerpoCentralBuilding, { indexArrayType } from "./CuerpoCentralBuilding";
 
 type TemplateProps = {
-  sections: seccionCuerpoCentralInfoType[]
+  sections: CuerpoCentralPaginas
 }
 
 
