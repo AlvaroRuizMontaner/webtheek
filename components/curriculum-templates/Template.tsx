@@ -92,7 +92,6 @@ export default function Template({sections, indexArrays}: TemplateProps): JSX.El
     console.log(indexArrays)
   
     indexArrays.forEach((arr, indx) => {
-    console.log(arr, indx)
       const end = arr[indx] || sections.length; // Si `endIndex` es undefined, usar `sections.length`
       pages.push(sections.slice(start, end)); // Agregar el segmento actual
       start = end; // Actualizar `start` para la siguiente iteración
@@ -106,60 +105,112 @@ export default function Template({sections, indexArrays}: TemplateProps): JSX.El
     return pages;
   };
 
-  const getDeepPages = (sections: CuerpoCentralPaginas, indexArrays: number[][]): Section[][] => {
-    const recursiveSlice = (data: any[], indices: number[] | undefined, level: number) => {
-      if (!indices) {
-        // Si no hay índices definidos para este nivel, devolver el contenido original
-        return data;
+/*   function cleanArrayWithPop(array: any[], sliceIndex: number) {
+    // Hacer una copia profunda del array para eliminar referencias mutables
+    const newArray = JSON.parse(JSON.stringify(array));
+  
+    // Bucle para eliminar elementos sobrantes (arrays vacíos)
+    while (newArray.length > sliceIndex) {
+      if (Array.isArray(newArray[newArray.length - 1]) && newArray[newArray.length - 1].length === 0) {
+        newArray.pop(); // Eliminar arrays vacíos al final
+      } else {
+        newArray.pop(); // Eliminar cualquier elemento adicional
       }
+    }
   
-      const finalPages = [];
-      let start = 0;
+    return newArray;
+  } */
+
+  function lol(): Section[][] {
+    const sliceLvl1: any = sections.slice(0,2)
+    const sliceLvl2: any = sections[2].slice(0,1)
+    const sliceLvl3: any = sections[2][1].slice(0,0) //Pienso que da un []
+    const sliceLvl4: any = sections[2][1][0].slice(0,2)
+    const sliceLvl5: any = sections[2][1][0][2] && sections[2][1][0][2].slice(0,1)
+
+    console.log(sliceLvl1)
+    console.log(sliceLvl2)
+    console.log(sliceLvl3)
+    console.log(sliceLvl4)
+    console.log(sliceLvl5)
+
+
+    sliceLvl4.push(sliceLvl5)
+    sliceLvl3.push(sliceLvl4)
+    sliceLvl2.push(sliceLvl3)
+    sliceLvl1.push(sliceLvl2)
+    console.log(sliceLvl1)
+    const newX = []
+    newX.push(sliceLvl1)
+    console.log(newX)
+    return newX
+
+  }
+
+  const newX = lol()
+
+
+/*   function getNestedSlices(data: any, indices: number[]) {
+    // Navega por los niveles según los índices
+    const nestedSlices = []
+    let current = [...data];
+    indices.forEach((index) => {
+        const newCurrent = [...current]
+        //const slice = JSON.parse(JSON.stringify(newCurrent)).slice(0, index)
+        const slice = cleanArrayWithPop(JSON.parse(JSON.stringify(newCurrent)).slice(0, index), index)
+
+        console.log(slice,cleanArrayWithPop(slice, index))
+        //nestedSlices.splice(nestedSlices.length, 0, slice)
+        nestedSlices.push(slice)
+
+      current = current[index];
+    });
   
-      indices.forEach((end) => {
-        const sliced = data.slice(start, end); // Contenido del primer corte
-  
-        if (Array.isArray(sliced[0]) && level + 1 < indices.length) {
-            console.log("hola")
-          // Si el contenido es anidado, procesar el siguiente nivel recursivamente
-          const deeperIndices = indexArrays[level + 1];
-          console.log(indexArrays[level + 1])
-          const deeperPages = sliced.map((item) =>
-            Array.isArray(item[1]) ? [item[0], recursiveSlice(item[1], deeperIndices, level + 1)] : item
-          );
-          finalPages.push(deeperPages);
+    // Aplica slice al nivel más profundo
+    console.log(nestedSlices)
+    return nestedSlices
+  } */
+
+/*   function buildPage(nestedSlices: any[]): CuerpoCentralPaginas {
+    const reversedNestedSlices = [...nestedSlices].reverse()
+    console.log(nestedSlices)
+    let arr: any = []
+
+    reversedNestedSlices.forEach((nestedSlice, index) => {
+        let currentSlice: any = []
+        if(index === 0) {
+            currentSlice = nestedSlice
+            //console.log(currentSlice, index)
         } else {
-          // Si no hay más niveles anidados, añadir el contenido cortado directamente
-          finalPages.push(sliced);
+            console.log(reversedNestedSlices)
+            nestedSlice.push(currentSlice)
+            currentSlice = nestedSlice
+            //console.log(currentSlice, index)
+
+            if(index === nestedSlices.length-1) { // Tras la última iteracion ya se puede retornar el valor final
+                arr = currentSlice
+            }
         }
-  
-        start = end;
-      });
-  
-      // Añadir el contenido restante si queda algo
-      if (start < data.length) {
-        const remaining = data.slice(start);
-        finalPages.push(remaining);
-      }
-  
-      return finalPages;
-    };
-  
-    // Iniciar la recursión desde el primer nivel
-    return recursiveSlice(sections, indexArrays[0], 0);
-  };
+    })
+    console.log(arr)
+    return arr
+  } */
+
+
+  //const nestedSlices = getNestedSlices(sections, [2,1,0,2,1])
+  //buildPage(nestedSlices)
+  //const arr = buildPage(nestedSlices)
 
   const pages = getPages()
-  const deepPages = getDeepPages(sections, indexArrays)
 
-  console.log(pages)
-  console.log(deepPages)
+/*   console.log(pages)
+  console.log(deepPages) */
 
   return (
     <>
     {/* El referrer se ha colodado en un ancestro extra porque de otro modo no cogia el background-color */}
       <div ref={referrer}>
-        {pages.map((page, index) => (
+        {newX.map((page, index) => (
           <div key={"cuerpo" + index} className=" bg-white min-w-[785px] overflow-x-scroll lg:overflow-x-hidden">
             <div className="contenedor max-w-2xl bg-white  mx-auto p-12 px-0">
               <section className="">

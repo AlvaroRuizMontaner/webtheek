@@ -25,9 +25,9 @@ export default function CuerpoCentralBuilding({page, setIndexArrays, MAX_HEIGHT}
         const deepElementHeight = (deepChild as HTMLElement).offsetHeight;
         deepCurrentHeight += deepElementHeight
 
-        console.log(`Altura de iteracion nesteada en elemento ${deepIndex+1}`,deepCurrentHeight)
-
+        
         if (deepCurrentHeight > MAX_HEIGHT) {
+          console.log(`Altura de iteracion nesteada en elemento ${deepIndex}`,deepCurrentHeight)
           indexArrays[page].push(deepIndex)
 /*           indexObjects[page] = {
             ...indexObjects[page],
