@@ -5,19 +5,19 @@ import { getHtmlWithStyles } from "@/utils/generateHtml";
 import { useMutation } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
 import "./curriculum.css";
-import Link from "next/link";
-import Spinner from "@/components/spinners/Spinner";
-import EncabezadoLateral from "./EncabezadoLateral";
-import CuerpoCentralTemplate from "./CuerpoCentralTemplate";
 import { indexArrayType } from "./CuerpoCentralBuilding";
-import { CuerpoCentralPaginas, Section } from "./templates.info";
+import { CuerpoCentralPaginas } from "./templates.info";
+import CuerpoCentralTemplate from "./CuerpoCentralTemplate";
+import EncabezadoLateral from "./EncabezadoLateral";
+import Spinner from "../spinners/Spinner";
+import Link from "next/link";
 
 type TemplateProps = {
   sections: CuerpoCentralPaginas
   indexArrays: indexArrayType[]
 }
 
-/* function lol(sections: CuerpoCentralPaginas): Section[][] {
+function lol(sections: CuerpoCentralPaginas): Section[][] {
     const sliceLvl1: any = sections.slice(0,2)
     const sliceLvl2: any = sections[2].slice(0,1)
     const sliceLvl3: any = sections[2][1].slice(0,0) //Pienso que da un []
@@ -41,7 +41,7 @@ type TemplateProps = {
     console.log(newX)
     return newX
 
-  } */
+  }
 
 
 function buildPage(nestedSlices: any[]): CuerpoCentralPaginas {
@@ -53,28 +53,55 @@ function buildPage(nestedSlices: any[]): CuerpoCentralPaginas {
     reversedNestedSlices.forEach((nestedSlice, index) => {
         const newNestedSlice = JSON.parse(JSON.stringify(nestedSlice))
         let currentSlice: any = []
-        console.log(newNestedSlice)
-/*         if(index === 0) {
-            currentSlice = newNestedSlice
-            //console.log(currentSlice, index)
-        } else {
-            nestedSlice.push(currentSlice)
-            currentSlice = nestedSlice
-            //console.log(currentSlice, index)
+        //console.log(newNestedSlice)
 
-            if(index === nestedSlices.length-1) { // Tras la última iteracion ya se puede retornar el valor final
+        if(index === 0) {
+            currentSlice = newNestedSlice
+            console.log(currentSlice)
+        } else {
+            console.log(newNestedSlice)
+/*             newNestedSlice.push(currentSlice)
+            currentSlice = newNestedSlice
+            console.log(currentSlice, index)
+
+            if(index === reversedNestedSlices.length-1) { // Tras la última iteracion ya se puede retornar el valor final
                 arr = currentSlice
-            }
-        } */
+            } */
+        }
     })
     console.log(arr)
     return arr
 }
 
+function newBuildPage(nestedSlices: any[]): CuerpoCentralPaginas {
+    const newNestedSlices = JSON.parse(JSON.stringify(nestedSlices))
+    const reversedNestedSlices = [...newNestedSlices].reverse()
+    let arr: any = []
+    let returnArr: any = []
+
+
+    reversedNestedSlices.forEach((nestedSlice, index) => {
+
+        if(index === 0) {
+            arr[index] = JSON.parse(JSON.stringify(nestedSlice))
+            console.log(arr[index])
+        } else {
+            const currentSlice = JSON.parse(JSON.stringify(nestedSlice))
+            const previousSlice = JSON.parse(JSON.stringify(arr[index-1]))
+            currentSlice.push(previousSlice)
+            arr[index] = currentSlice
+            console.log(arr[index])
+        }
+    })
+    console.log(arr)
+    returnArr.push(arr[arr.length-1])
+    return returnArr
+}
+
 
 
 export default function Template({sections, indexArrays}: TemplateProps): JSX.Element {
-    const nolose = []
+    const [arrayPages, setArrayPages] = useState([])
     /* page-break-inside: avoid; */
   const [pdfUrl, setPdfUrl] = useState("")
   const [isLoading, setIsLoading] = useState(false)
@@ -161,15 +188,15 @@ export default function Template({sections, indexArrays}: TemplateProps): JSX.El
     return pages;
   };
 
-  //const newX = lol(sections)
+  const newX = lol(sections)
 
   useEffect(() => {
       if(Array.isArray(indexArrays[0])) {
           const nestedSlices = getNestedSlices(sections, indexArrays[0])
           //console.log(nestedSlices)
-        const arr = buildPage(nestedSlices)
-        //console.log(arr)
-        //console.log(slice)
+        const arr = newBuildPage(nestedSlices)
+        setArrayPages(arr)
+        console.log(arrayPages, newX)
     }
   },[])
 
@@ -225,11 +252,11 @@ export default function Template({sections, indexArrays}: TemplateProps): JSX.El
 /*   console.log(pages)
   console.log(deepPages) */
 
-  return (
+  if(arrayPages) return (
     <>
     {/* El referrer se ha colodado en un ancestro extra porque de otro modo no cogia el background-color */}
-{/*       <div ref={referrer}>
-        {pages.map((page, index) => (
+      <div ref={referrer}>
+        {arrayPages.map((page, index) => (
           <div key={"cuerpo" + index} className=" bg-white min-w-[785px] overflow-x-scroll lg:overflow-x-hidden">
             <div className="contenedor max-w-2xl bg-white  mx-auto p-12 px-0">
               <section className="">
@@ -251,7 +278,7 @@ export default function Template({sections, indexArrays}: TemplateProps): JSX.El
           {isLoading ? <Spinner/> : "Convert to pdf"}
         </button>
         <Link ref={linkRef} target={"_blank"} href={pdfUrl} className="hidden absolute"></Link>
-      </div> */}
+      </div>
     </>
   );
 }
