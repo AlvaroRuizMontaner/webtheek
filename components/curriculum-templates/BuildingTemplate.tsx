@@ -131,7 +131,7 @@ export default function BuildingTemplate({sections}: TemplateProps): JSX.Element
         </button>
         <Link ref={linkRef} target={"_blank"} href={pdfUrl} className="hidden absolute"></Link>
       </div>
-      <Template sections={sections} indexArrays={indexArrays} />
+      {Array.isArray(indexArrays[0]) && <Template sections={sections} indexArrays={indexArrays} />}
     </>
   );
 }
