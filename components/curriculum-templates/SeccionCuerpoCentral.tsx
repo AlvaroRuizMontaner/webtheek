@@ -9,25 +9,25 @@ type SeccionCuerpoCentralProps = {
 
 export default function SeccionCuerpoCentral({title, info}: SeccionCuerpoCentralProps) {
   return (
-    <div className="flex flex-col py-[1.25rem] seccion-cuerpo-central">
+    <div className="flex flex-col seccion-cuerpo-central">
       <div className="flex gap-2 items-center relative -translate-x-8">
-        <div className="bg-blue-500 h-8 w-8 rounded-full flex items-center justify-center">
+        {title.classNameIcon && <div className="bg-blue-500 h-8 w-8 rounded-full flex items-center justify-center">
           <span className={`text-white ${title.classNameIcon}`}>
             {title.nameIcon}
           </span>
-        </div>
+        </div>}
         <h2 className="text-xl text-indigo-700 font-bold uppercase">
           {title.text}
         </h2>
       </div>
 
-      <div className="subseccion-info-cuerpo-central">
+      {info && <div className="subseccion-info-cuerpo-central">
         {info.map((el, index) => (
           <div className="subseccion-cuerpo-central" key={index}>
             {el[0] && <p className="font-bold text-blue-900">{el[0]}</p>} {/* main */}
             <div className="flex justify-between text-gray-400 text-sm">
-              <p className=" ">{el[1].detail}</p>
-              {el[1].date && <p>{el[1].date}</p>}
+              {el[1] && <p className=" ">{el[1].detail}</p>}
+              {el[1] && <p>{el[1].date}</p>}
             </div>
             {el[2] && (
               <ul className=" text-[14px] list-disc">
@@ -38,7 +38,7 @@ export default function SeccionCuerpoCentral({title, info}: SeccionCuerpoCentral
             )}
           </div>
         ))}
-      </div>
+      </div>}
     </div>
   );
 }

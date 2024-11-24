@@ -432,8 +432,8 @@ export const cuerpoCentralPaginas: CuerpoCentralPaginas = [
             classNameIcon: "material-symbols-outlined"
         },
         [
-            [
-                "Front-End Skills", /* main */
+/*             [
+                "Front-End Skills", 
                 {
                     detail: "CSS",
                     date: "",
@@ -443,7 +443,7 @@ export const cuerpoCentralPaginas: CuerpoCentralPaginas = [
                     "Frameworks like Tailwind, Sass and styled-components",
                     "Design systems and variables"
                 ]
-            ],
+            ], */
 /*             [
                 "",
                 {
@@ -461,7 +461,7 @@ export const cuerpoCentralPaginas: CuerpoCentralPaginas = [
                 ]
             ], */
             [
-                "Full-Stack Skills", /* main */
+                "Full-Stack Skills", 
                 {
                     detail: "MERN & PERN",
                     date: "",

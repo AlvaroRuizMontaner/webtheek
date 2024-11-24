@@ -25,9 +25,9 @@ export default function CuerpoCentralBuilding({page, setIndexArrays, MAX_HEIGHT}
         const deepElementHeight = (deepChild as HTMLElement).offsetHeight;
         deepCurrentHeight += deepElementHeight
 
-        
+        console.log(nestingLevel, {deepCurrentHeight}, {deepElementHeight}, {deepChild})
         if (deepCurrentHeight > MAX_HEIGHT) {
-          console.log(`Altura de iteracion nesteada en elemento ${deepIndex}`,deepCurrentHeight)
+          console.log(`Altura de iteracion nesteada en elemento ${deepIndex}`,deepCurrentHeight, nestingLevel)
           indexArrays[page].push(deepIndex)
 /*           indexObjects[page] = {
             ...indexObjects[page],
@@ -47,34 +47,43 @@ export default function CuerpoCentralBuilding({page, setIndexArrays, MAX_HEIGHT}
     const calculatePages = () => {
       if (!sections.current) return;
 
-      let currentHeight = 48 + 48; // Referente al padding-block de pagina (de elementos padre)
+      let currentHeight = 48 + 48 + 20 + 20; // Referente al padding-block de pagina (de elementos padre) y al padding-block de los seccion-cuerpo-central
       const indices: number[] = [];
       const indexArrays: indexArraysType = []
       const container = sections.current;
 
       // Iterar sobre los hijos del contenedor para medir alturas acumuladas
-      Array.from(container.children).forEach((child, index) => {
-        const elementHeight = (child as HTMLElement).offsetHeight;
-        currentHeight += elementHeight;
-        
-        if (currentHeight > MAX_HEIGHT) {
-          indices.push(index); // Marcar dónde cortar
-          indexArrays[page] = []
-          indexArrays[page].push(index)
-          console.log(`Altura de sobrepaso de pagina ${index+1}`,currentHeight)
-          
-          const deepCurrentHeight = currentHeight - elementHeight
-          console.log(`Altura anterior a corte de pagina ${index+1}`,deepCurrentHeight)
-          const deepChildren = Array.from(child.children)
-          const [doubleDeepCurrentHeight, deeperChildren] = calculateDeepLevel(deepChildren, deepCurrentHeight, indexArrays, 1, page)
-          const [tripleDeepCurrentHeight, moreDeeperChildren] = calculateDeepLevel((deeperChildren as Element[]), (doubleDeepCurrentHeight as number), indexArrays, 2, page)
-          const [cuadrupleDeepCurrentHeight, evenMoreDeeperChildren] = calculateDeepLevel((moreDeeperChildren as Element[]), (tripleDeepCurrentHeight as number), indexArrays, 3, page)
-          calculateDeepLevel((evenMoreDeeperChildren as Element[]), (cuadrupleDeepCurrentHeight as number), indexArrays, 4, page)
+      const children = Array.from(container.children)
 
-          page += 1
-          currentHeight = elementHeight; // Resetear altura acumulada
-        }
-      });
+      children.forEach((child, index) => {
+
+      let elementHeight = (child as HTMLElement).offsetHeight
+
+      currentHeight += elementHeight + 40 // Se añade el gap;
+      
+      if (currentHeight > MAX_HEIGHT) {
+        indices.push(index); // Marcar dónde cortar
+        indexArrays[page] = []
+        indexArrays[page].push(index)
+        console.log(`Altura de sobrepaso de pagina ${index}`,currentHeight)
+
+        // Necesario descontar el padding-bottom del elemento en el caso de que sea un cuerpo-central-section intermedio en el corte de pagina
+        // pero si ay es el ultimo del total no hace falta porque el css ya lo tiene descontado del last-child
+
+        elementHeight = (index === children.length-1) ? elementHeight : elementHeight - 40;
+        
+        const deepCurrentHeight = currentHeight - elementHeight - 40 // En el corte de página no existe gap debajo del elemento ya que es el último, asi que se descuenta el añadido antes para este index en concreto
+        console.log(`Altura anterior a corte de pagina ${index-1}`,deepCurrentHeight)
+        const deepChildren = Array.from(child.children)
+        const [doubleDeepCurrentHeight, deeperChildren] = calculateDeepLevel(deepChildren, deepCurrentHeight, indexArrays, 1, page)
+        const [tripleDeepCurrentHeight, moreDeeperChildren] = calculateDeepLevel((deeperChildren as Element[]), (doubleDeepCurrentHeight as number), indexArrays, 2, page)
+        const [cuadrupleDeepCurrentHeight, evenMoreDeeperChildren] = calculateDeepLevel((moreDeeperChildren as Element[]), (tripleDeepCurrentHeight as number), indexArrays, 3, page)
+        calculateDeepLevel((evenMoreDeeperChildren as Element[]), (cuadrupleDeepCurrentHeight as number), indexArrays, 4, page)
+
+        page += 1
+        currentHeight = elementHeight; // Resetear altura acumulada
+      }
+    });
 
       console.log(indexArrays)
       //setPageIndices(indices);
@@ -89,7 +98,7 @@ export default function CuerpoCentralBuilding({page, setIndexArrays, MAX_HEIGHT}
   }, [sections]);
 
   return (
-    <div ref={sections} className='flex flex-col justify-center px-[1.25rem]'>
+    <div ref={sections} className='flex flex-col gap-10 justify-center p-[1.25rem]'>
         {page.map((seccion, seccionIndx) => (
             <SeccionCuerpoCentral key={seccionIndx} title={seccion[0]} info={seccion[1]}/>
         ))}

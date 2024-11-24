@@ -15,8 +15,8 @@ export default function SeccionCuerpoCentral({title, titleIcon, info}: seccionCu
             <div className='space-y-2' key={index}>
                 <p className='font-bold text-blue-900'>{el.main}</p>
                 <div className='flex justify-between text-gray-400 text-sm'>
-                    <p className=' '>{el.detail}</p>
-                    {el.date && <p>{el.date}</p>}
+                    {el && el.detail && <p className=' '>{el.detail}</p>}
+                    {el && el.date && <p>{el.date}</p>}
                 </div>
                 {el.list && (
                     <ul className=' text-[14px] list-disc'>

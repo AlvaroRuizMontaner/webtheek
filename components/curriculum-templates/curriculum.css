@@ -9,6 +9,10 @@
     
 }
 
+/* .seccion-cuerpo-central:not(:last-child) {
+  padding-bottom: 2.5rem;
+} */
+
 .seccion-cuerpo-central > *:not(:last-child) {
   padding-bottom: 0.75rem; /* Espacio entre elementos */
 }
