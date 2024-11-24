@@ -432,7 +432,7 @@ export const cuerpoCentralPaginas: CuerpoCentralPaginas = [
             classNameIcon: "material-symbols-outlined"
         },
         [
-/*             [
+            [
                 "Front-End Skills", 
                 {
                     detail: "CSS",
@@ -443,8 +443,8 @@ export const cuerpoCentralPaginas: CuerpoCentralPaginas = [
                     "Frameworks like Tailwind, Sass and styled-components",
                     "Design systems and variables"
                 ]
-            ], */
-/*             [
+            ],
+            [
                 "",
                 {
                     detail: "React",
@@ -459,7 +459,7 @@ export const cuerpoCentralPaginas: CuerpoCentralPaginas = [
                     "Communication with Restful APIs",
                     "SEO built on Next.js"
                 ]
-            ], */
+            ],
             [
                 "Full-Stack Skills", 
                 {
