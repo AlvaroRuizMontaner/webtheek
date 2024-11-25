@@ -1,6 +1,6 @@
 import React from 'react'
 import SeccionCuerpoLateral from './SeccionCuerpoLateral'
-import { seccionCuerpoLateralInfoType } from './curriculum.info'
+import { seccionCuerpoLateralInfoType } from './templates.info'
 
 
 export default function CuerpoLateral({page}: {page: seccionCuerpoLateralInfoType[]}) {
