@@ -10,16 +10,16 @@ type SeccionCuerpoCentralProps = {
 export default function SeccionCuerpoCentral({title, info}: SeccionCuerpoCentralProps) {
   return (
     <div className="flex flex-col seccion-cuerpo-central">
-      <div className="flex gap-2 items-center relative -translate-x-8">
-        {title.classNameIcon && <div className="bg-blue-500 h-8 w-8 rounded-full flex items-center justify-center">
+      {title && <div className="flex gap-2 items-center relative -translate-x-8">
+        <div className="bg-blue-500 h-8 w-8 rounded-full flex items-center justify-center">
           <span className={`text-white ${title.classNameIcon}`}>
             {title.nameIcon}
           </span>
-        </div>}
+        </div>
         <h2 className="text-xl text-indigo-700 font-bold uppercase">
           {title.text}
         </h2>
-      </div>
+      </div>}
 
       {info && <div className="subseccion-info-cuerpo-central">
         {info.map((el, index) => (

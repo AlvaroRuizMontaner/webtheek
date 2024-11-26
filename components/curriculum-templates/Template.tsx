@@ -44,7 +44,7 @@ type TemplateProps = {
   } */
 
 
-function newBuildPage(nestedSlices: any[]): CuerpoCentralPaginas {
+function buildPage1(nestedSlices: any[]): CuerpoCentralPaginas {
     const newNestedSlices = JSON.parse(JSON.stringify(nestedSlices))
     const reversedNestedSlices = [...newNestedSlices].reverse()
     const arr: any = []
@@ -60,6 +60,28 @@ function newBuildPage(nestedSlices: any[]): CuerpoCentralPaginas {
             const currentSlice = JSON.parse(JSON.stringify(nestedSlice))
             const previousSlice = JSON.parse(JSON.stringify(arr[index-1]))
             currentSlice.push(previousSlice)
+            arr[index] = currentSlice
+        }
+    })
+    //console.log(arr)
+    returnArr.push(arr[arr.length-1])
+    return returnArr
+}
+function buildPage2(nestedSlices: any[]): CuerpoCentralPaginas {
+    const newNestedSlices = JSON.parse(JSON.stringify(nestedSlices))
+    const reversedNestedSlices = [...newNestedSlices].reverse()
+    const arr: any = []
+    const returnArr: any = []
+
+    reversedNestedSlices.forEach((nestedSlice, index) => {
+
+        if(index === 0) {
+            arr[index] = JSON.parse(JSON.stringify(nestedSlice))
+            //console.log(arr[index])
+        } else {
+            const currentSlice = JSON.parse(JSON.stringify(nestedSlice))
+            const previousSlice = JSON.parse(JSON.stringify(arr[index-1]))
+            currentSlice.unshift(previousSlice)
             arr[index] = currentSlice
         }
     })
@@ -161,31 +183,29 @@ export default function Template({sections, indexArrays}: TemplateProps) {
   //const newX = lol(sections)
 
   useEffect(() => {
-      if(Array.isArray(indexArrays[0]) && Array.isArray(sections)) {
-        const nestedSlices =  getNestedSlices(sections, indexArrays[0])
+    if(Array.isArray(indexArrays[0]) && Array.isArray(sections)) {
+      const nestedSlices =  getNestedSlices(sections, indexArrays[0])
+      const nestedSlices2 =  getNestedSlices2(sections, indexArrays[0])
+      //nestedSlices2.pop();nestedSlices2.pop();nestedSlices2.pop()
 
-        const arr: any[] = newBuildPage(nestedSlices)
-        setArrayPages(arr)
+      const arr: any[] = buildPage1(nestedSlices)
+      const arr2: any[] = buildPage2(nestedSlices2)
+
+      console.log(nestedSlices2)
+      console.log(arr2)
+
+      //setArrayPages(arr)
+      setArrayPages([...arr, ...arr2])
     }
   },[])
 
   function cleanArrayWithPop(array: any[], sliceIndex: number) {
     // Hacer una copia profunda del array para eliminar referencias mutables
     const newArray = JSON.parse(JSON.stringify(array));
-/*     const newArray = sections.map((item, index) => {
-        console.log(item, index)
-        return Array.isArray(item) ? [...item] : item
-    }); */
       
-  
     // Bucle para eliminar elementos sobrantes (arrays vacíos)
     while (newArray.length > sliceIndex) {
         newArray.pop(); // Eliminar arrays vacíos al final
-/*       if (Array.isArray(newArray[newArray.length - 1]) && newArray[newArray.length - 1].length === 0) {
-        newArray.pop(); // Eliminar arrays vacíos al final
-      } else {
-        newArray.pop(); // Eliminar cualquier elemento adicional
-      } */
     }
     //console.log(newArray)
   
@@ -195,19 +215,49 @@ export default function Template({sections, indexArrays}: TemplateProps) {
   function getNestedSlices(data: any[], indices: number[]) {
     // Navega por los niveles según los índices
     const nestedSlices: any[] = []
-    let current = [...data]
-    indices.forEach((index) => {
+    let current = JSON.parse(JSON.stringify(data)) //[...data]
+
+    console.log(indices)
+
+    indices.forEach((cutIndex, _) => {
       // Asegurar que `current` es iterable
-      const newCurrent = Array.isArray(current) ? [...current] : [];
-      const slice = cleanArrayWithPop(newCurrent, index);
-  
+      const newCurrent = Array.isArray(current) ? JSON.parse(JSON.stringify(current)) : [];
+      const slice = cleanArrayWithPop(newCurrent, cutIndex);
+          
       nestedSlices.push(slice);
-  
+      console.log(nestedSlices)
+
       // Avanzar al siguiente nivel solo si `current` es un array válido
-      current = Array.isArray(current) && current[index] ? current[index] : [];
+      current = Array.isArray(current) && current[cutIndex] ? current[cutIndex] : [];
     });
   
     return nestedSlices
+}
+  function getNestedSlices2(data: any[], indices: number[]) {
+    // Navega por los niveles según los índices
+    const nestedSlices2: any[] = []
+    let current = JSON.parse(JSON.stringify(data)) //[...data]
+
+    console.log(indices)
+
+    indices.forEach((cutIndex, index) => {
+      // Asegurar que `current` es iterable
+      const newCurrent = Array.isArray(current) ? JSON.parse(JSON.stringify(current)) : [];
+      let slice2 = []
+      if(index === indices.length-1) {
+        slice2 = newCurrent.slice(cutIndex)
+        }else {
+          slice2 = newCurrent.slice(cutIndex+1)// cleanArrayWithShift(newCurrent, cutIndex);
+        }
+
+      nestedSlices2.push(slice2);
+
+  
+      // Avanzar al siguiente nivel solo si `current` es un array válido
+      current = Array.isArray(current) && current[cutIndex] ? current[cutIndex] : [];
+    });
+  
+    return nestedSlices2
 }
 
 
