@@ -8,6 +8,7 @@ type SeccionCuerpoCentralProps = {
 }
 
 export default function SeccionCuerpoCentral({title, info}: SeccionCuerpoCentralProps) {
+    console.log(title)
   return (
     <div className="flex flex-col seccion-cuerpo-central">
       {title && <div className="flex gap-2 items-center relative -translate-x-8">

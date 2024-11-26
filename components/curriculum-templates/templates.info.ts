@@ -444,7 +444,7 @@ export const cuerpoCentralPaginas: CuerpoCentralPaginas = [
                     "Design systems and variables"
                 ]
             ],
-            [
+/*             [
                 "",
                 {
                     detail: "React",
@@ -459,7 +459,7 @@ export const cuerpoCentralPaginas: CuerpoCentralPaginas = [
                     "Communication with Restful APIs",
                     "SEO built on Next.js"
                 ]
-            ],
+            ], */
             [
                 "Full-Stack Skills", 
                 {

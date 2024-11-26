@@ -17,31 +17,13 @@ type TemplateProps = {
   indexArrays: indexArrayType[]
 }
 
-/* function lol(sections: CuerpoCentralPaginas): Section[][] {
-    const sliceLvl1: any = sections.slice(0,2)
-    const sliceLvl2: any = sections[2].slice(0,1)
-    const sliceLvl3: any = sections[2][1].slice(0,0) //Pienso que da un []
-    const sliceLvl4: any = sections[2][1][0].slice(0,2)
-    const sliceLvl5: any = sections[2][1][0][2] && sections[2][1][0][2].slice(0,1)
-
-    console.log(sliceLvl1)
-    console.log(sliceLvl2)
-    console.log(sliceLvl3)
-    console.log(sliceLvl4)
-    console.log(sliceLvl5)
-
-
-    sliceLvl4.push(sliceLvl5)
-    sliceLvl3.push(sliceLvl4)
-    sliceLvl2.push(sliceLvl3)
-    sliceLvl1.push(sliceLvl2)
-    console.log(sliceLvl1)
-    const newX = []
-    newX.push(sliceLvl1)
-    console.log(newX)
-    return newX
-
-  } */
+function removeLeadingZeros(array: any[]): any[] {
+  console.log(array.length > 0,array[0])
+  while (array.length > 0 && array[0] === 0) {
+    array.shift(); // Eliminar el primer elemento si es 0
+  }
+  return array;
+}
 
 
 function buildPage1(nestedSlices: any[]): CuerpoCentralPaginas {
@@ -67,9 +49,11 @@ function buildPage1(nestedSlices: any[]): CuerpoCentralPaginas {
     returnArr.push(arr[arr.length-1])
     return returnArr
 }
-function buildPage3(nestedSlices: any[]): CuerpoCentralPaginas {
+function buildPage3(nestedSlices: any[], cutIndexArray: number[]): CuerpoCentralPaginas {
     const newNestedSlices = JSON.parse(JSON.stringify(nestedSlices))
     const reversedNestedSlices = [...newNestedSlices].reverse()
+    const reversedCutIndexArray = [...cutIndexArray].reverse()
+
     const arr: any = []
     const returnArr: any = []
 
@@ -82,14 +66,22 @@ function buildPage3(nestedSlices: any[]): CuerpoCentralPaginas {
             const previousSlice = JSON.parse(JSON.stringify(arr[index-1]))
 
             //Calcular substitutionIndex
-            const substitutionIndex = currentSlice.lastIndexOf(0);
+            const substitutionIndex = reversedCutIndexArray[index]; // Se hace la sustitucion en el indice que coincide con el corte que corresponde
 
-            currentSlice[substitutionIndex] = previousSlice
+            //Previene el reemplazo en cadena de arrays vacios en casos especiales como el array de corte (2,0,0,0)
+            if(previousSlice.length !== 0) {
+              currentSlice[substitutionIndex] = previousSlice
+            }
+
             arr[index] = currentSlice
+            console.log(reversedCutIndexArray[index])
         }
     })
-    //console.log(arr)
-    returnArr.push(arr[arr.length-1])
+    const groupedSlices = arr[arr.length-1]
+
+    // Limpia los ceros del primer nivel
+    returnArr.push((removeLeadingZeros(groupedSlices)))
+  
     return returnArr
 }
 
@@ -171,7 +163,7 @@ export default function Template({sections, indexArrays}: TemplateProps) {
       //nestedSlices2.pop();nestedSlices2.pop();nestedSlices2.pop()
 
       const arr: any[] = buildPage1(nestedSlices)
-      const arr3: any[] = buildPage3(nestedSlices3)
+      const arr3: any[] = buildPage3(nestedSlices3, indexArrays[0])
 
       console.log(nestedSlices3)
       console.log(arr3)
@@ -199,9 +191,8 @@ export default function Template({sections, indexArrays}: TemplateProps) {
     const newArray = JSON.parse(JSON.stringify(array));
   
     // Reemplazar los primeros elementos con ceros
-    for (let i = 0; i <= sliceIndex; i++) {
+    for (let i = 0; i < sliceIndex; i++) {
       if (i < newArray.length) {
-        console.log(newArray[i])
         newArray[i] = 0;
       }
     }
@@ -254,8 +245,8 @@ export default function Template({sections, indexArrays}: TemplateProps) {
         //const substitutionIndex = slice3.lastIndexOf(0);
         //slice3[substitutionIndex] = 1
       }
-      
-      console.log(slice3, index)
+      console.log(slice3)
+    
       nestedSlices3.push(slice3);
 
   
