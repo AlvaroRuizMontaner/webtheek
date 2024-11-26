@@ -24,20 +24,23 @@ export default function SeccionCuerpoCentral({title, info}: SeccionCuerpoCentral
 
       {info && <div className="subseccion-info-cuerpo-central">
         {info.map((el, index) => (
-          <div className="subseccion-cuerpo-central" key={index}>
-            {el[0] && <p className="font-bold text-blue-900">{el[0]}</p>} {/* main */}
-            <div className="flex justify-between text-gray-400 text-sm">
-              {el[1] && <p className=" ">{el[1].detail}</p>}
-              {el[1] && <p>{el[1].date}</p>}
+            <div className="subseccion-cuerpo-central" key={index}>
+                {el[0] && <p className="font-bold text-blue-900">{el[0]}</p>} {/* main */}
+
+                {el[1] && (
+                <div className="flex justify-between text-gray-400 text-sm">
+                    <p className=" ">{el[1].detail}</p>
+                    <p>{el[1].date}</p>
+                </div>)}
+
+                {el[2] && (
+                <ul className=" text-[14px] list-disc">
+                    {el[2].map((subEl, subIndex) => (
+                    <li key={"" + index + subIndex}>{subEl}</li>
+                    ))}
+                </ul>
+                )}
             </div>
-            {el[2] && (
-              <ul className=" text-[14px] list-disc">
-                {el[2].map((subEl, subIndex) => (
-                  <li key={"" + index + subIndex}>{subEl}</li>
-                ))}
-              </ul>
-            )}
-          </div>
         ))}
       </div>}
     </div>

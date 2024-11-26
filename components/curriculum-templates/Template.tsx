@@ -17,10 +17,9 @@ type TemplateProps = {
   indexArrays: indexArrayType[]
 }
 
-function removeLeadingZeros(array: any[]): any[] {
-  console.log(array.length > 0,array[0])
-  while (array.length > 0 && array[0] === 0) {
-    array.shift(); // Eliminar el primer elemento si es 0
+function removeLeadingEmptyStrings(array: any[]): any[] {
+  while (array.length > 0 && array[0] === "") {
+    array.shift(); // Eliminar el primer elemento si es ""
   }
   return array;
 }
@@ -34,10 +33,10 @@ function buildPage1(nestedSlices: any[]): CuerpoCentralPaginas {
 
 
     reversedNestedSlices.forEach((nestedSlice, index) => {
+      console.log(nestedSlices)
 
         if(index === 0) {
             arr[index] = JSON.parse(JSON.stringify(nestedSlice))
-            //console.log(arr[index])
         } else {
             const currentSlice = JSON.parse(JSON.stringify(nestedSlice))
             const previousSlice = JSON.parse(JSON.stringify(arr[index-1]))
@@ -45,7 +44,7 @@ function buildPage1(nestedSlices: any[]): CuerpoCentralPaginas {
             arr[index] = currentSlice
         }
     })
-    //console.log(arr)
+
     returnArr.push(arr[arr.length-1])
     return returnArr
 }
@@ -74,13 +73,12 @@ function buildPage3(nestedSlices: any[], cutIndexArray: number[]): CuerpoCentral
             }
 
             arr[index] = currentSlice
-            console.log(reversedCutIndexArray[index])
         }
     })
     const groupedSlices = arr[arr.length-1]
 
     // Limpia los ceros del primer nivel
-    returnArr.push((removeLeadingZeros(groupedSlices)))
+    returnArr.push((removeLeadingEmptyStrings(groupedSlices)))
   
     return returnArr
 }
@@ -120,8 +118,6 @@ export default function Template({sections, indexArrays}: TemplateProps) {
   const handleClick = () => {
     const html: string | undefined = getHtmlWithStyles(referrer);
     if (html) {
-/*       console.log(html);
-      console.log(referrer.current?.offsetHeight) */
       setIsLoading(true)
       mutate(html);
     }
@@ -165,9 +161,6 @@ export default function Template({sections, indexArrays}: TemplateProps) {
       const arr: any[] = buildPage1(nestedSlices)
       const arr3: any[] = buildPage3(nestedSlices3, indexArrays[0])
 
-      console.log(nestedSlices3)
-      console.log(arr3)
-
       //setArrayPages(arr)
       setArrayPages([...arr, ...arr3])
     }
@@ -193,7 +186,7 @@ export default function Template({sections, indexArrays}: TemplateProps) {
     // Reemplazar los primeros elementos con ceros
     for (let i = 0; i < sliceIndex; i++) {
       if (i < newArray.length) {
-        newArray[i] = 0;
+        newArray[i] = "";
       }
     }
   
