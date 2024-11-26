@@ -67,7 +67,7 @@ function buildPage1(nestedSlices: any[]): CuerpoCentralPaginas {
     returnArr.push(arr[arr.length-1])
     return returnArr
 }
-function buildPage2(nestedSlices: any[]): CuerpoCentralPaginas {
+function buildPage3(nestedSlices: any[]): CuerpoCentralPaginas {
     const newNestedSlices = JSON.parse(JSON.stringify(nestedSlices))
     const reversedNestedSlices = [...newNestedSlices].reverse()
     const arr: any = []
@@ -77,11 +77,14 @@ function buildPage2(nestedSlices: any[]): CuerpoCentralPaginas {
 
         if(index === 0) {
             arr[index] = JSON.parse(JSON.stringify(nestedSlice))
-            //console.log(arr[index])
         } else {
             const currentSlice = JSON.parse(JSON.stringify(nestedSlice))
             const previousSlice = JSON.parse(JSON.stringify(arr[index-1]))
-            currentSlice.unshift(previousSlice)
+
+            //Calcular substitutionIndex
+            const substitutionIndex = currentSlice.lastIndexOf(0);
+
+            currentSlice[substitutionIndex] = previousSlice
             arr[index] = currentSlice
         }
     })
@@ -161,41 +164,20 @@ export default function Template({sections, indexArrays}: TemplateProps) {
   }, [height]); */
 
 
-  // Función para dividir el array en páginas
-/*   const getPages = () => {
-    const pages = [];
-    let start = 0;
-  
-    indexArrays.forEach((arr, indx) => {
-      const end = arr[indx] || sections.length; // Si `endIndex` es undefined, usar `sections.length`
-      pages.push(sections.slice(start, end)); // Agregar el segmento actual
-      start = end; // Actualizar `start` para la siguiente iteración
-    });
-  
-    // Último segmento: manejar cualquier contenido restante
-    if (start < sections.length) {
-      pages.push(sections.slice(start));
-    }
-  
-    return pages;
-  }; */
-
-  //const newX = lol(sections)
-
   useEffect(() => {
     if(Array.isArray(indexArrays[0]) && Array.isArray(sections)) {
       const nestedSlices =  getNestedSlices(sections, indexArrays[0])
-      const nestedSlices2 =  getNestedSlices2(sections, indexArrays[0])
+      const nestedSlices3 =  getNestedSlices3(sections, indexArrays[0])
       //nestedSlices2.pop();nestedSlices2.pop();nestedSlices2.pop()
 
       const arr: any[] = buildPage1(nestedSlices)
-      const arr2: any[] = buildPage2(nestedSlices2)
+      const arr3: any[] = buildPage3(nestedSlices3)
 
-      console.log(nestedSlices2)
-      console.log(arr2)
+      console.log(nestedSlices3)
+      console.log(arr3)
 
       //setArrayPages(arr)
-      setArrayPages([...arr, ...arr2])
+      setArrayPages([...arr, ...arr3])
     }
   },[])
 
@@ -208,6 +190,20 @@ export default function Template({sections, indexArrays}: TemplateProps) {
         newArray.pop(); // Eliminar arrays vacíos al final
     }
     //console.log(newArray)
+  
+    return newArray;
+  }
+
+  function cleanArrayWithPlaceholders(array: any[], sliceIndex: number): any[] {
+    // Crear una copia para no mutar el array original
+    const newArray = JSON.parse(JSON.stringify(array));
+  
+    // Reemplazar los primeros elementos con arrays vacíos
+    for (let i = 0; i <= sliceIndex; i++) {
+      if (i < newArray.length) {
+        newArray[i] = 0;
+      }
+    }
   
     return newArray;
   }
@@ -225,7 +221,7 @@ export default function Template({sections, indexArrays}: TemplateProps) {
       const slice = cleanArrayWithPop(newCurrent, cutIndex);
           
       nestedSlices.push(slice);
-      console.log(nestedSlices)
+      //console.log(nestedSlices)
 
       // Avanzar al siguiente nivel solo si `current` es un array válido
       current = Array.isArray(current) && current[cutIndex] ? current[cutIndex] : [];
@@ -233,9 +229,10 @@ export default function Template({sections, indexArrays}: TemplateProps) {
   
     return nestedSlices
 }
-  function getNestedSlices2(data: any[], indices: number[]) {
+
+  function getNestedSlices3(data: any[], indices: number[]) {
     // Navega por los niveles según los índices
-    const nestedSlices2: any[] = []
+    const nestedSlices3: any[] = []
     let current = JSON.parse(JSON.stringify(data)) //[...data]
 
     console.log(indices)
@@ -243,21 +240,25 @@ export default function Template({sections, indexArrays}: TemplateProps) {
     indices.forEach((cutIndex, index) => {
       // Asegurar que `current` es iterable
       const newCurrent = Array.isArray(current) ? JSON.parse(JSON.stringify(current)) : [];
-      let slice2 = []
-      if(index === indices.length-1) {
-        slice2 = newCurrent.slice(cutIndex)
-        }else {
-          slice2 = newCurrent.slice(cutIndex+1)// cleanArrayWithShift(newCurrent, cutIndex);
-        }
+      let slice3 = []
 
-      nestedSlices2.push(slice2);
+      if(index === indices.length-1) {
+        slice3 = newCurrent.slice(cutIndex)
+      } else {
+        slice3 = cleanArrayWithPlaceholders(newCurrent, cutIndex)
+        //const substitutionIndex = slice3.lastIndexOf(0);
+        //slice3[substitutionIndex] = 1
+      }
+      
+        console.log(slice3)
+      nestedSlices3.push(slice3);
 
   
       // Avanzar al siguiente nivel solo si `current` es un array válido
       current = Array.isArray(current) && current[cutIndex] ? current[cutIndex] : [];
     });
   
-    return nestedSlices2
+    return nestedSlices3
 }
 
 
