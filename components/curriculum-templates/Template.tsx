@@ -198,9 +198,10 @@ export default function Template({sections, indexArrays}: TemplateProps) {
     // Crear una copia para no mutar el array original
     const newArray = JSON.parse(JSON.stringify(array));
   
-    // Reemplazar los primeros elementos con arrays vacíos
+    // Reemplazar los primeros elementos con ceros
     for (let i = 0; i <= sliceIndex; i++) {
       if (i < newArray.length) {
+        console.log(newArray[i])
         newArray[i] = 0;
       }
     }
@@ -210,7 +211,7 @@ export default function Template({sections, indexArrays}: TemplateProps) {
 
   function getNestedSlices(data: any[], indices: number[]) {
     // Navega por los niveles según los índices
-    const nestedSlices: any[] = []
+    let nestedSlices: any[] = []
     let current = JSON.parse(JSON.stringify(data)) //[...data]
 
     console.log(indices)
@@ -221,11 +222,16 @@ export default function Template({sections, indexArrays}: TemplateProps) {
       const slice = cleanArrayWithPop(newCurrent, cutIndex);
           
       nestedSlices.push(slice);
-      //console.log(nestedSlices)
 
       // Avanzar al siguiente nivel solo si `current` es un array válido
       current = Array.isArray(current) && current[cutIndex] ? current[cutIndex] : [];
     });
+
+    if(indices.filter((indx) => indx !==0).length === 1) {
+      const indexForPops = indices.filter((indx) => indx !==0)[0]
+      nestedSlices = cleanArrayWithPop(nestedSlices, indexForPops)
+      // Pendiente probar el caso de indices = [2] u otro numero
+    }
   
     return nestedSlices
 }
@@ -235,7 +241,6 @@ export default function Template({sections, indexArrays}: TemplateProps) {
     const nestedSlices3: any[] = []
     let current = JSON.parse(JSON.stringify(data)) //[...data]
 
-    console.log(indices)
 
     indices.forEach((cutIndex, index) => {
       // Asegurar que `current` es iterable
@@ -250,7 +255,7 @@ export default function Template({sections, indexArrays}: TemplateProps) {
         //slice3[substitutionIndex] = 1
       }
       
-        console.log(slice3)
+      console.log(slice3, index)
       nestedSlices3.push(slice3);
 
   
@@ -261,11 +266,6 @@ export default function Template({sections, indexArrays}: TemplateProps) {
     return nestedSlices3
 }
 
-
-  //const pages = getPages()
-
-/*   console.log(pages)
-  console.log(deepPages) */
 
   if(arrayPages) return (
     <>
