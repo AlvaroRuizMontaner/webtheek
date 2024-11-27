@@ -3,7 +3,6 @@ import SeccionCuerpoLateral from './SeccionCuerpoLateral'
 import { seccionCuerpoLateralInfoType } from './templates.info'
 
 
-
 export default function CuerpoLateral({page}: {page: seccionCuerpoLateralInfoType[]}) {
   return (
     <div className='flex flex-col justify-center gap-5 p-[1.25rem] text-white'>

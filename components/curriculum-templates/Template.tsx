@@ -17,34 +17,15 @@ type TemplateProps = {
   indexArrays: indexArrayType[]
 }
 
-/* function lol(sections: CuerpoCentralPaginas): Section[][] {
-    const sliceLvl1: any = sections.slice(0,2)
-    const sliceLvl2: any = sections[2].slice(0,1)
-    const sliceLvl3: any = sections[2][1].slice(0,0) //Pienso que da un []
-    const sliceLvl4: any = sections[2][1][0].slice(0,2)
-    const sliceLvl5: any = sections[2][1][0][2] && sections[2][1][0][2].slice(0,1)
-
-    console.log(sliceLvl1)
-    console.log(sliceLvl2)
-    console.log(sliceLvl3)
-    console.log(sliceLvl4)
-    console.log(sliceLvl5)
+function removeLeadingEmptyStrings(array: any[]): any[] {
+  while (array.length > 0 && array[0] === "") {
+    array.shift(); // Eliminar el primer elemento si es ""
+  }
+  return array;
+}
 
 
-    sliceLvl4.push(sliceLvl5)
-    sliceLvl3.push(sliceLvl4)
-    sliceLvl2.push(sliceLvl3)
-    sliceLvl1.push(sliceLvl2)
-    console.log(sliceLvl1)
-    const newX = []
-    newX.push(sliceLvl1)
-    console.log(newX)
-    return newX
-
-  } */
-
-
-function newBuildPage(nestedSlices: any[]): CuerpoCentralPaginas {
+function buildPage1(nestedSlices: any[]): CuerpoCentralPaginas {
     const newNestedSlices = JSON.parse(JSON.stringify(nestedSlices))
     const reversedNestedSlices = [...newNestedSlices].reverse()
     const arr: any = []
@@ -52,10 +33,10 @@ function newBuildPage(nestedSlices: any[]): CuerpoCentralPaginas {
 
 
     reversedNestedSlices.forEach((nestedSlice, index) => {
+      console.log(nestedSlices)
 
         if(index === 0) {
             arr[index] = JSON.parse(JSON.stringify(nestedSlice))
-            //console.log(arr[index])
         } else {
             const currentSlice = JSON.parse(JSON.stringify(nestedSlice))
             const previousSlice = JSON.parse(JSON.stringify(arr[index-1]))
@@ -63,8 +44,42 @@ function newBuildPage(nestedSlices: any[]): CuerpoCentralPaginas {
             arr[index] = currentSlice
         }
     })
-    //console.log(arr)
+
     returnArr.push(arr[arr.length-1])
+    return returnArr
+}
+function buildPage3(nestedSlices: any[], cutIndexArray: number[]): CuerpoCentralPaginas {
+    const newNestedSlices = JSON.parse(JSON.stringify(nestedSlices))
+    const reversedNestedSlices = [...newNestedSlices].reverse()
+    const reversedCutIndexArray = [...cutIndexArray].reverse()
+
+    const arr: any = []
+    const returnArr: any = []
+
+    reversedNestedSlices.forEach((nestedSlice, index) => {
+
+        if(index === 0) {
+            arr[index] = JSON.parse(JSON.stringify(nestedSlice))
+        } else {
+            const currentSlice = JSON.parse(JSON.stringify(nestedSlice))
+            const previousSlice = JSON.parse(JSON.stringify(arr[index-1]))
+
+            //Calcular substitutionIndex
+            const substitutionIndex = reversedCutIndexArray[index]; // Se hace la sustitucion en el indice que coincide con el corte que corresponde
+
+            //Previene el reemplazo en cadena de arrays vacios en casos especiales como el array de corte (2,0,0,0)
+            if(previousSlice.length !== 0) {
+              currentSlice[substitutionIndex] = previousSlice
+            }
+
+            arr[index] = currentSlice
+        }
+    })
+    const groupedSlices = arr[arr.length-1]
+
+    // Limpia los ceros del primer nivel
+    returnArr.push((removeLeadingEmptyStrings(groupedSlices)))
+  
     return returnArr
 }
 
@@ -103,8 +118,6 @@ export default function Template({sections, indexArrays}: TemplateProps) {
   const handleClick = () => {
     const html: string | undefined = getHtmlWithStyles(referrer);
     if (html) {
-/*       console.log(html);
-      console.log(referrer.current?.offsetHeight) */
       setIsLoading(true)
       mutate(html);
     }
@@ -139,82 +152,104 @@ export default function Template({sections, indexArrays}: TemplateProps) {
   }, [height]); */
 
 
-  // Función para dividir el array en páginas
-/*   const getPages = () => {
-    const pages = [];
-    let start = 0;
-  
-    indexArrays.forEach((arr, indx) => {
-      const end = arr[indx] || sections.length; // Si `endIndex` es undefined, usar `sections.length`
-      pages.push(sections.slice(start, end)); // Agregar el segmento actual
-      start = end; // Actualizar `start` para la siguiente iteración
-    });
-  
-    // Último segmento: manejar cualquier contenido restante
-    if (start < sections.length) {
-      pages.push(sections.slice(start));
-    }
-  
-    return pages;
-  }; */
-
-  //const newX = lol(sections)
-
   useEffect(() => {
-      if(Array.isArray(indexArrays[0]) && Array.isArray(sections)) {
-        const nestedSlices =  getNestedSlices(sections, indexArrays[0])
+    if(Array.isArray(indexArrays[0]) && Array.isArray(sections)) {
+      const nestedSlices =  getNestedSlices(sections, indexArrays[0])
+      const nestedSlices3 =  getNestedSlices3(sections, indexArrays[0])
+      //nestedSlices2.pop();nestedSlices2.pop();nestedSlices2.pop()
 
-        const arr: any[] = newBuildPage(nestedSlices)
-        setArrayPages(arr)
+      const arr: any[] = buildPage1(nestedSlices)
+      const arr3: any[] = buildPage3(nestedSlices3, indexArrays[0])
+
+      //setArrayPages(arr)
+      setArrayPages([...arr, ...arr3])
     }
   },[])
 
   function cleanArrayWithPop(array: any[], sliceIndex: number) {
     // Hacer una copia profunda del array para eliminar referencias mutables
     const newArray = JSON.parse(JSON.stringify(array));
-/*     const newArray = sections.map((item, index) => {
-        console.log(item, index)
-        return Array.isArray(item) ? [...item] : item
-    }); */
       
-  
     // Bucle para eliminar elementos sobrantes (arrays vacíos)
     while (newArray.length > sliceIndex) {
         newArray.pop(); // Eliminar arrays vacíos al final
-/*       if (Array.isArray(newArray[newArray.length - 1]) && newArray[newArray.length - 1].length === 0) {
-        newArray.pop(); // Eliminar arrays vacíos al final
-      } else {
-        newArray.pop(); // Eliminar cualquier elemento adicional
-      } */
     }
     //console.log(newArray)
   
     return newArray;
   }
 
+  function cleanArrayWithPlaceholders(array: any[], sliceIndex: number): any[] {
+    // Crear una copia para no mutar el array original
+    const newArray = JSON.parse(JSON.stringify(array));
+  
+    // Reemplazar los primeros elementos con ceros
+    for (let i = 0; i < sliceIndex; i++) {
+      if (i < newArray.length) {
+        newArray[i] = "";
+      }
+    }
+  
+    return newArray;
+  }
+
   function getNestedSlices(data: any[], indices: number[]) {
     // Navega por los niveles según los índices
-    const nestedSlices: any[] = []
-    let current = [...data]
-    indices.forEach((index) => {
+    let nestedSlices: any[] = []
+    let current = JSON.parse(JSON.stringify(data)) //[...data]
+
+    console.log(indices)
+
+    indices.forEach((cutIndex, _) => {
       // Asegurar que `current` es iterable
-      const newCurrent = Array.isArray(current) ? [...current] : [];
-      const slice = cleanArrayWithPop(newCurrent, index);
-  
+      const newCurrent = Array.isArray(current) ? JSON.parse(JSON.stringify(current)) : [];
+      const slice = cleanArrayWithPop(newCurrent, cutIndex);
+          
       nestedSlices.push(slice);
-  
+
       // Avanzar al siguiente nivel solo si `current` es un array válido
-      current = Array.isArray(current) && current[index] ? current[index] : [];
+      current = Array.isArray(current) && current[cutIndex] ? current[cutIndex] : [];
     });
+
+    if(indices.filter((indx) => indx !==0).length === 1) {
+      const indexForPops = indices.filter((indx) => indx !==0)[0]
+      nestedSlices = cleanArrayWithPop(nestedSlices, indexForPops)
+      // Pendiente probar el caso de indices = [2] u otro numero
+    }
   
     return nestedSlices
 }
 
+  function getNestedSlices3(data: any[], indices: number[]) {
+    // Navega por los niveles según los índices
+    const nestedSlices3: any[] = []
+    let current = JSON.parse(JSON.stringify(data)) //[...data]
 
-  //const pages = getPages()
 
-/*   console.log(pages)
-  console.log(deepPages) */
+    indices.forEach((cutIndex, index) => {
+      // Asegurar que `current` es iterable
+      const newCurrent = Array.isArray(current) ? JSON.parse(JSON.stringify(current)) : [];
+      let slice3 = []
+
+      if(index === indices.length-1) {
+        slice3 = newCurrent.slice(cutIndex)
+      } else {
+        slice3 = cleanArrayWithPlaceholders(newCurrent, cutIndex)
+        //const substitutionIndex = slice3.lastIndexOf(0);
+        //slice3[substitutionIndex] = 1
+      }
+      console.log(slice3)
+    
+      nestedSlices3.push(slice3);
+
+  
+      // Avanzar al siguiente nivel solo si `current` es un array válido
+      current = Array.isArray(current) && current[cutIndex] ? current[cutIndex] : [];
+    });
+  
+    return nestedSlices3
+}
+
 
   if(arrayPages) return (
     <>
