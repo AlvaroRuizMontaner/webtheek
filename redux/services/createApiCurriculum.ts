@@ -1,28 +1,25 @@
-import { curriculumBaseQuery } from "@/services/CurriculumAPI"
-import { Curriculum, CurriculumFormData } from "@/types/curriculum"
-import {createApi, /* fetchBaseQuery */} from "@reduxjs/toolkit/query/react"
+import { axiosBaseQuery } from "@/services/CurriculumAPI";
+import { Curriculum, CurriculumFormData } from "@/types/curriculum";
+import { createApi, /* fetchBaseQuery */ } from "@reduxjs/toolkit/query/react";
 
 
 export const curriculumApi = createApi({
-    reducerPath: "userAPI",
-    tagTypes: ["Curriculum"], // Define los tipos de tags usados
-    baseQuery: curriculumBaseQuery, // fetchBaseQuery({baseUrl: "https://jsonplaceholder.typicode.com/users"}),
+    reducerPath: "curriculumApi",
+    baseQuery: axiosBaseQuery({ baseUrl: "http://localhost:4000/api" }),
+    tagTypes: ["Curriculum"], // Define aquí tus tipos de tags
     endpoints: (builder) => ({
-        createCurriculum: builder.mutation<Curriculum, {formData: CurriculumFormData}>({
-            /* query: (formData) => ({
-                url: "curriculums",
+        createCurriculum: builder.mutation<Curriculum, CurriculumFormData>({ // EL primer parametro generico define el tipo de la respuesta y el segundo el tipo de lo que se envia
+            query: (formData) => ({
+                url: "/curriculums",
                 method: "POST",
-                body: formData
-            }) */
-            query: ({formData}) => ({
-                endpointName: "createCurriculum",
-                formData: formData
+                data: formData,
             }),
-            invalidatesTags: (/* result, error, { formData } */) => [
-                { type: "Curriculum", id: "LIST" }, // Invalida la lista para refrescar datos
-            ],
+            invalidatesTags: [{ type: "Curriculum", id: "LIST" }],
         }),
-        getCurriculums: builder.query<Curriculum[], null>({
+    }),
+});
+        
+/*         getCurriculums: builder.query<Curriculum[], null>({
             //query: () => "curriculums" // https://domain/users
             query: () => ({
                 endpointName: "getCurriculums"
@@ -38,10 +35,7 @@ export const curriculumApi = createApi({
             providesTags: (result, error, { curriculumId }) => [
                 { type: "Curriculum", id: curriculumId }, // Proporciona una tag dinámica por ID
             ],
-        }),
-    })
-}) 
-
-export const {useCreateCurriculumMutation, useGetCurriculumsQuery, useGetCurriculumByIdQuery} = curriculumApi
+        }), */
+export const {useCreateCurriculumMutation/* , useGetCurriculumsQuery, useGetCurriculumByIdQuery */} = curriculumApi
 
 //const {data,error,isLoading,isFetching} = useGetCurriculumsQuery(null)

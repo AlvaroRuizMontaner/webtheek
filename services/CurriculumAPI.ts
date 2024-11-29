@@ -1,6 +1,6 @@
 import api from "@/lib/axios";
 import { Curriculum, CurriculumFormData } from "@/types/curriculum";
-import { AxiosError } from "axios";
+import axios, { AxiosError } from "axios";
 
 type CurriculumApiType = {
     endpointName: "createCurriculum" | "getCurriculums" | "getCurriculumById";
@@ -11,7 +11,7 @@ type CurriculumApiType = {
 
 export const createCurriculum = async (formData: CurriculumApiType["formData"]) => {
     try {
-      const response = await api.post(`/curriculums}`, formData)
+      const response = await api.post(`/curriculums`, formData)
       return { data: response.data };
     } catch (error) {
       const axiosError = error as AxiosError;
@@ -56,16 +56,23 @@ export const getCurriculumById = async (curriculumId: CurriculumApiType["curricu
 
 // Base Query
 
-export const curriculumBaseQuery = async (args: CurriculumApiType) => {
-    // Detecta qué funcion usar según el endpoint
-    if (args.endpointName === "createCurriculum") {
-      return await createCurriculum(args.formData);
-    }
-    if (args.endpointName === "getCurriculums") {
-      return await getCurriculums();
-    }
-    if (args.endpointName === "getCurriculumById") {
-      return await getCurriculumById(args.curriculumId);
-    }
-    return { error: { status: 400, data: "Invalid endpoint" } };
-}
+export const axiosBaseQuery =
+    ({ baseUrl }: { baseUrl: string }) =>
+    async ({ url, method, data }: { url: string; method: string; data?: any }) => {
+        try {
+            const result = await axios({
+                url: baseUrl + url,
+                method,
+                data,
+            });
+            return { data: result.data };
+        } catch (axiosError: any) {
+            const err = axiosError as AxiosError;
+            return {
+                error: {
+                    status: err.response?.status || 500,
+                    data: err.response?.data || err.message,
+                },
+            };
+        }
+    };

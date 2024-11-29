@@ -11,6 +11,7 @@ import EncabezadoLateral from "./EncabezadoLateral";
 import { CuerpoCentralPaginas } from "./templates.info";
 import Template from "./Template";
 import CuerpoCentralBuilding, { indexArrayType } from "./CuerpoCentralBuilding";
+import { useCreateCurriculumMutation } from "@/redux/services/createApiCurriculum";
 
 type TemplateProps = {
   sections: CuerpoCentralPaginas
@@ -21,6 +22,7 @@ export default function BuildingTemplate({sections}: TemplateProps): JSX.Element
   const MAX_HEIGHT = 1122 /* 1139 */ /* 1162 */
   const [pdfUrl, setPdfUrl] = useState("")
   const [isLoading, setIsLoading] = useState(false)
+  const [createCurriculum] = useCreateCurriculumMutation()
   const { mutate } = useMutation({
     mutationFn: generatePDF,
     onError: (error) => {
@@ -104,6 +106,32 @@ export default function BuildingTemplate({sections}: TemplateProps): JSX.Element
     return pages;
   }; */
 
+  function crear() {
+    const formData = [
+      {
+          title: {
+              text: "a",
+              nameItem: "a",
+              classNameIcon: "a"
+          },
+          info: [
+              {
+                  main: "a",
+                  detail: "a",
+                  date: "",
+                  list: [
+                      "a",
+                      "a",
+                      "a"
+                  ]
+              }
+          ]
+      }
+  ]
+    createCurriculum(formData)
+  }
+
+
   return (
     <>
     {/* El referrer se ha colodado en un ancestro extra porque de otro modo no cogia el background-color */}
@@ -132,6 +160,7 @@ export default function BuildingTemplate({sections}: TemplateProps): JSX.Element
         <Link ref={linkRef} target={"_blank"} href={pdfUrl} className="hidden absolute"></Link>
       </div>
       {Array.isArray(indexArrays[0]) && <Template sections={sections} indexArrays={indexArrays} />}
+      <button onClick={crear}>crear</button>
     </>
   );
 }

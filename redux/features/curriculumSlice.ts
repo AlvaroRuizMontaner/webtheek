@@ -5,7 +5,7 @@ const initialState = [
         title: {
             text: "",
             nameItem: "",
-            classNameItem: ""
+            classNameIcon: ""
         },
         info: [
             {
