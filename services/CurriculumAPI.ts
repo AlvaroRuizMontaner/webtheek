@@ -1,6 +1,6 @@
 import api from "@/lib/axios";
 import { Curriculum, CurriculumFormData } from "@/types/curriculum";
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
 
 type CurriculumApiType = {
     endpointName: "createCurriculum" | "getCurriculums" | "getCurriculumById";
@@ -56,23 +56,21 @@ export const getCurriculumById = async (curriculumId: CurriculumApiType["curricu
 
 // Base Query
 
-export const axiosBaseQuery =
-    ({ baseUrl }: { baseUrl: string }) =>
-    async ({ url, method, data }: { url: string; method: string; data?: any }) => {
-        try {
-            const result = await axios({
-                url: baseUrl + url,
-                method,
-                data,
-            });
-            return { data: result.data };
-        } catch (axiosError: any) {
-            const err = axiosError as AxiosError;
-            return {
-                error: {
-                    status: err.response?.status || 500,
-                    data: err.response?.data || err.message,
-                },
-            };
-        }
-    };
+export const axiosBaseQuery = async ({ url, method, data }: { url: string; method: string; data?: any }) => {
+  try {
+    const result = await api({
+        url,
+        method,
+        data,
+    });
+      return { data: result.data };
+  } catch (axiosError: any) {
+      const err = axiosError as AxiosError;
+      return {
+          error: {
+              status: err.response?.status || 500,
+              data: err.response?.data || err.message,
+          },
+      };
+    }
+};

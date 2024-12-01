@@ -11,7 +11,7 @@ import EncabezadoLateral from "./EncabezadoLateral";
 import { CuerpoCentralPaginas } from "./templates.info";
 import Template from "./Template";
 import CuerpoCentralBuilding, { indexArrayType } from "./CuerpoCentralBuilding";
-import { useCreateCurriculumMutation } from "@/redux/services/createApiCurriculum";
+import { useCreateCurriculumMutation, useGetCurriculumByIdQuery, useGetCurriculumsQuery } from "@/redux/services/createApiCurriculum";
 
 type TemplateProps = {
   sections: CuerpoCentralPaginas
@@ -36,6 +36,10 @@ export default function BuildingTemplate({sections}: TemplateProps): JSX.Element
     },
   });
 
+  const { data } = useGetCurriculumsQuery(null);
+  const { data: data2 } = useGetCurriculumByIdQuery({ curriculumId: "674c75b4f45dfd230e2f8a9a" });
+
+
   const referrer = useRef<HTMLDivElement | null>(null);
   const linkRef = useRef<HTMLAnchorElement | null>(null);
 
@@ -44,6 +48,11 @@ export default function BuildingTemplate({sections}: TemplateProps): JSX.Element
       linkRef.current.click();
     }
   }, [pdfUrl])
+
+  useEffect(() => {
+    console.log(data)
+    console.log(data2)
+  },[])
 
 
   const handleClick = () => {

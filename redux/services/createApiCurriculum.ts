@@ -5,10 +5,10 @@ import { createApi, /* fetchBaseQuery */ } from "@reduxjs/toolkit/query/react";
 
 export const curriculumApi = createApi({
     reducerPath: "curriculumApi",
-    baseQuery: axiosBaseQuery({ baseUrl: "http://localhost:4000/api" }),
+    baseQuery: axiosBaseQuery,
     tagTypes: ["Curriculum"], // Define aquí tus tipos de tags
     endpoints: (builder) => ({
-        createCurriculum: builder.mutation<Curriculum, CurriculumFormData>({ // EL primer parametro generico define el tipo de la respuesta y el segundo el tipo de lo que se envia
+        createCurriculum: builder.mutation<Curriculum, CurriculumFormData>({ // El primer parametro generico define el tipo de la respuesta y el segundo el tipo de lo que se envia
             query: (formData) => ({
                 url: "/curriculums",
                 method: "POST",
@@ -16,26 +16,26 @@ export const curriculumApi = createApi({
             }),
             invalidatesTags: [{ type: "Curriculum", id: "LIST" }],
         }),
-    }),
-});
-        
-/*         getCurriculums: builder.query<Curriculum[], null>({
+        getCurriculums: builder.query<Curriculum[], null>({
             //query: () => "curriculums" // https://domain/users
             query: () => ({
-                endpointName: "getCurriculums"
+                url: "/curriculums",
+                method: "GET",
             }),
             providesTags: [{ type: "Curriculum", id: "LIST" }], // Proporciona una tag para la lista de curriculums
             transformResponse: response => response.sort()
         }),
         getCurriculumById: builder.query<Curriculum, {curriculumId: string}>({
             query: ({curriculumId}) => ({
-                endpointName: "getCurriculumById",
-                curriculumId: curriculumId
+                url: `curriculums/${curriculumId}`,
+                method: "GET"
             }),
-            providesTags: (result, error, { curriculumId }) => [
+            providesTags: (result, error, { curriculumId }) => [ //  const { data, error, isLoading } = useGetCurriculumByIdQuery({ curriculumId: "12345" });
                 { type: "Curriculum", id: curriculumId }, // Proporciona una tag dinámica por ID
             ],
-        }), */
-export const {useCreateCurriculumMutation/* , useGetCurriculumsQuery, useGetCurriculumByIdQuery */} = curriculumApi
+        }),
+    }),
+});
+export const {useCreateCurriculumMutation, useGetCurriculumsQuery, useGetCurriculumByIdQuery} = curriculumApi
 
 //const {data,error,isLoading,isFetching} = useGetCurriculumsQuery(null)
