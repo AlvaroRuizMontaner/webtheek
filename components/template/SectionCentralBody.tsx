@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { SectionCentralBodyInfoType } from './curriculum.info'
 import { useAppDispatch } from '@/redux/hooks'
-import { editInfoChildDate, editInfoChildDetail, editInfoChildMain, editListChild, editTitleText } from '@/redux/features/curriculumSlice';
+import { deleteBodyChildByIndex, editInfoChildDate, editInfoChildDetail, editInfoChildMain, editListChild, editTitleText } from '@/redux/features/curriculumSlice';
+import { XMarkIcon } from '@heroicons/react/20/solid';
 
 interface SectionCentralBody extends SectionCentralBodyInfoType {
     pageNumber: number;
@@ -10,6 +11,7 @@ interface SectionCentralBody extends SectionCentralBodyInfoType {
 
 export default function SectionCentralBody({title, info, pageNumber, bodyChildIndex}: SectionCentralBody) {
     const dispatch = useAppDispatch()
+    const [showBoduChildOptions, setShowBodyChildOptions] = useState(false)
 
 
     const handleOnInputList = (infoChildIndex: number, listChildIndex: number) => (e: React.SyntheticEvent) => {
@@ -53,12 +55,17 @@ export default function SectionCentralBody({title, info, pageNumber, bodyChildIn
                 {infoChild.list && (
                     <ul className=' text-[14px] list-disc'>
                         {infoChild.list.map((listChild, listChildIndex) => (
-                            <li dangerouslySetInnerHTML={{ __html: listChild }} contentEditable={true} onInput={handleOnInputList(infoChildIndex, listChildIndex)} key={"" + infoChildIndex + listChildIndex}></li>
+                            <li onBlur={() => setShowBodyChildOptions(false)} onFocus={() => setShowBodyChildOptions(true)} dangerouslySetInnerHTML={{ __html: listChild }} contentEditable={true} onInput={handleOnInputList(infoChildIndex, listChildIndex)} key={"" + infoChildIndex + listChildIndex}></li>
                         ))}
                     </ul>
                 )}
             </div>
         ))}
+        {showBoduChildOptions && (
+            <div className="absolute -left-12 flex gap-2 h-44 rounded-md">
+                <span className="cursor-pointer bg-gray-100" onClick={() => dispatch(deleteBodyChildByIndex({pageNumber, bodyChildIndex}))}><XMarkIcon className="w-6 h-6" /></span>
+            </div>
+        )}
     </div>
   )
 }

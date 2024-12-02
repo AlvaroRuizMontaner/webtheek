@@ -12,7 +12,8 @@ import CentralBody from "./CentralBody";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { createCurriculum } from "@/services/CurriculumAPI";
 import Button from "../button/Button";
-import { addPage } from "@/redux/features/curriculumSlice";
+import { addBodyChild, addPage, deletePage } from "@/redux/features/curriculumSlice";
+import { PlusIcon, XMarkIcon } from "@heroicons/react/20/solid";
 
 
 
@@ -69,9 +70,14 @@ export default function Template() {
     {/* El referrer se ha colodado en un ancestro extra porque de otro modo no cogia el background-color */}
       <div ref={referrer}>
         {pages.map((page, pageNumber) => (
-          <div key={"cuerpo" + pageNumber} className=" bg-white min-w-[785px] h-[1122px] overflow-x-scroll lg:overflow-x-hidden">
+          <div key={"cuerpo" + pageNumber} className=" bg-white h-[1122px] w-[785px] m-auto overflow-x-scroll lg:overflow-x-hidden">
             <div className="max-w-2xl bg-white p-12 px-0 mx-auto relative">
-                {showOptions && <div className="absolute top-10">hola</div>}
+                {showOptions && (
+                    <div className="absolute top-8 flex gap-2 w-44 rounded-md">
+                        <span className="cursor-pointer bg-gray-100" onClick={() => dispatch(deletePage({pageNumber}))}><XMarkIcon className="w-6 h-6" /></span>
+                        <span className="cursor-pointer bg-gray-100" onClick={() => dispatch(addBodyChild({pageNumber}))}><PlusIcon className="w-6 h-6" /></span>
+                    </div>
+                  )}
                 <div className="contenedor">
                     <section className="">
                         <CentralBody pageNumber={pageNumber} page={page} />

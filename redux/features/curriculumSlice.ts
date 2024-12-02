@@ -47,37 +47,37 @@ const initialState: SectionCentralBodyInfoType[][] = [
                 {
                     main: "Front-End Skills",
                     detail: "CSS",
-                    date: "",
+                    date: "2020",
                     list: [
                         "Flexbox, grid and multicolumn layouts",
-                        "Frameworks like Tailwind, Sass and styled-components",
-                        "Design systems and variables"
+/*                         "Frameworks like Tailwind, Sass and styled-components",
+                        "Design systems and variables" */
                     ]
                 },
                 {
                     main: "",
                     detail: "React",
-                    date: "",
+                    date: "2020",
                     list: [
                         "TypeScript integrated",
-                        "Function components, hooks, state, life cycles, routing",
+/*                         "Function components, hooks, state, life cycles, routing",
                         "Testing with Jest and react-testing-library",
                         "Global state with Redux, useReducer, useContext",
                         "Frameworks like Next.js and Vite",
                         "Communication with Restful APIs",
-                        "SEO built on Next.js"
+                        "SEO built on Next.js" */
                     ]
                 },
                 {
                     main: "Full-Stack Skills",
                     detail: "MERN & PERN",
-                    date: "",
+                    date: "2020",
                     list: [
                         "MVC and decoupled architectures on express",
-                        "CRUD APIs",
+/*                         "CRUD APIs",
                         "Nested routing",
                         "Validation with ZOD and Express-validator",
-                        "MongoDB and PostgreSQL"
+                        "MongoDB and PostgreSQL" */
                     ]
                 },
             ],
@@ -85,6 +85,7 @@ const initialState: SectionCentralBodyInfoType[][] = [
     ]
 ]
 const page = initialState[0]
+const bodyChild = page[1]
 
 export const curriculumSlice = createSlice({
     name: "curriculum",
@@ -95,7 +96,7 @@ export const curriculumSlice = createSlice({
             state.push(page);
         },
         addBodyChild: (state, action) => {
-            const { pageNumber, bodyChild } = action.payload; // El nuevo objeto body que se quiere añadir
+            const { pageNumber } = action.payload; // El nuevo objeto body que se quiere añadir
             state[pageNumber].push(bodyChild);
         },
         addInfoChild: (state, action) => {
