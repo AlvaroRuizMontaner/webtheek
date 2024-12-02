@@ -3,21 +3,19 @@
 import { generatePDF } from "@/services/PDFAPI";
 import { getHtmlWithStyles } from "@/utils/generateHtml";
 import { useMutation } from "@tanstack/react-query";
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./curriculum.css";
 import SideHeader from "./SideHeader";
 import Spinner from "../spinners/Spinner";
 import Link from "next/link";
 import CentralBody from "./CentralBody";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { createCurriculum } from "@/services/CurriculumAPI";
 import Button from "../button/Button";
 import { addBodyChild, addPage, deletePage } from "@/redux/features/curriculumSlice";
 import { PlusIcon, XMarkIcon } from "@heroicons/react/20/solid";
 
 
-
-export default function Template() {
+export const Template = React.memo(() => {
   const [pdfUrl, setPdfUrl] = useState("")
   const [isLoading, setIsLoading] = useState(false)
   const [showOptions, setShowOptions] = useState(true)
@@ -62,7 +60,7 @@ export default function Template() {
   },[showOptions])
 
   const pages = useAppSelector((state) => state.curriculumReducer)
-  console.log(pages[0][0])
+  console.log(pages)
 
 
   if(pages) return (
@@ -101,10 +99,9 @@ export default function Template() {
         >
           {isLoading ? <Spinner/> : "Convert to pdf"}
         </button>
-        <button onClick={() => createCurriculum(pages[0])}>Crear</button>
         <Link ref={linkRef} target={"_blank"} href={pdfUrl} className="hidden absolute"></Link>
       </div>
     </>
   );
-}
+})
 

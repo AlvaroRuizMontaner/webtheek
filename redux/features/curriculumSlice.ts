@@ -50,8 +50,8 @@ const initialState: SectionCentralBodyInfoType[][] = [
                     date: "2020",
                     list: [
                         "Flexbox, grid and multicolumn layouts",
-/*                         "Frameworks like Tailwind, Sass and styled-components",
-                        "Design systems and variables" */
+                        "Frameworks like Tailwind, Sass and styled-components",
+                        "Design systems and variables"
                     ]
                 },
                 {
@@ -60,12 +60,12 @@ const initialState: SectionCentralBodyInfoType[][] = [
                     date: "2020",
                     list: [
                         "TypeScript integrated",
-/*                         "Function components, hooks, state, life cycles, routing",
+                        "Function components, hooks, state, life cycles, routing",
                         "Testing with Jest and react-testing-library",
                         "Global state with Redux, useReducer, useContext",
                         "Frameworks like Next.js and Vite",
                         "Communication with Restful APIs",
-                        "SEO built on Next.js" */
+                        "SEO built on Next.js"
                     ]
                 },
                 {
@@ -74,18 +74,37 @@ const initialState: SectionCentralBodyInfoType[][] = [
                     date: "2020",
                     list: [
                         "MVC and decoupled architectures on express",
-/*                         "CRUD APIs",
+                        "CRUD APIs",
                         "Nested routing",
                         "Validation with ZOD and Express-validator",
-                        "MongoDB and PostgreSQL" */
+                        "MongoDB and PostgreSQL"
                     ]
                 },
             ],
         }
     ]
 ]
+/* const initialState: SectionCentralBodyInfoType[][] = [
+    [
+        {
+            title: {
+                text: "hola",
+                nameIcon: "",
+                classNameIcon: "hola"
+            },
+            info: [
+                {
+                    main: "hola",
+                    detail: "hola",
+                    date: "hola"
+                },
+            ],
+        },
+    ]
+] */
 const page = initialState[0]
 const bodyChild = page[1]
+const infoChild = bodyChild.info[0]
 
 export const curriculumSlice = createSlice({
     name: "curriculum",
@@ -100,7 +119,7 @@ export const curriculumSlice = createSlice({
             state[pageNumber].push(bodyChild);
         },
         addInfoChild: (state, action) => {
-            const { pageNumber, bodyChildIndex, infoChild } = action.payload; // Desestructuramos los parámetros necesarios
+            const { pageNumber, bodyChildIndex } = action.payload; // Desestructuramos los parámetros necesarios
             if (state[pageNumber][bodyChildIndex]) { // Validamos que el índice sea válido
                 state[pageNumber][bodyChildIndex].info.push(infoChild);
             }

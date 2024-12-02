@@ -1,15 +1,17 @@
+export type InfoChildType = {
+    main: string;
+    detail: string;
+    date: string;
+    list?: string[]
+}
+
 export type SectionCentralBodyInfoType = {
     title: {
         text: string;
         nameIcon: string;
         classNameIcon: string;
     }
-    info: {
-        main: string;
-        detail: string;
-        date: string;
-        list?: string[]
-    }[];
+    info: InfoChildType[]
 }
 
 

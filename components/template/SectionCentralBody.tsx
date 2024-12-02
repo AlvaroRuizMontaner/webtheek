@@ -3,6 +3,7 @@ import { SectionCentralBodyInfoType } from './curriculum.info'
 import { useAppDispatch } from '@/redux/hooks'
 import { deleteBodyChildByIndex, editInfoChildDate, editInfoChildDetail, editInfoChildMain, editListChild, editTitleText } from '@/redux/features/curriculumSlice';
 import { XMarkIcon } from '@heroicons/react/20/solid';
+import InfoChild from './InfoChild';
 
 interface SectionCentralBody extends SectionCentralBodyInfoType {
     pageNumber: number;
@@ -35,6 +36,13 @@ export default function SectionCentralBody({title, info, pageNumber, bodyChildIn
             value: (e.target as HTMLElement).innerText}))
     }
 
+    const handleOnBlur = () => {
+        setTimeout(() => setShowBodyChildOptions(false), 100)
+    }
+    const handleOnFocus = () => {
+        setTimeout(() => setShowBodyChildOptions(true), 100)
+    }
+
 
   return (
     <div className='flex flex-col gap-3'>
@@ -46,20 +54,7 @@ export default function SectionCentralBody({title, info, pageNumber, bodyChildIn
         </div>
 
         {info.map((infoChild, infoChildIndex) => (
-            <div className='space-y-2' key={infoChildIndex}>
-                <p dangerouslySetInnerHTML={{ __html: infoChild.main }} contentEditable={true} onInput={handleOnInputInfoMain(infoChildIndex)} className='font-bold text-blue-900'></p>
-                <div className='flex justify-between text-gray-400 text-sm'>
-                    {infoChild && infoChild.detail && <p dangerouslySetInnerHTML={{ __html: infoChild.detail }} onInput={handleOnInputInfoDetail(infoChildIndex)}  contentEditable={true} className=' ' ></p>}
-                    {infoChild && infoChild.date && <p dangerouslySetInnerHTML={{ __html: infoChild.date }} onInput={handleOnInputInfoDate(infoChildIndex)} contentEditable={true} ></p>}
-                </div>
-                {infoChild.list && (
-                    <ul className=' text-[14px] list-disc'>
-                        {infoChild.list.map((listChild, listChildIndex) => (
-                            <li onBlur={() => setShowBodyChildOptions(false)} onFocus={() => setShowBodyChildOptions(true)} dangerouslySetInnerHTML={{ __html: listChild }} contentEditable={true} onInput={handleOnInputList(infoChildIndex, listChildIndex)} key={"" + infoChildIndex + listChildIndex}></li>
-                        ))}
-                    </ul>
-                )}
-            </div>
+            <InfoChild key={"infoChild" + infoChildIndex} bodyChildIndex={bodyChildIndex} infoChildIndex={infoChildIndex} infoChild={infoChild} pageNumber={pageNumber} handleOnFocus={handleOnFocus} handleOnBlur={handleOnBlur} />
         ))}
         {showBoduChildOptions && (
             <div className="absolute -left-12 flex gap-2 h-44 rounded-md">
