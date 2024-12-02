@@ -1,9 +1,9 @@
-import { editInfoChildMain } from '@/redux/features/curriculumSlice';
+import { editInfoChildDetail } from '@/redux/features/curriculumSlice';
 import { useAppDispatch } from '@/redux/hooks';
 import React, { useRef } from 'react';
 
-type EditableMainProps = {
-  main: string
+type EditableDetailProps = {
+  detail: string
   pageNumber: number
   bodyChildIndex: number
   infoChildIndex: number
@@ -11,7 +11,7 @@ type EditableMainProps = {
   handleInfoOnBlur: () => void
 }
 
-export default function EditableMain({main, bodyChildIndex, pageNumber, infoChildIndex, handleInfoOnFocus, handleInfoOnBlur}: EditableMainProps) {
+export default function EditableDetail({detail, bodyChildIndex, pageNumber, infoChildIndex, handleInfoOnFocus, handleInfoOnBlur}: EditableDetailProps) {
 
   const dispatch = useAppDispatch()
   const editableRef = useRef(null);
@@ -42,20 +42,20 @@ export default function EditableMain({main, bodyChildIndex, pageNumber, infoChil
   };
 
 
-  const handleOnInputInfoMain = (infoChildIndex: number) => (e: React.SyntheticEvent) => {
+  const handleOnInputInfoDetail = (infoChildIndex: number) => (e: React.SyntheticEvent) => {
     savedCursorPosition = saveCursorPosition(editableRef.current);
-    dispatch(editInfoChildMain({pageNumber, bodyChildIndex, infoChildIndex, main: (e.target as HTMLElement).innerText}))
+    dispatch(editInfoChildDetail({pageNumber, bodyChildIndex, infoChildIndex, detail: (e.target as HTMLElement).innerText}))
     setTimeout(() => restoreCursorPosition(editableRef.current, savedCursorPosition), 0);
 }
 
   return (
-    <p
-    onBlur={handleInfoOnBlur}
-    onFocus={handleInfoOnFocus}
-    dangerouslySetInnerHTML={{ __html: main }}
-    contentEditable={true}
-    onInput={handleOnInputInfoMain(infoChildIndex)}
-    className="font-bold text-blue-900"
-  ></p>
+  <p
+  onBlur={handleInfoOnBlur}
+  onFocus={handleInfoOnFocus}
+  dangerouslySetInnerHTML={{ __html: detail }}
+  onInput={handleOnInputInfoDetail(infoChildIndex)}
+  contentEditable={true}
+  className=" "
+></p>
   );
 }
