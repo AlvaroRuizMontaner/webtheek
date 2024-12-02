@@ -4,7 +4,7 @@ import { useAppDispatch } from '@/redux/hooks';
 import { addBodyChild, deleteBodyChildByIndex } from '@/redux/features/curriculumSlice';
 import { MinusIcon, PlusIcon } from '@heroicons/react/20/solid';
 import InfoChild from './InfoChild';
-import EditableTitle from './editableTitle';
+import EditableTitle from './EditableTitle';
 
 interface SectionCentralBody extends SectionCentralBodyInfoType {
     pageNumber: number;
