@@ -1,9 +1,9 @@
-import { editInfoChildDetail } from '@/redux/features/curriculumSlice';
+import { editInfoChildDate } from '@/redux/features/curriculumSlice';
 import { useAppDispatch } from '@/redux/hooks';
 import React, { useRef } from 'react';
 
-type EditableDetailProps = {
-  detail: string
+type EditableDateProps = {
+  date: string
   pageNumber: number
   bodyChildIndex: number
   infoChildIndex: number
@@ -11,7 +11,7 @@ type EditableDetailProps = {
   handleInfoOnBlur: () => void
 }
 
-export default function EditableDetail({detail, bodyChildIndex, pageNumber, infoChildIndex, handleInfoOnFocus, handleInfoOnBlur}: EditableDetailProps) {
+export default function EditableDate({date, bodyChildIndex, pageNumber, infoChildIndex, handleInfoOnFocus, handleInfoOnBlur}: EditableDateProps) {
 
   const dispatch = useAppDispatch()
   const editableRef = useRef(null);
@@ -42,21 +42,20 @@ export default function EditableDetail({detail, bodyChildIndex, pageNumber, info
   };
 
 
-  const handleOnInputInfoDetail = (infoChildIndex: number) => (e: React.SyntheticEvent) => {
+  const handleOnInputInfoDate = (infoChildIndex: number) => (e: React.SyntheticEvent) => {
     savedCursorPosition = saveCursorPosition(editableRef.current);
-    dispatch(editInfoChildDetail({pageNumber, bodyChildIndex, infoChildIndex, detail: (e.target as HTMLElement).innerText}))
+    dispatch(editInfoChildDate({pageNumber, bodyChildIndex, infoChildIndex, date: (e.target as HTMLElement).innerText}))
     setTimeout(() => restoreCursorPosition(editableRef.current, savedCursorPosition), 0);
 }
 
   return (
-  <p
-  ref={editableRef}
-  onBlur={handleInfoOnBlur}
-  onFocus={handleInfoOnFocus}
-  dangerouslySetInnerHTML={{ __html: detail }}
-  onInput={handleOnInputInfoDetail(infoChildIndex)}
-  contentEditable={true}
-  className=" "
-></p>
+            <p
+            ref={editableRef}
+            onBlur={handleInfoOnBlur}
+            onFocus={handleInfoOnFocus}
+            dangerouslySetInnerHTML={{ __html: date }}
+            onInput={handleOnInputInfoDate(infoChildIndex)}
+            contentEditable={true}
+          ></p>
   );
 }

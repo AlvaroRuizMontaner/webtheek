@@ -5,6 +5,7 @@ import { useAppDispatch } from '@/redux/hooks';
 import { PlusIcon, XMarkIcon } from '@heroicons/react/20/solid';
 import EditableMain from './EditableMain';
 import EditableDetail from './EditableDetail';
+import EditableDate from './EditableDate';
 
 type InfoChildProps = {
     infoChildIndex: number, 
@@ -55,15 +56,7 @@ export default function InfoChild({infoChildIndex, handleOnBlur, handleOnFocus, 
         {infoChild.main && <EditableMain handleInfoOnBlur={handleInfoOnBlur} handleInfoOnFocus={handleInfoOnFocus} pageNumber={pageNumber} bodyChildIndex={bodyChildIndex} infoChildIndex={infoChildIndex} main={infoChild.main} />}
         <div className="flex justify-between text-gray-400 text-sm">
           {infoChild && infoChild.detail && <EditableDetail handleInfoOnBlur={handleInfoOnBlur} handleInfoOnFocus={handleInfoOnFocus} pageNumber={pageNumber} bodyChildIndex={bodyChildIndex} infoChildIndex={infoChildIndex} detail={infoChild.detail} />}
-          {infoChild && infoChild.date && (
-            <p
-              onBlur={handleInfoOnBlur}
-              onFocus={handleInfoOnFocus}
-              dangerouslySetInnerHTML={{ __html: infoChild.date }}
-              onInput={handleOnInputInfoDate(infoChildIndex)}
-              contentEditable={true}
-            ></p>
-          )}
+          {infoChild && infoChild.date && <EditableDate handleInfoOnBlur={handleInfoOnBlur} handleInfoOnFocus={handleInfoOnFocus} pageNumber={pageNumber} bodyChildIndex={bodyChildIndex} infoChildIndex={infoChildIndex} date={infoChild.date} />}
         </div>
         {infoChild.list && (
           <ul className=" text-[14px] list-disc">

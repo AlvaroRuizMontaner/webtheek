@@ -50,6 +50,7 @@ export default function EditableMain({main, bodyChildIndex, pageNumber, infoChil
 
   return (
     <p
+    ref={editableRef}
     onBlur={handleInfoOnBlur}
     onFocus={handleInfoOnFocus}
     dangerouslySetInnerHTML={{ __html: main }}

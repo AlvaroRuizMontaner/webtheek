@@ -19,16 +19,15 @@ export default function SectionCentralBody({title, info, pageNumber, bodyChildIn
     const handleOnInputList = (infoChildIndex: number, listChildIndex: number) => (e: React.SyntheticEvent) => {
         dispatch(editListChild({pageNumber, bodyChildIndex, infoChildIndex, listChildIndex, value: (e.target as HTMLElement).innerText}))
     }
-    const handleOnInputInfoDetail = (infoChildIndex: number) => (e: React.SyntheticEvent) => {
+/*     const handleOnInputInfoDetail = (infoChildIndex: number) => (e: React.SyntheticEvent) => {
         dispatch(editInfoChildDetail({pageNumber, bodyChildIndex, infoChildIndex, detail: (e.target as HTMLElement).innerText}))
-    }
-    const handleOnInputInfoDate = (infoChildIndex: number) => (e: React.SyntheticEvent) => {
+    } */
+/*     const handleOnInputInfoDate = (infoChildIndex: number) => (e: React.SyntheticEvent) => {
         dispatch(editInfoChildDate({pageNumber, bodyChildIndex, infoChildIndex, date: (e.target as HTMLElement).innerText}))
-    }
-
-    const handleOnInputInfoMain = (infoChildIndex: number) => (e: React.SyntheticEvent) => {
+    } */
+/*     const handleOnInputInfoMain = (infoChildIndex: number) => (e: React.SyntheticEvent) => {
         dispatch(editInfoChildMain({pageNumber, bodyChildIndex, infoChildIndex, main: (e.target as HTMLElement).innerText}))
-    }
+    } */
 
 
     const handleOnBlur = useCallback(() => {
