@@ -1,6 +1,7 @@
-import { editInfoChildMain } from '@/redux/features/curriculumSlice';
+import { deleteMainByIndex, editInfoChildMain } from '@/redux/features/curriculumSlice';
 import { useAppDispatch } from '@/redux/hooks';
-import React, { useRef } from 'react';
+import { XMarkIcon } from '@heroicons/react/20/solid';
+import React, { useRef, useState } from 'react';
 
 type EditableMainProps = {
   main: string
@@ -14,6 +15,7 @@ type EditableMainProps = {
 export default function EditableMain({main, bodyChildIndex, pageNumber, infoChildIndex, handleInfoOnFocus, handleInfoOnBlur}: EditableMainProps) {
 
   const dispatch = useAppDispatch()
+  const [showMainOptions, setShowMainOptions] = useState(false)
   const editableRef = useRef(null);
   let savedCursorPosition: any = null;
 
@@ -41,6 +43,15 @@ export default function EditableMain({main, bodyChildIndex, pageNumber, infoChil
     selection!.addRange(range);
   };
 
+  const handleListChildOnFocus = () => {
+    handleInfoOnFocus()
+    setTimeout(() => setShowMainOptions(true), 100)
+  }
+  const handleListChildOnBlur = () => {
+    handleInfoOnBlur()
+    setTimeout(() => setShowMainOptions(false), 100)
+  }
+
 
   const handleOnInputInfoMain = (infoChildIndex: number) => (e: React.SyntheticEvent) => {
     savedCursorPosition = saveCursorPosition(editableRef.current);
@@ -48,15 +59,28 @@ export default function EditableMain({main, bodyChildIndex, pageNumber, infoChil
     setTimeout(() => restoreCursorPosition(editableRef.current, savedCursorPosition), 0);
 }
 
-  return (
+return (
+  <div className='relative'>
     <p
-    ref={editableRef}
-    onBlur={handleInfoOnBlur}
-    onFocus={handleInfoOnFocus}
-    dangerouslySetInnerHTML={{ __html: main }}
-    contentEditable={true}
-    onInput={handleOnInputInfoMain(infoChildIndex)}
-    className="font-bold text-blue-900"
-  ></p>
-  );
-}
+      ref={editableRef}
+      onBlur={handleListChildOnBlur}
+      onFocus={handleListChildOnFocus}
+      dangerouslySetInnerHTML={{ __html: main }}
+      contentEditable={true}
+      onInput={() => handleOnInputInfoMain(infoChildIndex)}
+      className="font-bold text-blue-900"
+    ></p>
+    {showMainOptions && (
+      <div className="absolute -left-8 top-[50%] -translate-y-[55%]">
+        <span
+          className="cursor-pointer"
+          onClick={() =>
+            dispatch(deleteMainByIndex({ pageNumber, bodyChildIndex, infoChildIndex }))
+          }
+        >
+          <XMarkIcon className="w-4 h-4" />
+        </span>
+      </div>
+    )}
+  </div>
+)}

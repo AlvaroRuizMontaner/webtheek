@@ -1,6 +1,7 @@
-import { editListChild } from '@/redux/features/curriculumSlice';
+import { deleteListChildByIndex, editListChild } from '@/redux/features/curriculumSlice';
 import { useAppDispatch } from '@/redux/hooks';
-import React, { useRef } from 'react';
+import { XMarkIcon } from '@heroicons/react/20/solid';
+import React, { useRef, useState } from 'react';
 
 type EditableListChildProps = {
   listChild: string
@@ -16,6 +17,7 @@ export default function EditableListChild({listChild, bodyChildIndex, pageNumber
 
   const dispatch = useAppDispatch()
   const editableRef = useRef(null);
+  const [showListChildOptions, setShowListChildOptions] = useState(false)
   let savedCursorPosition: any = null;
 
   const saveCursorPosition = (element: any) => {
@@ -42,6 +44,15 @@ export default function EditableListChild({listChild, bodyChildIndex, pageNumber
     selection!.addRange(range);
   };
 
+  const handleListChildOnFocus = () => {
+    handleInfoOnFocus()
+    setTimeout(() => setShowListChildOptions(true), 100)
+  }
+  const handleListChildOnBlur = () => {
+    handleInfoOnBlur()
+    setTimeout(() => setShowListChildOptions(false), 100)
+  }
+
 
   const handleOnInputInfoList = (infoChildIndex: number, listChildIndex: number) => (e: React.SyntheticEvent) => {
     savedCursorPosition = saveCursorPosition(editableRef.current);
@@ -50,13 +61,21 @@ export default function EditableListChild({listChild, bodyChildIndex, pageNumber
 }
 
   return (
-    <li
-    ref={editableRef}
-    onBlur={handleInfoOnBlur}
-    onFocus={handleInfoOnFocus}
-    dangerouslySetInnerHTML={{ __html: listChild }}
-    contentEditable={true}
-    onInput={handleOnInputInfoList(infoChildIndex, listChildIndex)}
-  ></li>
+    <div className='relative'>
+      <li
+        ref={editableRef}
+        onBlur={handleListChildOnBlur}
+        onFocus={handleListChildOnFocus}
+        dangerouslySetInnerHTML={{ __html: listChild }}
+        contentEditable={true}
+        onInput={handleOnInputInfoList(infoChildIndex, listChildIndex)}
+      ></li>
+      {showListChildOptions && (
+      <div className='absolute -left-8 top-[50%] -translate-y-[55%]'>
+        <span className="cursor-pointer " onClick={() => dispatch(deleteListChildByIndex({pageNumber, bodyChildIndex, infoChildIndex, listChildIndex}))}><XMarkIcon className="w-4 h-4" /></span>
+      </div>
+      )}
+
+    </div>
   );
 }

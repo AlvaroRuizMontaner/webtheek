@@ -180,6 +180,27 @@ export const curriculumSlice = createSlice({
                 bodyChild.info.splice(infoChildIndex,1);
             }
         },
+        deleteMainByIndex: (state, action) => {
+            const { pageNumber, bodyChildIndex, infoChildIndex } = action.payload; // Desestructuramos los parámetros necesarios
+            const bodyChild = state[pageNumber][bodyChildIndex]
+            if (bodyChild) { // Validamos que el índice sea válido
+                bodyChild.info[infoChildIndex].main = "";
+            }
+        },
+        deleteDetailByIndex: (state, action) => {
+            const { pageNumber, bodyChildIndex, infoChildIndex } = action.payload; // Desestructuramos los parámetros necesarios
+            const bodyChild = state[pageNumber][bodyChildIndex]
+            if (bodyChild) { // Validamos que el índice sea válido
+                bodyChild.info[infoChildIndex].detail = "";
+            }
+        },
+        deleteDateByIndex: (state, action) => {
+            const { pageNumber, bodyChildIndex, infoChildIndex } = action.payload; // Desestructuramos los parámetros necesarios
+            const bodyChild = state[pageNumber][bodyChildIndex]
+            if (bodyChild) { // Validamos que el índice sea válido
+                bodyChild.info[infoChildIndex].date = "";
+            }
+        },
         deleteListChildByIndex: (state, action) => {
             const { pageNumber, bodyChildIndex, infoChildIndex, listChildIndex } = action.payload; // Desestructuramos los parámetros necesarios
             const bodyChild = state[pageNumber][bodyChildIndex]
@@ -248,6 +269,9 @@ const {
     deletePage,
     deleteBodyChildByIndex, 
     deleteInfoChildByIndex, 
+    deleteMainByIndex,
+    deleteDetailByIndex,
+    deleteDateByIndex,
     deleteListChildByIndex,
     editTitleText,
     editInfoChildDetail,
@@ -269,6 +293,9 @@ export {
     deletePage,
     deleteBodyChildByIndex,
     deleteInfoChildByIndex,
+    deleteMainByIndex,
+    deleteDetailByIndex,
+    deleteDateByIndex,
     deleteListChildByIndex,
     editTitleText,
     editInfoChildDetail,

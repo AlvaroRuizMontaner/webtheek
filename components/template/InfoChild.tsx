@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { InfoChildType } from './curriculum.info';
 import { addInfoChild, deleteInfoChildByIndex } from '@/redux/features/curriculumSlice';
 import { useAppDispatch } from '@/redux/hooks';
-import { PlusIcon, XMarkIcon } from '@heroicons/react/20/solid';
+import { MinusIcon, PlusIcon } from '@heroicons/react/20/solid';
 import EditableMain from './EditableMain';
 import EditableDetail from './EditableDetail';
 import EditableDate from './EditableDate';
@@ -33,12 +33,12 @@ export default function InfoChild({infoChildIndex, handleOnBlur, handleOnFocus, 
 
   return (
     <div className='relative'>
-        {showInfoChildOptions && (
-            <div className="absolute -left-12 flex-col gap-2 rounded-md">
-                <span className="cursor-pointer bg-gray-100" onClick={() => dispatch(deleteInfoChildByIndex({pageNumber, bodyChildIndex, infoChildIndex}))}><XMarkIcon className="w-6 h-6" /></span>
-                <span className="cursor-pointer bg-gray-100" onClick={() => dispatch(addInfoChild({pageNumber, bodyChildIndex}))}><PlusIcon className="w-6 h-6" /></span>
-            </div>
-        )}
+      {showInfoChildOptions && (
+          <div className="absolute -right-5 top-[50%] flex-col gap-2 py-1 rounded-md bg-gray-400">
+              <span className="cursor-pointer " onClick={() => dispatch(deleteInfoChildByIndex({pageNumber, bodyChildIndex, infoChildIndex}))}><MinusIcon className="w-6 h-6" /></span>
+              <span className="cursor-pointer" onClick={() => dispatch(addInfoChild({pageNumber, bodyChildIndex}))}><PlusIcon className="w-6 h-6" /></span>
+          </div>
+      )}
       <div className="space-y-2" key={infoChildIndex}>
         {infoChild.main && <EditableMain handleInfoOnBlur={handleInfoOnBlur} handleInfoOnFocus={handleInfoOnFocus} pageNumber={pageNumber} bodyChildIndex={bodyChildIndex} infoChildIndex={infoChildIndex} main={infoChild.main} />}
         <div className="flex justify-between text-gray-400 text-sm">

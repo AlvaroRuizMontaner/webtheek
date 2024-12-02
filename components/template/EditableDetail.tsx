@@ -1,6 +1,7 @@
-import { editInfoChildDetail } from '@/redux/features/curriculumSlice';
+import { deleteDetailByIndex, editInfoChildDetail } from '@/redux/features/curriculumSlice';
 import { useAppDispatch } from '@/redux/hooks';
-import React, { useRef } from 'react';
+import { XMarkIcon } from '@heroicons/react/20/solid';
+import React, { useRef, useState } from 'react';
 
 type EditableDetailProps = {
   detail: string
@@ -14,6 +15,7 @@ type EditableDetailProps = {
 export default function EditableDetail({detail, bodyChildIndex, pageNumber, infoChildIndex, handleInfoOnFocus, handleInfoOnBlur}: EditableDetailProps) {
 
   const dispatch = useAppDispatch()
+  const [showDetailOptions, setShowDetailOptions] = useState(false)
   const editableRef = useRef(null);
   let savedCursorPosition: any = null;
 
@@ -41,6 +43,15 @@ export default function EditableDetail({detail, bodyChildIndex, pageNumber, info
     selection!.addRange(range);
   };
 
+  const handleListChildOnFocus = () => {
+    handleInfoOnFocus()
+    setTimeout(() => setShowDetailOptions(true), 100)
+  }
+  const handleListChildOnBlur = () => {
+    handleInfoOnBlur()
+    setTimeout(() => setShowDetailOptions(false), 100)
+  }
+
 
   const handleOnInputInfoDetail = (infoChildIndex: number) => (e: React.SyntheticEvent) => {
     savedCursorPosition = saveCursorPosition(editableRef.current);
@@ -49,14 +60,34 @@ export default function EditableDetail({detail, bodyChildIndex, pageNumber, info
 }
 
   return (
-  <p
-  ref={editableRef}
-  onBlur={handleInfoOnBlur}
-  onFocus={handleInfoOnFocus}
-  dangerouslySetInnerHTML={{ __html: detail }}
-  onInput={handleOnInputInfoDetail(infoChildIndex)}
-  contentEditable={true}
-  className=" "
-></p>
+    <div className='relative'>
+      <p
+        ref={editableRef}
+        onBlur={handleListChildOnBlur}
+        onFocus={handleListChildOnFocus}
+        dangerouslySetInnerHTML={{ __html: detail }}
+        onInput={handleOnInputInfoDetail(infoChildIndex)}
+        contentEditable={true}
+        className=" "
+      ></p>
+      {showDetailOptions && (
+        <div className="absolute -left-8 top-[50%] -translate-y-[55%]">
+          <span
+            className="cursor-pointer"
+            onClick={() =>
+              dispatch(
+                deleteDetailByIndex({
+                  pageNumber,
+                  bodyChildIndex,
+                  infoChildIndex,
+                })
+              )
+            }
+          >
+            <XMarkIcon className="w-4 h-4" />
+          </span>
+        </div>
+      )}
+    </div>
   );
 }

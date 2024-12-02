@@ -74,7 +74,7 @@ export const Template = React.memo(() => {
                 {showOptions && (
                     <div className="absolute top-8 flex gap-2 w-44 rounded-md">
                         <span className="cursor-pointer bg-gray-100" onClick={() => dispatch(deletePage({pageNumber}))}><XMarkIcon className="w-6 h-6" /></span>
-                        <span className="cursor-pointer bg-gray-100" onClick={() => dispatch(addBodyChild({pageNumber}))}><PlusIcon className="w-6 h-6" /></span>
+                      {/*   <span className="cursor-pointer bg-gray-100" onClick={() => dispatch(addBodyChild({pageNumber}))}><PlusIcon className="w-6 h-6" /></span> */}
                     </div>
                   )}
                 <div className="contenedor">

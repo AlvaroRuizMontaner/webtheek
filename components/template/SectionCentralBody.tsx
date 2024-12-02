@@ -1,8 +1,8 @@
 import { useCallback, useState } from 'react';
 import { SectionCentralBodyInfoType } from './curriculum.info';
 import { useAppDispatch } from '@/redux/hooks';
-import { deleteBodyChildByIndex } from '@/redux/features/curriculumSlice';
-import { XMarkIcon } from '@heroicons/react/20/solid';
+import { addBodyChild, deleteBodyChildByIndex } from '@/redux/features/curriculumSlice';
+import { MinusIcon, PlusIcon } from '@heroicons/react/20/solid';
 import InfoChild from './InfoChild';
 import EditableTitle from './editableTitle';
 
@@ -39,7 +39,7 @@ export default function SectionCentralBody({title, info, pageNumber, bodyChildIn
 
 
   return (
-    <div className='flex flex-col gap-3'>
+    <div className='flex flex-col gap-3 relative'>
         <div className='flex gap-2 items-center relative -translate-x-8'>
             <div className='bg-blue-500 h-8 w-8 rounded-full flex items-center justify-center'>
                 <span className={`text-white ${title.classNameIcon}`}>{title.nameIcon}</span>
@@ -52,8 +52,9 @@ export default function SectionCentralBody({title, info, pageNumber, bodyChildIn
             <InfoChild key={"infoChild" + infoChildIndex} bodyChildIndex={bodyChildIndex} infoChildIndex={infoChildIndex} infoChild={infoChild} pageNumber={pageNumber} handleOnFocus={handleOnFocus} handleOnBlur={handleOnBlur} />
         ))}
         {showBodyChildOptions && (
-            <div className="absolute -left-12 flex gap-2 h-44 rounded-md">
-                <span className="cursor-pointer bg-gray-100" onClick={() => dispatch(deleteBodyChildByIndex({pageNumber, bodyChildIndex}))}><XMarkIcon className="w-6 h-6" /></span>
+            <div className="absolute -top-6 left-[50%] -translate-x-[50%] flex gap-2 px-1 rounded-md bg-blue-500 text-white">
+                <span className="cursor-pointer" onClick={() => dispatch(deleteBodyChildByIndex({pageNumber, bodyChildIndex}))}><MinusIcon className="w-6 h-6" /></span>
+                <span className="cursor-pointer" onClick={() => dispatch(addBodyChild({pageNumber}))}><PlusIcon className="w-6 h-6" /></span>
             </div>
         )}
     </div>

@@ -1,6 +1,7 @@
-import { editInfoChildDate } from '@/redux/features/curriculumSlice';
+import { deleteDateByIndex, editInfoChildDate } from '@/redux/features/curriculumSlice';
 import { useAppDispatch } from '@/redux/hooks';
-import React, { useRef } from 'react';
+import { XMarkIcon } from '@heroicons/react/20/solid';
+import React, { useRef, useState } from 'react';
 
 type EditableDateProps = {
   date: string
@@ -15,6 +16,7 @@ export default function EditableDate({date, bodyChildIndex, pageNumber, infoChil
 
   const dispatch = useAppDispatch()
   const editableRef = useRef(null);
+  const [showDateOptions, setShowDateOptions] = useState(false)
   let savedCursorPosition: any = null;
 
   const saveCursorPosition = (element: any) => {
@@ -41,6 +43,15 @@ export default function EditableDate({date, bodyChildIndex, pageNumber, infoChil
     selection!.addRange(range);
   };
 
+  const handleListChildOnFocus = () => {
+    handleInfoOnFocus()
+    setTimeout(() => setShowDateOptions(true), 100)
+  }
+  const handleListChildOnBlur = () => {
+    handleInfoOnBlur()
+    setTimeout(() => setShowDateOptions(false), 100)
+  }
+
 
   const handleOnInputInfoDate = (infoChildIndex: number) => (e: React.SyntheticEvent) => {
     savedCursorPosition = saveCursorPosition(editableRef.current);
@@ -49,13 +60,33 @@ export default function EditableDate({date, bodyChildIndex, pageNumber, infoChil
 }
 
   return (
-    <p
-    ref={editableRef}
-    onBlur={handleInfoOnBlur}
-    onFocus={handleInfoOnFocus}
-    dangerouslySetInnerHTML={{ __html: date }}
-    onInput={handleOnInputInfoDate(infoChildIndex)}
-    contentEditable={true}
-  ></p>
+    <div className='relative'>
+      <p
+        ref={editableRef}
+        onBlur={handleListChildOnBlur}
+        onFocus={handleListChildOnFocus}
+        dangerouslySetInnerHTML={{ __html: date }}
+        onInput={handleOnInputInfoDate(infoChildIndex)}
+        contentEditable={true}
+      ></p>
+      {showDateOptions && (
+        <div className="absolute -left-8 top-[50%] -translate-y-[55%]">
+          <span
+            className="cursor-pointer"
+            onClick={() =>
+              dispatch(
+                deleteDateByIndex({
+                  pageNumber,
+                  bodyChildIndex,
+                  infoChildIndex,
+                })
+              )
+            }
+          >
+            <XMarkIcon className="w-4 h-4" />
+          </span>
+        </div>
+      )}
+    </div>
   );
 }
