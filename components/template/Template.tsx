@@ -13,6 +13,7 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import Button from "../button/Button";
 import { addBodyChild, addPage, deletePage } from "@/redux/features/curriculumSlice";
 import { PlusIcon, XMarkIcon } from "@heroicons/react/20/solid";
+import { createCurriculum } from "@/services/CurriculumAPI";
 
 
 export const Template = React.memo(() => {
@@ -99,6 +100,7 @@ export const Template = React.memo(() => {
         >
           {isLoading ? <Spinner/> : "Convert to pdf"}
         </button>
+        <button onClick={() => createCurriculum(pages[0])}>Crear</button>
         <Link ref={linkRef} target={"_blank"} href={pdfUrl} className="hidden absolute"></Link>
       </div>
     </>
