@@ -34,7 +34,7 @@ export default function InfoChild({infoChildIndex, handleOnBlur, handleOnFocus, 
   return (
     <div className='relative'>
       {showInfoChildOptions && (
-          <div className="absolute -right-5 top-[50%] flex-col gap-2 py-1 rounded-md bg-gray-400">
+          <div className="absolute -right-5 top-[50%] -translate-y-[50%] flex-col gap-2 py-1 rounded-md bg-gray-400">
               <span className="cursor-pointer " onClick={() => dispatch(deleteInfoChildByIndex({pageNumber, bodyChildIndex, infoChildIndex}))}><MinusIcon className="w-6 h-6" /></span>
               <span className="cursor-pointer" onClick={() => dispatch(addInfoChild({pageNumber, bodyChildIndex}))}><PlusIcon className="w-6 h-6" /></span>
           </div>

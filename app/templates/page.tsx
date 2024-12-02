@@ -1,9 +1,8 @@
-import {Template} from '@/components/template/Template'
-import { cuerpoCentralPaginas } from '@/components/template/curriculum.info'
+import { Template } from '@/components/template/Template'
 
 
 export default function page() {
   return (
-    <Template sections={cuerpoCentralPaginas} />
+    <Template />
   )
 }

@@ -11,8 +11,8 @@ import Link from "next/link";
 import CentralBody from "./CentralBody";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import Button from "../button/Button";
-import { addBodyChild, addPage, deletePage } from "@/redux/features/curriculumSlice";
-import { PlusIcon, XMarkIcon } from "@heroicons/react/20/solid";
+import { addPage, deletePage } from "@/redux/features/curriculumSlice";
+import { XMarkIcon } from "@heroicons/react/20/solid";
 import { createCurriculum } from "@/services/CurriculumAPI";
 
 
