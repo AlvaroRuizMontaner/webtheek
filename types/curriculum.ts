@@ -5,7 +5,7 @@ import { z } from "zod"
 export const curriculumContentSchema = z.array(z.object({
     title: z.object({
         text: z.string(),
-        nameItem: z.string(),
+        nameIcon: z.string(),
         classNameIcon: z.string()
     }),
     info: z.array(z.object({

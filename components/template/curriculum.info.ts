@@ -1,8 +1,8 @@
 export type SectionCentralBodyInfoType = {
     title: {
         text: string;
-        name: string;
-        className: string;
+        nameIcon: string;
+        classNameIcon: string;
     }
     info: {
         main: string;
@@ -18,8 +18,8 @@ export type SectionCentralBodyInfoType = {
 export type SectionSideBodyInfoType = {
     title: {
         text: string;
-        name: string;
-        className: string;
+        nameIcon: string;
+        classNameIcon: string;
     }
     info: {
         icon: {
@@ -40,8 +40,8 @@ export const lateralPagina1: SectionSideBodyInfoType[] = [
     {
         title: {
             text: "Contact",
-            name: "person",
-            className: "material-symbols-outlined"
+            nameIcon: "person",
+            classNameIcon: "material-symbols-outlined"
         },
         info: [
             {
@@ -89,8 +89,8 @@ export const lateralPagina1: SectionSideBodyInfoType[] = [
     {
         title: {
             text: "Languages",
-            name: "translate",
-            className: "material-symbols-outlined"
+            nameIcon: "translate",
+            classNameIcon: "material-symbols-outlined"
         },
         info: [
             {
@@ -130,8 +130,8 @@ export const lateralPagina1: SectionSideBodyInfoType[] = [
     {
         title: {
             text: "Code Skills",
-            name: "code",
-            className: "material-symbols-outlined"
+            nameIcon: "code",
+            classNameIcon: "material-symbols-outlined"
         },
         info: [
             {
@@ -179,8 +179,8 @@ export const cuerpoCentralPagina1: SectionCentralBodyInfoType[] = [
     {
         title: {
             text: "Education",
-            name: "school",
-            className: "material-symbols-outlined"
+            nameIcon: "school",
+            classNameIcon: "material-symbols-outlined"
         },
         info: [
             {
@@ -213,8 +213,8 @@ export const cuerpoCentralPagina1: SectionCentralBodyInfoType[] = [
     {
         title: {
             text: "Career Profile",
-            name: "manage_accounts",
-            className: "material-symbols-outlined"
+            nameIcon: "manage_accounts",
+            classNameIcon: "material-symbols-outlined"
         },
         info: [
             {
@@ -264,8 +264,8 @@ export const lateralPagina2: SectionSideBodyInfoType[] = [
     {
         title: {
             text: "Soft Skills",
-            name: "rocket_launch",
-            className: "material-symbols-outlined"
+            nameIcon: "rocket_launch",
+            classNameIcon: "material-symbols-outlined"
         },
         info: [
             {
@@ -312,8 +312,8 @@ export const cuerpoCentralPagina2: SectionCentralBodyInfoType[] = [
     {
         title: {
             text: "Experience",
-            name: "business_center",
-            className: "material-symbols-outlined"
+            nameIcon: "business_center",
+            classNameIcon: "material-symbols-outlined"
         },
         info: [
             {
@@ -345,8 +345,8 @@ export const cuerpoCentralPagina2: SectionCentralBodyInfoType[] = [
     {
         title: {
             text: "Highlighted Own Projects",
-            name: "settings_accessibility",
-            className: "material-symbols-outlined"
+            nameIcon: "settings_accessibility",
+            classNameIcon: "material-symbols-outlined"
         },
         info: [
             {

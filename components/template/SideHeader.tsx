@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function EncabezadoLateral() {
+export default function SideHeader() {
   return (
     <div className='flex flex-col justify-center gap-4 p-[1.25rem] bg-indigo-800 text-white'>
         <div className='flex justify-center'>

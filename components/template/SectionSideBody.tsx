@@ -5,7 +5,7 @@ export default function SectionSideBody({ title, info}: SectionSideBodyInfoType)
   return (
     <div className='flex flex-col gap-4'>
         <div className='flex gap-2 font-bold'>
-          <span className={title.className}>{title.name}</span>
+          <span className={title.classNameIcon}>{title.nameIcon}</span>
           <h2 className='text-xl'>{title.text}</h2>
         </div>
 
