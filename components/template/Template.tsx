@@ -9,14 +9,17 @@ import SideHeader from "./SideHeader";
 import Spinner from "../spinners/Spinner";
 import Link from "next/link";
 import CentralBody from "./CentralBody";
-import { useAppSelector } from "@/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { createCurriculum } from "@/services/CurriculumAPI";
+import Button from "../button/Button";
+import { addPage } from "@/redux/features/curriculumSlice";
 
 
 
 export default function Template() {
   const [pdfUrl, setPdfUrl] = useState("")
   const [isLoading, setIsLoading] = useState(false)
+  const [showOptions, setShowOptions] = useState(true)
   const { mutate } = useMutation({
     mutationFn: generatePDF,
     onError: (error) => {
@@ -30,6 +33,8 @@ export default function Template() {
     },
   });
 
+  const dispatch = useAppDispatch()
+
   const referrer = useRef<HTMLDivElement | null>(null);
   const linkRef = useRef<HTMLAnchorElement | null>(null);
 
@@ -41,12 +46,19 @@ export default function Template() {
 
 
   const handleClick = () => {
-    const html: string | undefined = getHtmlWithStyles(referrer);
-    if (html) {
-      setIsLoading(true)
-      mutate(html);
-    }
+    setShowOptions(false)
   };
+
+  useEffect(() => {
+    if(!showOptions) {
+        const html: string | undefined = getHtmlWithStyles(referrer);
+        if (html) {
+          setIsLoading(true)
+          mutate(html);
+          setShowOptions(true)
+        }
+    }
+  },[showOptions])
 
   const pages = useAppSelector((state) => state.curriculumReducer)
   console.log(pages[0][0])
@@ -58,16 +70,22 @@ export default function Template() {
       <div ref={referrer}>
         {pages.map((page, pageNumber) => (
           <div key={"cuerpo" + pageNumber} className=" bg-white min-w-[785px] h-[1122px] overflow-x-scroll lg:overflow-x-hidden">
-            <div className="contenedor max-w-2xl bg-white  mx-auto p-12 px-0">
-              <section className="">
-                  <CentralBody pageNumber={pageNumber} page={page} />
-              </section>
-              <section className="bg-indigo-600">
-                <SideHeader />
-              </section>
+            <div className="max-w-2xl bg-white p-12 px-0 mx-auto relative">
+                {showOptions && <div className="absolute top-10">hola</div>}
+                <div className="contenedor">
+                    <section className="">
+                        <CentralBody pageNumber={pageNumber} page={page} />
+                    </section>
+                    <section className="bg-indigo-600">
+                        <SideHeader />
+                    </section>
+                </div>
             </div>
           </div>
         ))}
+      </div>
+      <div className="py-4 flex justify-center">
+        <Button text="Añadir página" onClick={() => dispatch(addPage())} />
       </div>
       <div className="bg-gray-100 relative h-[72px]">
         <button

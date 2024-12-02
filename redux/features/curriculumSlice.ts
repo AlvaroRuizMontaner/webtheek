@@ -1,29 +1,6 @@
 import { SectionCentralBodyInfoType } from "@/components/template/curriculum.info";
 import { createSlice } from "@reduxjs/toolkit"
 
-/* const initialState = [
-    [
-        {
-            title: {
-                text: "",
-                name: "",
-                className: ""
-            },
-            info: [
-                {
-                    main: "",
-                    detail: "",
-                    date: "",
-                    list: [
-                        "",
-                        "",
-                        ""
-                    ]
-                }
-            ]
-        }
-    ]
-] */
 const initialState: SectionCentralBodyInfoType[][] = [
     [
         {
@@ -105,50 +82,18 @@ const initialState: SectionCentralBodyInfoType[][] = [
                 },
             ],
         }
-    ],
-    [
-        {
-            title: {
-                text: "Education",
-                nameIcon: "school",
-                classNameIcon: "material-symbols-outlined"
-            },
-            info: [
-                {
-                    main: "Chemical Engineering Degree",
-                    detail: "Universidad de Cádiz",
-                    date: "2012-2020"
-                },
-                {
-                    main: "Python bootcamp 30h course",
-                    detail: "Udemy - Online",
-                    date: "2021"
-                },
-                {
-                    main: "Web Developer Bootcamp 60h Course",
-                    detail: "Udemy - Online",
-                    date: "2021"
-                },
-                {
-                    main: "Creation, programming, and design of websites with HTML5 and CSS3 210h Course",
-                    detail: "SEPE - Online",
-                    date: "2021"
-                },
-                {
-                    main: "React & TypeScript - The Complete Guide Creating +10 Projects",
-                    detail: "Udemy - Online",
-                    date: "2024"
-                },
-            ],
-        },
     ]
 ]
+const page = initialState[0]
 
 export const curriculumSlice = createSlice({
     name: "curriculum",
     initialState,
     reducers: {
         // Add elements
+        addPage: (state) => {
+            state.push(page);
+        },
         addBodyChild: (state, action) => {
             const { pageNumber, bodyChild } = action.payload; // El nuevo objeto body que se quiere añadir
             state[pageNumber].push(bodyChild);
@@ -199,6 +144,10 @@ export const curriculumSlice = createSlice({
 
 
         // Delete by index
+        deletePage: (state, action) => {
+            const { pageNumber } = action.payload; // El nuevo objeto body que se quiere añadir
+            state.splice(pageNumber,1);
+        },
         deleteBodyChildByIndex: (state, action) => {
             const { pageNumber, bodyChildIndex} = action.payload; // El nuevo objeto body que se quiere añadir
             state[pageNumber].splice(bodyChildIndex,1);
@@ -269,12 +218,14 @@ export const curriculumSlice = createSlice({
 })
 
 const {
+    addPage,
     addBodyChild,
     addInfoChild, 
     addListChild, 
     addBodyChildByIndex, 
     addInfoChildByIndex, 
     addListChildByIndex, 
+    deletePage,
     deleteBodyChildByIndex, 
     deleteInfoChildByIndex, 
     deleteListChildByIndex,
@@ -288,12 +239,14 @@ const {
 const curriculumReducer = curriculumSlice.reducer
 
 export {
+    addPage,
     addBodyChild,
     addInfoChild,
     addListChild,
     addBodyChildByIndex,
     addInfoChildByIndex,
     addListChildByIndex,
+    deletePage,
     deleteBodyChildByIndex,
     deleteInfoChildByIndex,
     deleteListChildByIndex,
