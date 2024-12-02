@@ -3,6 +3,7 @@ import { InfoChildType } from './curriculum.info';
 import { addInfoChild, deleteInfoChildByIndex, editInfoChildDate, editInfoChildDetail, editInfoChildMain, editListChild } from '@/redux/features/curriculumSlice';
 import { useAppDispatch } from '@/redux/hooks';
 import { PlusIcon, XMarkIcon } from '@heroicons/react/20/solid';
+import EditableMain from './EditableMain';
 
 type InfoChildProps = {
     infoChildIndex: number, 
@@ -50,16 +51,7 @@ export default function InfoChild({infoChildIndex, handleOnBlur, handleOnFocus, 
             </div>
         )}
       <div className="space-y-2" key={infoChildIndex}>
-        {infoChild.main && (
-          <p
-            onBlur={handleInfoOnBlur}
-            onFocus={handleInfoOnFocus}
-            dangerouslySetInnerHTML={{ __html: infoChild.main }}
-            contentEditable={true}
-            onInput={handleOnInputInfoMain(infoChildIndex)}
-            className="font-bold text-blue-900"
-          ></p>
-        )}
+        {infoChild.main && <EditableMain handleInfoOnBlur={handleInfoOnBlur} handleInfoOnFocus={handleInfoOnFocus} pageNumber={pageNumber} bodyChildIndex={bodyChildIndex} infoChildIndex={infoChildIndex} main={infoChild.main} />}
         <div className="flex justify-between text-gray-400 text-sm">
           {infoChild && infoChild.detail && (
             <p

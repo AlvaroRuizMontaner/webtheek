@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { SectionCentralBodyInfoType } from './curriculum.info'
 import { useAppDispatch } from '@/redux/hooks'
 import { deleteBodyChildByIndex, editInfoChildDate, editInfoChildDetail, editInfoChildMain, editListChild, editTitleText } from '@/redux/features/curriculumSlice';
@@ -31,12 +31,12 @@ export default function SectionCentralBody({title, info, pageNumber, bodyChildIn
     }
 
 
-    const handleOnBlur = () => {
+    const handleOnBlur = useCallback(() => {
         setTimeout(() => setShowBodyChildOptions(false), 100)
-    }
-    const handleOnFocus = () => {
-        setTimeout(() => setShowBodyChildOptions(true), 10000)
-    }
+    },[])
+    const handleOnFocus = useCallback(() => {
+        setTimeout(() => setShowBodyChildOptions(true), 100)
+    },[])
 
 
   return (
