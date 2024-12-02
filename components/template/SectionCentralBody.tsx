@@ -1,7 +1,7 @@
-import React, { useCallback, useState } from 'react'
-import { SectionCentralBodyInfoType } from './curriculum.info'
-import { useAppDispatch } from '@/redux/hooks'
-import { deleteBodyChildByIndex, editInfoChildDate, editInfoChildDetail, editInfoChildMain, editListChild, editTitleText } from '@/redux/features/curriculumSlice';
+import { useCallback, useState } from 'react';
+import { SectionCentralBodyInfoType } from './curriculum.info';
+import { useAppDispatch } from '@/redux/hooks';
+import { deleteBodyChildByIndex } from '@/redux/features/curriculumSlice';
 import { XMarkIcon } from '@heroicons/react/20/solid';
 import InfoChild from './InfoChild';
 import EditableTitle from './editableTitle';
@@ -16,9 +16,9 @@ export default function SectionCentralBody({title, info, pageNumber, bodyChildIn
     const [showBodyChildOptions, setShowBodyChildOptions] = useState(false)
 
 
-    const handleOnInputList = (infoChildIndex: number, listChildIndex: number) => (e: React.SyntheticEvent) => {
+/*     const handleOnInputList = (infoChildIndex: number, listChildIndex: number) => (e: React.SyntheticEvent) => {
         dispatch(editListChild({pageNumber, bodyChildIndex, infoChildIndex, listChildIndex, value: (e.target as HTMLElement).innerText}))
-    }
+    } */
 /*     const handleOnInputInfoDetail = (infoChildIndex: number) => (e: React.SyntheticEvent) => {
         dispatch(editInfoChildDetail({pageNumber, bodyChildIndex, infoChildIndex, detail: (e.target as HTMLElement).innerText}))
     } */

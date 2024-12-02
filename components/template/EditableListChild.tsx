@@ -1,17 +1,18 @@
-import { editInfoChildDate } from '@/redux/features/curriculumSlice';
+import { editListChild } from '@/redux/features/curriculumSlice';
 import { useAppDispatch } from '@/redux/hooks';
 import React, { useRef } from 'react';
 
-type EditableDateProps = {
-  date: string
+type EditableListChildProps = {
+  listChild: string
   pageNumber: number
   bodyChildIndex: number
   infoChildIndex: number
   handleInfoOnFocus: () => void
   handleInfoOnBlur: () => void
+  listChildIndex: number
 }
 
-export default function EditableDate({date, bodyChildIndex, pageNumber, infoChildIndex, handleInfoOnFocus, handleInfoOnBlur}: EditableDateProps) {
+export default function EditableListChild({listChild, bodyChildIndex, pageNumber, infoChildIndex, listChildIndex, handleInfoOnFocus, handleInfoOnBlur}: EditableListChildProps) {
 
   const dispatch = useAppDispatch()
   const editableRef = useRef(null);
@@ -42,20 +43,20 @@ export default function EditableDate({date, bodyChildIndex, pageNumber, infoChil
   };
 
 
-  const handleOnInputInfoDate = (infoChildIndex: number) => (e: React.SyntheticEvent) => {
+  const handleOnInputInfoList = (infoChildIndex: number, listChildIndex: number) => (e: React.SyntheticEvent) => {
     savedCursorPosition = saveCursorPosition(editableRef.current);
-    dispatch(editInfoChildDate({pageNumber, bodyChildIndex, infoChildIndex, date: (e.target as HTMLElement).innerText}))
+    dispatch(editListChild({pageNumber, bodyChildIndex, infoChildIndex, listChildIndex, value: (e.target as HTMLElement).innerText}))
     setTimeout(() => restoreCursorPosition(editableRef.current, savedCursorPosition), 0);
 }
 
   return (
-    <p
+    <li
     ref={editableRef}
     onBlur={handleInfoOnBlur}
     onFocus={handleInfoOnFocus}
-    dangerouslySetInnerHTML={{ __html: date }}
-    onInput={handleOnInputInfoDate(infoChildIndex)}
+    dangerouslySetInnerHTML={{ __html: listChild }}
     contentEditable={true}
-  ></p>
+    onInput={handleOnInputInfoList(infoChildIndex, listChildIndex)}
+  ></li>
   );
 }

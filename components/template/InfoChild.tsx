@@ -1,11 +1,12 @@
-import React, { useState } from 'react'
+import { useState } from 'react';
 import { InfoChildType } from './curriculum.info';
-import { addInfoChild, deleteInfoChildByIndex, editInfoChildDate, editInfoChildDetail, editInfoChildMain, editListChild } from '@/redux/features/curriculumSlice';
+import { addInfoChild, deleteInfoChildByIndex } from '@/redux/features/curriculumSlice';
 import { useAppDispatch } from '@/redux/hooks';
 import { PlusIcon, XMarkIcon } from '@heroicons/react/20/solid';
 import EditableMain from './EditableMain';
 import EditableDetail from './EditableDetail';
 import EditableDate from './EditableDate';
+import EditableListChild from './EditableListChild';
 
 type InfoChildProps = {
     infoChildIndex: number, 
@@ -20,20 +21,6 @@ export default function InfoChild({infoChildIndex, handleOnBlur, handleOnFocus, 
 
     const dispatch = useAppDispatch()
     const [showInfoChildOptions, setShowInfoChildOptions] = useState(false)
-
-    const handleOnInputList = (infoChildIndex: number, listChildIndex: number) => (e: React.SyntheticEvent) => {
-        dispatch(editListChild({pageNumber, bodyChildIndex, infoChildIndex, listChildIndex, value: (e.target as HTMLElement).innerText}))
-    }
-    const handleOnInputInfoDetail = (infoChildIndex: number) => (e: React.SyntheticEvent) => {
-        dispatch(editInfoChildDetail({pageNumber, bodyChildIndex, infoChildIndex, detail: (e.target as HTMLElement).innerText}))
-    }
-    const handleOnInputInfoDate = (infoChildIndex: number) => (e: React.SyntheticEvent) => {
-        dispatch(editInfoChildDate({pageNumber, bodyChildIndex, infoChildIndex, date: (e.target as HTMLElement).innerText}))
-    }
-
-    const handleOnInputInfoMain = (infoChildIndex: number) => (e: React.SyntheticEvent) => {
-        dispatch(editInfoChildMain({pageNumber, bodyChildIndex, infoChildIndex, main: (e.target as HTMLElement).innerText}))
-    }
 
     const handleInfoOnBlur = () => {
         handleOnBlur()
@@ -60,16 +47,7 @@ export default function InfoChild({infoChildIndex, handleOnBlur, handleOnFocus, 
         </div>
         {infoChild.list && (
           <ul className=" text-[14px] list-disc">
-            {infoChild.list.map((listChild, listChildIndex) => (
-              <li
-                onBlur={handleInfoOnBlur}
-                onFocus={handleInfoOnFocus}
-                dangerouslySetInnerHTML={{ __html: listChild }}
-                contentEditable={true}
-                onInput={handleOnInputList(infoChildIndex, listChildIndex)}
-                key={"" + infoChildIndex + listChildIndex}
-              ></li>
-            ))}
+            {infoChild.list.map((listChild, listChildIndex) => <EditableListChild key={"" + infoChildIndex + listChildIndex} listChild={listChild} handleInfoOnBlur={handleInfoOnBlur} handleInfoOnFocus={handleInfoOnFocus} pageNumber={pageNumber} bodyChildIndex={bodyChildIndex} infoChildIndex={infoChildIndex} listChildIndex={listChildIndex} />)}
           </ul>
         )}
       </div>
