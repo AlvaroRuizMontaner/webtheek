@@ -69,23 +69,24 @@ export const Template = React.memo(() => {
     {/* El referrer se ha colodado en un ancestro extra porque de otro modo no cogia el background-color */}
       <div ref={referrer}>
         {pages.map((page, pageNumber) => (
-          <div key={"cuerpo" + pageNumber} className=" bg-white h-[1122px] w-[785px] m-auto overflow-x-scroll lg:overflow-x-hidden">
+          <div key={"cuerpo" + pageNumber} className="relative bg-white h-[1122px] w-[785px] m-auto overflow-x-scroll lg:overflow-x-hidden">
             <div className="max-w-2xl bg-white p-12 px-0 mx-auto relative">
-                {showOptions && (
-                    <div className="absolute top-8 flex gap-2 w-44 rounded-md">
-                        <span className="cursor-pointer bg-gray-100" onClick={() => dispatch(deletePage({pageNumber}))}><XMarkIcon className="w-6 h-6" /></span>
-                      {/*   <span className="cursor-pointer bg-gray-100" onClick={() => dispatch(addBodyChild({pageNumber}))}><PlusIcon className="w-6 h-6" /></span> */}
-                    </div>
-                  )}
-                <div className="contenedor">
-                    <section className="">
-                        <CentralBody pageNumber={pageNumber} page={page} />
-                    </section>
-                    <section className="bg-indigo-600">
-                        <SideHeader />
-                    </section>
+              {showOptions && (
+                <div className="absolute top-8 flex gap-2 w-44 rounded-md">
+                    <span className="cursor-pointer bg-gray-100" onClick={() => dispatch(deletePage({pageNumber}))}><XMarkIcon className="w-6 h-6" /></span>
+                  {/*   <span className="cursor-pointer bg-gray-100" onClick={() => dispatch(addBodyChild({pageNumber}))}><PlusIcon className="w-6 h-6" /></span> */}
                 </div>
+              )}
+              <div className="contenedor">
+                <section className="">
+                    <CentralBody pageNumber={pageNumber} page={page} />
+                </section>
+                <section className="bg-indigo-600">
+                    <SideHeader />
+                </section>
+              </div>
             </div>
+            <div className="absolute w-full top-[1122px] border border-black border-dashed"></div>
           </div>
         ))}
       </div>
