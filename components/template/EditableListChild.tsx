@@ -1,7 +1,7 @@
 import { addListChildByIndex, deleteListChildByIndex, editListChild } from '@/redux/features/curriculumSlice';
 import { useAppDispatch } from '@/redux/hooks';
 import { restoreCursorPosition, saveCursorPosition } from '@/utils/cursor';
-import { MinusIcon, PlusIcon, XMarkIcon } from '@heroicons/react/20/solid';
+import { MinusIcon, PlusIcon } from '@heroicons/react/20/solid';
 import React, { useRef, useState } from 'react';
 
 type EditableListChildProps = {

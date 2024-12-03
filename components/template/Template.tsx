@@ -20,6 +20,7 @@ export const Template = React.memo(() => {
   const [pdfUrl, setPdfUrl] = useState("")
   const [isLoading, setIsLoading] = useState(false)
   const [showOptions, setShowOptions] = useState(true)
+  const [showDashLine, setShowDashLine] = useState(true)
   const { mutate } = useMutation({
     mutationFn: generatePDF,
     onError: (error) => {
@@ -47,6 +48,7 @@ export const Template = React.memo(() => {
 
   const handleClick = () => {
     setShowOptions(false)
+    setShowDashLine(false)
   };
 
   useEffect(() => {
@@ -56,6 +58,7 @@ export const Template = React.memo(() => {
           setIsLoading(true)
           mutate(html);
           setShowOptions(true)
+          setShowDashLine(true)
         }
     }
   },[showOptions])
@@ -86,7 +89,7 @@ export const Template = React.memo(() => {
                 </section>
               </div>
             </div>
-            <div className="absolute w-full bottom-[48px] border border-black border-dashed"></div>
+            {showDashLine && <div className="absolute w-full bottom-[48px] border border-black border-dashed"></div>}
           </div>
         ))}
       </div>
