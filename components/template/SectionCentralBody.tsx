@@ -2,9 +2,9 @@ import { useCallback, useState } from 'react';
 import { SectionCentralBodyInfoType } from './curriculum.info';
 import { useAppDispatch } from '@/redux/hooks';
 import { addBodyChildByIndex, deleteBodyChildByIndex } from '@/redux/features/curriculumSlice';
-import { MinusIcon, PlusIcon } from '@heroicons/react/20/solid';
 import InfoChild from './InfoChild';
 import EditableTitle from './EditableTitle';
+import ControlBoundary from './ControlBoundary';
 
 interface SectionCentralBody extends SectionCentralBodyInfoType {
     pageNumber: number;
@@ -54,13 +54,14 @@ export default function SectionCentralBody({title, info, pageNumber, bodyChildIn
             ))}
         </section>
         {showBodyChildOptions && (
-            <div>
+             <ControlBoundary addFunction={addBodyChildByIndex} deleteFunction={deleteBodyChildByIndex} width="w-[122%]" color="blue-500 text-white" pageNumber={pageNumber} bodyChildIndex={bodyChildIndex} dispatch={dispatch} orientation='horizontal' />
+/*             <div>
                 <div className='absolute border-[3px] border-blue-500 top-0 right-0 w-[122%] translate-x-[5%] h-[105%] -translate-y-[2.5%] z-20'></div>
                 <div className="absolute -top-6 left-[50%] -translate-x-[50%] flex gap-2 px-1 rounded-md bg-blue-500 text-white z-30">
                     <span className="cursor-pointer" onClick={() => dispatch(deleteBodyChildByIndex({pageNumber, bodyChildIndex}))}><MinusIcon className="w-6 h-6" /></span>
                     <span className="cursor-pointer" onClick={() => dispatch(addBodyChildByIndex({pageNumber, bodyChildIndex}))}><PlusIcon className="w-6 h-6" /></span>
                 </div>
-            </div>
+            </div> */
         )}
     </div>
   )

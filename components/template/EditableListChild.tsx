@@ -1,7 +1,7 @@
 import { addListChildByIndex, deleteListChildByIndex, editListChild } from '@/redux/features/curriculumSlice';
 import { useAppDispatch } from '@/redux/hooks';
 import { restoreCursorPosition, saveCursorPosition } from '@/utils/cursor';
-import { PlusIcon, XMarkIcon } from '@heroicons/react/20/solid';
+import { MinusIcon, PlusIcon, XMarkIcon } from '@heroicons/react/20/solid';
 import React, { useRef, useState } from 'react';
 
 type EditableListChildProps = {
@@ -51,7 +51,7 @@ export default function EditableListChild({listChild, bodyChildIndex, pageNumber
       ></li>
       {showListChildOptions && (
       <div className=''>
-        <span className="cursor-pointer absolute -left-5 top-[50%] -translate-y-[55%] bg-black text-white rounded-full" onClick={() => dispatch(deleteListChildByIndex({pageNumber, bodyChildIndex, infoChildIndex, listChildIndex}))}><XMarkIcon className="w-4 h-4" /></span>
+        <span className="cursor-pointer absolute -left-5 top-[50%] -translate-y-[55%] bg-black text-white rounded-full" onClick={() => dispatch(deleteListChildByIndex({pageNumber, bodyChildIndex, infoChildIndex, listChildIndex}))}><MinusIcon className="w-4 h-4" /></span>
         <span className="cursor-pointer absolute -right-5 top-[50%] -translate-y-[55%]  bg-black text-white rounded-full" onClick={() => dispatch(addListChildByIndex({pageNumber, bodyChildIndex, infoChildIndex, listChildIndex}))}><PlusIcon className="w-4 h-4" /></span>
       </div>
       )}
