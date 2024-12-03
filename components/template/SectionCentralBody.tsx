@@ -13,7 +13,7 @@ interface SectionCentralBody extends SectionCentralBodyInfoType {
 
 export default function SectionCentralBody({title, info, pageNumber, bodyChildIndex}: SectionCentralBody) {
     const dispatch = useAppDispatch()
-    const [showBodyChildOptions, setShowBodyChildOptions] = useState(true)
+    const [showBodyChildOptions, setShowBodyChildOptions] = useState(false)
 
 
 /*     const handleOnInputList = (infoChildIndex: number, listChildIndex: number) => (e: React.SyntheticEvent) => {
@@ -55,7 +55,7 @@ export default function SectionCentralBody({title, info, pageNumber, bodyChildIn
         </section>
         {showBodyChildOptions && (
             <div>
-                <div className='absolute border-4 border-blue-500 top-0 w-[105%] h-[105%] -translate-x-[2.5%] -translate-y-[2.5%] z-20'></div>
+                <div className='absolute border-[3px] border-blue-500 top-0 right-0 w-[122%] translate-x-[5%] h-[105%] -translate-y-[2.5%] z-20'></div>
                 <div className="absolute -top-6 left-[50%] -translate-x-[50%] flex gap-2 px-1 rounded-md bg-blue-500 text-white z-30">
                     <span className="cursor-pointer" onClick={() => dispatch(deleteBodyChildByIndex({pageNumber, bodyChildIndex}))}><MinusIcon className="w-6 h-6" /></span>
                     <span className="cursor-pointer" onClick={() => dispatch(addBodyChildByIndex({pageNumber, bodyChildIndex}))}><PlusIcon className="w-6 h-6" /></span>

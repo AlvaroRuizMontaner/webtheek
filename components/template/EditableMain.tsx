@@ -57,7 +57,7 @@ return (
       className="font-bold text-blue-900 max-w-[390px]"
     ></p>
     {showMainOptions && (
-      <div className="absolute -left-8 top-[50%] -translate-y-[55%]">
+      <div className="absolute -left-5 top-[50%] -translate-y-[55%] bg-black text-white rounded-full">
         <span
           className="cursor-pointer"
           onClick={handleDeleteMain}

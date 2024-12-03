@@ -32,25 +32,28 @@ export default function InfoChild({infoChildIndex, handleOnBlur, handleOnFocus, 
     }
 
   return (
-    <div className='relative'>
-      {showInfoChildOptions && (
-        <div className="absolute -left-16 top-[50%] -translate-y-[50%] flex-col gap-2 py-1 rounded-md bg-blue-900 text-white">
-          <span className="cursor-pointer " onClick={() => dispatch(deleteInfoChildByIndex({pageNumber, bodyChildIndex, infoChildIndex}))}><MinusIcon className="w-6 h-6" /></span>
-          <span className="cursor-pointer" onClick={() => dispatch(addInfoChild({pageNumber, bodyChildIndex, infoChildIndex}))}><PlusIcon className="w-6 h-6" /></span>
-        </div>
-      )}
-      <div className="space-y-2" key={infoChildIndex}>
+    <div className='relative z-10'>
+      <div className="space-y-2 relative z-50" key={infoChildIndex}>
         {infoChild.main && <EditableMain infoChild={infoChild} handleInfoOnBlur={handleInfoOnBlur} handleInfoOnFocus={handleInfoOnFocus} pageNumber={pageNumber} bodyChildIndex={bodyChildIndex} infoChildIndex={infoChildIndex} main={infoChild.main} />}
-        <div className="flex justify-between text-gray-400 text-sm">
-          {infoChild && infoChild.detail && <EditableDetail infoChild={infoChild} handleInfoOnBlur={handleInfoOnBlur} handleInfoOnFocus={handleInfoOnFocus} pageNumber={pageNumber} bodyChildIndex={bodyChildIndex} infoChildIndex={infoChildIndex} detail={infoChild.detail} />}
-          {infoChild && infoChild.detail && infoChild.date && <EditableDate handleInfoOnBlur={handleInfoOnBlur} handleInfoOnFocus={handleInfoOnFocus} pageNumber={pageNumber} bodyChildIndex={bodyChildIndex} infoChildIndex={infoChildIndex} date={infoChild.date} />}
-        </div>
+        {infoChild && infoChild.detail && <div className="flex justify-between text-gray-400 text-sm">
+          <EditableDetail infoChild={infoChild} handleInfoOnBlur={handleInfoOnBlur} handleInfoOnFocus={handleInfoOnFocus} pageNumber={pageNumber} bodyChildIndex={bodyChildIndex} infoChildIndex={infoChildIndex} detail={infoChild.detail} />
+          {infoChild.date && <EditableDate handleInfoOnBlur={handleInfoOnBlur} handleInfoOnFocus={handleInfoOnFocus} pageNumber={pageNumber} bodyChildIndex={bodyChildIndex} infoChildIndex={infoChildIndex} date={infoChild.date} />}
+        </div>}
         {infoChild.list && infoChild.list.length >= 1 && (
           <ul className=" text-[14px] list-disc" ref={ulRef}>
             {infoChild.list.map((listChild, listChildIndex) => <EditableListChild key={"" + infoChildIndex + listChildIndex} listChild={listChild} handleInfoOnBlur={handleInfoOnBlur} handleInfoOnFocus={handleInfoOnFocus} pageNumber={pageNumber} bodyChildIndex={bodyChildIndex} infoChildIndex={infoChildIndex} listChildIndex={listChildIndex} />)}
           </ul>
         )}
       </div>
+      {showInfoChildOptions && (
+      <div>
+        <div className='absolute border-[3px] border-blue-900 top-0 right-0 w-[120%] h-[105%] translate-x-[5%] -translate-y-[2.5%] z-20'></div>
+        <div className="absolute -left-[50px] top-[50%] -translate-y-[50%] flex-col gap-2 py-1 rounded-md bg-blue-900 text-white z-30">
+          <span className="cursor-pointer " onClick={() => dispatch(deleteInfoChildByIndex({pageNumber, bodyChildIndex, infoChildIndex}))}><MinusIcon className="w-5 h-5" /></span>
+          <span className="cursor-pointer" onClick={() => dispatch(addInfoChild({pageNumber, bodyChildIndex, infoChildIndex}))}><PlusIcon className="w-5 h-5" /></span>
+        </div>
+      </div>
+      )}
     </div>
   );
 }

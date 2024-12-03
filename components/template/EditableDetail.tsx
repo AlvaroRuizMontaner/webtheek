@@ -57,7 +57,7 @@ export default function EditableDetail({detail, bodyChildIndex, pageNumber, info
         className="max-w-[195px]"
       ></p>
       {showDetailOptions && (
-        <div className="absolute -left-8 top-[50%] -translate-y-[55%]">
+        <div className="absolute -left-5 top-[50%] -translate-y-[55%] bg-black text-white rounded-full">
           <span
             className="cursor-pointer"
             onClick={handleDeleteDetail}
