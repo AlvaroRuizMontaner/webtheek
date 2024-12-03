@@ -1,7 +1,9 @@
-import { deleteDetailByIndex, editInfoChildDetail } from '@/redux/features/curriculumSlice';
+import { deleteDetailByIndex, deleteInfoChildByIndex, editInfoChildDetail } from '@/redux/features/curriculumSlice';
 import { useAppDispatch } from '@/redux/hooks';
 import { XMarkIcon } from '@heroicons/react/20/solid';
 import React, { useRef, useState } from 'react';
+import { InfoChildType } from './curriculum.info';
+import { restoreCursorPosition, saveCursorPosition } from '@/utils/cursor';
 
 type EditableDetailProps = {
   detail: string
@@ -10,38 +12,15 @@ type EditableDetailProps = {
   infoChildIndex: number
   handleInfoOnFocus: () => void
   handleInfoOnBlur: () => void
+  infoChild: InfoChildType
 }
 
-export default function EditableDetail({detail, bodyChildIndex, pageNumber, infoChildIndex, handleInfoOnFocus, handleInfoOnBlur}: EditableDetailProps) {
+export default function EditableDetail({detail, bodyChildIndex, pageNumber, infoChildIndex, handleInfoOnFocus, handleInfoOnBlur, infoChild}: EditableDetailProps) {
 
   const dispatch = useAppDispatch()
   const [showDetailOptions, setShowDetailOptions] = useState(false)
   const editableRef = useRef(null);
   let savedCursorPosition: any = null;
-
-  const saveCursorPosition = (element: any) => {
-    const selection = window.getSelection();
-    if (!selection!.rangeCount) {
-      return null; // Si no hay selección activa, no hacemos nada
-    }
-    const range = selection!.getRangeAt(0);
-    // Asegúrate de que el rango pertenece al elemento dado
-    if (!element.contains(range.startContainer)) {
-      return null; // El rango no pertenece al elemento
-    }
-  
-    const offset = range.startOffset;
-    return { container: range.startContainer, offset }; // Guardamos también el contenedor
-  };
-  
-  const restoreCursorPosition = (element: any, savedPosition: any) => {
-    const range = document.createRange();
-    const selection = window.getSelection();
-    range.setStart(element.firstChild || element, savedPosition.offset);
-    range.collapse(true);
-    selection!.removeAllRanges();
-    selection!.addRange(range);
-  };
 
   const handleListChildOnFocus = () => {
     handleInfoOnFocus()
@@ -51,13 +30,20 @@ export default function EditableDetail({detail, bodyChildIndex, pageNumber, info
     handleInfoOnBlur()
     setTimeout(() => setShowDetailOptions(false), 100)
   }
-
-
   const handleOnInputInfoDetail = (infoChildIndex: number) => (e: React.SyntheticEvent) => {
     savedCursorPosition = saveCursorPosition(editableRef.current);
     dispatch(editInfoChildDetail({pageNumber, bodyChildIndex, infoChildIndex, detail: (e.target as HTMLElement).innerText}))
     setTimeout(() => restoreCursorPosition(editableRef.current, savedCursorPosition), 0);
-}
+  }
+
+  function handleDeleteDetail() {
+    const main = infoChild.main
+    if(!main) {
+      dispatch(deleteInfoChildByIndex({ pageNumber, bodyChildIndex, infoChildIndex }))
+    } else {
+      dispatch(deleteDetailByIndex({pageNumber, bodyChildIndex, infoChildIndex}))
+    }
+  }
 
   return (
     <div className='relative'>
@@ -68,21 +54,13 @@ export default function EditableDetail({detail, bodyChildIndex, pageNumber, info
         dangerouslySetInnerHTML={{ __html: detail }}
         onInput={handleOnInputInfoDetail(infoChildIndex)}
         contentEditable={true}
-        className=" "
+        className="max-w-[195px]"
       ></p>
       {showDetailOptions && (
         <div className="absolute -left-8 top-[50%] -translate-y-[55%]">
           <span
             className="cursor-pointer"
-            onClick={() =>
-              dispatch(
-                deleteDetailByIndex({
-                  pageNumber,
-                  bodyChildIndex,
-                  infoChildIndex,
-                })
-              )
-            }
+            onClick={handleDeleteDetail}
           >
             <XMarkIcon className="w-4 h-4" />
           </span>

@@ -105,6 +105,7 @@ const initialState: SectionCentralBodyInfoType[][] = [
 const page = initialState[0]
 const bodyChild = page[1]
 const infoChild = bodyChild.info[0]
+const listChild = infoChild && infoChild.list && infoChild.list[0] || "listElement"
 
 export const curriculumSlice = createSlice({
     name: "curriculum",
@@ -119,9 +120,9 @@ export const curriculumSlice = createSlice({
             state[pageNumber].push(bodyChild);
         },
         addInfoChild: (state, action) => {
-            const { pageNumber, bodyChildIndex } = action.payload; // Desestructuramos los parámetros necesarios
+            const { pageNumber, bodyChildIndex, infoChildIndex } = action.payload; // Desestructuramos los parámetros necesarios
             if (state[pageNumber][bodyChildIndex]) { // Validamos que el índice sea válido
-                state[pageNumber][bodyChildIndex].info.push(infoChild);
+                state[pageNumber][bodyChildIndex].info.splice(infoChildIndex+1, 0, infoChild);
             }
         },
         addListChild: (state, action) => {
@@ -152,12 +153,12 @@ export const curriculumSlice = createSlice({
             }
         },
         addListChildByIndex: (state, action) => {
-            const { pageNumber, bodyChildIndex, infoChildIndex, listChildIndex, listChild } = action.payload; // Desestructuramos los parámetros necesarios
+            const { pageNumber, bodyChildIndex, infoChildIndex, listChildIndex, /* listChild */ } = action.payload; // Desestructuramos los parámetros necesarios
             const bodyChild = state[pageNumber][bodyChildIndex]
             const infoChild = bodyChild.info[infoChildIndex]
             if (bodyChild && infoChild && infoChild.list) { // Validamos que los índices sean válidos
                 if (listChildIndex >= 0 && listChildIndex <= infoChild.list.length) {
-                    infoChild.list.splice(listChildIndex, 0, listChild);
+                    infoChild.list.splice(listChildIndex+1, 0, listChild);
                 }
             }
         },

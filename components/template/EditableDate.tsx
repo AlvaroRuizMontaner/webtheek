@@ -68,6 +68,7 @@ export default function EditableDate({date, bodyChildIndex, pageNumber, infoChil
         dangerouslySetInnerHTML={{ __html: date }}
         onInput={handleOnInputInfoDate(infoChildIndex)}
         contentEditable={true}
+        className="max-w-[195px]"
       ></p>
       {showDateOptions && (
         <div className="absolute -left-8 top-[50%] -translate-y-[55%]">

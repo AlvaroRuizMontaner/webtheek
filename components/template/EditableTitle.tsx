@@ -63,7 +63,7 @@ export default function EditableTitle({titleText, bodyChildIndex, pageNumber, ha
       ref={editableRef}
       contentEditable
       onInput={handleInput}
-      className='text-xl text-indigo-700 font-bold uppercase'
+      className='text-xl text-indigo-700 font-bold uppercase max-w-[350px]'
       onFocus={handleOnFocus} 
       onBlur={handleOnBlur}
     ></h2>
