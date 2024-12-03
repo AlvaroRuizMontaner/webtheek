@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react';
 import { SectionCentralBodyInfoType } from './curriculum.info';
 import { useAppDispatch } from '@/redux/hooks';
-import { addBodyChild, deleteBodyChildByIndex } from '@/redux/features/curriculumSlice';
+import { addBodyChildByIndex, deleteBodyChildByIndex } from '@/redux/features/curriculumSlice';
 import { MinusIcon, PlusIcon } from '@heroicons/react/20/solid';
 import InfoChild from './InfoChild';
 import EditableTitle from './EditableTitle';
@@ -13,7 +13,7 @@ interface SectionCentralBody extends SectionCentralBodyInfoType {
 
 export default function SectionCentralBody({title, info, pageNumber, bodyChildIndex}: SectionCentralBody) {
     const dispatch = useAppDispatch()
-    const [showBodyChildOptions, setShowBodyChildOptions] = useState(false)
+    const [showBodyChildOptions, setShowBodyChildOptions] = useState(true)
 
 
 /*     const handleOnInputList = (infoChildIndex: number, listChildIndex: number) => (e: React.SyntheticEvent) => {
@@ -39,22 +39,27 @@ export default function SectionCentralBody({title, info, pageNumber, bodyChildIn
 
 
   return (
-    <div className='flex flex-col gap-3 relative'>
-        <div className='flex gap-2 items-center relative -translate-x-8'>
-            <div className='bg-blue-500 h-8 w-8 rounded-full flex items-center justify-center'>
-                <span className={`text-white ${title.classNameIcon}`}>{title.nameIcon}</span>
+    <div className='relative z-10'>
+        <section className='flex flex-col gap-3 relative z-50'>
+            <div className='flex gap-2 items-center relative -translate-x-8'>
+                <div className='bg-blue-500 h-8 w-8 rounded-full flex items-center justify-center'>
+                    <span className={`text-white ${title.classNameIcon}`}>{title.nameIcon}</span>
+                </div>
+                {/* <h2 dangerouslySetInnerHTML={{ __html: titleText }} contentEditable={true} onInput={handleOnInputTitle} className='text-xl text-indigo-700 font-bold uppercase'></h2> */}
+                <EditableTitle handleOnBlur={handleOnBlur} handleOnFocus={handleOnFocus} pageNumber={pageNumber} bodyChildIndex={bodyChildIndex} titleText={title.text} />
             </div>
-            {/* <h2 dangerouslySetInnerHTML={{ __html: titleText }} contentEditable={true} onInput={handleOnInputTitle} className='text-xl text-indigo-700 font-bold uppercase'></h2> */}
-            <EditableTitle handleOnBlur={handleOnBlur} handleOnFocus={handleOnFocus} pageNumber={pageNumber} bodyChildIndex={bodyChildIndex} titleText={title.text} />
-        </div>
 
-        {info.map((infoChild, infoChildIndex) => (
-            <InfoChild key={"infoChild" + infoChildIndex} bodyChildIndex={bodyChildIndex} infoChildIndex={infoChildIndex} infoChild={infoChild} pageNumber={pageNumber} handleOnFocus={handleOnFocus} handleOnBlur={handleOnBlur} />
-        ))}
+            {info.map((infoChild, infoChildIndex) => (
+                <InfoChild key={"infoChild" + infoChildIndex} bodyChildIndex={bodyChildIndex} infoChildIndex={infoChildIndex} infoChild={infoChild} pageNumber={pageNumber} handleOnFocus={handleOnFocus} handleOnBlur={handleOnBlur} />
+            ))}
+        </section>
         {showBodyChildOptions && (
-            <div className="absolute -top-6 left-[50%] -translate-x-[50%] flex gap-2 px-1 rounded-md bg-blue-500 text-white">
-                <span className="cursor-pointer" onClick={() => dispatch(deleteBodyChildByIndex({pageNumber, bodyChildIndex}))}><MinusIcon className="w-6 h-6" /></span>
-                <span className="cursor-pointer" onClick={() => dispatch(addBodyChild({pageNumber}))}><PlusIcon className="w-6 h-6" /></span>
+            <div>
+                <div className='absolute border-4 border-blue-500 top-0 w-[105%] h-[105%] -translate-x-[2.5%] -translate-y-[2.5%] z-20'></div>
+                <div className="absolute -top-6 left-[50%] -translate-x-[50%] flex gap-2 px-1 rounded-md bg-blue-500 text-white z-30">
+                    <span className="cursor-pointer" onClick={() => dispatch(deleteBodyChildByIndex({pageNumber, bodyChildIndex}))}><MinusIcon className="w-6 h-6" /></span>
+                    <span className="cursor-pointer" onClick={() => dispatch(addBodyChildByIndex({pageNumber, bodyChildIndex}))}><PlusIcon className="w-6 h-6" /></span>
+                </div>
             </div>
         )}
     </div>

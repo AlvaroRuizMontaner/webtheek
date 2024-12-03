@@ -138,9 +138,9 @@ export const curriculumSlice = createSlice({
 
         // Add by index
         addBodyChildByIndex: (state, action) => {
-            const { pageNumber, bodyChild, bodyChildIndex } = action.payload; // El nuevo objeto body que se quiere añadir
+            const { pageNumber, bodyChildIndex } = action.payload; // El nuevo objeto body que se quiere añadir
             if (bodyChildIndex >= 0 && bodyChildIndex < state[pageNumber].length) {
-                state[pageNumber].splice(bodyChildIndex, 0, bodyChild);
+                state[pageNumber].splice(bodyChildIndex+1, 0, bodyChild);
             }
         },
         addInfoChildByIndex: (state, action) => {
