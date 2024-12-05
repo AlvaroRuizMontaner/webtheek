@@ -1,6 +1,6 @@
-import { deleteSideInfoChildByIndex, editSideInfoChildMain } from '@/redux/features/curriculumSlice';
+import { addSideInfoChildByIndex, addSideInfoChildByIndex2, addSideInfoChildByIndex3, deleteSideInfoChildByIndex, editSideInfoChildMain } from '@/redux/features/curriculumSlice';
 import { useAppDispatch } from '@/redux/hooks';
-import { XMarkIcon } from '@heroicons/react/20/solid';
+import { PlusIcon, XMarkIcon } from '@heroicons/react/20/solid';
 import React, { useRef, useState } from 'react';
 import { restoreCursorPosition, saveCursorPosition } from '@/utils/cursor';
 import { SideInfoChildType } from '../curriculum.info';
@@ -39,6 +39,15 @@ export default function EditableMain({ bodyChildIndex, pageNumber, infoChildInde
     dispatch(deleteSideInfoChildByIndex({ pageNumber, bodyChildIndex, infoChildIndex }))
   }
 
+  const addMainFunctions = [
+    addSideInfoChildByIndex,
+    addSideInfoChildByIndex2,
+    addSideInfoChildByIndex3
+  ]
+
+  const addMainFunction = addMainFunctions[infoChild.mainType]
+
+
 return (
   <div className='relative'>
     <span
@@ -58,6 +67,7 @@ return (
         >
           <XMarkIcon className="w-4 h-4" />
         </span>
+        <span className="cursor-pointer absolute -right-5 top-[50%] -translate-y-[55%] bg-black text-white rounded-full" onClick={() => dispatch(addMainFunction({pageNumber, bodyChildIndex, infoChildIndex}))}><PlusIcon className="w-4 h-4" /></span>
       </div>
     )}
   </div>

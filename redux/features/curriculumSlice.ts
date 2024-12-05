@@ -201,7 +201,8 @@ const initialState: InitialStateType = [
                             className: "material-symbols-outlined"
                         },
                         main: "alvaro.ruiz.montaner@gmail.com",
-                        aux: ""
+                        aux: "",
+                        mainType: 0
                     },
                     {
                         icon: {
@@ -209,7 +210,8 @@ const initialState: InitialStateType = [
                             className: "material-symbols-outlined"
                         },
                         main: "675 967 289",
-                        aux: ""
+                        aux: "",
+                        mainType: 0
                     },
             /*         {
                         icon: {
@@ -217,7 +219,8 @@ const initialState: InitialStateType = [
                             className: "material-symbols-outlined"
                         },
                         main: "www.linkedin.com/in/%C3%A1lvaro-ruiz-montaner-221a2b206",
-                        aux: ""
+                        aux: "",
+                        mainType: 0
                     }, */
                     {
                         icon: {
@@ -225,7 +228,8 @@ const initialState: InitialStateType = [
                             className: "material-symbols-outlined"
                         },
                         main: "github.com/Varojausz",
-                        aux: ""
+                        aux: "",
+                        mainType: 0
                     },
                     {
                         icon: {
@@ -233,7 +237,8 @@ const initialState: InitialStateType = [
                             className: "material-symbols-outlined"
                         },
                         main: "webtheek.com",
-                        aux: ""
+                        aux: "",
+                        mainType: 0
                     }
                 ],
             },
@@ -250,7 +255,8 @@ const initialState: InitialStateType = [
                             className: ""
                         },
                         main: "Spanish",
-                        aux: "Native"
+                        aux: "Native",
+                        mainType: 1
                     },
                     {
                         icon: {
@@ -258,7 +264,8 @@ const initialState: InitialStateType = [
                             className: ""
                         },
                         main: "English",
-                        aux: "Intermediate"
+                        aux: "Intermediate",
+                        mainType: 1
                     },
                     {
                         icon: {
@@ -266,7 +273,8 @@ const initialState: InitialStateType = [
                             className: ""
                         },
                         main: "Portuguese",
-                        aux: "Professional"
+                        aux: "Professional",
+                        mainType: 1
                     },
                     {
                         icon: {
@@ -274,7 +282,8 @@ const initialState: InitialStateType = [
                             className: ""
                         },
                         main: "Dutch",
-                        aux: "Amateur"
+                        aux: "Amateur",
+                        mainType: 1
                     }
                 ],
             },
@@ -292,7 +301,8 @@ const initialState: InitialStateType = [
                         },
                         main: "CSS",
                         aux: "",
-                        bar: "80%"
+                        bar: "80%",
+                        mainType: 2
                     },
                     {
                         icon: {
@@ -301,7 +311,8 @@ const initialState: InitialStateType = [
                         },
                         main: "React",
                         aux: "",
-                        bar: "70%"
+                        bar: "70%",
+                        mainType: 2
                     },
                     {
                         icon: {
@@ -310,7 +321,8 @@ const initialState: InitialStateType = [
                         },
                         main: "MERN Stack",
                         aux: "",
-                        bar: "60%"
+                        bar: "60%",
+                        mainType: 2
                     },
                     {
                         icon: {
@@ -319,7 +331,8 @@ const initialState: InitialStateType = [
                         },
                         main: "Python",
                         aux: "",
-                        bar: "30%"
+                        bar: "30%",
+                        mainType: 2
                     }
                 ],
             }
@@ -331,6 +344,14 @@ const page = initialState[0]
 const bodyChild = page.body[0]
 const infoChild = bodyChild.info[0]
 const listChild = infoChild && infoChild.list && infoChild.list[0] || "listElement"
+
+const sideBodyChild = page.side[0]
+const sideBodyChild2 = page.side[1]
+const sideBodyChild3 = page.side[2]
+
+const sideInfoChild = sideBodyChild.info[1]
+const sideInfoChild2 = sideBodyChild2.info[1]
+const sideInfoChild3 = sideBodyChild3.info[1]
 
 export const curriculumSlice = createSlice({
     name: "curriculum",
@@ -483,13 +504,43 @@ export const curriculumSlice = createSlice({
         },
 
         /* ------------------------------------------------------Side------------------------------------------------------ */
-        addBodyChildByIndex: (state, action) => {
+        addSideBodyChildByIndex: (state, action) => {
             const { pageNumber, bodyChildIndex } = action.payload; // El nuevo objeto body que se quiere añadir
             if (bodyChildIndex >= 0 && bodyChildIndex < state[pageNumber].body.length) {
                 state[pageNumber].side.splice(bodyChildIndex+1, 0, sideBodyChild);
             }
         },
-        deleteBodyChildByIndex: (state, action) => {
+        addSideBodyChildByIndex2: (state, action) => {
+            const { pageNumber, bodyChildIndex } = action.payload; // El nuevo objeto body que se quiere añadir
+            if (bodyChildIndex >= 0 && bodyChildIndex < state[pageNumber].body.length) {
+                state[pageNumber].side.splice(bodyChildIndex+1, 0, sideBodyChild2);
+            }
+        },
+        addSideBodyChildByIndex3: (state, action) => {
+            const { pageNumber, bodyChildIndex } = action.payload; // El nuevo objeto body que se quiere añadir
+            if (bodyChildIndex >= 0 && bodyChildIndex < state[pageNumber].body.length) {
+                state[pageNumber].side.splice(bodyChildIndex+1, 0, sideBodyChild3);
+            }
+        },
+        addSideInfoChildByIndex: (state, action) => {
+            const { pageNumber, bodyChildIndex, infoChildIndex } = action.payload; // El nuevo objeto body que se quiere añadir
+            if (state[pageNumber].side[bodyChildIndex]) { // Validamos que el índice sea válido
+                state[pageNumber].side[bodyChildIndex].info.splice(infoChildIndex+1, 0, sideInfoChild);
+            }
+        },
+        addSideInfoChildByIndex2: (state, action) => {
+            const { pageNumber, bodyChildIndex, infoChildIndex } = action.payload; // El nuevo objeto body que se quiere añadir
+            if (state[pageNumber].side[bodyChildIndex]) { // Validamos que el índice sea válido
+                state[pageNumber].side[bodyChildIndex].info.splice(infoChildIndex+1, 0, sideInfoChild2);
+            }
+        },
+        addSideInfoChildByIndex3: (state, action) => {
+            const { pageNumber, bodyChildIndex, infoChildIndex } = action.payload; // El nuevo objeto body que se quiere añadir
+            if (state[pageNumber].side[bodyChildIndex]) { // Validamos que el índice sea válido
+                state[pageNumber].side[bodyChildIndex].info.splice(infoChildIndex+1, 0, sideInfoChild3);
+            }
+        },
+        deleteSideBodyChildByIndex: (state, action) => {
             const { pageNumber, bodyChildIndex} = action.payload; // El nuevo objeto body que se quiere añadir
             state[pageNumber].side.splice(bodyChildIndex,1);
             //state.filter((_,index) => bodyChildIndex !== index)
@@ -535,6 +586,11 @@ const {
     editListChild,
     /* Side */
     addSideBodyChildByIndex, 
+    addSideBodyChildByIndex2,
+    addSideBodyChildByIndex3,
+    addSideInfoChildByIndex, 
+    addSideInfoChildByIndex2,
+    addSideInfoChildByIndex3,
     deleteSideBodyChildByIndex,
     deleteSideInfoChildByIndex,
     editSideInfoChildMain,
@@ -564,6 +620,11 @@ export {
     editListChild,
     /* Side */
     addSideBodyChildByIndex, 
+    addSideBodyChildByIndex2,
+    addSideBodyChildByIndex3,
+    addSideInfoChildByIndex, 
+    addSideInfoChildByIndex2,
+    addSideInfoChildByIndex3,
     deleteSideBodyChildByIndex,
     deleteSideInfoChildByIndex,
     editSideInfoChildMain,

@@ -13,6 +13,7 @@ export type SideInfoChildType = {
     main: string;
     aux: string
     bar?: string
+    mainType: number
 }
 
 export type SectionCentralBodyInfoType = {
@@ -54,7 +55,8 @@ export const lateralPagina1: SectionSideBodyInfoType[] = [
                     className: "material-symbols-outlined"
                 },
                 main: "alvaro.ruiz.montaner@gmail.com",
-                aux: ""
+                aux: "",
+                mainType: 0
             },
             {
                 icon: {
@@ -62,7 +64,8 @@ export const lateralPagina1: SectionSideBodyInfoType[] = [
                     className: "material-symbols-outlined"
                 },
                 main: "675 967 289",
-                aux: ""
+                aux: "",
+                mainType: 0
             },
     /*         {
                 icon: {
@@ -70,7 +73,8 @@ export const lateralPagina1: SectionSideBodyInfoType[] = [
                     className: "material-symbols-outlined"
                 },
                 main: "www.linkedin.com/in/%C3%A1lvaro-ruiz-montaner-221a2b206",
-                aux: ""
+                aux: "",
+                mainType: 0
             }, */
             {
                 icon: {
@@ -78,7 +82,8 @@ export const lateralPagina1: SectionSideBodyInfoType[] = [
                     className: "material-symbols-outlined"
                 },
                 main: "github.com/Varojausz",
-                aux: ""
+                aux: "",
+                mainType: 0
             },
             {
                 icon: {
@@ -86,7 +91,8 @@ export const lateralPagina1: SectionSideBodyInfoType[] = [
                     className: "material-symbols-outlined"
                 },
                 main: "webtheek.com",
-                aux: ""
+                aux: "",
+                mainType: 0
             }
         ],
     },
@@ -103,7 +109,8 @@ export const lateralPagina1: SectionSideBodyInfoType[] = [
                     className: ""
                 },
                 main: "Spanish",
-                aux: "Native"
+                aux: "Native",
+                mainType: 1
             },
             {
                 icon: {
@@ -111,7 +118,8 @@ export const lateralPagina1: SectionSideBodyInfoType[] = [
                     className: ""
                 },
                 main: "English",
-                aux: "Intermediate"
+                aux: "Intermediate",
+                mainType: 1
             },
             {
                 icon: {
@@ -119,7 +127,8 @@ export const lateralPagina1: SectionSideBodyInfoType[] = [
                     className: ""
                 },
                 main: "Portuguese",
-                aux: "Professional"
+                aux: "Professional",
+                mainType: 1
             },
             {
                 icon: {
@@ -127,7 +136,8 @@ export const lateralPagina1: SectionSideBodyInfoType[] = [
                     className: ""
                 },
                 main: "Dutch",
-                aux: "Amateur"
+                aux: "Amateur",
+                mainType: 1
             }
         ],
     },
@@ -145,7 +155,8 @@ export const lateralPagina1: SectionSideBodyInfoType[] = [
                 },
                 main: "CSS",
                 aux: "",
-                bar: "80%"
+                bar: "80%",
+                mainType: 2
             },
             {
                 icon: {
@@ -154,7 +165,8 @@ export const lateralPagina1: SectionSideBodyInfoType[] = [
                 },
                 main: "React",
                 aux: "",
-                bar: "70%"
+                bar: "70%",
+                mainType: 2
             },
             {
                 icon: {
@@ -163,7 +175,8 @@ export const lateralPagina1: SectionSideBodyInfoType[] = [
                 },
                 main: "MERN Stack",
                 aux: "",
-                bar: "60%"
+                bar: "60%",
+                mainType: 2
             },
             {
                 icon: {
@@ -172,7 +185,8 @@ export const lateralPagina1: SectionSideBodyInfoType[] = [
                 },
                 main: "Python",
                 aux: "",
-                bar: "30%"
+                bar: "30%",
+                mainType: 2
             }
         ],
     }
@@ -279,7 +293,8 @@ export const lateralPagina2: SectionSideBodyInfoType[] = [
                 },
                 main: "Persistence",
                 aux: "",
-                bar: "100%"
+                bar: "100%",
+                mainType: 2
             },
             {
                 icon: {
@@ -288,7 +303,8 @@ export const lateralPagina2: SectionSideBodyInfoType[] = [
                 },
                 main: "Curiosity",
                 aux: "",
-                bar: "80%"
+                bar: "80%",
+                mainType: 2
             },
             {
                 icon: {
@@ -297,7 +313,8 @@ export const lateralPagina2: SectionSideBodyInfoType[] = [
                 },
                 main: "Optimism",
                 aux: "",
-                bar: "60%"
+                bar: "60%",
+                mainType: 2
             },
             {
                 icon: {
@@ -306,7 +323,8 @@ export const lateralPagina2: SectionSideBodyInfoType[] = [
                 },
                 main: "Brainstorming",
                 aux: "",
-                bar: "60%"
+                bar: "60%",
+                mainType: 2
             }
         ],
     }

@@ -1,5 +1,11 @@
-import { MinusIcon, PlusIcon } from '@heroicons/react/20/solid'
+import { MinusIcon } from '@heroicons/react/20/solid'
 import React from 'react'
+import { IconType } from 'react-icons/lib'
+
+type AddFunctions = {
+  function: (p: any) => void
+  icon: IconType
+}[]
 
 type ControlBoundaryProps = {
     dispatch: (p: any) => void
@@ -9,15 +15,20 @@ type ControlBoundaryProps = {
     orientation?: "vertical" | "horizontal"
     color: string
     deleteFunction: (p: any) => void
-    addFunction: (p: any) => void
+    addFunctions: AddFunctions
     width?: string
 }
 
-export default function ControlBoundary({color, width="w-[116.5%]", pageNumber, bodyChildIndex, infoChildIndex, dispatch, deleteFunction, addFunction, orientation="horizontal"}: ControlBoundaryProps) {
+export default function ControlBoundary({color, width="w-[116.5%]", pageNumber, bodyChildIndex, infoChildIndex, dispatch, deleteFunction, addFunctions, orientation="horizontal"}: ControlBoundaryProps) {
 
     const verticalClasses = "flex-col top-[50%] py-1"
     const horizontalClasses = "top-0 left-[50%] px-1 flex"
     const orientationClasses = orientation == "vertical" ? verticalClasses : horizontalClasses
+
+    function AddIcon({ icon }: {icon: IconType}) {
+      const IconComponent = icon
+      return IconComponent ? <IconComponent className="w-5 h-5" /> : null;
+    }
 
   return (
     <div>
@@ -37,7 +48,19 @@ export default function ControlBoundary({color, width="w-[116.5%]", pageNumber, 
           >
             <MinusIcon className="w-5 h-5" />
           </span>
-          <span
+          {addFunctions.map((addFunction, addFunctionIndex) => (
+            <span
+              key={"AddFunction" + addFunctionIndex}
+              className="cursor-pointer"
+              onClick={() =>
+                dispatch(
+                  addFunction.function({ pageNumber, bodyChildIndex, infoChildIndex })
+              )}
+            >
+              <AddIcon icon={addFunction.icon} />
+            </span>
+          ))}
+{/*           <span
             className="cursor-pointer"
             onClick={() =>
               dispatch(
@@ -46,7 +69,7 @@ export default function ControlBoundary({color, width="w-[116.5%]", pageNumber, 
             }
           >
             <PlusIcon className="w-5 h-5" />
-          </span>
+          </span> */}
         </div>
       </div>
     </div>

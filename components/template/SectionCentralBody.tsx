@@ -1,10 +1,12 @@
 import { useCallback, useState } from 'react';
 import { SectionCentralBodyInfoType } from './curriculum.info';
 import { useAppDispatch } from '@/redux/hooks';
-import { addBodyChildByIndex, deleteBodyChildByIndex } from '@/redux/features/curriculumSlice';
 import InfoChild from './InfoChild';
 import EditableTitle from './EditableTitle';
 import ControlBoundary from './ControlBoundary';
+import { PlusIcon } from '@heroicons/react/20/solid';
+import { IconType } from 'react-icons/lib';
+import { addBodyChildByIndex, deleteBodyChildByIndex } from '@/redux/features/curriculumSlice';
 
 interface SectionCentralBody extends SectionCentralBodyInfoType {
     pageNumber: number;
@@ -54,7 +56,7 @@ export default function SectionCentralBody({title, info, pageNumber, bodyChildIn
             ))}
         </section>
         {showBodyChildOptions && (
-             <ControlBoundary addFunction={addBodyChildByIndex} deleteFunction={deleteBodyChildByIndex} width="w-[122%]" color="blue-500 text-white" pageNumber={pageNumber} bodyChildIndex={bodyChildIndex} dispatch={dispatch} orientation='horizontal' />
+             <ControlBoundary addFunctions={[{function: addBodyChildByIndex, icon: PlusIcon as IconType}]} deleteFunction={deleteBodyChildByIndex} width="w-[122%]" color="blue-500 text-white" pageNumber={pageNumber} bodyChildIndex={bodyChildIndex} dispatch={dispatch} orientation='horizontal' />
 /*             <div>
                 <div className='absolute border-[3px] border-blue-500 top-0 right-0 w-[122%] translate-x-[5%] h-[105%] -translate-y-[2.5%] z-20'></div>
                 <div className="absolute -top-6 left-[50%] -translate-x-[50%] flex gap-2 px-1 rounded-md bg-blue-500 text-white z-30">

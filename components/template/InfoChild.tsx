@@ -7,6 +7,8 @@ import EditableDetail from './EditableDetail';
 import EditableDate from './EditableDate';
 import EditableListChild from './EditableListChild';
 import ControlBoundary from './ControlBoundary';
+import { PlusIcon } from '@heroicons/react/20/solid';
+import { IconType } from 'react-icons/lib';
 
 type InfoChildProps = {
     infoChildIndex: number, 
@@ -45,7 +47,7 @@ export default function InfoChild({infoChildIndex, handleOnBlur, handleOnFocus, 
         )}
       </div>
       {showInfoChildOptions && (
-        <ControlBoundary addFunction={addInfoChild} deleteFunction={deleteInfoChildByIndex} color="blue-900 text-white" pageNumber={pageNumber} bodyChildIndex={bodyChildIndex} infoChildIndex={infoChildIndex} dispatch={dispatch} orientation='vertical' />
+        <ControlBoundary addFunctions={[{function: addInfoChild, icon: PlusIcon as IconType}]} deleteFunction={deleteInfoChildByIndex} color="blue-900 text-white" pageNumber={pageNumber} bodyChildIndex={bodyChildIndex} infoChildIndex={infoChildIndex} dispatch={dispatch} orientation='vertical' />
 /*       <div>
         <div className='absolute border-[3px] border-blue-900 top-0 right-0 w-[116.5%] h-[105%] translate-x-[5%] -translate-y-[2.5%] z-20'></div>
         <div className="absolute -left-[50px] top-[50%] -translate-y-[50%] flex-col gap-2 py-1 rounded-md bg-blue-900 text-white z-30">

@@ -1,9 +1,12 @@
-import { addBodyChildByIndex, deleteBodyChildByIndex } from '@/redux/features/curriculumSlice'
+import { addSideBodyChildByIndex, addSideBodyChildByIndex2, addSideBodyChildByIndex3, deleteSideBodyChildByIndex } from '@/redux/features/curriculumSlice'
 import ControlBoundary from '../ControlBoundary'
 import { SectionSideBodyInfoType } from '../curriculum.info'
 import InfoChild from './InfoChild'
 import { useAppDispatch } from '@/redux/hooks'
 import { useCallback, useState } from 'react'
+import { PlusIcon } from '@heroicons/react/20/solid'
+import { IconType } from 'react-icons/lib'
+import { BsPlusCircle, BsPlusSlashMinus } from 'react-icons/bs'
 
 interface SectionSideBodyProps extends SectionSideBodyInfoType {
   pageNumber: number
@@ -22,6 +25,21 @@ export default function SectionSideBody({ title, info, pageNumber, bodyChildInde
       setTimeout(() => setShowBodyChildOptions(true), 100)
   },[])
 
+  const options = [
+    {
+      function: addSideBodyChildByIndex,
+      icon: PlusIcon as IconType
+    },
+    {
+      function: addSideBodyChildByIndex2,
+      icon: BsPlusSlashMinus
+    },
+    {
+      function: addSideBodyChildByIndex3,
+      icon: BsPlusCircle
+    },
+  ]
+
   return (
     <div className='relative z-10'>
       <section className='flex flex-col gap-4 relative z-50'>
@@ -36,7 +54,7 @@ export default function SectionSideBody({ title, info, pageNumber, bodyChildInde
           ))}
         </div>
       </section>
-      {showBodyChildOptions && <ControlBoundary pageNumber={pageNumber} bodyChildIndex={bodyChildIndex} dispatch={dispatch} addFunction={addBodyChildByIndex} deleteFunction={deleteBodyChildByIndex} color="blue-500 text-white" />}
+      {showBodyChildOptions && <ControlBoundary pageNumber={pageNumber} bodyChildIndex={bodyChildIndex} dispatch={dispatch} addFunctions={options} deleteFunction={deleteSideBodyChildByIndex} color="blue-500 text-white" />}
     </div>
   )
 }
