@@ -1,4 +1,4 @@
-import { deleteInfoChildByIndex, deleteMainByIndex, editInfoChildMain } from '@/redux/features/curriculumSlice';
+import { deleteSideInfoChildByIndex, editSideInfoChildMain } from '@/redux/features/curriculumSlice';
 import { useAppDispatch } from '@/redux/hooks';
 import { XMarkIcon } from '@heroicons/react/20/solid';
 import React, { useRef, useState } from 'react';
@@ -9,12 +9,12 @@ type EditableMainProps = {
   pageNumber: number
   bodyChildIndex: number
   infoChildIndex: number
-  handleInfoOnFocus: () => void
-  handleInfoOnBlur: () => void
+  handleOnFocus: () => void
+  handleOnBlur: () => void
   infoChild: SideInfoChildType
 }
 
-export default function EditableMain({ bodyChildIndex, pageNumber, infoChildIndex, /* handleInfoOnFocus, handleInfoOnBlur, */ infoChild}: EditableMainProps) {
+export default function EditableMain({ bodyChildIndex, pageNumber, infoChildIndex, handleOnFocus, handleOnBlur, infoChild}: EditableMainProps) {
 
   const dispatch = useAppDispatch()
   const [showMainOptions, setShowMainOptions] = useState(false)
@@ -22,16 +22,16 @@ export default function EditableMain({ bodyChildIndex, pageNumber, infoChildInde
   let savedCursorPosition: any = null;
 
   const handleListChildOnFocus = () => {
-    handleInfoOnFocus()
+    handleOnFocus()
     setTimeout(() => setShowMainOptions(true), 100)
   }
   const handleListChildOnBlur = () => {
-    handleInfoOnBlur()
+    handleOnBlur()
     setTimeout(() => setShowMainOptions(false), 100)
   }
   const handleOnInputInfoMain = (infoChildIndex: number) => (e: React.SyntheticEvent) => {
     savedCursorPosition = saveCursorPosition(editableRef.current);
-    dispatch(editInfoChildMain({pageNumber, bodyChildIndex, infoChildIndex, main: (e.target as HTMLElement).innerText}))
+    dispatch(editSideInfoChildMain({pageNumber, bodyChildIndex, infoChildIndex, main: (e.target as HTMLElement).innerText}))
     setTimeout(() => restoreCursorPosition(editableRef.current, savedCursorPosition), 0);
   }
 
@@ -43,8 +43,8 @@ return (
   <div className='relative'>
     <span
       ref={editableRef}
-/*       onBlur={handleListChildOnBlur}
-      onFocus={handleListChildOnFocus} */
+      onBlur={handleListChildOnBlur}
+      onFocus={handleListChildOnFocus}
       dangerouslySetInnerHTML={{ __html: infoChild.main }}
       contentEditable={true}
       onInput={handleOnInputInfoMain(infoChildIndex)}

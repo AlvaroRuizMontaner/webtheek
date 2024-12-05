@@ -483,6 +483,33 @@ export const curriculumSlice = createSlice({
         },
 
         /* ------------------------------------------------------Side------------------------------------------------------ */
+        addBodyChildByIndex: (state, action) => {
+            const { pageNumber, bodyChildIndex } = action.payload; // El nuevo objeto body que se quiere añadir
+            if (bodyChildIndex >= 0 && bodyChildIndex < state[pageNumber].body.length) {
+                state[pageNumber].side.splice(bodyChildIndex+1, 0, sideBodyChild);
+            }
+        },
+        deleteBodyChildByIndex: (state, action) => {
+            const { pageNumber, bodyChildIndex} = action.payload; // El nuevo objeto body que se quiere añadir
+            state[pageNumber].side.splice(bodyChildIndex,1);
+            //state.filter((_,index) => bodyChildIndex !== index)
+        },
+        deleteSideInfoChildByIndex: (state, action) => {
+            const { pageNumber, bodyChildIndex, infoChildIndex } = action.payload; // Desestructuramos los parámetros necesarios
+            const bodyChild = state[pageNumber].side[bodyChildIndex]
+            if (bodyChild) { // Validamos que el índice sea válido
+                bodyChild.info.splice(infoChildIndex,1);
+            }
+        },
+        editSideInfoChildMain: (state, action) => {
+            const { pageNumber, bodyChildIndex, infoChildIndex, main } = action.payload; // Desestructuramos los parámetros necesarios
+            const bodyChild = state[pageNumber].side?.[bodyChildIndex];
+            const infoChild = bodyChild?.info?.[infoChildIndex];
+
+            if (infoChild) {
+                infoChild.main = main;
+            }
+        },
     }
 })
 
@@ -506,6 +533,11 @@ const {
     editInfoChildDate,
     editInfoChildMain,
     editListChild,
+    /* Side */
+    addSideBodyChildByIndex, 
+    deleteSideBodyChildByIndex,
+    deleteSideInfoChildByIndex,
+    editSideInfoChildMain,
 } = curriculumSlice.actions
 
 const curriculumReducer = curriculumSlice.reducer
@@ -530,5 +562,10 @@ export {
     editInfoChildDate,
     editInfoChildMain,
     editListChild,
+    /* Side */
+    addSideBodyChildByIndex, 
+    deleteSideBodyChildByIndex,
+    deleteSideInfoChildByIndex,
+    editSideInfoChildMain,
     curriculumReducer
 }
