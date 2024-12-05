@@ -5,7 +5,6 @@ import { getHtmlWithStyles } from "@/utils/generateHtml";
 import { useMutation } from "@tanstack/react-query";
 import React, { useEffect, useRef, useState } from "react";
 import "./curriculum.css";
-import SideHeader from "./SideHeader";
 import Spinner from "../spinners/Spinner";
 import Link from "next/link";
 import CentralBody from "./CentralBody";
@@ -13,7 +12,8 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import Button from "../button/Button";
 import { addPage, deletePage } from "@/redux/features/curriculumSlice";
 import { XMarkIcon } from "@heroicons/react/20/solid";
-import SideBody from "./SideBody";
+import SideHeader from "./side/SideHeader";
+import SideBody from "./side/SideBody";
 
 
 export const Template = React.memo(() => {
@@ -86,7 +86,7 @@ export const Template = React.memo(() => {
                 </section>
                 <section className="bg-indigo-600">
                     <SideHeader />
-                    <SideBody page={page.side} />
+                    <SideBody pageNumber={pageNumber} page={page.side} />
                 </section>
               </div>
             </div>

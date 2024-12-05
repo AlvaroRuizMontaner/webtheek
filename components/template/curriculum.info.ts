@@ -5,6 +5,16 @@ export type InfoChildType = {
     list?: string[]
 }
 
+export type SideInfoChildType = {
+    icon: {
+        name: string;
+        className: string;
+    };
+    main: string;
+    aux: string
+    bar?: string
+}
+
 export type SectionCentralBodyInfoType = {
     title: {
         text: string;
@@ -23,15 +33,7 @@ export type SectionSideBodyInfoType = {
         nameIcon: string;
         classNameIcon: string;
     }
-    info: {
-        icon: {
-            name: string;
-            className: string;
-        };
-        main: string;
-        aux: string;
-        bar?: string
-    }[];
+    info: SideInfoChildType[]
 }
 
 
