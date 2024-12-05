@@ -13,7 +13,7 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import Button from "../button/Button";
 import { addPage, deletePage } from "@/redux/features/curriculumSlice";
 import { XMarkIcon } from "@heroicons/react/20/solid";
-import { createCurriculum } from "@/services/CurriculumAPI";
+import SideBody from "./SideBody";
 
 
 export const Template = React.memo(() => {
@@ -72,20 +72,21 @@ export const Template = React.memo(() => {
     {/* El referrer se ha colodado en un ancestro extra porque de otro modo no cogia el background-color */}
       <div ref={referrer}>
         {pages.map((page, pageNumber) => (
-          <div key={"cuerpo" + pageNumber} className="relative bg-white h-[1122px] w-[785px] flex items-center m-auto overflow-x-scroll md:overflow-x-hidden">
-            <div className="max-w-2xl bg-white p-12 px-0 mx-auto relative">
+          <div key={"cuerpo" + pageNumber} className="relative bg-white h-[297mm] w-[785px] flex items-center m-auto overflow-x-scroll md:overflow-x-hidden">
+            <div className="min-w-[42rem] h-full max-w-2xl bg-white p-12 px-0 mx-auto relative">
               {showOptions && (
                 <div className="absolute top-8 flex gap-2 w-44 rounded-md">
                     <span className="cursor-pointer bg-gray-100" onClick={() => dispatch(deletePage({pageNumber}))}><XMarkIcon className="w-6 h-6" /></span>
                   {/*   <span className="cursor-pointer bg-gray-100" onClick={() => dispatch(addBodyChild({pageNumber}))}><PlusIcon className="w-6 h-6" /></span> */}
                 </div>
               )}
-              <div className="contenedor">
+              <div className="contenedor h-full">
                 <section className="">
-                    <CentralBody pageNumber={pageNumber} page={page} />
+                    <CentralBody pageNumber={pageNumber} page={page.body} />
                 </section>
                 <section className="bg-indigo-600">
                     <SideHeader />
+                    <SideBody page={page.side} />
                 </section>
               </div>
             </div>
@@ -104,7 +105,7 @@ export const Template = React.memo(() => {
         >
           {isLoading ? <Spinner/> : "Convert to pdf"}
         </button>
-        <button onClick={() => createCurriculum(pages[0])}>Crear</button>
+        {/* <button onClick={() => createCurriculum(pages[0])}>Crear</button> */}
         <Link ref={linkRef} target={"_blank"} href={pdfUrl} className="hidden absolute"></Link>
       </div>
     </>
