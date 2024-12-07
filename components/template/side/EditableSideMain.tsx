@@ -62,7 +62,7 @@ return (
     {showMainOptions && (
       <div className="">
         <span
-          className="cursor-pointer absolute z-50 -left-5 top-[50%] -translate-y-[55%] bg-black text-white rounded-full"
+          className="cursor-pointer absolute -left-5 top-[50%] -translate-y-[55%] bg-black text-white rounded-full"
           onClick={handleDeleteMain}
         >
           <XMarkIcon className="w-4 h-4" />

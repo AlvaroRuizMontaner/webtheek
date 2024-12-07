@@ -39,7 +39,7 @@ export default function EditableAux({aux, bodyChildIndex, pageNumber, infoChildI
   }
 
   return (
-    <div className='relative max-w-36'>
+    <div className='relative max-w-[50%]'>
       <span
         ref={editableRef}
         onBlur={handleListChildOnBlur}
@@ -50,7 +50,7 @@ export default function EditableAux({aux, bodyChildIndex, pageNumber, infoChildI
         className="text-gray-400 font-bold"
       ></span>
       {showAuxOptions && (
-        <div className="absolute -left-5 top-[50%] -translate-y-[55%] bg-black text-white rounded-full">
+        <div className="absolute -right-5 top-[50%] -translate-y-[55%] bg-black text-white rounded-full">
           <span
             className="cursor-pointer "
             onClick={handleDeleteAux}
