@@ -32,7 +32,7 @@ export default function ControlBoundary({color, width="w-[116.5%]", pageNumber, 
 
   return (
     <div>
-      <div className={`border-${color} ${width} absolute border-[3px]  top-0 right-0 h-[105%] translate-x-[5%] -translate-y-[2.5%] z-20`}>
+      <div className={`border-${color} ${width} absolute border-[3px] top-0 right-0 h-[105%] translate-x-[5%] -translate-y-[3.5%] z-20`}>
         <div className={`bg-${color} ${orientationClasses} absolute -translate-y-[50%] -translate-x-[50%] gap-2 rounded-md z-10`}>
           <span
             className="cursor-pointer "

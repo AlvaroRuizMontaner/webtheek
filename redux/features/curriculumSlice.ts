@@ -552,6 +552,19 @@ export const curriculumSlice = createSlice({
                 bodyChild.info.splice(infoChildIndex,1);
             }
         },
+        deleteAuxByIndex: (state, action) => {
+            const { pageNumber, bodyChildIndex, infoChildIndex } = action.payload; // Desestructuramos los parámetros necesarios
+            const bodyChild = state[pageNumber].side[bodyChildIndex]
+            if (bodyChild) { // Validamos que el índice sea válido
+                bodyChild.info[infoChildIndex].aux = "";
+            }
+        },
+        editSideTitleText: (state, action) => {
+            const { pageNumber, bodyChildIndex, value} = action.payload
+            if(state[pageNumber].side?.[bodyChildIndex]) {
+                state[pageNumber].side[bodyChildIndex].title.text = value;
+            }
+        },
         editSideInfoChildMain: (state, action) => {
             const { pageNumber, bodyChildIndex, infoChildIndex, main } = action.payload; // Desestructuramos los parámetros necesarios
             const bodyChild = state[pageNumber].side?.[bodyChildIndex];
@@ -559,6 +572,15 @@ export const curriculumSlice = createSlice({
 
             if (infoChild) {
                 infoChild.main = main;
+            }
+        },
+        editInfoChildAux: (state, action) => {
+            const { pageNumber, bodyChildIndex, infoChildIndex, aux } = action.payload; // Desestructuramos los parámetros necesarios
+            const bodyChild = state[pageNumber].side?.[bodyChildIndex];
+            const infoChild = bodyChild?.info?.[infoChildIndex];
+
+            if (infoChild) {
+                infoChild.aux = aux;
             }
         },
     }
@@ -593,7 +615,10 @@ const {
     addSideInfoChildByIndex3,
     deleteSideBodyChildByIndex,
     deleteSideInfoChildByIndex,
+    deleteAuxByIndex,
     editSideInfoChildMain,
+    editSideTitleText,
+    editInfoChildAux,
 } = curriculumSlice.actions
 
 const curriculumReducer = curriculumSlice.reducer
@@ -627,6 +652,9 @@ export {
     addSideInfoChildByIndex3,
     deleteSideBodyChildByIndex,
     deleteSideInfoChildByIndex,
+    deleteAuxByIndex,
     editSideInfoChildMain,
+    editSideTitleText,
+    editInfoChildAux,
     curriculumReducer
 }

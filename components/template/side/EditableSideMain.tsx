@@ -49,7 +49,7 @@ export default function EditableMain({ bodyChildIndex, pageNumber, infoChildInde
 
 
 return (
-  <div className='relative'>
+  <div className='relative z-10'>
     <span
       ref={editableRef}
       onBlur={handleListChildOnBlur}
@@ -60,9 +60,9 @@ return (
       className="font-bold max-w-[390px] text-white break-all flex items-center"
     ></span>
     {showMainOptions && (
-      <div className="absolute -left-5 top-[50%] -translate-y-[55%] bg-black text-white rounded-full">
+      <div className="">
         <span
-          className="cursor-pointer"
+          className="cursor-pointer absolute z-50 -left-5 top-[50%] -translate-y-[55%] bg-black text-white rounded-full"
           onClick={handleDeleteMain}
         >
           <XMarkIcon className="w-4 h-4" />

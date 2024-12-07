@@ -1,5 +1,6 @@
 import React from 'react'
 import EditableMain from './EditableSideMain'
+import EditableAux from './EditableAux'
 
 type InfoChildProps = {
     pageNumber: number
@@ -18,7 +19,7 @@ export default function InfoChild({pageNumber, infoChild, infoChildIndex, bodyCh
           <span className={infoChild.icon.className}>{infoChild.icon.name}</span>
         )}{" "}
         <EditableMain pageNumber={pageNumber} infoChild={infoChild} infoChildIndex={infoChildIndex} bodyChildIndex={bodyChildIndex} handleOnFocus={handleOnFocus} handleOnBlur={handleOnBlur}/>
-        {infoChild.main && infoChild.aux && <span className="text-gray-400 font-bold">{infoChild.aux}</span>}
+        {infoChild.main && infoChild.aux && <EditableAux bodyChildIndex={bodyChildIndex} infoChildIndex={infoChildIndex} pageNumber={pageNumber} aux={infoChild.aux} handleInfoOnFocus={handleOnFocus} handleInfoOnBlur={handleOnBlur} />}
       </div>
       {infoChild.bar && (
         <div className="h-5 w-full bg-indigo-400 mb-2">

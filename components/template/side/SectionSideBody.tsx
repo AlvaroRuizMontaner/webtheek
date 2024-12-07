@@ -4,9 +4,9 @@ import { SectionSideBodyInfoType } from '../curriculum.info'
 import InfoChild from './InfoChild'
 import { useAppDispatch } from '@/redux/hooks'
 import { useCallback, useState } from 'react'
-import { PlusIcon } from '@heroicons/react/20/solid'
+import { ChartBarIcon, ChatBubbleOvalLeftIcon, UserIcon } from '@heroicons/react/20/solid'
 import { IconType } from 'react-icons/lib'
-import { BsPlusCircle, BsPlusSlashMinus } from 'react-icons/bs'
+import EditableSideTitle from './EditableSideTitle'
 
 interface SectionSideBodyProps extends SectionSideBodyInfoType {
   pageNumber: number
@@ -28,15 +28,15 @@ export default function SectionSideBody({ title, info, pageNumber, bodyChildInde
   const options = [
     {
       function: addSideBodyChildByIndex,
-      icon: PlusIcon as IconType
+      icon: UserIcon as IconType
     },
     {
       function: addSideBodyChildByIndex2,
-      icon: BsPlusSlashMinus
+      icon: ChatBubbleOvalLeftIcon as IconType
     },
     {
       function: addSideBodyChildByIndex3,
-      icon: BsPlusCircle
+      icon: ChartBarIcon as IconType
     },
   ]
 
@@ -45,7 +45,8 @@ export default function SectionSideBody({ title, info, pageNumber, bodyChildInde
       <section className='flex flex-col gap-4 relative z-50'>
         <div className='flex gap-2 font-bold'>
           <span className={title.classNameIcon}>{title.nameIcon}</span>
-          <h2 className='text-xl'>{title.text}</h2>
+          {/* <h2 className='text-xl'>{title.text}</h2> */}
+          <EditableSideTitle titleText={title.text} bodyChildIndex={bodyChildIndex} pageNumber={pageNumber} handleOnFocus={handleOnFocus} handleOnBlur={handleOnBlur} />
         </div>
 
         <div className='space-y-2'>
