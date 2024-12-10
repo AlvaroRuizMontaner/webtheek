@@ -16,7 +16,7 @@ interface SectionSideBodyProps extends SectionSideBodyInfoType {
 
 export default function SectionSideBody({ title, info, pageNumber, bodyChildIndex}: SectionSideBodyProps) {
   const dispatch = useAppDispatch()
-  const [showBodyChildOptions, setShowBodyChildOptions] = useState(true)
+  const [showBodyChildOptions, setShowBodyChildOptions] = useState(false)
 
   const handleOnBlur = useCallback(() => {
     setTimeout(() => setShowBodyChildOptions(false), 100)

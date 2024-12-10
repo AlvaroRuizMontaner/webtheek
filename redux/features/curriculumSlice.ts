@@ -583,6 +583,15 @@ export const curriculumSlice = createSlice({
                 infoChild.aux = aux;
             }
         },
+        editBarWidth: (state, action) => {
+            const { pageNumber, bodyChildIndex, infoChildIndex, barWidth } = action.payload; // Desestructuramos los parámetros necesarios
+            const bodyChild = state[pageNumber].side?.[bodyChildIndex];
+            const infoChild = bodyChild?.info?.[infoChildIndex];
+
+            if (infoChild) {
+                infoChild.bar = barWidth;
+            }
+        },
     }
 })
 
@@ -619,6 +628,7 @@ const {
     editSideInfoChildMain,
     editSideTitleText,
     editInfoChildAux,
+    editBarWidth,
 } = curriculumSlice.actions
 
 const curriculumReducer = curriculumSlice.reducer
@@ -656,5 +666,6 @@ export {
     editSideInfoChildMain,
     editSideTitleText,
     editInfoChildAux,
+    editBarWidth,
     curriculumReducer
 }
