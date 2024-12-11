@@ -505,7 +505,6 @@ export const curriculumSlice = createSlice({
         editIcon: (state, action) => {
             const { pageNumber, bodyChildIndex, nameIcon} = action.payload
             if(state[pageNumber].body?.[bodyChildIndex]) {
-                console.log(state[pageNumber].body[bodyChildIndex].title)
                 state[pageNumber].body[bodyChildIndex].title.nameIcon = nameIcon;
             }
         },

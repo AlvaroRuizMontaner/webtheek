@@ -31,16 +31,16 @@ function RadioInputIcon({icon, pageNumber, bodyChildIndex}: RadioInputIconProps)
   }
 
   return (
-    <label htmlFor={icon.nameIcon} className="bg-blue-500 h-8 w-8 rounded-full flex items-center justify-center">
+    <label htmlFor={"icon" + icon.nameIcon + bodyChildIndex} className="bg-blue-500 h-8 w-8 rounded-full flex items-center justify-center">
       <div className={`text-white cursor-pointer ${icon.classNameIcon}`}>{icon.nameIcon}</div>
-      <input className="absolute opacity-0 w-0 h-0" type="radio" name={icon.nameIcon} id={icon.nameIcon} onChange={handleChange}/>
+      <input className="absolute w-0 h-0 opacity-0" type="radio" name={"icons" + bodyChildIndex} id={"icon" + icon.nameIcon + bodyChildIndex} onChange={handleChange}/>
     </label>
   )
 }
 
 export default function EditableIcon({title, pageNumber, bodyChildIndex}: EditableIconProps) {
 
-  const [showIconList, setShowIconList] = useState(true)
+  const [showIconList, setShowIconList] = useState(false)
 
   return (
     <div className="bg-blue-500 h-8 w-8 rounded-full flex items-center justify-center relative z-10">
