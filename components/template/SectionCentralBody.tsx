@@ -7,6 +7,7 @@ import ControlBoundary from './ControlBoundary';
 import { PlusIcon } from '@heroicons/react/20/solid';
 import { IconType } from 'react-icons/lib';
 import { addBodyChildByIndex, deleteBodyChildByIndex } from '@/redux/features/curriculumSlice';
+import EditableIcon from './EditableIcon';
 
 interface SectionCentralBody extends SectionCentralBodyInfoType {
     pageNumber: number;
@@ -43,11 +44,8 @@ export default function SectionCentralBody({title, info, pageNumber, bodyChildIn
   return (
     <div className='relative z-10'>
         <section className='flex flex-col gap-3 relative z-50'>
-            <div className='flex gap-2 items-center relative -translate-x-8'>
-                <div className='bg-blue-500 h-8 w-8 rounded-full flex items-center justify-center'>
-                    <span className={`text-white ${title.classNameIcon}`}>{title.nameIcon}</span>
-                </div>
-                {/* <h2 dangerouslySetInnerHTML={{ __html: titleText }} contentEditable={true} onInput={handleOnInputTitle} className='text-xl text-indigo-700 font-bold uppercase'></h2> */}
+            <div className='flex gap-2 items-center relative -translate-x-8 z-20'>
+                <EditableIcon bodyChildIndex={bodyChildIndex} pageNumber={pageNumber} title={title} />
                 <EditableTitle handleOnBlur={handleOnBlur} handleOnFocus={handleOnFocus} pageNumber={pageNumber} bodyChildIndex={bodyChildIndex} titleText={title.text} />
             </div>
 
@@ -57,13 +55,6 @@ export default function SectionCentralBody({title, info, pageNumber, bodyChildIn
         </section>
         {showBodyChildOptions && (
              <ControlBoundary addFunctions={[{function: addBodyChildByIndex, icon: PlusIcon as IconType}]} deleteFunction={deleteBodyChildByIndex} width="w-[122%]" color="blue-500 text-white" pageNumber={pageNumber} bodyChildIndex={bodyChildIndex} dispatch={dispatch} orientation='horizontal' />
-/*             <div>
-                <div className='absolute border-[3px] border-blue-500 top-0 right-0 w-[122%] translate-x-[5%] h-[105%] -translate-y-[2.5%] z-20'></div>
-                <div className="absolute -top-6 left-[50%] -translate-x-[50%] flex gap-2 px-1 rounded-md bg-blue-500 text-white z-30">
-                    <span className="cursor-pointer" onClick={() => dispatch(deleteBodyChildByIndex({pageNumber, bodyChildIndex}))}><MinusIcon className="w-6 h-6" /></span>
-                    <span className="cursor-pointer" onClick={() => dispatch(addBodyChildByIndex({pageNumber, bodyChildIndex}))}><PlusIcon className="w-6 h-6" /></span>
-                </div>
-            </div> */
         )}
     </div>
   )

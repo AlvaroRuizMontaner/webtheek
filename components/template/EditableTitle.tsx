@@ -23,6 +23,7 @@ export default function EditableTitle({titleText, bodyChildIndex, pageNumber, ha
     savedCursorPosition = saveCursorPosition(editableRef.current);
 
     //setContent(newContent);
+    console.log(bodyChildIndex)
 
     dispatch(editTitleText({         
       pageNumber, 

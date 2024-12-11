@@ -502,6 +502,13 @@ export const curriculumSlice = createSlice({
                 infoChild.list[listChildIndex] = value;
             }
         },
+        editIcon: (state, action) => {
+            const { pageNumber, bodyChildIndex, nameIcon} = action.payload
+            if(state[pageNumber].body?.[bodyChildIndex]) {
+                console.log(state[pageNumber].body[bodyChildIndex].title)
+                state[pageNumber].body[bodyChildIndex].title.nameIcon = nameIcon;
+            }
+        },
 
         /* ------------------------------------------------------Side------------------------------------------------------ */
         addSideBodyChildByIndex: (state, action) => {
@@ -615,6 +622,7 @@ const {
     editInfoChildDate,
     editInfoChildMain,
     editListChild,
+    editIcon,
     /* Side */
     addSideBodyChildByIndex, 
     addSideBodyChildByIndex2,
@@ -653,6 +661,7 @@ export {
     editInfoChildDate,
     editInfoChildMain,
     editListChild,
+    editIcon,
     /* Side */
     addSideBodyChildByIndex, 
     addSideBodyChildByIndex2,
