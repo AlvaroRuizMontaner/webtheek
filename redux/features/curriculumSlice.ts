@@ -1,8 +1,9 @@
-import { SectionCentralBodyInfoType, SectionSideBodyInfoType } from "@/components/template/curriculum.info";
+import { SectionCentralBodyInfoType, SectionHeader, SectionSideBodyInfoType } from "@/components/template/curriculum.info";
 import { createSlice } from "@reduxjs/toolkit"
 
 type InitialStateType = {
     body: SectionCentralBodyInfoType[]
+    header?: SectionHeader
     side: SectionSideBodyInfoType[]
 }[]
 
@@ -187,6 +188,11 @@ const initialState: InitialStateType = [
                 ],
             }
         ],
+        header : {
+            name: "Álvaro Ruiz Montaner",
+            charge: "Web Developer",
+            birthday: "08-04-1994",
+        },
         side: [
             {
                 title: {
@@ -340,7 +346,9 @@ const initialState: InitialStateType = [
         ]
     }
 ]
-const page = initialState[0]
+const newInitialState = JSON.parse(JSON.stringify(initialState))
+const page = newInitialState[0]
+delete page.header
 const bodyChild = page.body[0]
 const infoChild = bodyChild.info[0]
 const listChild = infoChild && infoChild.list && infoChild.list[0] || "listElement"
@@ -509,6 +517,26 @@ export const curriculumSlice = createSlice({
             }
         },
 
+        /* -----------------------------------------------------Header----------------------------------------------------- */
+        editName: (state, action) => {
+            const { pageNumber, value} = action.payload
+            if(pageNumber === 0 && state[pageNumber].header) {
+                state[pageNumber].header!.name = value;
+            }
+        },
+        editCharge: (state, action) => {
+            const { pageNumber, value} = action.payload
+            if(pageNumber === 0 && state[pageNumber].header) {
+                state[pageNumber].header!.charge = value;
+            }
+        },
+        editBirthday: (state, action) => {
+            const { pageNumber, value} = action.payload
+            if(pageNumber === 0 && state[pageNumber].header) {
+                state[pageNumber].header!.birthday = value;
+            }
+        },
+
         /* ------------------------------------------------------Side------------------------------------------------------ */
         addSideBodyChildByIndex: (state, action) => {
             const { pageNumber, bodyChildIndex } = action.payload; // El nuevo objeto body que se quiere añadir
@@ -637,6 +665,10 @@ const {
     editInfoChildMain,
     editListChild,
     editIcon,
+    /* Header */
+    editName,
+    editCharge,
+    editBirthday,
     /* Side */
     addSideBodyChildByIndex, 
     addSideBodyChildByIndex2,
@@ -678,6 +710,10 @@ export {
     editInfoChildMain,
     editListChild,
     editIcon,
+    /* Header */
+    editName,
+    editCharge,
+    editBirthday,
     /* Side */
     addSideBodyChildByIndex, 
     addSideBodyChildByIndex2,

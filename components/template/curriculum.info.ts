@@ -25,6 +25,12 @@ export type SectionCentralBodyInfoType = {
     info: InfoChildType[]
 }
 
+export type SectionHeader = {
+    name: string
+    charge: string
+    birthday: string
+}
+
 
 /* Cuerpo lateral */
 

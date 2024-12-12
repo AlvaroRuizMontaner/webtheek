@@ -12,8 +12,8 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import Button from "../button/Button";
 import { addPage, deletePage } from "@/redux/features/curriculumSlice";
 import { XMarkIcon } from "@heroicons/react/20/solid";
-import SideHeader from "./side/SideHeader";
 import SideBody from "./side/SideBody";
+import Header from "./header/Header";
 
 
 export const Template = React.memo(() => {
@@ -74,7 +74,7 @@ export const Template = React.memo(() => {
         {pages.map((page, pageNumber) => (
           <div key={"cuerpo" + pageNumber} className="relative bg-white h-[297mm] w-[785px] flex items-center m-auto overflow-x-scroll md:overflow-x-hidden">
             <div className="min-w-[42rem] h-full max-w-2xl bg-white p-12 px-0 mx-auto relative">
-              {showOptions && (
+              {showOptions && pageNumber !== 0 && (
                 <div className="absolute top-8 flex gap-2 w-44 rounded-md">
                     <span className="cursor-pointer bg-gray-100" onClick={() => dispatch(deletePage({pageNumber}))}><XMarkIcon className="w-6 h-6" /></span>
                   {/*   <span className="cursor-pointer bg-gray-100" onClick={() => dispatch(addBodyChild({pageNumber}))}><PlusIcon className="w-6 h-6" /></span> */}
@@ -85,7 +85,7 @@ export const Template = React.memo(() => {
                     <CentralBody pageNumber={pageNumber} page={page.body} />
                 </section>
                 <section className="bg-indigo-600">
-                    <SideHeader />
+                    {pageNumber === 0 && <Header {...page.header} />}
                     <SideBody pageNumber={pageNumber} page={page.side} />
                 </section>
               </div>
