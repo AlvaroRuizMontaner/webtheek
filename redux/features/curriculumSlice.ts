@@ -197,8 +197,8 @@ const initialState: InitialStateType = [
                 info: [
                     {
                         icon: {
-                            name: "mail",
-                            className: "material-symbols-outlined"
+                            nameIcon: "mail",
+                            classNameIcon: "material-symbols-outlined"
                         },
                         main: "alvaro.ruiz.montaner@gmail.com",
                         aux: "",
@@ -206,8 +206,8 @@ const initialState: InitialStateType = [
                     },
                     {
                         icon: {
-                            name: "call",
-                            className: "material-symbols-outlined"
+                            nameIcon: "call",
+                            classNameIcon: "material-symbols-outlined"
                         },
                         main: "675 967 289",
                         aux: "",
@@ -215,8 +215,8 @@ const initialState: InitialStateType = [
                     },
             /*         {
                         icon: {
-                            name: "group",
-                            className: "material-symbols-outlined"
+                            nameIcon: "group",
+                            classNameIcon: "material-symbols-outlined"
                         },
                         main: "www.linkedin.com/in/%C3%A1lvaro-ruiz-montaner-221a2b206",
                         aux: "",
@@ -224,8 +224,8 @@ const initialState: InitialStateType = [
                     }, */
                     {
                         icon: {
-                            name: "computer",
-                            className: "material-symbols-outlined"
+                            nameIcon: "computer",
+                            classNameIcon: "material-symbols-outlined"
                         },
                         main: "github.com/Varojausz",
                         aux: "",
@@ -233,8 +233,8 @@ const initialState: InitialStateType = [
                     },
                     {
                         icon: {
-                            name: "captive_portal",
-                            className: "material-symbols-outlined"
+                            nameIcon: "captive_portal",
+                            classNameIcon: "material-symbols-outlined"
                         },
                         main: "webtheek.com",
                         aux: "",
@@ -251,8 +251,8 @@ const initialState: InitialStateType = [
                 info: [
                     {
                         icon: {
-                            name: "",
-                            className: ""
+                            nameIcon: "",
+                            classNameIcon: ""
                         },
                         main: "Spanish",
                         aux: "Native",
@@ -260,8 +260,8 @@ const initialState: InitialStateType = [
                     },
                     {
                         icon: {
-                            name: "",
-                            className: ""
+                            nameIcon: "",
+                            classNameIcon: ""
                         },
                         main: "English",
                         aux: "Intermediate",
@@ -269,8 +269,8 @@ const initialState: InitialStateType = [
                     },
                     {
                         icon: {
-                            name: "",
-                            className: ""
+                            nameIcon: "",
+                            classNameIcon: ""
                         },
                         main: "Portuguese",
                         aux: "Professional",
@@ -278,8 +278,8 @@ const initialState: InitialStateType = [
                     },
                     {
                         icon: {
-                            name: "",
-                            className: ""
+                            nameIcon: "",
+                            classNameIcon: ""
                         },
                         main: "Dutch",
                         aux: "Amateur",
@@ -296,8 +296,8 @@ const initialState: InitialStateType = [
                 info: [
                     {
                         icon: {
-                            name: "",
-                            className: ""
+                            nameIcon: "",
+                            classNameIcon: ""
                         },
                         main: "CSS",
                         aux: "",
@@ -306,8 +306,8 @@ const initialState: InitialStateType = [
                     },
                     {
                         icon: {
-                            name: "",
-                            className: ""
+                            nameIcon: "",
+                            classNameIcon: ""
                         },
                         main: "React",
                         aux: "",
@@ -316,8 +316,8 @@ const initialState: InitialStateType = [
                     },
                     {
                         icon: {
-                            name: "",
-                            className: ""
+                            nameIcon: "",
+                            classNameIcon: ""
                         },
                         main: "MERN Stack",
                         aux: "",
@@ -326,8 +326,8 @@ const initialState: InitialStateType = [
                     },
                     {
                         icon: {
-                            name: "",
-                            className: ""
+                            nameIcon: "",
+                            classNameIcon: ""
                         },
                         main: "Python",
                         aux: "",
@@ -503,7 +503,7 @@ export const curriculumSlice = createSlice({
             }
         },
         editIcon: (state, action) => {
-            const { pageNumber, bodyChildIndex, nameIcon} = action.payload
+            const { pageNumber, bodyChildIndex, nameIcon } = action.payload
             if(state[pageNumber].body?.[bodyChildIndex]) {
                 state[pageNumber].body[bodyChildIndex].title.nameIcon = nameIcon;
             }
@@ -598,6 +598,21 @@ export const curriculumSlice = createSlice({
                 infoChild.bar = barWidth;
             }
         },
+        editSideIcon: (state, action) => {
+            const { pageNumber, bodyChildIndex, nameIcon } = action.payload
+            if(state[pageNumber].side?.[bodyChildIndex]) {
+                state[pageNumber].side[bodyChildIndex].title.nameIcon = nameIcon;
+            }
+        },
+        editSideInfoIcon: (state, action) => {
+            const { pageNumber, bodyChildIndex, nameIcon, infoChildIndex } = action.payload
+            const bodyChild = state[pageNumber].side?.[bodyChildIndex];
+            const infoChild = bodyChild?.info?.[infoChildIndex];
+
+            if(infoChild) {
+                infoChild.icon.nameIcon = nameIcon;
+            }
+        },
     }
 })
 
@@ -636,6 +651,8 @@ const {
     editSideTitleText,
     editInfoChildAux,
     editBarWidth,
+    editSideIcon,
+    editSideInfoIcon,
 } = curriculumSlice.actions
 
 const curriculumReducer = curriculumSlice.reducer
@@ -675,5 +692,7 @@ export {
     editSideTitleText,
     editInfoChildAux,
     editBarWidth,
+    editSideIcon,
+    editSideInfoIcon,
     curriculumReducer
 }

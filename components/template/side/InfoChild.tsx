@@ -1,7 +1,8 @@
-import React from 'react'
 import EditableMain from './EditableSideMain'
 import EditableAux from './EditableAux'
 import EditableBar from './EditableBar'
+import EditableSideIcon from './EditableSideIcon'
+import { editSideInfoIcon } from '@/redux/features/curriculumSlice'
 
 type InfoChildProps = {
     pageNumber: number
@@ -16,8 +17,8 @@ export default function InfoChild({pageNumber, infoChild, infoChildIndex, bodyCh
   return (
     <div className="flex flex-col gap-1">
       <div className=" text-[14px] flex gap-2">
-        {infoChild.icon.name && (
-          <span className={infoChild.icon.className}>{infoChild.icon.name}</span>
+        {infoChild.icon.nameIcon && (
+          <EditableSideIcon addFunction={editSideInfoIcon} title={infoChild.icon} pageNumber={pageNumber} bodyChildIndex={bodyChildIndex} infoChildIndex={infoChildIndex} />
         )}{" "}
         <EditableMain pageNumber={pageNumber} infoChild={infoChild} infoChildIndex={infoChildIndex} bodyChildIndex={bodyChildIndex} handleOnFocus={handleOnFocus} handleOnBlur={handleOnBlur}/>
         {infoChild.main && infoChild.aux && <EditableAux bodyChildIndex={bodyChildIndex} infoChildIndex={infoChildIndex} pageNumber={pageNumber} aux={infoChild.aux} handleInfoOnFocus={handleOnFocus} handleInfoOnBlur={handleOnBlur} />}

@@ -1,4 +1,3 @@
-import { XMarkIcon } from '@heroicons/react/20/solid'
 import { useState } from 'react'
 import { icons } from './icons.info'
 import { useAppDispatch } from '@/redux/hooks'
@@ -20,14 +19,15 @@ type RadioInputIconProps = {
   }
   bodyChildIndex: number
   pageNumber: number
+  setShowIconList: (p: boolean) => void
 }
 
-function RadioInputIcon({icon, pageNumber, bodyChildIndex}: RadioInputIconProps) {
+function RadioInputIcon({icon, pageNumber, bodyChildIndex, setShowIconList}: RadioInputIconProps) {
   const dispatch = useAppDispatch()
 
   function handleChange() {
-    console.log(icon.nameIcon, bodyChildIndex)
     dispatch(editIcon({nameIcon: icon.nameIcon, pageNumber: pageNumber, bodyChildIndex: bodyChildIndex }))
+    setShowIconList(false)
   }
 
   return (
@@ -49,10 +49,9 @@ export default function EditableIcon({title, pageNumber, bodyChildIndex}: Editab
       </span>
       {showIconList && (
         <div className='absolute w-80 h-40 bg-blue-700 right-0 translate-x-full'>
-          <span onClick={() => setShowIconList(false)} className='cursor-pointer absolute top-0 right-0 bg-gray-200'><XMarkIcon className='w-6 h-6' /></span>
-          <div className='p-6u bg-gray-300 h-full grid grid-cols-4 gap-4 justify-center overflow-y-scroll'>
+          <div className='p-6u bg-white shadow-md h-full grid grid-cols-4 gap-4 justify-center overflow-y-scroll'>
             {icons.map((icon, iconIndex) => (
-              <RadioInputIcon pageNumber={pageNumber} bodyChildIndex={bodyChildIndex} key={"icon" + iconIndex + bodyChildIndex} icon={icon} />
+              <RadioInputIcon setShowIconList={setShowIconList} pageNumber={pageNumber} bodyChildIndex={bodyChildIndex} key={"icon" + iconIndex + bodyChildIndex} icon={icon} />
             ))}
           </div>
         </div>

@@ -35,4 +35,8 @@ export const icons = [
         nameIcon: "school",
         classNameIcon: "material-symbols-outlined",
     },
+    {
+        nameIcon: "code",
+        classNameIcon: "material-symbols-outlined"
+    },
 ]

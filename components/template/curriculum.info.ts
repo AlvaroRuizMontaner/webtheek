@@ -7,8 +7,8 @@ export type InfoChildType = {
 
 export type SideInfoChildType = {
     icon: {
-        name: string;
-        className: string;
+        nameIcon: string;
+        classNameIcon: string;
     };
     main: string;
     aux: string
@@ -51,8 +51,8 @@ export const lateralPagina1: SectionSideBodyInfoType[] = [
         info: [
             {
                 icon: {
-                    name: "mail",
-                    className: "material-symbols-outlined"
+                    nameIcon: "mail",
+                    classNameIcon: "material-symbols-outlined"
                 },
                 main: "alvaro.ruiz.montaner@gmail.com",
                 aux: "",
@@ -60,8 +60,8 @@ export const lateralPagina1: SectionSideBodyInfoType[] = [
             },
             {
                 icon: {
-                    name: "call",
-                    className: "material-symbols-outlined"
+                    nameIcon: "call",
+                    classNameIcon: "material-symbols-outlined"
                 },
                 main: "675 967 289",
                 aux: "",
@@ -69,8 +69,8 @@ export const lateralPagina1: SectionSideBodyInfoType[] = [
             },
     /*         {
                 icon: {
-                    name: "group",
-                    className: "material-symbols-outlined"
+                    nameIcon: "group",
+                    classNameIcon: "material-symbols-outlined"
                 },
                 main: "www.linkedin.com/in/%C3%A1lvaro-ruiz-montaner-221a2b206",
                 aux: "",
@@ -78,8 +78,8 @@ export const lateralPagina1: SectionSideBodyInfoType[] = [
             }, */
             {
                 icon: {
-                    name: "computer",
-                    className: "material-symbols-outlined"
+                    nameIcon: "computer",
+                    classNameIcon: "material-symbols-outlined"
                 },
                 main: "github.com/Varojausz",
                 aux: "",
@@ -87,8 +87,8 @@ export const lateralPagina1: SectionSideBodyInfoType[] = [
             },
             {
                 icon: {
-                    name: "captive_portal",
-                    className: "material-symbols-outlined"
+                    nameIcon: "captive_portal",
+                    classNameIcon: "material-symbols-outlined"
                 },
                 main: "webtheek.com",
                 aux: "",
@@ -105,8 +105,8 @@ export const lateralPagina1: SectionSideBodyInfoType[] = [
         info: [
             {
                 icon: {
-                    name: "",
-                    className: ""
+                    nameIcon: "",
+                    classNameIcon: ""
                 },
                 main: "Spanish",
                 aux: "Native",
@@ -114,8 +114,8 @@ export const lateralPagina1: SectionSideBodyInfoType[] = [
             },
             {
                 icon: {
-                    name: "",
-                    className: ""
+                    nameIcon: "",
+                    classNameIcon: ""
                 },
                 main: "English",
                 aux: "Intermediate",
@@ -123,8 +123,8 @@ export const lateralPagina1: SectionSideBodyInfoType[] = [
             },
             {
                 icon: {
-                    name: "",
-                    className: ""
+                    nameIcon: "",
+                    classNameIcon: ""
                 },
                 main: "Portuguese",
                 aux: "Professional",
@@ -132,8 +132,8 @@ export const lateralPagina1: SectionSideBodyInfoType[] = [
             },
             {
                 icon: {
-                    name: "",
-                    className: ""
+                    nameIcon: "",
+                    classNameIcon: ""
                 },
                 main: "Dutch",
                 aux: "Amateur",
@@ -150,8 +150,8 @@ export const lateralPagina1: SectionSideBodyInfoType[] = [
         info: [
             {
                 icon: {
-                    name: "",
-                    className: ""
+                    nameIcon: "",
+                    classNameIcon: ""
                 },
                 main: "CSS",
                 aux: "",
@@ -160,8 +160,8 @@ export const lateralPagina1: SectionSideBodyInfoType[] = [
             },
             {
                 icon: {
-                    name: "",
-                    className: ""
+                    nameIcon: "",
+                    classNameIcon: ""
                 },
                 main: "React",
                 aux: "",
@@ -170,8 +170,8 @@ export const lateralPagina1: SectionSideBodyInfoType[] = [
             },
             {
                 icon: {
-                    name: "",
-                    className: ""
+                    nameIcon: "",
+                    classNameIcon: ""
                 },
                 main: "MERN Stack",
                 aux: "",
@@ -180,8 +180,8 @@ export const lateralPagina1: SectionSideBodyInfoType[] = [
             },
             {
                 icon: {
-                    name: "",
-                    className: ""
+                    nameIcon: "",
+                    classNameIcon: ""
                 },
                 main: "Python",
                 aux: "",
@@ -288,8 +288,8 @@ export const lateralPagina2: SectionSideBodyInfoType[] = [
         info: [
             {
                 icon: {
-                    name: "",
-                    className: ""
+                    nameIcon: "",
+                    classNameIcon: ""
                 },
                 main: "Persistence",
                 aux: "",
@@ -298,8 +298,8 @@ export const lateralPagina2: SectionSideBodyInfoType[] = [
             },
             {
                 icon: {
-                    name: "",
-                    className: ""
+                    nameIcon: "",
+                    classNameIcon: ""
                 },
                 main: "Curiosity",
                 aux: "",
@@ -308,8 +308,8 @@ export const lateralPagina2: SectionSideBodyInfoType[] = [
             },
             {
                 icon: {
-                    name: "",
-                    className: ""
+                    nameIcon: "",
+                    classNameIcon: ""
                 },
                 main: "Optimism",
                 aux: "",
@@ -318,8 +318,8 @@ export const lateralPagina2: SectionSideBodyInfoType[] = [
             },
             {
                 icon: {
-                    name: "",
-                    className: ""
+                    nameIcon: "",
+                    classNameIcon: ""
                 },
                 main: "Brainstorming",
                 aux: "",
