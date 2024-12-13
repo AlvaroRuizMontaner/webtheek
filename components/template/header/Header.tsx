@@ -19,18 +19,19 @@ export default function Header({name="", charge="", birthday=""}: HeaderProps) {
 
   const photoURL = 'https://i.imgur.com/5H0KCsy.png' // "https://imagizer.imageshack.com/img923/7400/eoTc6E.png"
 
-/*   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       const url = URL.createObjectURL(file);
       setPreview(url);
+      fetching()
 
       // Limpia la URL cuando ya no sea necesaria
       return () => URL.revokeObjectURL(url);
     }
-  }; */
+  };
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+/*   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       const reader = new FileReader();
@@ -42,7 +43,7 @@ export default function Header({name="", charge="", birthday=""}: HeaderProps) {
         console.error("Error al leer el archivo.");
       };
     }
-  };
+  }; */
 
   const fetching = () => {
     const formData = new FormData();
@@ -59,7 +60,7 @@ export default function Header({name="", charge="", birthday=""}: HeaderProps) {
         },
         body: formData
       }).then((data) => data.json()).then((data) => {
-        //setValues({...values, data: data.data.link, request: true, userName: usuario.name})
+        setPreview(data.link)
         console.log(data)
       }) 
       .catch(error => {
