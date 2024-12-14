@@ -25,9 +25,10 @@ export default function Header({name="", charge="", birthday=""}: HeaderProps) {
       const url = URL.createObjectURL(file);
       setPreview(url);
       fetching()
+      console.log("fetching")
 
       // Limpia la URL cuando ya no sea necesaria
-      return () => URL.revokeObjectURL(url);
+      //return () => URL.revokeObjectURL(url);
     }
   };
 
