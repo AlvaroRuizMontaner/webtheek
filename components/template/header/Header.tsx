@@ -61,7 +61,7 @@ export default function Header({name="", charge="", birthday=""}: HeaderProps) {
         },
         body: formData
       }).then((data) => data.json()).then((data) => {
-        setPreview(data.link)
+        setPreview(data.data.link)
         console.log(data)
       }) 
       .catch(error => {
