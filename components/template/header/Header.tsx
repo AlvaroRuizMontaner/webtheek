@@ -28,7 +28,7 @@ export default function Header({name="", charge="", birthday=""}: HeaderProps) {
       console.log("fetching")
 
       // Limpia la URL cuando ya no sea necesaria
-      //return () => URL.revokeObjectURL(url);
+      return () => URL.revokeObjectURL(url);
     }
   };
 
@@ -82,7 +82,7 @@ export default function Header({name="", charge="", birthday=""}: HeaderProps) {
   return (
     <div className='flex flex-col justify-center gap-3 p-[1.25rem] bg-indigo-800 text-white'>
       <div className='flex justify-center'>
-        <div className='relative w-[130px]' /* onMouseOut={() => setShowCam(false)} */  onMouseOver={() => setShowCam(true)}>
+        <div className='relative w-[130px]' onMouseOut={() => setShowCam(false)}  onMouseOver={() => setShowCam(true)}>
           <input onChange={handleFileChange} className='absolute block opacity-0 w-0' ref={inputRef} accept="image/*" type="file" name="" id="icon-button-file" />
           <img className='w-[130px]' src={preview || photoURL} alt="" />
           {showCam && <label className='absolute right-0 bottom-0 cursor-pointer' htmlFor="icon-button-file">
