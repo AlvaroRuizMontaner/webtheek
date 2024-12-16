@@ -3,6 +3,8 @@ import EditableName from './EditableName'
 import EditableCharge from './EditableCharge'
 import EditableBirthday from './EditableBirthday'
 import { CameraIcon } from '@heroicons/react/20/solid'
+import { toast } from 'react-toastify'
+import { useUploadImageMutation } from '@/redux/services/hostImage'
 
 type HeaderProps = {
   name?: string
@@ -12,25 +14,53 @@ type HeaderProps = {
 
 export default function Header({name="", charge="", birthday=""}: HeaderProps) {
 /*   const [selectedFile, setSelectedFile] = useState<File | null>(null); */
-  const [preview, setPreview] = useState<string | null>(null);
+  const [preview, setPreview] = useState<string | undefined>(undefined);
   const [showCam, setShowCam] = useState<boolean>(false)
 
   const inputRef = useRef<HTMLInputElement>(null)
 
   const photoURL = 'https://i.imgur.com/5H0KCsy.png' // "https://imagizer.imageshack.com/img923/7400/eoTc6E.png"
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const [uploadImage, /* { isLoading, error } */] = useUploadImageMutation();
+
+  const handleUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+
+    if (file) {
+      const url = URL.createObjectURL(file);
+      setPreview(url);
+
+      const formData = new FormData();
+      formData.append('image', file);
+      formData.append('album', 'ShBFecvIzWtNoIS');
+
+      try {
+        const result = await uploadImage(formData)
+        const {data} = result
+        if(data) setPreview(data.data?.link)
+        console.log(result)
+      } catch (error) {
+        toast.error("No se ha podido cargar la imagen")
+      }
+
+      // Limpia la URL cuando ya no sea necesaria
+      return () => URL.revokeObjectURL(url);
+    }
+  }
+
+/*   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       const url = URL.createObjectURL(file);
       setPreview(url);
+      
       fetching()
       console.log("fetching")
 
       // Limpia la URL cuando ya no sea necesaria
       return () => URL.revokeObjectURL(url);
     }
-  };
+  }; */
 
 /*   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -46,7 +76,7 @@ export default function Header({name="", charge="", birthday=""}: HeaderProps) {
     }
   }; */
 
-  const fetching = () => {
+/*   const fetching = () => {
     const formData = new FormData();
     const imageFile = inputRef.current?.files?.[0]
     if(imageFile) {
@@ -69,7 +99,7 @@ export default function Header({name="", charge="", birthday=""}: HeaderProps) {
         //alert('Upload failed: ' + error);
       });
     }
-  }
+  } */
 
   
 /*   useEffect(() => {
@@ -83,7 +113,7 @@ export default function Header({name="", charge="", birthday=""}: HeaderProps) {
     <div className='flex flex-col justify-center gap-3 p-[1.25rem] bg-indigo-800 text-white'>
       <div className='flex justify-center'>
         <div className='relative w-[130px]' onMouseOut={() => setShowCam(false)}  onMouseOver={() => setShowCam(true)}>
-          <input onChange={handleFileChange} className='absolute block opacity-0 w-0' ref={inputRef} accept="image/*" type="file" name="" id="icon-button-file" />
+          <input onChange={handleUpload} className='absolute block opacity-0 w-0' ref={inputRef} accept="image/*" type="file" name="" id="icon-button-file" />
           <img className='w-[130px]' src={preview || photoURL} alt="" />
           {showCam && <label className='absolute right-0 bottom-0 cursor-pointer' htmlFor="icon-button-file">
             <CameraIcon className='w-8 h-8 text-blue-500' />

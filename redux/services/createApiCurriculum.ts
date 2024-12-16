@@ -2,7 +2,6 @@ import { axiosBaseQuery } from "@/services/CurriculumAPI";
 import { Curriculum, CurriculumFormData } from "@/types/curriculum";
 import { createApi, /* fetchBaseQuery */ } from "@reduxjs/toolkit/query/react";
 
-
 export const curriculumApi = createApi({
     reducerPath: "curriculumApi",
     baseQuery: axiosBaseQuery,
@@ -36,6 +35,6 @@ export const curriculumApi = createApi({
         }),
     }),
 });
-export const {useCreateCurriculumMutation, useGetCurriculumsQuery, useGetCurriculumByIdQuery} = curriculumApi
+export const { useCreateCurriculumMutation, useGetCurriculumsQuery, useGetCurriculumByIdQuery} = curriculumApi
 
 //const {data,error,isLoading,isFetching} = useGetCurriculumsQuery(null)

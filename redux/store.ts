@@ -2,13 +2,15 @@ import { configureStore } from "@reduxjs/toolkit"
 import {curriculumReducer} from "./features/curriculumSlice"
 import { curriculumApi } from "./services/createApiCurriculum"
 import { setupListeners } from "@reduxjs/toolkit/query"
+import { imageApi } from "./services/hostImage"
 
 export const store = configureStore({
     reducer: {
         curriculumReducer,
-        [curriculumApi.reducerPath]: curriculumApi.reducer //"curriculumAPI": curriculumApi.reducer
+        [curriculumApi.reducerPath]: curriculumApi.reducer, //"curriculumAPI": curriculumApi.reducer
+        [imageApi.reducerPath]: imageApi.reducer
     },
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat([curriculumApi.middleware])
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat([curriculumApi.middleware, imageApi.middleware])
 })
 
 setupListeners(store.dispatch)
