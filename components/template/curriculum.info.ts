@@ -390,7 +390,7 @@ export const cuerpoCentralPagina2: SectionCentralBodyInfoType[] = [
                     "Secured routes with JWT for authentication",
                     "Back-End validation, email authentication, password recovery by email (emails by Zoho)",
                     "Typescript, ZOD, Jest",
-                    "Currently developing a curriculum PDF creator for profiles"
+                    /* "Currently developing a curriculum PDF creator for profiles" */
                 ]
             },
         ],

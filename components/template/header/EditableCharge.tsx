@@ -36,7 +36,7 @@ export default function EditableCharge({charge}: EditableChargeProps) {
       ref={editableRef}
       contentEditable
       onInput={handleInput}
-      className='text-center text-gray-400'
+      className='text-center text-gray-400 text-base'
     ></p>
   );
 }

@@ -39,7 +39,7 @@ export default function EditableListChild({listChild, bodyChildIndex, pageNumber
   } */
 
   return (
-    <div className='relative'>
+    <div className='relative leading-[1.5]'>
       <li
         ref={editableRef}
         onBlur={handleListChildOnBlur}

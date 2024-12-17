@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function EncabezadoLateral() {
   return (
-    <div className='flex flex-col justify-center gap-4 p-[1.25rem] bg-indigo-800 text-white'>
+    <div className='flex flex-col justify-center gap-3 p-[1.25rem] bg-indigo-800 text-white'>
         <div className='flex justify-center'>
             <img src="https://imagizer.imageshack.com/img923/7400/eoTc6E.png" alt="" width={130}/>
         </div>

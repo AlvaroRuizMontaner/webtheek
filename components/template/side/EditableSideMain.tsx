@@ -49,7 +49,7 @@ export default function EditableMain({ bodyChildIndex, pageNumber, infoChildInde
 
 
 return (
-  <div className='relative z-10'>
+  <div className='relative z-10 leading-[1.5]'>
     <span
       ref={editableRef}
       onBlur={handleListChildOnBlur}
