@@ -94,27 +94,13 @@ type InitialStateType = {
 const initialState: InitialStateType = [
     {
         body: [
- /*            {
-                title: {
-                    text: "hola",
-                    nameIcon: "",
-                    classNameIcon: "hola"
-                },
-                info: [
-                    {
-                        main: "hola",
-                        detail: "hola",
-                        date: "hola"
-                    },
-                ],
-            }, */
             {
                 title: {
                     text: "Education",
                     nameIcon: "school",
                     classNameIcon: "material-symbols-outlined"
                 },
-                info: [
+                /* info: [
                     {
                         main: "Chemical Engineering Degree",
                         detail: "Universidad de Cádiz",
@@ -140,6 +126,33 @@ const initialState: InitialStateType = [
                         detail: "Udemy - Online",
                         date: "2024"
                     },
+                ], */
+                info: [
+                    {
+                        main: "Lorem Ipsum Degree",
+                        detail: "Universidad de internet",
+                        date: "2012-2016"
+                    },
+                    {
+                        main: "Placeholder Bootcamp 30h Course",
+                        detail: "Algún lugar - Online",
+                        date: "2021"
+                    },
+                    {
+                        main: "Lorem ipsum dolor 60h Course",
+                        detail: "Algún lugar - Online",
+                        date: "2021"
+                    },
+                    {
+                        main: "Lorem Ipsum Creation & Design Course",
+                        detail: "Algún lugar - Online",
+                        date: "2021"
+                    },
+                    {
+                        main: "Lorem ipsum dolor Course",
+                        detail: "Algún lugar - Online",
+                        date: "2024"
+                    },
                 ],
             },
             {
@@ -148,7 +161,7 @@ const initialState: InitialStateType = [
                     nameIcon: "manage_accounts",
                     classNameIcon: "material-symbols-outlined"
                 },
-                info: [
+/*                 info: [
                     {
                         main: "Front-End Skills",
                         detail: "CSS",
@@ -185,13 +198,51 @@ const initialState: InitialStateType = [
                             "MongoDB and PostgreSQL"
                         ]
                     },
+                ], */
+                info: [
+                    {
+                        main: "Developing Skills",
+                        detail: "Placeholder",
+                        date: "2020",
+                        list: [
+                            "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+                            "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+                            "Lorem ipsum dolor sit amet consectetur adipisicing elit."
+                        ]
+                    },
+                    {
+                        main: "",
+                        detail: "Placeholder",
+                        date: "2020",
+                        list: [
+                            "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+                            "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+                            "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+                            "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+                            "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+                            "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+                            "Lorem ipsum dolor sit amet consectetur adipisicing elit."
+                        ]
+                    },
+                    {
+                        main: "Placeholder Skills",
+                        detail: "Placeholder",
+                        date: "2020",
+                        list: [
+                            "Lorem ipsum dolor sit amet",
+                            "Lorem ipsum dolor sit amet",
+                            "Lorem ipsum dolor sit amet",
+                            "Lorem ipsum dolor sit amet",
+                            "Lorem ipsum dolor sit amet"
+                        ]
+                    },
                 ],
             }
         ],
         header : {
-            name: "Álvaro Ruiz Montaner",
+            name: "James Sanchez Rodríguez ",
             charge: "Web Developer",
-            birthday: "08-04-1994",
+            birthday: " 01-01-2000",
         },
         side: [
             {
@@ -200,7 +251,7 @@ const initialState: InitialStateType = [
                     nameIcon: "person",
                     classNameIcon: "material-symbols-outlined"
                 },
-                info: [
+/*                 info: [
                     {
                         icon: {
                             nameIcon: "mail",
@@ -219,21 +270,50 @@ const initialState: InitialStateType = [
                         aux: "",
                         mainType: 0
                     },
-            /*         {
-                        icon: {
-                            nameIcon: "group",
-                            classNameIcon: "material-symbols-outlined"
-                        },
-                        main: "www.linkedin.com/in/%C3%A1lvaro-ruiz-montaner-221a2b206",
-                        aux: "",
-                        mainType: 0
-                    }, */
                     {
                         icon: {
                             nameIcon: "computer",
                             classNameIcon: "material-symbols-outlined"
                         },
                         main: "github.com/Varojausz",
+                        aux: "",
+                        mainType: 0
+                    },
+                    {
+                        icon: {
+                            nameIcon: "captive_portal",
+                            classNameIcon: "material-symbols-outlined"
+                        },
+                        main: "webtheek.com",
+                        aux: "",
+                        mainType: 0
+                    }
+                ], */
+                info: [
+                    {
+                        icon: {
+                            nameIcon: "mail",
+                            classNameIcon: "material-symbols-outlined"
+                        },
+                        main: "lorem.ipsum@example.com",
+                        aux: "",
+                        mainType: 0
+                    },
+                    {
+                        icon: {
+                            nameIcon: "call",
+                            classNameIcon: "material-symbols-outlined"
+                        },
+                        main: "123 456 789",
+                        aux: "",
+                        mainType: 0
+                    },
+                    {
+                        icon: {
+                            nameIcon: "computer",
+                            classNameIcon: "material-symbols-outlined"
+                        },
+                        main: "github.com/place",
                         aux: "",
                         mainType: 0
                     },
@@ -254,6 +334,44 @@ const initialState: InitialStateType = [
                     nameIcon: "translate",
                     classNameIcon: "material-symbols-outlined"
                 },
+/*                 info: [
+                    {
+                        icon: {
+                            nameIcon: "",
+                            classNameIcon: ""
+                        },
+                        main: "Spanish",
+                        aux: "Native",
+                        mainType: 1
+                    },
+                    {
+                        icon: {
+                            nameIcon: "",
+                            classNameIcon: ""
+                        },
+                        main: "English",
+                        aux: "Intermediate",
+                        mainType: 1
+                    },
+                    {
+                        icon: {
+                            nameIcon: "",
+                            classNameIcon: ""
+                        },
+                        main: "Portuguese",
+                        aux: "Professional",
+                        mainType: 1
+                    },
+                    {
+                        icon: {
+                            nameIcon: "",
+                            classNameIcon: ""
+                        },
+                        main: "Dutch",
+                        aux: "Amateur",
+                        mainType: 1
+                    }
+                ], */
                 info: [
                     {
                         icon: {
@@ -299,6 +417,48 @@ const initialState: InitialStateType = [
                     nameIcon: "code",
                     classNameIcon: "material-symbols-outlined"
                 },
+/*                 info: [
+                    {
+                        icon: {
+                            nameIcon: "",
+                            classNameIcon: ""
+                        },
+                        main: "CSS",
+                        aux: "",
+                        bar: "80%",
+                        mainType: 2
+                    },
+                    {
+                        icon: {
+                            nameIcon: "",
+                            classNameIcon: ""
+                        },
+                        main: "React",
+                        aux: "",
+                        bar: "70%",
+                        mainType: 2
+                    },
+                    {
+                        icon: {
+                            nameIcon: "",
+                            classNameIcon: ""
+                        },
+                        main: "MERN Stack",
+                        aux: "",
+                        bar: "60%",
+                        mainType: 2
+                    },
+                    {
+                        icon: {
+                            nameIcon: "",
+                            classNameIcon: ""
+                        },
+                        main: "Python",
+                        aux: "",
+                        bar: "30%",
+                        mainType: 2
+                    }
+                ], */
                 info: [
                     {
                         icon: {

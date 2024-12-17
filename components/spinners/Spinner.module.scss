@@ -5,6 +5,15 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+
+  &.violet {
+    color: #2222DD;
+  }
+
+  &.small {
+    width: 30px; /* tamaño reducido */
+    height: 30px;
+  }
 }
 .lds-dual-ring,
 .lds-dual-ring:after {
@@ -25,6 +34,12 @@
   border: 6.4px solid currentColor;
   border-color: currentColor transparent currentColor transparent;
   animation: lds-dual-ring 1.2s linear infinite;
+}
+.lds-dual-ring.small:after {
+  width: 22px; /* Ajusta el tamaño para que coincida con .small */
+  height: 22px;
+  margin: 4px; /* Reduce el margen */
+  border-width: 3.2px; /* Grosor del borde reducido */
 }
 @keyframes lds-dual-ring {
   0% {

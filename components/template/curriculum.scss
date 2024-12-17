@@ -1,4 +1,19 @@
 
+/* .pages { */
+  /* overflow-x: scroll; */
+  /* scrollbar-width: none; */ /* Firefox */
+  /* -ms-overflow-style: none;  */ /* IE y Edge */
+
+  /* @media screen and (min-width: $medium) { */
+    /* overflow-x: hidden; */
+ /*  } */
+/* } */
+
+/* .pages::-webkit-scrollbar { */
+  /* display: none; */ /* Chrome, Safari y Opera */
+/* } */
+
+
 .contenedor {
     display: grid;
     grid-template-columns: 1fr 236px;
