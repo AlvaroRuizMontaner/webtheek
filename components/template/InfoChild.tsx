@@ -1,4 +1,4 @@
-import { memo, useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { InfoChildType } from './curriculum.info';
 import { addInfoChild, deleteInfoChildByIndex } from '@/redux/features/curriculumSlice';
 import { useAppDispatch } from '@/redux/hooks';
@@ -9,10 +9,6 @@ import EditableListChild from './EditableListChild';
 import ControlBoundary from './ControlBoundary';
 import { PlusIcon } from '@heroicons/react/20/solid';
 import { IconType } from 'react-icons/lib';
-const MemoizedEditableMain = memo(EditableMain)
-const MemoizedEditableDetail = memo(EditableDetail)
-const MemoizedEditableDate = memo(EditableDate)
-const MemoizedEditableListChild = memo(EditableListChild)
 
 
 type InfoChildProps = {
@@ -40,14 +36,14 @@ export default function InfoChild({infoChildIndex, handleOnBlur, handleOnFocus, 
   return (
     <div className='relative z-10'>
       <div className="space-y-2 relative z-50" key={infoChildIndex}>
-        {infoChild.main && <MemoizedEditableMain infoChild={infoChild} handleInfoOnBlur={handleInfoOnBlur} handleInfoOnFocus={handleInfoOnFocus} pageNumber={pageNumber} bodyChildIndex={bodyChildIndex} infoChildIndex={infoChildIndex} main={infoChild.main} />}
+        {infoChild.main && <EditableMain infoChild={infoChild} handleInfoOnBlur={handleInfoOnBlur} handleInfoOnFocus={handleInfoOnFocus} pageNumber={pageNumber} bodyChildIndex={bodyChildIndex} infoChildIndex={infoChildIndex} main={infoChild.main} />}
         {infoChild && infoChild.detail && <div className="flex justify-between text-gray-400 text-sm">
-          <MemoizedEditableDetail infoChild={infoChild} handleInfoOnBlur={handleInfoOnBlur} handleInfoOnFocus={handleInfoOnFocus} pageNumber={pageNumber} bodyChildIndex={bodyChildIndex} infoChildIndex={infoChildIndex} detail={infoChild.detail} />
-          {infoChild.date && <MemoizedEditableDate handleInfoOnBlur={handleInfoOnBlur} handleInfoOnFocus={handleInfoOnFocus} pageNumber={pageNumber} bodyChildIndex={bodyChildIndex} infoChildIndex={infoChildIndex} date={infoChild.date} />}
+          <EditableDetail infoChild={infoChild} handleInfoOnBlur={handleInfoOnBlur} handleInfoOnFocus={handleInfoOnFocus} pageNumber={pageNumber} bodyChildIndex={bodyChildIndex} infoChildIndex={infoChildIndex} detail={infoChild.detail} />
+          {infoChild.date && <EditableDate handleInfoOnBlur={handleInfoOnBlur} handleInfoOnFocus={handleInfoOnFocus} pageNumber={pageNumber} bodyChildIndex={bodyChildIndex} infoChildIndex={infoChildIndex} date={infoChild.date} />}
         </div>}
         {infoChild.list && infoChild.list.length >= 1 && (
           <ul className=" text-[14px] list-disc">
-            {infoChild.list.map((listChild, listChildIndex) => <MemoizedEditableListChild key={"" + infoChildIndex + listChildIndex} listChild={listChild} handleInfoOnBlur={handleInfoOnBlur} handleInfoOnFocus={handleInfoOnFocus} pageNumber={pageNumber} bodyChildIndex={bodyChildIndex} infoChildIndex={infoChildIndex} listChildIndex={listChildIndex} />)}
+            {infoChild.list.map((listChild, listChildIndex) => <EditableListChild key={"" + infoChildIndex + listChildIndex} listChild={listChild} handleInfoOnBlur={handleInfoOnBlur} handleInfoOnFocus={handleInfoOnFocus} pageNumber={pageNumber} bodyChildIndex={bodyChildIndex} infoChildIndex={infoChildIndex} listChildIndex={listChildIndex} />)}
           </ul>
         )}
       </div>

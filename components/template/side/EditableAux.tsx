@@ -1,7 +1,7 @@
 import { deleteAuxByIndex, editInfoChildAux } from '@/redux/features/curriculumSlice';
 import { useAppDispatch } from '@/redux/hooks';
 import { XMarkIcon } from '@heroicons/react/20/solid';
-import React, { useRef, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import { restoreCursorPosition, saveCursorPosition } from '@/utils/cursor';
 
 type EditableAuxProps = {
@@ -40,7 +40,7 @@ export default function EditableAux({aux, bodyChildIndex, pageNumber, infoChildI
 
   return (
     <div className='relative max-w-[50%] leading-[1.5]'>
-      <span
+      {useMemo(() => (<span
         ref={editableRef}
         onBlur={handleListChildOnBlur}
         onFocus={handleListChildOnFocus}
@@ -48,7 +48,7 @@ export default function EditableAux({aux, bodyChildIndex, pageNumber, infoChildI
         onInput={handleOnInputInfoAux(infoChildIndex)}
         contentEditable={true}
         className="text-gray-400 font-bold"
-      ></span>
+      ></span>), [aux, infoChildIndex])}
       {showAuxOptions && (
         <div className="absolute -right-5 top-[50%] -translate-y-[55%] bg-black text-white rounded-full ">
           <span

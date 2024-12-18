@@ -1,7 +1,7 @@
 import { addSideInfoChildByIndex, addSideInfoChildByIndex2, addSideInfoChildByIndex3, deleteSideInfoChildByIndex, editSideInfoChildMain } from '@/redux/features/curriculumSlice';
 import { useAppDispatch } from '@/redux/hooks';
 import { PlusIcon, XMarkIcon } from '@heroicons/react/20/solid';
-import React, { useRef, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import { restoreCursorPosition, saveCursorPosition } from '@/utils/cursor';
 import { SideInfoChildType } from '../curriculum.info';
 
@@ -50,7 +50,7 @@ export default function EditableMain({ bodyChildIndex, pageNumber, infoChildInde
 
 return (
   <div className='relative z-10 leading-[1.5]'>
-    <span
+    {useMemo(() => (<span
       ref={editableRef}
       onBlur={handleListChildOnBlur}
       onFocus={handleListChildOnFocus}
@@ -58,7 +58,7 @@ return (
       contentEditable={true}
       onInput={handleOnInputInfoMain(infoChildIndex)}
       className="font-bold max-w-[390px] text-white break-all flex items-center"
-    ></span>
+    ></span>), [infoChild.main, infoChildIndex])}
     {showMainOptions && (
       <div className="">
         <span

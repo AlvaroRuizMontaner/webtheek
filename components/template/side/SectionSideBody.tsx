@@ -3,11 +3,12 @@ import ControlBoundary from '../ControlBoundary'
 import { SectionSideBodyInfoType } from '../curriculum.info'
 import InfoChild from './InfoChild'
 import { useAppDispatch } from '@/redux/hooks'
-import { useCallback, useState } from 'react'
+import { memo, useCallback, useState } from 'react'
 import { ChartBarIcon, ChatBubbleOvalLeftIcon, UserIcon } from '@heroicons/react/20/solid'
 import { IconType } from 'react-icons/lib'
 import EditableSideTitle from './EditableSideTitle'
 import EditableSideIcon from './EditableSideIcon'
+const MemoizedEditableSideTitle = memo(EditableSideTitle)
 
 interface SectionSideBodyProps extends SectionSideBodyInfoType {
   pageNumber: number
@@ -48,7 +49,7 @@ export default function SectionSideBody({ title, info, pageNumber, bodyChildInde
           <EditableSideIcon addFunction={editSideIcon} title={title} pageNumber={pageNumber} bodyChildIndex={bodyChildIndex} />
           {/* <span className={title.classNameIcon}>{title.nameIcon}</span> */}
           {/* <h2 className='text-xl'>{title.text}</h2> */}
-          <EditableSideTitle titleText={title.text} bodyChildIndex={bodyChildIndex} pageNumber={pageNumber} handleOnFocus={handleOnFocus} handleOnBlur={handleOnBlur} />
+          <MemoizedEditableSideTitle titleText={title.text} bodyChildIndex={bodyChildIndex} pageNumber={pageNumber} handleOnFocus={handleOnFocus} handleOnBlur={handleOnBlur} />
         </div>
 
         <div className='space-y-2'>
