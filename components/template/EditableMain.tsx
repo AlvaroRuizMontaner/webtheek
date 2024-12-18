@@ -1,7 +1,7 @@
 import { deleteInfoChildByIndex, deleteMainByIndex, editInfoChildMain } from '@/redux/features/curriculumSlice';
 import { useAppDispatch } from '@/redux/hooks';
 import { XMarkIcon } from '@heroicons/react/20/solid';
-import React, { useRef, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import { InfoChildType } from './curriculum.info';
 import { restoreCursorPosition, saveCursorPosition } from '@/utils/cursor';
 
@@ -15,11 +15,14 @@ type EditableMainProps = {
   infoChild: InfoChildType
 }
 
+
 export default function EditableMain({main, bodyChildIndex, pageNumber, infoChildIndex, handleInfoOnFocus, handleInfoOnBlur, infoChild}: EditableMainProps) {
+
+  console.log("Re-render main")
 
   const dispatch = useAppDispatch()
   const [showMainOptions, setShowMainOptions] = useState(false)
-  const editableRef = useRef(null);
+  const editableRef = useRef<HTMLParagraphElement>(null);
   let savedCursorPosition: any = null;
 
   const handleListChildOnFocus = () => {
@@ -47,7 +50,7 @@ export default function EditableMain({main, bodyChildIndex, pageNumber, infoChil
 
 return (
   <div className='relative'>
-    <p
+    {useMemo(() => (<p
       ref={editableRef}
       onBlur={handleListChildOnBlur}
       onFocus={handleListChildOnFocus}
@@ -55,7 +58,7 @@ return (
       contentEditable={true}
       onInput={handleOnInputInfoMain(infoChildIndex)}
       className="font-bold text-base text-blue-900 max-w-[390px]"
-    ></p>
+    ></p>), [main, infoChildIndex])}
     {showMainOptions && (
       <div className="absolute -left-5 top-[50%] -translate-y-[55%] bg-black text-white rounded-full">
         <span

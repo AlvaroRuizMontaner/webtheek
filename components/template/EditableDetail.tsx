@@ -1,7 +1,7 @@
 import { deleteDetailByIndex, deleteInfoChildByIndex, editInfoChildDetail } from '@/redux/features/curriculumSlice';
 import { useAppDispatch } from '@/redux/hooks';
 import { XMarkIcon } from '@heroicons/react/20/solid';
-import React, { useRef, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import { InfoChildType } from './curriculum.info';
 import { restoreCursorPosition, saveCursorPosition } from '@/utils/cursor';
 
@@ -47,7 +47,7 @@ export default function EditableDetail({detail, bodyChildIndex, pageNumber, info
 
   return (
     <div className='relative'>
-      <p
+      {useMemo(() => (<p
         ref={editableRef}
         onBlur={handleListChildOnBlur}
         onFocus={handleListChildOnFocus}
@@ -55,7 +55,7 @@ export default function EditableDetail({detail, bodyChildIndex, pageNumber, info
         onInput={handleOnInputInfoDetail(infoChildIndex)}
         contentEditable={true}
         className="max-w-[195px]"
-      ></p>
+      ></p>), [detail, infoChildIndex])}
       {showDetailOptions && (
         <div className="absolute -left-5 top-[50%] -translate-y-[55%] bg-black text-white rounded-full">
           <span

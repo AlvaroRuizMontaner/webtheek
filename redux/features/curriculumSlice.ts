@@ -240,8 +240,8 @@ const initialState: InitialStateType = [
             }
         ],
         header : {
-            name: "James Sanchez Rodríguez ",
-            charge: "Web Developer",
+            name: "Name Surname Surname",
+            charge: "Your work",
             birthday: " 01-01-2000",
         },
         side: [
@@ -378,7 +378,7 @@ const initialState: InitialStateType = [
                             nameIcon: "",
                             classNameIcon: ""
                         },
-                        main: "Spanish",
+                        main: "Lang 1",
                         aux: "Native",
                         mainType: 1
                     },
@@ -387,7 +387,7 @@ const initialState: InitialStateType = [
                             nameIcon: "",
                             classNameIcon: ""
                         },
-                        main: "English",
+                        main: "Lang 2",
                         aux: "Intermediate",
                         mainType: 1
                     },
@@ -396,7 +396,7 @@ const initialState: InitialStateType = [
                             nameIcon: "",
                             classNameIcon: ""
                         },
-                        main: "Portuguese",
+                        main: "Lang 3",
                         aux: "Professional",
                         mainType: 1
                     },
@@ -405,7 +405,7 @@ const initialState: InitialStateType = [
                             nameIcon: "",
                             classNameIcon: ""
                         },
-                        main: "Dutch",
+                        main: "Lang 4",
                         aux: "Amateur",
                         mainType: 1
                     }
@@ -413,7 +413,7 @@ const initialState: InitialStateType = [
             },
             {
                 title: {
-                    text: "Code Skills",
+                    text: "Skills",
                     nameIcon: "code",
                     classNameIcon: "material-symbols-outlined"
                 },
@@ -465,7 +465,7 @@ const initialState: InitialStateType = [
                             nameIcon: "",
                             classNameIcon: ""
                         },
-                        main: "CSS",
+                        main: "Skill 1",
                         aux: "",
                         bar: "80%",
                         mainType: 2
@@ -475,7 +475,7 @@ const initialState: InitialStateType = [
                             nameIcon: "",
                             classNameIcon: ""
                         },
-                        main: "React",
+                        main: "Skill 2",
                         aux: "",
                         bar: "70%",
                         mainType: 2
@@ -485,7 +485,7 @@ const initialState: InitialStateType = [
                             nameIcon: "",
                             classNameIcon: ""
                         },
-                        main: "MERN Stack",
+                        main: "Skill 3",
                         aux: "",
                         bar: "60%",
                         mainType: 2
@@ -495,7 +495,7 @@ const initialState: InitialStateType = [
                             nameIcon: "",
                             classNameIcon: ""
                         },
-                        main: "Python",
+                        main: "Skill 4",
                         aux: "",
                         bar: "30%",
                         mainType: 2

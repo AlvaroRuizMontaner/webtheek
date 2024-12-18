@@ -1,7 +1,7 @@
 import { deleteDateByIndex, editInfoChildDate } from '@/redux/features/curriculumSlice';
 import { useAppDispatch } from '@/redux/hooks';
 import { XMarkIcon } from '@heroicons/react/20/solid';
-import React, { useRef, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 
 type EditableDateProps = {
   date: string
@@ -61,7 +61,7 @@ export default function EditableDate({date, bodyChildIndex, pageNumber, infoChil
 
   return (
     <div className='relative'>
-      <p
+      {useMemo(() => (<p
         ref={editableRef}
         onBlur={handleListChildOnBlur}
         onFocus={handleListChildOnFocus}
@@ -69,7 +69,7 @@ export default function EditableDate({date, bodyChildIndex, pageNumber, infoChil
         onInput={handleOnInputInfoDate(infoChildIndex)}
         contentEditable={true}
         className="max-w-[195px]"
-      ></p>
+      ></p>), [date, infoChildIndex])}
       {showDateOptions && (
         <div className="absolute -left-5 top-[50%] -translate-y-[55%] bg-black text-white rounded-full">
           <span

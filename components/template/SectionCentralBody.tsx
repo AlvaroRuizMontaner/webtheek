@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { memo, useCallback, useState } from 'react';
 import { SectionCentralBodyInfoType } from './curriculum.info';
 import { useAppDispatch } from '@/redux/hooks';
 import InfoChild from './InfoChild';
@@ -8,6 +8,7 @@ import { PlusIcon } from '@heroicons/react/20/solid';
 import { IconType } from 'react-icons/lib';
 import { addBodyChildByIndex, deleteBodyChildByIndex } from '@/redux/features/curriculumSlice';
 import EditableIcon from './EditableIcon';
+const MemoizedEditableTitle = memo(EditableTitle)
 
 interface SectionCentralBody extends SectionCentralBodyInfoType {
     pageNumber: number;
@@ -46,7 +47,7 @@ export default function SectionCentralBody({title, info, pageNumber, bodyChildIn
         <section className='flex flex-col gap-3 relative z-50'>
             <div className='flex gap-2 items-center relative -translate-x-8 z-20'>
                 <EditableIcon bodyChildIndex={bodyChildIndex} pageNumber={pageNumber} title={title} />
-                <EditableTitle handleOnBlur={handleOnBlur} handleOnFocus={handleOnFocus} pageNumber={pageNumber} bodyChildIndex={bodyChildIndex} titleText={title.text} />
+                <MemoizedEditableTitle handleOnBlur={handleOnBlur} handleOnFocus={handleOnFocus} pageNumber={pageNumber} bodyChildIndex={bodyChildIndex} titleText={title.text} />
             </div>
 
             {info.map((infoChild, infoChildIndex) => (

@@ -13,6 +13,7 @@ type EditableTitleProps = {
 
 export default function EditableTitle({titleText, bodyChildIndex, pageNumber, handleOnFocus, handleOnBlur}: EditableTitleProps) {
 
+
   const dispatch = useAppDispatch()
   const editableRef = useRef(null);
   let savedCursorPosition: any = null;
