@@ -21,7 +21,7 @@ type InfoChildProps = {
 
 export default function InfoChild({infoChildIndex, handleOnBlur, handleOnFocus, infoChild, pageNumber, bodyChildIndex}: InfoChildProps) {
     const dispatch = useAppDispatch()
-    const [showInfoChildOptions, setShowInfoChildOptions] = useState(false)
+    const [showInfoChildOptions, setShowInfoChildOptions] = useState(true)
 
     const handleInfoOnBlur = () => {
         handleOnBlur()

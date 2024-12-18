@@ -1,6 +1,7 @@
 import { MinusIcon } from '@heroicons/react/20/solid'
 import React from 'react'
 import { IconType } from 'react-icons/lib'
+import styles from "./boundary.module.scss"
 
 type AddFunctions = {
   function: (p: any) => void
@@ -16,11 +17,10 @@ type ControlBoundaryProps = {
     color: string
     deleteFunction: (p: any) => void
     addFunctions: AddFunctions
-    width?: string
-    translateX?: string
+    position?: "side" | "body"
 }
 
-export default function ControlBoundary({color, width="w-[116.5%]", translateX="translate-x-[3%]", pageNumber, bodyChildIndex, infoChildIndex, dispatch, deleteFunction, addFunctions, orientation="horizontal"}: ControlBoundaryProps) {
+export default function ControlBoundary({color, position="body", pageNumber, bodyChildIndex, infoChildIndex, dispatch, deleteFunction, addFunctions, orientation="horizontal"}: ControlBoundaryProps) {
 
     const verticalClasses = "flex-col top-[50%] py-1"
     const horizontalClasses = "top-0 left-[50%] px-1 flex"
@@ -32,7 +32,7 @@ export default function ControlBoundary({color, width="w-[116.5%]", translateX="
     }
 
   return (
-      <div className={`border-${color} ${width} absolute border-[3px] top-0 right-0 h-[105%] ${translateX} -translate-y-[3.5%] z-[60]`}>
+      <div className={`border-${color} absolute border-[3px] top-0 right-0 h-[115%] ${styles.boundary} ${styles[position]} ${styles[orientation]} -translate-y-[7.5%]`}> {/* z quitado provisional */}
         <div className={`bg-${color} ${orientationClasses} absolute -translate-y-[50%] -translate-x-[50%] gap-2 rounded-md z-10`}>
           <span
             className="cursor-pointer "

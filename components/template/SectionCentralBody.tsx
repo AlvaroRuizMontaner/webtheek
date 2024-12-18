@@ -54,7 +54,7 @@ export default function SectionCentralBody({title, info, pageNumber, bodyChildIn
             ))}
         </section>
         {showBodyChildOptions && (
-             <ControlBoundary addFunctions={[{function: addBodyChildByIndex, icon: PlusIcon as IconType}]} deleteFunction={deleteBodyChildByIndex} width="w-[122%]" color="blue-500 text-white" pageNumber={pageNumber} bodyChildIndex={bodyChildIndex} dispatch={dispatch} orientation='horizontal' />
+             <ControlBoundary addFunctions={[{function: addBodyChildByIndex, icon: PlusIcon as IconType}]} deleteFunction={deleteBodyChildByIndex} color="blue-500 text-white" pageNumber={pageNumber} bodyChildIndex={bodyChildIndex} dispatch={dispatch} orientation='horizontal' />
         )}
     </div>
   )

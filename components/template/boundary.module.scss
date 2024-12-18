@@ -1,0 +1,15 @@
+.boundary {
+    width: calc(100% + 60px);
+    height: calc(100% + 30px);
+    transform: translateY(-15px) translateX(20px);
+
+    &.side {
+        width: calc(100% + 30px);
+        transform: translateY(-15px) translateX(15px);
+    }
+
+    &.vertical {
+        height: calc(105%);
+        transform: translateY(-2.5%) translateX(20px);
+    }
+}

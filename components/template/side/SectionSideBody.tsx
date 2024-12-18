@@ -57,7 +57,7 @@ export default function SectionSideBody({ title, info, pageNumber, bodyChildInde
           ))}
         </div>
       </section>
-      {showBodyChildOptions && <ControlBoundary translateX="translate-x-[7%]" pageNumber={pageNumber} bodyChildIndex={bodyChildIndex} dispatch={dispatch} addFunctions={options} deleteFunction={deleteSideBodyChildByIndex} color="blue-500 text-white" />}
+      {showBodyChildOptions && <ControlBoundary position="side" pageNumber={pageNumber} bodyChildIndex={bodyChildIndex} dispatch={dispatch} addFunctions={options} deleteFunction={deleteSideBodyChildByIndex} color="blue-500 text-white" />}
     </div>
   )
 }
