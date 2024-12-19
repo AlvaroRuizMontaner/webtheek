@@ -43,7 +43,7 @@ export default function InfoChild({infoChildIndex, handleOnBlur, handleOnFocus, 
         </div>}
         {infoChild.list && infoChild.list.length >= 1 && (
           <ul className=" text-[14px] list-disc">
-            {infoChild.list.map((listChild, listChildIndex) => <EditableListChild key={"" + infoChildIndex + listChildIndex} listChild={listChild} handleInfoOnBlur={handleInfoOnBlur} handleInfoOnFocus={handleInfoOnFocus} pageNumber={pageNumber} bodyChildIndex={bodyChildIndex} infoChildIndex={infoChildIndex} listChildIndex={listChildIndex} />)}
+            {infoChild.list.map((listChild, listChildIndex) => listChild && <EditableListChild key={"" + infoChildIndex + listChildIndex} listChild={listChild} handleInfoOnBlur={handleInfoOnBlur} handleInfoOnFocus={handleInfoOnFocus} pageNumber={pageNumber} bodyChildIndex={bodyChildIndex} infoChildIndex={infoChildIndex} listChildIndex={listChildIndex} />)}
           </ul>
         )}
       </div>

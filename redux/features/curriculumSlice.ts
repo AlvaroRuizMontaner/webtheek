@@ -509,7 +509,7 @@ const initialState: InitialStateType = [
 const newInitialState = JSON.parse(JSON.stringify(initialState))
 const page = newInitialState[0]
 delete page.header
-const bodyChild = page.body[0]
+const bodyChild = page.body[1]
 const infoChild = bodyChild.info[0]
 const listChild = infoChild && infoChild.list && infoChild.list[0] || "listElement"
 
@@ -552,8 +552,9 @@ export const curriculumSlice = createSlice({
 
         // Add by index
         addBodyChildByIndex: (state, action) => {
+            console.log("hola")
             const { pageNumber, bodyChildIndex } = action.payload; // El nuevo objeto body que se quiere añadir
-            if (bodyChildIndex >= 0 && bodyChildIndex < state[pageNumber].body.length) {
+            if (bodyChildIndex >= 0 /* && bodyChildIndex < state[pageNumber].body.length */) {
                 state[pageNumber].body.splice(bodyChildIndex+1, 0, bodyChild);
             }
         },

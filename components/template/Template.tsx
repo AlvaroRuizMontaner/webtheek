@@ -9,8 +9,8 @@ import Spinner from "../spinners/Spinner";
 import Link from "next/link";
 import CentralBody from "./CentralBody";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { addPage, deletePage } from "@/redux/features/curriculumSlice";
-import { DocumentPlusIcon, DocumentTextIcon, XMarkIcon } from "@heroicons/react/20/solid";
+import { addBodyChildByIndex, addPage, deletePage } from "@/redux/features/curriculumSlice";
+import { DocumentPlusIcon, DocumentTextIcon, PlusIcon, XMarkIcon } from "@heroicons/react/20/solid";
 import SideBody from "./side/SideBody";
 import Header from "./header/Header";
 
@@ -73,7 +73,7 @@ export const Template = React.memo(() => {
         {pages.map((page, pageNumber) => (
           <div
             key={"cuerpo" + pageNumber}
-            className="relative bg-white h-[297mm] w-[785px] flex items-center m-auto"
+            className="relative bg-white h-[297mm] w-[785px] flex items-center m-auto overflow-y-hidden"
           >
             <div className="min-w-[42rem] h-full max-w-2xl bg-white p-12 px-0 mx-auto relative">
               {showOptions && pageNumber !== 0 && (
@@ -87,6 +87,7 @@ export const Template = React.memo(() => {
                   {/*   <span className="cursor-pointer bg-gray-100" onClick={() => dispatch(addBodyChild({pageNumber}))}><PlusIcon className="w-6 h-6" /></span> */}
                 </div>
               )}
+              {page.body.length === 0 && <div className="cursor-pointer" onClick={() => dispatch(addBodyChildByIndex({ pageNumber, bodyChildIndex: 0, infoChildIndex: 0 }))}><PlusIcon className="w-6 h-6" /></div>}
               <div className="contenedor h-full">
                 <section className="">
                   <CentralBody pageNumber={pageNumber} page={page.body} />
@@ -104,19 +105,33 @@ export const Template = React.memo(() => {
         ))}
       </div>
       <section className="top-0 left-2 lg:left-20 flex flex-col gap-3 fixed">
-        <div className="mt-4 flex justify-center cursor-pointer" onClick={() => dispatch(addPage())}>
+        <div
+          className="mt-4 flex justify-center cursor-pointer"
+          onClick={() => dispatch(addPage())}
+        >
           <DocumentPlusIcon className="w-8 h-8 text-gray-200" />
         </div>
-        <div className="cursor-pointer w-8 h-8 relative" onClick={handleClick}>
-          {isLoading ? <span className="absolute left-0 bottom-0 block w-8 h-8"><Spinner color="violet" size="small" /></span> : <DocumentTextIcon className="w-8 h-8 text-gray-200" />}
+        <div>
+          <div
+            className="cursor-pointer w-8 h-8 relative"
+            onClick={handleClick}
+          >
+            {isLoading ? (
+              <span className="absolute left-0 bottom-0 block w-8 h-8">
+                <Spinner color="violet" size="small" />
+              </span>
+            ) : (
+              <DocumentTextIcon className="w-8 h-8 text-gray-200" />
+            )}
+          </div>
+          <Link
+            ref={linkRef}
+            target={"_blank"}
+            href={pdfUrl}
+            className="hidden absolute"
+          ></Link>
         </div>
-        <Link
-          ref={linkRef}
-          target={"_blank"}
-          href={pdfUrl}
-          className="hidden absolute"
-        ></Link>
-{/*         <div className="bg-gray-100 relative h-[72px]">
+        {/*         <div className="bg-gray-100 relative h-[72px]">
           <button
             onClick={handleClick}
             className="py-4 px-10 max-h-[56px] bg-accent-700 shadow-y-1 rounded-lg

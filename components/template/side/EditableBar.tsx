@@ -33,7 +33,7 @@ export default function EditableBar({barWidth, pageNumber, infoChildIndex, bodyC
       <label
         style={{ width: makeNumberToStringPercentage(width)}}
         htmlFor={"bar" + infoChildIndex}
-        className={`h-full bg-blue-500 block`}
+        className={`h-full bg-blue-500 block cursor-pointer`}
         onClick={() => setShowInput(true)}
       ></label>
       <input

@@ -57,7 +57,7 @@ return (
       dangerouslySetInnerHTML={{ __html: main }}
       contentEditable={true}
       onInput={handleOnInputInfoMain(infoChildIndex)}
-      className="font-bold text-base text-blue-900 max-w-[390px]"
+      className={`font-bold text-base text-blue-900 max-w-[390px] outline-none`}
     ></p>), [main, infoChildIndex])}
     {showMainOptions && (
       <div className="absolute -left-5 top-[50%] -translate-y-[55%] bg-black text-white rounded-full">

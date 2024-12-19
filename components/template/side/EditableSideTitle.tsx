@@ -41,7 +41,7 @@ export default function EditableSideTitle({titleText, bodyChildIndex, pageNumber
       ref={editableRef}
       contentEditable
       onInput={handleInput}
-      className='text-xl max-w-40'
+      className={`text-xl max-w-40 outline-none `}
       onFocus={handleOnFocus} 
       onBlur={handleOnBlur}
     ></h2>

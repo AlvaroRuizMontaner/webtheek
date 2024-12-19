@@ -57,7 +57,7 @@ return (
       dangerouslySetInnerHTML={{ __html: infoChild.main }}
       contentEditable={true}
       onInput={handleOnInputInfoMain(infoChildIndex)}
-      className="font-bold max-w-[390px] text-white break-all flex items-center"
+      className="font-bold max-w-[390px] text-white break-all flex items-center outline-none"
     ></span>), [infoChild.main, infoChildIndex])}
     {showMainOptions && (
       <div className="">

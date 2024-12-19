@@ -47,7 +47,7 @@ export default function EditableListChild({listChild, bodyChildIndex, pageNumber
         dangerouslySetInnerHTML={{ __html: listChild }}
         contentEditable={true}
         onInput={handleOnInputInfoList(infoChildIndex, listChildIndex)}
-        className='max-w-[390px]'
+        className='max-w-[390px] outline-none w-fit'
       ></li>), [listChild, infoChildIndex, listChildIndex])}
       {showListChildOptions && (
       <div className=''>

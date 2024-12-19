@@ -16,8 +16,12 @@ export const saveCursorPosition = (element: any) => {
 export const restoreCursorPosition = (element: any, savedPosition: any) => {
     const range = document.createRange();
     const selection = window.getSelection();
-    range.setStart(element.firstChild || element, savedPosition.offset);
-    range.collapse(true);
-    selection!.removeAllRanges();
-    selection!.addRange(range);
+    try {
+      range.setStart(element.firstChild || element, savedPosition.offset);
+      range.collapse(true);
+      selection!.removeAllRanges();
+      selection!.addRange(range);
+    } catch(e) {
+      console.error("Fallo en cursor")
+    }
   };

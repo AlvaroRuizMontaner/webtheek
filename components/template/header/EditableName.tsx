@@ -36,7 +36,7 @@ export default function EditableName({name}: EditableNameProps) {
       ref={editableRef}
       contentEditable
       onInput={handleInput}
-      className=' text-2xl text-center font-bold'
+      className=' text-2xl text-center font-bold outline-none'
     ></h1>
   );
 }
