@@ -60,16 +60,6 @@ export default function ControlBoundary({color, position="body", pageNumber, bod
               <AddIcon icon={addFunction.icon} />
             </span>
           ))}
-{/*           <span
-            className="cursor-pointer"
-            onClick={() =>
-              dispatch(
-                addFunction({ pageNumber, bodyChildIndex, infoChildIndex })
-              )
-            }
-          >
-            <PlusIcon className="w-5 h-5" />
-          </span> */}
         </div>
       </div>
   );

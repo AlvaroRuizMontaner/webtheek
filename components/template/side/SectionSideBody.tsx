@@ -1,10 +1,9 @@
-import { addSideBodyChildByIndex, addSideBodyChildByIndex2, addSideBodyChildByIndex3, deleteSideBodyChildByIndex, editSideIcon } from '@/redux/features/curriculumSlice'
+import { deleteSideBodyChildByIndex, editSideIcon } from '@/redux/features/curriculumSlice'
 import ControlBoundary from '../ControlBoundary'
 import { SectionSideBodyInfoType } from '../curriculum.info'
 import InfoChild from './InfoChild'
 import { useAppDispatch } from '@/redux/hooks'
 import { memo, useCallback, useState } from 'react'
-import { ChartBarIcon, ChatBubbleOvalLeftIcon, UserIcon } from '@heroicons/react/20/solid'
 import { IconType } from 'react-icons/lib'
 import EditableSideTitle from './EditableSideTitle'
 import EditableSideIcon from './EditableSideIcon'
@@ -13,10 +12,14 @@ const MemoizedEditableSideTitle = memo(EditableSideTitle)
 interface SectionSideBodyProps extends SectionSideBodyInfoType {
   pageNumber: number
   bodyChildIndex: number
+  sideAddFunctionOptions: {
+    function: any;
+    icon: IconType;
+  }[]
 }
 
 
-export default function SectionSideBody({ title, info, pageNumber, bodyChildIndex}: SectionSideBodyProps) {
+export default function SectionSideBody({ title, info, pageNumber, bodyChildIndex, sideAddFunctionOptions}: SectionSideBodyProps) {
   const dispatch = useAppDispatch()
   const [showBodyChildOptions, setShowBodyChildOptions] = useState(false)
 
@@ -26,21 +29,6 @@ export default function SectionSideBody({ title, info, pageNumber, bodyChildInde
   const handleOnFocus = useCallback(() => {
       setTimeout(() => setShowBodyChildOptions(true), 100)
   },[])
-
-  const options = [
-    {
-      function: addSideBodyChildByIndex,
-      icon: UserIcon as IconType
-    },
-    {
-      function: addSideBodyChildByIndex2,
-      icon: ChatBubbleOvalLeftIcon as IconType
-    },
-    {
-      function: addSideBodyChildByIndex3,
-      icon: ChartBarIcon as IconType
-    },
-  ]
 
   return (
     <div className='relative z-10'>
@@ -58,7 +46,7 @@ export default function SectionSideBody({ title, info, pageNumber, bodyChildInde
           ))}
         </div>
       </section>
-      {showBodyChildOptions && <ControlBoundary position="side" pageNumber={pageNumber} bodyChildIndex={bodyChildIndex} dispatch={dispatch} addFunctions={options} deleteFunction={deleteSideBodyChildByIndex} color="blue-500 text-white" />}
+      {showBodyChildOptions && <ControlBoundary position="side" pageNumber={pageNumber} bodyChildIndex={bodyChildIndex} dispatch={dispatch} addFunctions={sideAddFunctionOptions} deleteFunction={deleteSideBodyChildByIndex} color="blue-500 text-white" />}
     </div>
   )
 }

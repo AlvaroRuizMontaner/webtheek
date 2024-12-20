@@ -9,10 +9,12 @@ import Spinner from "../spinners/Spinner";
 import Link from "next/link";
 import CentralBody from "./CentralBody";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { addBodyChildByIndex, addPage, deletePage } from "@/redux/features/curriculumSlice";
-import { DocumentPlusIcon, DocumentTextIcon, PlusIcon, XMarkIcon } from "@heroicons/react/20/solid";
+import { addBodyChildByIndex, addPage } from "@/redux/features/curriculumSlice";
+import { DocumentPlusIcon, DocumentTextIcon, PlusIcon } from "@heroicons/react/20/solid";
 import SideBody from "./side/SideBody";
 import Header from "./header/Header";
+import ControlOptions from "./ControlOptions";
+import { IconType } from "react-icons/lib";
 
 
 export const Template = React.memo(() => {
@@ -76,25 +78,14 @@ export const Template = React.memo(() => {
             className="relative bg-white h-[297mm] w-[785px] flex items-center m-auto overflow-y-hidden"
           >
             <div className="min-w-[42rem] h-full max-w-2xl bg-white p-12 px-0 mx-auto relative">
-              {showOptions && pageNumber !== 0 && (
-                <div className="absolute top-8 flex gap-2 w-44 rounded-md">
-                  <span
-                    className="cursor-pointer bg-gray-100"
-                    onClick={() => dispatch(deletePage({ pageNumber }))}
-                  >
-                    <XMarkIcon className="w-6 h-6" />
-                  </span>
-                  {/*   <span className="cursor-pointer bg-gray-100" onClick={() => dispatch(addBodyChild({pageNumber}))}><PlusIcon className="w-6 h-6" /></span> */}
-                </div>
-              )}
-              {page.body.length === 0 && <div className="cursor-pointer" onClick={() => dispatch(addBodyChildByIndex({ pageNumber, bodyChildIndex: 0, infoChildIndex: 0 }))}><PlusIcon className="w-6 h-6" /></div>}
+              {showOptions && <ControlOptions contentLength={page.body.length} addFunctions={[{function: addBodyChildByIndex, icon: PlusIcon as IconType}]} dispatch={dispatch} color="gray-200" pageNumber={pageNumber} />}
               <div className="contenedor h-full">
                 <section className="">
                   <CentralBody pageNumber={pageNumber} page={page.body} />
                 </section>
                 <section className="bg-indigo-600">
                   {pageNumber === 0 && <Header {...page.header} />}
-                  <SideBody pageNumber={pageNumber} page={page.side} />
+                  <SideBody showOptions={showOptions} pageNumber={pageNumber} page={page.side} />
                 </section>
               </div>
             </div>
