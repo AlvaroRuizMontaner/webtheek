@@ -10,7 +10,8 @@ import Link from "next/link";
 import CentralBody from "./CentralBody";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { addBodyChildByIndex, addPage } from "@/redux/features/curriculumSlice";
-import { DocumentPlusIcon, DocumentTextIcon, PlusIcon } from "@heroicons/react/20/solid";
+import { DocumentPlusIcon, PlusIcon } from "@heroicons/react/20/solid";
+import PdfIcon from '../../public/icons/pdf_icon.svg';
 import SideBody from "./side/SideBody";
 import Header from "./header/Header";
 import ControlOptions from "./ControlOptions";
@@ -112,7 +113,8 @@ export const Template = React.memo(() => {
                 <Spinner color="violet" size="small" />
               </span>
             ) : (
-              <DocumentTextIcon className="w-8 h-8 text-gray-200" />
+              <PdfIcon className="w-8 h-8 text-gray-200" />
+              /* https://www.svgrepo.com/svg/64173/pdf-file */
             )}
           </div>
           <Link

@@ -18,8 +18,6 @@ type EditableMainProps = {
 
 export default function EditableMain({main, bodyChildIndex, pageNumber, infoChildIndex, handleInfoOnFocus, handleInfoOnBlur, infoChild}: EditableMainProps) {
 
-  console.log("Re-render main")
-
   const dispatch = useAppDispatch()
   const [showMainOptions, setShowMainOptions] = useState(false)
   const editableRef = useRef<HTMLParagraphElement>(null);

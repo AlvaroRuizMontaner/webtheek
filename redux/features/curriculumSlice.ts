@@ -201,7 +201,7 @@ const initialState: InitialStateType = [
                 ], */
                 info: [
                     {
-                        main: "Developing Skills",
+                        main: "Placeholder Skills",
                         detail: "Placeholder",
                         date: "2020",
                         list: [
