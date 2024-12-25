@@ -35,8 +35,6 @@ export default function SectionSideBody({ title, info, pageNumber, bodyChildInde
       <section className='flex flex-col gap-4 relative z-50'>
         <div className='flex gap-2 font-bold'>
           <EditableSideIcon addFunction={editSideIcon} title={title} pageNumber={pageNumber} bodyChildIndex={bodyChildIndex} />
-          {/* <span className={title.classNameIcon}>{title.nameIcon}</span> */}
-          {/* <h2 className='text-xl'>{title.text}</h2> */}
           <MemoizedEditableSideTitle titleText={title.text} bodyChildIndex={bodyChildIndex} pageNumber={pageNumber} handleOnFocus={handleOnFocus} handleOnBlur={handleOnBlur} />
         </div>
 

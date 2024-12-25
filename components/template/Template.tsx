@@ -16,6 +16,7 @@ import SideBody from "./side/SideBody";
 import Header from "./header/Header";
 import ControlOptions from "./ControlOptions";
 import { IconType } from "react-icons/lib";
+import EditableTheme from "./theme/EditableTheme";
 
 
 export const Template = React.memo(() => {
@@ -55,14 +56,14 @@ export const Template = React.memo(() => {
 
   useEffect(() => {
     if(showOptions === false) {
-        const html: string | undefined = getHtmlWithStyles(referrer);
-        if (html) {
-          setIsLoading(true)
-          mutate(html);
-          setShowOptions(true)
-          console.log("setShowOptionsTrue")
-          setShowDashLine(true)
-        }
+      const html: string | undefined = getHtmlWithStyles(referrer);
+      if (html) {
+        setIsLoading(true)
+        mutate(html);
+        setShowOptions(true)
+        console.log("setShowOptionsTrue")
+        setShowDashLine(true)
+      }
     }
   },[showOptions])
 
@@ -96,7 +97,7 @@ export const Template = React.memo(() => {
           </div>
         ))}
       </div>
-      <section className="top-0 left-2 lg:left-20 flex flex-col gap-3 fixed">
+      <section className="top-0 left-2 lg:left-20 flex flex-col gap-3 fixed z-50">
         <div
           className="mt-4 flex justify-center cursor-pointer"
           onClick={() => dispatch(addPage())}
@@ -124,21 +125,7 @@ export const Template = React.memo(() => {
             className="hidden absolute"
           ></Link>
         </div>
-        {/*         <div className="bg-gray-100 relative h-[72px]">
-          <button
-            onClick={handleClick}
-            className="py-4 px-10 max-h-[56px] bg-accent-700 shadow-y-1 rounded-lg
-            mx-auto block absolute left-1/2 -translate-x-1/2 w-[200px] text-white h-[56px] text-[16px]"
-          >
-            {isLoading ? <Spinner /> : "Convert to pdf"}
-          </button>
-          <Link
-            ref={linkRef}
-            target={"_blank"}
-            href={pdfUrl}
-            className="hidden absolute"
-          ></Link>
-        </div> */}
+        <EditableTheme />
       </section>
     </div>
   );
