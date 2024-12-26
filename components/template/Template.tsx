@@ -5,6 +5,7 @@ import { getHtmlWithStyles } from "@/utils/generateHtml";
 import { useMutation } from "@tanstack/react-query";
 import React, { useEffect, useRef, useState } from "react";
 import "./curriculum.scss";
+import "./theme/themes.scss"
 import Spinner from "../spinners/Spinner";
 import Link from "next/link";
 import CentralBody from "./CentralBody";
@@ -85,8 +86,8 @@ export const Template = React.memo(() => {
                 <section className="">
                   <CentralBody pageNumber={pageNumber} page={page.body} />
                 </section>
-                <section className="bg-indigo-600">
-                  {pageNumber === 0 && <Header {...page.header} />}
+                <section className={`side ${page.themeName}`}>
+                  {pageNumber === 0 && <Header themeName={page.themeName} {...page.header} />}
                   <SideBody showOptions={showOptions} pageNumber={pageNumber} page={page.side} />
                 </section>
               </div>

@@ -10,9 +10,10 @@ type HeaderProps = {
   name?: string
   charge?: string
   birthday?: string
+  themeName: string
 }
 
-export default function Header({name="", charge="", birthday=""}: HeaderProps) {
+export default function Header({name="", charge="", birthday="", themeName}: HeaderProps) {
 /*   const [selectedFile, setSelectedFile] = useState<File | null>(null); */
   const [preview, setPreview] = useState<string | undefined>(undefined);
   const [showCam, setShowCam] = useState<boolean>(false)
@@ -110,7 +111,7 @@ export default function Header({name="", charge="", birthday=""}: HeaderProps) {
   },[values.data]) */
 
   return (
-    <div className='flex flex-col justify-center gap-3 p-[1.25rem] bg-indigo-800 text-white'>
+    <div className={`flex flex-col justify-center gap-3 p-[1.25rem] header ${themeName} text-white`}>
       <div className='flex justify-center'>
         <div className='relative w-[130px]' onMouseOut={() => setShowCam(false)}  onMouseOver={() => setShowCam(true)}>
           <input onChange={handleUpload} className='absolute block opacity-0 w-0' ref={inputRef} accept="image/*" type="file" name="" id="icon-button-file" />

@@ -2,6 +2,7 @@ import { SectionCentralBodyInfoType, SectionHeader, SectionSideBodyInfoType } fr
 import { createSlice } from "@reduxjs/toolkit"
 
 type InitialStateType = {
+    themeName: string
     body: SectionCentralBodyInfoType[]
     header?: SectionHeader
     side: SectionSideBodyInfoType[]
@@ -93,6 +94,7 @@ type InitialStateType = {
 
 const initialState: InitialStateType = [
     {
+        themeName: "blue-indigo",
         body: [
             {
                 title: {
@@ -525,6 +527,11 @@ export const curriculumSlice = createSlice({
     name: "curriculum",
     initialState,
     reducers: {
+        // Theme
+        selectTheme: (state, action) => {
+            const {color} = action.payload
+            state.map((page) => page.themeName = color)
+        },
         // Add elements
         addPage: (state) => {
             state.push(page);
@@ -806,6 +813,8 @@ export const curriculumSlice = createSlice({
 })
 
 const {
+    selectTheme,
+    /* Body */
     addPage,
     addBodyChild,
     addInfoChild, 
@@ -851,6 +860,8 @@ const {
 const curriculumReducer = curriculumSlice.reducer
 
 export {
+    selectTheme,
+    /* Body */
     addPage,
     addBodyChild,
     addInfoChild,

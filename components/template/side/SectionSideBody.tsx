@@ -2,7 +2,7 @@ import { deleteSideBodyChildByIndex, editSideIcon } from '@/redux/features/curri
 import ControlBoundary from '../ControlBoundary'
 import { SectionSideBodyInfoType } from '../curriculum.info'
 import InfoChild from './InfoChild'
-import { useAppDispatch } from '@/redux/hooks'
+import { useAppDispatch, useAppSelector } from '@/redux/hooks'
 import { memo, useCallback, useState } from 'react'
 import { IconType } from 'react-icons/lib'
 import EditableSideTitle from './EditableSideTitle'
@@ -22,6 +22,7 @@ interface SectionSideBodyProps extends SectionSideBodyInfoType {
 export default function SectionSideBody({ title, info, pageNumber, bodyChildIndex, sideAddFunctionOptions}: SectionSideBodyProps) {
   const dispatch = useAppDispatch()
   const [showBodyChildOptions, setShowBodyChildOptions] = useState(false)
+  const themeName = useAppSelector((state) => state.curriculumReducer)[pageNumber].themeName
 
   const handleOnBlur = useCallback(() => {
     setTimeout(() => setShowBodyChildOptions(false), 100)
@@ -40,7 +41,7 @@ export default function SectionSideBody({ title, info, pageNumber, bodyChildInde
 
         <div className='space-y-2'>
           {info.map((infoChild, infoChildIndex) => (
-            <InfoChild pageNumber={pageNumber} handleOnFocus={handleOnFocus} handleOnBlur={handleOnBlur} key={infoChildIndex} infoChild={infoChild} infoChildIndex={infoChildIndex} bodyChildIndex={bodyChildIndex} />
+            <InfoChild themeName={themeName} pageNumber={pageNumber} handleOnFocus={handleOnFocus} handleOnBlur={handleOnBlur} key={infoChildIndex} infoChild={infoChild} infoChildIndex={infoChildIndex} bodyChildIndex={bodyChildIndex} />
           ))}
         </div>
       </section>

@@ -11,9 +11,10 @@ type InfoChildProps = {
     bodyChildIndex: number
     handleOnFocus: () => void
     handleOnBlur: () => void
+    themeName: string
 }
 
-export default function InfoChild({pageNumber, infoChild, infoChildIndex, bodyChildIndex, handleOnFocus, handleOnBlur}: InfoChildProps) {
+export default function InfoChild({pageNumber, themeName, infoChild, infoChildIndex, bodyChildIndex, handleOnFocus, handleOnBlur}: InfoChildProps) {
   return (
     <div className="flex flex-col gap-1">
       <div className=" text-[14px] flex gap-2">
@@ -23,7 +24,7 @@ export default function InfoChild({pageNumber, infoChild, infoChildIndex, bodyCh
         <EditableMain pageNumber={pageNumber} infoChild={infoChild} infoChildIndex={infoChildIndex} bodyChildIndex={bodyChildIndex} handleOnFocus={handleOnFocus} handleOnBlur={handleOnBlur}/>
         {infoChild.main && infoChild.aux && <EditableAux bodyChildIndex={bodyChildIndex} infoChildIndex={infoChildIndex} pageNumber={pageNumber} aux={infoChild.aux} handleInfoOnFocus={handleOnFocus} handleInfoOnBlur={handleOnBlur} />}
       </div>
-      {infoChild.bar && <EditableBar pageNumber={pageNumber} bodyChildIndex={bodyChildIndex} infoChildIndex={infoChildIndex} barWidth={infoChild.bar} />}
+      {infoChild.bar && <EditableBar themeName={themeName} pageNumber={pageNumber} bodyChildIndex={bodyChildIndex} infoChildIndex={infoChildIndex} barWidth={infoChild.bar} />}
     </div>
   );
 }

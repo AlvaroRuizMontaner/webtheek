@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useAppDispatch } from '@/redux/hooks'
-import { editIcon } from '@/redux/features/curriculumSlice'
+import { selectTheme } from '@/redux/features/curriculumSlice'
 import { themes } from './themes.info'
 import { PaintBrushIcon } from '@heroicons/react/20/solid'
 
@@ -16,7 +16,7 @@ function RadioInputTheme({theme, setShowThemeList}: RadioInputThemeProps) {
   const dispatch = useAppDispatch()
 
   function handleChange() {
-    dispatch(editIcon({nameIcon: theme.nameTheme }))
+    dispatch(selectTheme({color: theme.nameTheme }))
     setShowThemeList(false)
   }
 
@@ -34,7 +34,7 @@ export default function EditableTheme() {
 
   return (
     <div className="flex justify-center relative z-10">
-      <div onClick={() => setShowThemeList(true)}>
+      <div className='cursor-pointer' onClick={() => setShowThemeList(true)}>
         <PaintBrushIcon className="w-8 h-8 text-gray-200" />
       </div>
       {showThemeList && (

@@ -9,9 +9,10 @@ type EditableTitleProps = {
   bodyChildIndex: number
   handleOnBlur: () => void
   handleOnFocus: () => void
+  themeName: string
 }
 
-export default function EditableTitle({titleText, bodyChildIndex, pageNumber, handleOnFocus, handleOnBlur}: EditableTitleProps) {
+export default function EditableTitle({titleText, bodyChildIndex, pageNumber, handleOnFocus, handleOnBlur, themeName}: EditableTitleProps) {
 
 
   const dispatch = useAppDispatch()
@@ -42,7 +43,7 @@ export default function EditableTitle({titleText, bodyChildIndex, pageNumber, ha
       ref={editableRef}
       contentEditable
       onInput={handleInput}
-      className='text-xl text-indigo-700 font-bold uppercase max-w-[350px] outline-none'
+      className={`text-xl body-title ${themeName} font-bold uppercase max-w-[350px] outline-none`}
       /* focus:border-blue-500 focus:rounded-md focus:ring-2 focus:ring-blue-300 transition duration-300 */
       onFocus={handleOnFocus} 
       onBlur={handleOnBlur}

@@ -18,9 +18,10 @@ type InfoChildProps = {
     infoChild: InfoChildType,
     pageNumber: number
     bodyChildIndex: number
+    themeName: string
 }
 
-export default function InfoChild({infoChildIndex, handleOnBlur, handleOnFocus, infoChild, pageNumber, bodyChildIndex}: InfoChildProps) {
+export default function InfoChild({infoChildIndex, handleOnBlur, handleOnFocus, infoChild, pageNumber, bodyChildIndex, themeName}: InfoChildProps) {
     const dispatch = useAppDispatch()
     const [showInfoChildOptions, setShowInfoChildOptions] = useState(false)
 
@@ -36,7 +37,7 @@ export default function InfoChild({infoChildIndex, handleOnBlur, handleOnFocus, 
   return (
     <div className='relative z-10'>
       <div className="space-y-2 relative z-50" key={infoChildIndex}>
-        {infoChild.main && <EditableMain infoChild={infoChild} handleInfoOnBlur={handleInfoOnBlur} handleInfoOnFocus={handleInfoOnFocus} pageNumber={pageNumber} bodyChildIndex={bodyChildIndex} infoChildIndex={infoChildIndex} main={infoChild.main} />}
+        {infoChild.main && <EditableMain themeName={themeName} infoChild={infoChild} handleInfoOnBlur={handleInfoOnBlur} handleInfoOnFocus={handleInfoOnFocus} pageNumber={pageNumber} bodyChildIndex={bodyChildIndex} infoChildIndex={infoChildIndex} main={infoChild.main} />}
         {infoChild && infoChild.detail && <div className="flex justify-between text-gray-400 text-sm">
           <EditableDetail infoChild={infoChild} handleInfoOnBlur={handleInfoOnBlur} handleInfoOnFocus={handleInfoOnFocus} pageNumber={pageNumber} bodyChildIndex={bodyChildIndex} infoChildIndex={infoChildIndex} detail={infoChild.detail} />
           {infoChild.date && <EditableDate handleInfoOnBlur={handleInfoOnBlur} handleInfoOnFocus={handleInfoOnFocus} pageNumber={pageNumber} bodyChildIndex={bodyChildIndex} infoChildIndex={infoChildIndex} date={infoChild.date} />}

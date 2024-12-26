@@ -1,6 +1,6 @@
 import { memo, useCallback, useState } from 'react';
 import { SectionCentralBodyInfoType } from './curriculum.info';
-import { useAppDispatch } from '@/redux/hooks';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import InfoChild from './InfoChild';
 import EditableTitle from './EditableTitle';
 import ControlBoundary from './ControlBoundary';
@@ -18,6 +18,7 @@ interface SectionCentralBody extends SectionCentralBodyInfoType {
 export default function SectionCentralBody({title, info, pageNumber, bodyChildIndex}: SectionCentralBody) {
     const dispatch = useAppDispatch()
     const [showBodyChildOptions, setShowBodyChildOptions] = useState(false)
+    const themeName = useAppSelector((state) => state.curriculumReducer)[pageNumber].themeName
 
 
 /*     const handleOnInputList = (infoChildIndex: number, listChildIndex: number) => (e: React.SyntheticEvent) => {
@@ -46,12 +47,12 @@ export default function SectionCentralBody({title, info, pageNumber, bodyChildIn
     <div className='relative z-10'>
         <section className='flex flex-col gap-3 relative z-50'>
             <div className='flex gap-2 items-center relative -translate-x-8 z-20'>
-                <EditableIcon bodyChildIndex={bodyChildIndex} pageNumber={pageNumber} title={title} />
-                <MemoizedEditableTitle handleOnBlur={handleOnBlur} handleOnFocus={handleOnFocus} pageNumber={pageNumber} bodyChildIndex={bodyChildIndex} titleText={title.text} />
+                <EditableIcon themeName={themeName} bodyChildIndex={bodyChildIndex} pageNumber={pageNumber} title={title} />
+                <MemoizedEditableTitle themeName={themeName} handleOnBlur={handleOnBlur} handleOnFocus={handleOnFocus} pageNumber={pageNumber} bodyChildIndex={bodyChildIndex} titleText={title.text} />
             </div>
 
             {info.map((infoChild, infoChildIndex) => (
-                <InfoChild key={"infoChild" + infoChildIndex} bodyChildIndex={bodyChildIndex} infoChildIndex={infoChildIndex} infoChild={infoChild} pageNumber={pageNumber} handleOnFocus={handleOnFocus} handleOnBlur={handleOnBlur} />
+                <InfoChild themeName={themeName} key={"infoChild" + infoChildIndex} bodyChildIndex={bodyChildIndex} infoChildIndex={infoChildIndex} infoChild={infoChild} pageNumber={pageNumber} handleOnFocus={handleOnFocus} handleOnBlur={handleOnBlur} />
             ))}
         </section>
         {showBodyChildOptions && (
