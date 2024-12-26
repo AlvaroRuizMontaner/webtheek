@@ -11,9 +11,10 @@ type EditableAuxProps = {
   infoChildIndex: number
   handleInfoOnFocus: () => void
   handleInfoOnBlur: () => void
+  themeName: string
 }
 
-export default function EditableAux({aux, bodyChildIndex, pageNumber, infoChildIndex, handleInfoOnFocus, handleInfoOnBlur}: EditableAuxProps) {
+export default function EditableAux({aux, themeName, bodyChildIndex, pageNumber, infoChildIndex, handleInfoOnFocus, handleInfoOnBlur}: EditableAuxProps) {
 
   const dispatch = useAppDispatch()
   const [showAuxOptions, setShowAuxOptions] = useState(false)
@@ -47,7 +48,7 @@ export default function EditableAux({aux, bodyChildIndex, pageNumber, infoChildI
         dangerouslySetInnerHTML={{ __html: aux }}
         onInput={handleOnInputInfoAux(infoChildIndex)}
         contentEditable={true}
-        className="text-gray-400 font-bold"
+        className={`aux ${themeName} font-bold outline-none`}
       ></span>), [aux, infoChildIndex])}
       {showAuxOptions && (
         <div className="absolute -right-5 top-[50%] -translate-y-[55%] bg-black text-white rounded-full ">

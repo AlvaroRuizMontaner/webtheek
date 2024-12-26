@@ -36,7 +36,7 @@ export default function EditableBirthday({birthday}: EditableBirthdayProps) {
       ref={editableRef}
       contentEditable
       onInput={handleInput}
-      className='text-center text-gray-400 text-base outline-none'
+      className='text-center text-base outline-none'
     ></p>
   );
 }

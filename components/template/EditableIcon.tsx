@@ -45,12 +45,12 @@ export default function EditableIcon({title, pageNumber, bodyChildIndex, themeNa
   const [showIconList, setShowIconList] = useState(false)
 
   return (
-    <div className="bg-blue-500 h-8 w-8 rounded-full flex items-center justify-center relative z-10">
+    <div className={`body-icon ${themeName} h-8 w-8 rounded-full flex items-center justify-center relative z-10`}>
       <span onClick={() => setShowIconList(true)} className={`text-white cursor-pointer ${title.classNameIcon}`}>
         {title.nameIcon}
       </span>
       {showIconList && (
-        <div className='absolute w-80 h-40 bg-blue-700 right-0 translate-x-full'>
+        <div className={`absolute w-80 h-40 body-icon ${themeName} right-0 translate-x-full`}>
           <div className='p-6u bg-white shadow-md h-full grid grid-cols-4 gap-4 justify-center overflow-y-scroll'>
             {icons.map((icon, iconIndex) => (
               <RadioInputIcon themeName={themeName} setShowIconList={setShowIconList} pageNumber={pageNumber} bodyChildIndex={bodyChildIndex} key={"icon" + iconIndex + bodyChildIndex} icon={icon} />

@@ -22,7 +22,7 @@ export default function InfoChild({pageNumber, themeName, infoChild, infoChildIn
           <EditableSideIcon addFunction={editSideInfoIcon} title={infoChild.icon} pageNumber={pageNumber} bodyChildIndex={bodyChildIndex} infoChildIndex={infoChildIndex} />
         )}{" "}
         <EditableMain pageNumber={pageNumber} infoChild={infoChild} infoChildIndex={infoChildIndex} bodyChildIndex={bodyChildIndex} handleOnFocus={handleOnFocus} handleOnBlur={handleOnBlur}/>
-        {infoChild.main && infoChild.aux && <EditableAux bodyChildIndex={bodyChildIndex} infoChildIndex={infoChildIndex} pageNumber={pageNumber} aux={infoChild.aux} handleInfoOnFocus={handleOnFocus} handleInfoOnBlur={handleOnBlur} />}
+        {infoChild.main && infoChild.aux && <EditableAux themeName={themeName} bodyChildIndex={bodyChildIndex} infoChildIndex={infoChildIndex} pageNumber={pageNumber} aux={infoChild.aux} handleInfoOnFocus={handleOnFocus} handleInfoOnBlur={handleOnBlur} />}
       </div>
       {infoChild.bar && <EditableBar themeName={themeName} pageNumber={pageNumber} bodyChildIndex={bodyChildIndex} infoChildIndex={infoChildIndex} barWidth={infoChild.bar} />}
     </div>
