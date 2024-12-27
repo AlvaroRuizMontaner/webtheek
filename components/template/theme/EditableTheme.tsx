@@ -20,8 +20,12 @@ function RadioInputTheme({theme, setShowThemeList}: RadioInputThemeProps) {
     setShowThemeList(false)
   }
 
+  function handleMouseOver() {
+    dispatch(selectTheme({color: theme.nameTheme }))
+  }
+
   return (
-    <label htmlFor={"theme" + theme.nameTheme} className="h-8 w-8  flex items-center justify-center">
+    <label htmlFor={"theme" + theme.nameTheme} onMouseOver={handleMouseOver} className="h-8 w-8  flex items-center justify-center">
       {theme.icon}
       <input className="absolute w-0 h-0 opacity-0" type="radio" name={"themes"} id={"theme" + theme.nameTheme} onChange={handleChange}/>
     </label>

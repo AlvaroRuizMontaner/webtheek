@@ -8,14 +8,23 @@ $indigo-600: #362fbc;
 $indigo-800: #130d77;
 $indigo-300: #948fef;
 
-$yellow-600: #8dbc2f;
-$yellow-800: #54770d;
-$yellow-300: #cfef8f;
+$yellow-600: #bcbc2f;
+$yellow-800: #77770d;
+$yellow-300: #efef8f;
+
+$orange-600: #bc762f;
+$orange-800: #77420d;
+$orange-300: #efbf8f;
 
 $green-600: var(--accent-600);
 $green-800: var(--accent-800);
 $green-300: var(--accent-300);
 
+$pink-600: #d87da6;
+$pink-800: #a92359;
+$pink-300: #f3aed4;
+
+$gray-600: var(--gray-600);
 $gray-400: var(--gray-400);
 $gray-200: var(--gray-200);
 
@@ -37,7 +46,7 @@ $gray-200: var(--gray-200);
     &.aux {color: $gray-400;}
     &.body-icon {background-color:  $blue-600;}
     &.bar {background-color:  $indigo-800;}
-    &.offset-bar {background-color: rgb(129 140 248);}
+    &.offset-bar {background-color: $indigo-300;}
 
     &.boundary {border: $blue-600;} 
     &.boundary-buttons {background-color: $blue-600;}
@@ -50,14 +59,14 @@ $gray-200: var(--gray-200);
 
     &.header {
         background-color: $yellow-800;
-        color: $gray-400;
+        color: $gray-200;
         h1 {
             color: white;
         }
     }
 
     &.side {background-color: $yellow-600;}
-    &.aux {color: $gray-400;}
+    &.aux {color: $gray-600;}
     &.body-icon {background-color:  $indigo-600;}
     &.bar {background-color:  $yellow-800;}
     &.offset-bar {background-color: $yellow-300;}
@@ -73,14 +82,14 @@ $gray-200: var(--gray-200);
 
     &.header {
         background-color: $yellow-800;
-        color: $gray-400;
+        color: $gray-200;
         h1 {
             color: white;
         }
     }
 
     &.side {background-color: $yellow-600;}
-    &.aux {color: $gray-400;}
+    &.aux {color: $gray-600;}
     &.body-icon {background-color:  $blue-600;}
     &.bar {background-color:  $yellow-800;}
     &.offset-bar {background-color: $yellow-300;}
@@ -91,21 +100,22 @@ $gray-200: var(--gray-200);
 
 .blue-orange {
     color: white;
-    &.body-title {color: $indigo-600}
-    &.body-main {color: rgb(30, 58, 138);}
+    &.body-title {color: $blue-600}
+    &.body-main {color: $blue-800;}
 
     &.header {
-        background-color: rgb(154 52 18);
-        color: $gray-400;
+        background-color: $orange-800;
+        color: $gray-200;
         h1 {
             color: white;
         }
     }
 
-    &.side {background-color: rgb(224, 140, 30);}
-    &.aux {color: $gray-400;}
-    &.bar, &.body-icon {background-color:  $blue-600;}
-    &.offset-bar {background-color: rgb(129 140 248);}
+    &.side {background-color: $orange-600;}
+    &.aux {color: $gray-600;}
+    &.body-icon {background-color:  $blue-600;}
+    &.bar {background-color:  $orange-800;}
+    &.offset-bar {background-color: $orange-300;}
 
     &.boundary {border: $blue-600;} 
     &.boundary-buttons {background-color: $blue-600;}
@@ -128,10 +138,143 @@ $gray-200: var(--gray-200);
     &.aux {color: $gray-200;}
     &.body-icon {background-color:  $blue-600;}
     &.bar {background-color:  $green-800;}
+    &.offset-bar {background-color: $green-300;}
+
+    &.boundary {border: $blue-600;} 
+    &.boundary-buttons {background-color: $blue-600;}
+}
+
+.blue {
+    color: white;
+    &.body-title {color: $blue-600}
+    &.body-main {color: $blue-800;}
+
+    &.header {
+        background-color: $blue-800;
+        color: $gray-200;
+        h1 {
+            color: white;
+        }
+    }
+
+    &.side {background-color: $blue-600;}
+    &.aux {color: $gray-200;}
+    &.body-icon {background-color:  $blue-600;}
+    &.bar {background-color:  $blue-800;}
     &.offset-bar {background-color: $blue-300;}
 
     &.boundary {border: $blue-600;} 
     &.boundary-buttons {background-color: $blue-600;}
+}
+.indigo {
+    color: white;
+    &.body-title {color: $indigo-600}
+    &.body-main {color: $indigo-800;}
+
+    &.header {
+        background-color: $indigo-800;
+        color: $gray-400;
+        h1 {
+            color: white;
+        }
+    }
+
+    &.side {background-color: $indigo-600;}
+    &.aux {color: $gray-400;}
+    &.body-icon {background-color:  $indigo-600;}
+    &.bar {background-color:  $indigo-800;}
+    &.offset-bar {background-color: $indigo-300;}
+
+    &.boundary {border: $indigo-600;} 
+    &.boundary-buttons {background-color: $indigo-600;}
+}
+.yellow {
+    color: white;
+    &.body-title {color: $yellow-600}
+    &.body-main {color: $yellow-800;}
+
+    &.header {
+        background-color: $yellow-800;
+        color: $gray-200;
+        h1 {
+            color: white;
+        }
+    }
+
+    &.side {background-color: $yellow-600;}
+    &.aux {color: $gray-600;}
+    &.body-icon {background-color:  $yellow-600;}
+    &.bar {background-color:  $yellow-800;}
+    &.offset-bar {background-color: $yellow-300;}
+
+    &.boundary {border: $yellow-600;} 
+    &.boundary-buttons {background-color: $yellow-600;}
+}
+.orange {
+    color: white;
+    &.body-title {color: $orange-600}
+    &.body-main {color: $orange-800;}
+
+    &.header {
+        background-color: $orange-800;
+        color: $gray-200;
+        h1 {
+            color: white;
+        }
+    }
+
+    &.side {background-color: $orange-600;}
+    &.aux {color: $gray-600;}
+    &.body-icon {background-color:  $orange-600;}
+    &.bar {background-color:  $orange-800;}
+    &.offset-bar {background-color: $orange-300;}
+
+    &.boundary {border: $orange-600;} 
+    &.boundary-buttons {background-color: $orange-600;}
+}
+.green {
+    color: white;
+    &.body-title {color: $green-600}
+    &.body-main {color: $green-800;}
+
+    &.header {
+        background-color: $green-800;
+        color: $gray-200;
+        h1 {
+            color: white;
+        }
+    }
+
+    &.side {background-color: $green-600;}
+    &.aux {color: $gray-200;}
+    &.body-icon {background-color:  $green-600;}
+    &.bar {background-color:  $green-800;}
+    &.offset-bar {background-color: $green-300;}
+
+    &.boundary {border: $green-600;} 
+    &.boundary-buttons {background-color: $green-600;}
+}
+.pink {
+    color: white;
+    &.body-title {color: $pink-600}
+    &.body-main {color: $pink-800;}
+
+    &.header {
+        background-color: $pink-800;
+        color: $gray-200;
+        h1 {
+            color: white;
+        }
+    }
+
+    &.side {background-color: $pink-600;}
+    &.aux {color: $gray-600;}
+    &.body-icon {background-color:  $pink-600;}
+    &.bar {background-color:  $pink-800;}
+    &.offset-bar {background-color: $pink-300;}
+
+    &.boundary {border: $pink-600;} 
+    &.boundary-buttons {background-color: $pink-600;}
 }
 
 

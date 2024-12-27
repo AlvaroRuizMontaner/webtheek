@@ -57,7 +57,7 @@ return (
       contentEditable={true}
       onInput={handleOnInputInfoMain(infoChildIndex)}
       className={`font-bold text-base body-main ${themeName} max-w-[390px] outline-none`}
-    ></p>), [main, infoChildIndex])}
+    ></p>), [main, infoChildIndex, themeName])}
     {showMainOptions && (
       <div className="absolute -left-5 top-[50%] -translate-y-[55%] bg-black text-white rounded-full">
         <span

@@ -49,7 +49,7 @@ export default function EditableAux({aux, themeName, bodyChildIndex, pageNumber,
         onInput={handleOnInputInfoAux(infoChildIndex)}
         contentEditable={true}
         className={`aux ${themeName} font-bold outline-none`}
-      ></span>), [aux, infoChildIndex])}
+      ></span>), [aux, infoChildIndex, themeName])}
       {showAuxOptions && (
         <div className="absolute -right-5 top-[50%] -translate-y-[55%] bg-black text-white rounded-full ">
           <span
