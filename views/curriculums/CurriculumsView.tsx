@@ -2,30 +2,30 @@ import Button from "@/components/button/Button";
 import EmptyState from "@/components/empty-state/EmptyState";
 import Loading from "@/components/loading-templates/Loading";
 import PermissionTag from "@/components/permission-tag/PermissionTag";
-import DeleteQuizModal from "@/components/quizzes/DeleteQuizModal";
 import Subtitle from "@/components/title/Subtitle";
 import Title from "@/components/title/Title";
 import { useAuth } from "@/hooks/useAuth";
-import { getQuizzes } from "@/services/QuizAPI";
 import { isManager } from "@/utils/policies";
 import { Menu, MenuButton, MenuItem, MenuItems, Transition } from "@headlessui/react";
 import { EllipsisVerticalIcon } from "@heroicons/react/20/solid";
-import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { Fragment } from "react";
-import "./quizzes.scss"
+import "./curriculums.scss";
+import { useGetCurriculumsQuery } from "@/redux/services/createApiCurriculum";
+import DeleteCurriculumModal from "@/components/curriculums/DeleteCurriculumModal";
 
 
 
-export default function QuizzesView() {
+export default function CurriculumsView() {
     const router = useRouter()
     const path = usePathname()
     const { data: user, isLoading: authLoading } = useAuth()
-    const { data, isLoading } = useQuery({
-      queryKey: ["quizzes"],
-      queryFn: getQuizzes,
-    });
+    const {data, isLoading, /* error, isFetching */} = useGetCurriculumsQuery(null)
+/*     const { data, isLoading } = useQuery({
+      queryKey: ["curriculums"],
+      queryFn: getCurriculums,
+    }); */
   
   
     if (isLoading && authLoading) return <Loading />;
@@ -34,35 +34,35 @@ export default function QuizzesView() {
         return (
           <>
             <div className="mb-8u sm:mb-12u">
-              <Title variant="dark">Quizzes</Title>
-              <Subtitle variant="dark" text="Maneja y administra quizzes" />
+              <Title variant="dark">Curriculums</Title>
+              <Subtitle variant="dark" text="Maneja y administra curriculums" />
     
-              <Button text="Nuevo quiz" href="/quizzes/create" />
+              <Button text="Nuevo curriculum" href="/curriculums/create" />
             </div>
     
             {data.length ? (
               <ul role="list" className="space-y-8u my-10">
-                {data.map((quiz) => (
+                {data.map((curriculum) => (
                   <li
-                    key={quiz._id}
-                    className="flex relative justify-between gap-x-6 quiz-card bg-white shadow-lg"
+                    key={curriculum._id}
+                    className="flex relative justify-between gap-x-6 curriculum-card bg-white shadow-lg"
                   >
                     <div className="flex min-w-0 gap-x-4 pl-6u py-8u overflow-hidden">
                       <div className="min-w-0 flex-auto space-y-2u">
                         <div className="permissionTagWrapper">
                           <PermissionTag
-                            isManager={isManager(quiz.manager, user._id)}
+                            isManager={isManager(curriculum.manager, user._id)}
                           />
                         </div>
                         <div>
                           <Link
-                            href={`/quizzes/${quiz._id}`}
+                            href={`/curriculums/${curriculum._id}`}
                             className="text-gray-600 cursor-pointer hover:underline headline3 font-bold"
                           >
-                            {quiz.name}
+                            {curriculum.name}
                           </Link>
                         </div>
-                        <p className="text-gray-400">{quiz.description}</p>
+                        {/* <p className="text-gray-400">{curriculum.description}</p> */}
                       </div>
                     </div>
                     <div className="flex shrink-0 items-center gap-x-6 w-fit pr-6u py-8u">
@@ -86,21 +86,21 @@ export default function QuizzesView() {
                           <MenuItems className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none">
                             <MenuItem>
                               <Link
-                                href={`/quizzes/${quiz._id}`}
+                                href={`/curriculums/${curriculum._id}`}
                                 className="block px-3 py-1 text-sm leading-6 text-gray-900"
                               >
-                                Ver Quiz
+                                Ver curriculum
                               </Link>
                             </MenuItem>
     
-                            {isManager(quiz.manager, user._id) && (
+                            {isManager(curriculum.manager, user._id) && (
                               <>
                                 <MenuItem>
                                   <Link
-                                    href={`/quizzes/${quiz._id}/edit`}
+                                    href={`/curriculums/${curriculum._id}/edit`}
                                     className="block px-3 py-1 text-sm leading-6 text-gray-900"
                                   >
-                                    Editar Quiz
+                                    Editar curriculum
                                   </Link>
                                 </MenuItem>
                                 <MenuItem>
@@ -109,11 +109,11 @@ export default function QuizzesView() {
                                     className="block px-3 py-1 text-sm leading-6 text-red-500"
                                     onClick={() =>
                                       router.push(
-                                        path + `?deleteQuiz=${quiz._id}`
+                                        path + `?deleteCurriculum=${curriculum._id}`
                                       )
                                     }
                                   >
-                                    Eliminar Quiz
+                                    Eliminar curriculum
                                   </button>
                                 </MenuItem>
                               </>
@@ -128,18 +128,18 @@ export default function QuizzesView() {
             ) : (
               <div className="text-center py-20 flex flex-col gap-2">
                 <div className="h-64">
-                  <EmptyState text="No hay quizzes, aún..." />
+                  <EmptyState text="No hay curriculums, aún..." />
                 </div>
                 <Link
                   className=" text-primary-500 font-bold"
-                  href="/quizzes/create"
+                  href="/curriculum/create"
                 >
-                  Crear quiz
+                  Crear curriculum
                 </Link>
               </div>
             )}
     
-            <DeleteQuizModal />
+            <DeleteCurriculumModal />
           </>
         );
 }

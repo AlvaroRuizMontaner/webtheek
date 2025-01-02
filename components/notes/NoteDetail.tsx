@@ -8,9 +8,9 @@ import React, { useMemo, useState } from 'react'
 import { toast } from 'react-toastify';
 import { TrashIcon, PencilSquareIcon } from "@heroicons/react/20/solid";
 import styles from "./Notes.module.css"
-import ProjectsLoading from '../loading-templates/ProjectsLoading';
 import { useForm } from 'react-hook-form';
 import SubmitInput from '../form/input/SubmitInput';
+import Loading from '../loading-templates/Loading';
 
 type NoteDetailProps  = {
     note: Note
@@ -57,7 +57,7 @@ export default function NoteDetail({note, projectId}: NoteDetailProps) {
       editMutate({projectId, taskId, noteId: note._id, formData})
     }
 
-    if(isLoading) return <ProjectsLoading />
+    if(isLoading) return <Loading />
 
   return (
     <div className="flex justify-between items-center gap-2 body3">

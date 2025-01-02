@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ProjectsLoadingData = [
+const loadingData = [
     {
         _id: "string",
         description: "",
@@ -31,7 +31,7 @@ const ProjectsLoadingData = [
     }
 ]
 
-export default function ProjectsLoading() {
+export default function Loading() {
   return (
     <div>
       <div className=" h-[159px] sm:h-[174px] lg:h-[189px] mb-12u flex flex-col justify-between">
@@ -40,7 +40,7 @@ export default function ProjectsLoading() {
         <section className='__loading rounded-lg h-[48px] max-w-full sm:max-w-[220px]'></section>
       </div>
       <ul role="list" className="space-y-4 my-10">
-        {ProjectsLoadingData.map((project, index) => (
+        {loadingData.map((project, index) => (
           <li
             key={project._id + index}
             className="flex relative justify-between gap-x-6 shadow-lg __loading h-[191px] sm:h-[198px] lg:h-[203px]"

@@ -1,6 +1,6 @@
 "use client"
 import { useToastSuccess } from "@/hooks/toast";
-import CurriculumsView from "@/views/curriculums/CurriculumsView";
+import CreateCurriculumView from "@/views/curriculums/CreateCurriculumView";
 
 // `app/page.tsx` is the UI for the `/` URL
 export default function Page(): JSX.Element {
@@ -9,7 +9,7 @@ export default function Page(): JSX.Element {
   return (
 
     <>
-      <CurriculumsView />
+      <CreateCurriculumView />
     </>
   );
 }

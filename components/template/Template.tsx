@@ -1,5 +1,6 @@
 "use client"
 
+import { BiSave } from "react-icons/bi"; 
 import { generatePDF } from "@/services/PDFAPI";
 import { getHtmlWithStyles } from "@/utils/generateHtml";
 import { useMutation } from "@tanstack/react-query";
@@ -18,13 +19,20 @@ import Header from "./header/Header";
 import ControlOptions from "./ControlOptions";
 import { IconType } from "react-icons/lib";
 import EditableTheme from "./theme/EditableTheme";
+import { useEditCurriculumContentMutation } from "@/redux/services/createApiCurriculum";
+import { CurriculumContentFormData } from "@/types/curriculum";
+
+type TemplateProps = {
+  curriculumId: string
+}
 
 
-export const Template = React.memo(() => {
+export const Template = ({curriculumId}: TemplateProps) => {
   const [pdfUrl, setPdfUrl] = useState("")
   const [isLoading, setIsLoading] = useState(false)
   const [showOptions, setShowOptions] = useState(true)
   const [showDashLine, setShowDashLine] = useState(true)
+  const [editCurriculumContent, { /* data, error, */ isSuccess, isLoading: isEditLoading/* , isFetching  */}] = useEditCurriculumContentMutation();
   const { mutate } = useMutation({
     mutationFn: generatePDF,
     onError: (error) => {
@@ -69,6 +77,20 @@ export const Template = React.memo(() => {
   },[showOptions])
 
   const pages = useAppSelector((state) => state.curriculumReducer)
+
+  const handleEdit = async (formData: CurriculumContentFormData) => {
+    try {
+        const result = await editCurriculumContent({curriculumId, formData}).unwrap();
+        console.log("Actualización exitosa:", result);
+        if(isSuccess) {
+          //actualizarEstado()
+        }else {
+          //Notificar error quiza con toast
+        }
+    } catch (err) {
+        console.error("Error en la mutación:", err);
+    }
+  };
 
 
   if(pages) return (
@@ -127,8 +149,22 @@ export const Template = React.memo(() => {
           ></Link>
         </div>
         <EditableTheme />
+        <div>
+          <div
+            className="cursor-pointer w-8 h-8 relative"
+            onClick={() => handleEdit(pages as any)}
+          >
+            {isEditLoading ? (
+              <span className="absolute left-0 bottom-0 block w-8 h-8">
+                <Spinner color="violet" size="small" />
+              </span>
+            ) : (
+              <BiSave className="w-8 h-8 text-gray-400" />
+            )}
+          </div>
+        </div>
       </section>
     </div>
   );
-})
+}
 

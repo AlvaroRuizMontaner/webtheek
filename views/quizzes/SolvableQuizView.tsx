@@ -1,5 +1,5 @@
 import Button from '@/components/button/Button';
-import ProjectsLoading from '@/components/loading-templates/ProjectsLoading';
+import Loading from '@/components/loading-templates/Loading';
 import Recount from '@/components/quizzes/Recount';
 import SolvableQuestions from '@/components/quizzes/SolvableQuestions';
 import TrackingPanel from '@/components/quizzes/TrackingPanel';
@@ -46,7 +46,7 @@ export default function SolvableQuizView({quizId}: SolvableQuizViewProps) {
     dispatch({type: "SUBMIT", payload: {questions: state.questions}})
   }
 
-    if(isLoading) return <ProjectsLoading />
+    if(isLoading) return <Loading />
     if(isError) throw new Error(error.message);
     if(data && isBuilt) return (
       <div className="relative pt-32">

@@ -1,13 +1,13 @@
 import { axiosBaseQuery } from "@/services/CurriculumAPI";
-import { Curriculum, CurriculumFormData } from "@/types/curriculum";
-import { createApi, /* fetchBaseQuery */ } from "@reduxjs/toolkit/query/react";
+import { Curriculum, CurriculumContentFormData, CurriculumCreateFormData } from "@/types/curriculum";
+import { createApi, /* fetchBaseQuery */ } from "@reduxjs/toolkit/query/react"; // Si se importa la version sin el /react no se crearan los hooks del final
 
 export const curriculumApi = createApi({
     reducerPath: "curriculumApi",
     baseQuery: axiosBaseQuery,
     tagTypes: ["Curriculum"], // Define aquí tus tipos de tags
     endpoints: (builder) => ({
-        createCurriculum: builder.mutation<Curriculum, CurriculumFormData>({ // El primer parametro generico define el tipo de la respuesta y el segundo el tipo de lo que se envia
+        createCurriculum: builder.mutation<string, CurriculumCreateFormData>({ // El primer parametro generico define el tipo de la respuesta y el segundo el tipo de lo que se envia
             query: (formData) => ({
                 url: "/curriculums",
                 method: "POST",
@@ -33,8 +33,54 @@ export const curriculumApi = createApi({
                 { type: "Curriculum", id: curriculumId }, // Proporciona una tag dinámica por ID
             ],
         }),
+        editCurriculumContent: builder.mutation<Curriculum, {curriculumId: string, formData: CurriculumContentFormData}>({ // El primer parametro generico define el tipo de la respuesta y el segundo el tipo de lo que se envia
+            query: ({ curriculumId, formData }) => {
+                console.log("Datos enviados a la API:", formData);  // Log de depuración
+                
+                return {
+                    url: `/curriculums/${curriculumId}`,
+                    method: "PUT",
+                    data: {
+                        content: formData
+                    }
+                };
+            },
+            invalidatesTags: [{ type: "Curriculum", id: "LIST" }],
+        }),
+        editCurriculumName: builder.mutation<Curriculum, {curriculumId: string, formData: {name: string}}>({ // El primer parametro generico define el tipo de la respuesta y el segundo el tipo de lo que se envia
+            query: ({formData, curriculumId}) => ({
+                url: `/curriculums/${curriculumId}`,
+                method: "PUT",
+                data: formData,
+            }),
+            invalidatesTags: [{ type: "Curriculum", id: "LIST" }],
+        }),
+        deleteCurriculum: builder.mutation<null, {curriculumId: string}>({
+            query: ({curriculumId}) => ({
+                url: `/curriculums/${curriculumId}`,
+                method: "DELETE"
+            }),
+            invalidatesTags: [{ type: "Curriculum", id: "LIST" }],
+        }),
+        checkPassword: builder.mutation<null, {password: string}>({
+            query: (formData) => {
+                return {
+                    url: "/auth/check-password",
+                    method: "POST",
+                    data: formData
+                }
+            }
+        }),
     }),
 });
-export const { useCreateCurriculumMutation, useGetCurriculumsQuery, useGetCurriculumByIdQuery} = curriculumApi
+export const { 
+    useCreateCurriculumMutation,
+    useGetCurriculumsQuery,
+    useGetCurriculumByIdQuery,
+    useEditCurriculumContentMutation,
+    useEditCurriculumNameMutation,
+    useDeleteCurriculumMutation,
+    useCheckPasswordMutation
+} = curriculumApi
 
 //const {data,error,isLoading,isFetching} = useGetCurriculumsQuery(null)

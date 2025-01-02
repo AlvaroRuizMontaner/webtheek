@@ -1,7 +1,7 @@
 import { Project, ToolType, User } from '@/types';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
-import ProjectsLoading from '@/components/loading-templates/ProjectsLoading';
+import Loading from '@/components/loading-templates/Loading';
 import Button from '@/components/button/Button';
 import { ChangeEvent } from 'react';
 import RadioPermissionInput from '@/components/form/input/radioPermissionInput/RadioPermissionInput';
@@ -78,7 +78,7 @@ export default function UserTeamView({toolId, tool, userId, queryKey}: UserTeamV
 
 
 
-  if (isLoading) return <ProjectsLoading />
+  if (isLoading) return <Loading />
   if (isError) throw new Error("Error");
   if (data) return (
     <>

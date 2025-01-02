@@ -6,7 +6,7 @@ import { ArrowLeftCircleIcon, ArrowRightCircleIcon } from '@heroicons/react/20/s
 import SlideCard from '@/components/team/SlideCard/SlideCard'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
-import ProjectsLoading from '../loading-templates/ProjectsLoading';
+import Loading from '../loading-templates/Loading';
 import { Project, User } from '@/types';
 import { editUserFromTeam, getUserTeamById } from '@/services/TeamAPI';
 
@@ -51,7 +51,7 @@ export default function SwiperSlideChange({projectId, userId}: SwiperSlideChange
       })
 
     
-      if (isLoading) return <ProjectsLoading />
+      if (isLoading) return <Loading />
       if (isError) throw new Error("Error");
 
 

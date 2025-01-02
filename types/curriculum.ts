@@ -37,20 +37,22 @@ const sideObjectSchema = z.object({
 
 const headerSchema = z.object({
     name: z.string(),
-    data: z.string(),
+    charge: z.string(),
     birthday: z.string(),
     imageUrl: z.string()
 })
 
-export const curriculumContentSchema = z.object({
+export const curriculumContentSchema = z.array(z.object({
     body: z.array(bodyObjectSchema),
-    header: headerSchema,
+    themeName: z.string(),
+    header: headerSchema.optional(),
     side: z.array(sideObjectSchema)
-})
+}))
 
 export const curriculumSchema = z.object({
     _id: z.string(),
-    manager: z.string().optional(),
+    name: z.string(),
+    manager: z.string()/* .optional() */,
     content: curriculumContentSchema
 })
 
@@ -65,7 +67,7 @@ export const editCurriculumSchema = curriculumSchema.pick({
     content: true,
 })
 
-
 export type Curriculum = z.infer<typeof curriculumSchema>
-export type CurriculumFormData = z.infer<typeof curriculumContentSchema>
+export type CurriculumCreateFormData = Pick<Curriculum, "name">
+export type CurriculumContentFormData = z.infer<typeof curriculumContentSchema>
 export type CurriculumImageFormData = z.infer<typeof fetchImage>

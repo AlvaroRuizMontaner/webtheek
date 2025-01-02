@@ -1,4 +1,4 @@
-import ProjectsLoading from '@/components/loading-templates/ProjectsLoading';
+import Loading from '@/components/loading-templates/Loading';
 import Questions from '@/components/quizzes/Questions';
 import Subtitle from '@/components/title/Subtitle';
 import Title from '@/components/title/Title';
@@ -78,7 +78,7 @@ export default function QuizDetailsView({quizId}: {quizId: Quiz["_id"]}) {
  }
 
 
-  if(isLoading && authLoading) return <ProjectsLoading />
+  if(isLoading && authLoading) return <Loading />
   if(isError) throw new Error(error.message);
   if(data && user) return (
     <div className="relative">

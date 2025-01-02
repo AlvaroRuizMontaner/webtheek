@@ -1,5 +1,5 @@
 import Button from '@/components/button/Button'
-import ProjectsLoading from '@/components/loading-templates/ProjectsLoading'
+import Loading from '@/components/loading-templates/Loading'
 import PermissionTag from '@/components/permission-tag/PermissionTag'
 import AddMemberModal from '@/components/team/AddMemberModal'
 import Subtitle from '@/components/title/Subtitle'
@@ -44,7 +44,7 @@ export default function TeamView({toolId, queryKey, tool}: TeamViewProps) {
 })
 
 
-  if (isLoading) return <ProjectsLoading />;
+  if (isLoading) return <Loading />;
   if (isError) throw new Error("Error");
   if (data) return (
     <>

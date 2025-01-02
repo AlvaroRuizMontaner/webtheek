@@ -1,4 +1,4 @@
-import ProjectsLoading from '@/components/loading-templates/ProjectsLoading';
+import Loading from '@/components/loading-templates/Loading';
 import EditQuizForm from '@/components/quizzes/EditQuizForm';
 import { getQuizById } from '@/services/QuizAPI';
 import { Quiz } from '@/types/quiz';
@@ -12,7 +12,7 @@ export default function EditQuizView({quizId}:{quizId: Quiz["_id"]}) {
         retry: false
     });
 
-    if(isLoading) return <ProjectsLoading />
+    if(isLoading) return <Loading />
     if(isError) throw new Error(error.message);
 
     if(data) return <EditQuizForm data={data} quizId={quizId} />

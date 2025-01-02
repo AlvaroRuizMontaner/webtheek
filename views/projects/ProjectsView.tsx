@@ -13,7 +13,7 @@ import Subtitle from "@/components/title/Subtitle";
 import Button from "@/components/button/Button";
 import "./projects.scss"
 import PermissionTag from "@/components/permission-tag/PermissionTag";
-import ProjectsLoading from "@/components/loading-templates/ProjectsLoading";
+import Loading from "@/components/loading-templates/Loading";
 import EmptyState from "@/components/empty-state/EmptyState";
 
 export default function ProjectsView() {
@@ -26,7 +26,7 @@ export default function ProjectsView() {
   });
 
 
-  if (isLoading && authLoading) return <ProjectsLoading />;
+  if (isLoading && authLoading) return <Loading />;
 
   if (data && user)
     return (
