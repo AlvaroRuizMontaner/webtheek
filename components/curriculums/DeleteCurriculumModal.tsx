@@ -54,10 +54,10 @@ export default function DeleteCurriculumModal() {
         console.log(formData)
         try {
             await checkPassword(formData).unwrap();  // Esperar a que termine la mutación
-            await deleteCurriculum({ curriculumId: deleteCurriculumId }).unwrap();  // Esperar a que termine la mutación
+            const data = await deleteCurriculum({ curriculumId: deleteCurriculumId }).unwrap();  // Esperar a que termine la mutación
     
             // Manejo del éxito directo con el resultado de unwrap()
-            localStorage.setItem('toastMessage', "Curriculum eliminado");
+            toast.success(data)
             router.push('/curriculums');
         } catch (err) {
             console.error("error")

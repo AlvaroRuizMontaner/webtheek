@@ -100,7 +100,7 @@ export default function CurriculumsView() {
                                     href={`/curriculums/${curriculum._id}/edit`}
                                     className="block px-3 py-1 text-sm leading-6 text-gray-900"
                                   >
-                                    Editar curriculum
+                                    Editar nombre
                                   </Link>
                                 </MenuItem>
                                 <MenuItem>

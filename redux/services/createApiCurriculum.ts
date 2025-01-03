@@ -45,15 +45,20 @@ export const curriculumApi = createApi({
                     }
                 };
             },
-            invalidatesTags: [{ type: "Curriculum", id: "LIST" }],
+            invalidatesTags: (result, error, { curriculumId }) => [
+                { type: "Curriculum", id: curriculumId }
+            ],
         }),
-        editCurriculumName: builder.mutation<Curriculum, {curriculumId: string, formData: {name: string}}>({ // El primer parametro generico define el tipo de la respuesta y el segundo el tipo de lo que se envia
+        editCurriculumName: builder.mutation<string, {curriculumId: string, formData: {name: string}}>({ // El primer parametro generico define el tipo de la respuesta y el segundo el tipo de lo que se envia
             query: ({formData, curriculumId}) => ({
-                url: `/curriculums/${curriculumId}`,
+                url: `/curriculums/${curriculumId}/name`,
                 method: "PUT",
                 data: formData,
             }),
-            invalidatesTags: [{ type: "Curriculum", id: "LIST" }],
+            invalidatesTags: (result, error, { curriculumId }) => [
+                { type: "Curriculum", id: curriculumId },
+                { type: "Curriculum", id: "LIST" }
+            ],
         }),
         deleteCurriculum: builder.mutation<null, {curriculumId: string}>({
             query: ({curriculumId}) => ({

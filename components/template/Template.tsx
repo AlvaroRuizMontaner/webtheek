@@ -1,5 +1,3 @@
-"use client"
-
 import { BiSave } from "react-icons/bi"; 
 import { generatePDF } from "@/services/PDFAPI";
 import { getHtmlWithStyles } from "@/utils/generateHtml";
@@ -11,7 +9,7 @@ import Spinner from "../spinners/Spinner";
 import Link from "next/link";
 import CentralBody from "./CentralBody";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { addBodyChildByIndex, addPage } from "@/redux/features/curriculumSlice";
+import { addBodyChildByIndex, addPage, sincronize } from "@/redux/features/curriculumSlice";
 import { DocumentPlusIcon, PlusIcon } from "@heroicons/react/20/solid";
 import PdfIcon from '../../public/icons/pdf_icon.svg';
 import SideBody from "./side/SideBody";
@@ -21,18 +19,21 @@ import { IconType } from "react-icons/lib";
 import EditableTheme from "./theme/EditableTheme";
 import { useEditCurriculumContentMutation } from "@/redux/services/createApiCurriculum";
 import { CurriculumContentFormData } from "@/types/curriculum";
+import { toast } from "react-toastify";
 
 type TemplateProps = {
   curriculumId: string
+  savedContent: CurriculumContentFormData
 }
 
 
-export const Template = ({curriculumId}: TemplateProps) => {
+export const Template = ({curriculumId, savedContent}: TemplateProps) => {
   const [pdfUrl, setPdfUrl] = useState("")
   const [isLoading, setIsLoading] = useState(false)
   const [showOptions, setShowOptions] = useState(true)
   const [showDashLine, setShowDashLine] = useState(true)
-  const [editCurriculumContent, { /* data, error, */ isSuccess, isLoading: isEditLoading/* , isFetching  */}] = useEditCurriculumContentMutation();
+  const [isSincronized, setIsSincronized] = useState(false)
+  const [editCurriculumContent, { /* data, error, */ isLoading: isEditLoading/* , isFetching  */}] = useEditCurriculumContentMutation();
   const { mutate } = useMutation({
     mutationFn: generatePDF,
     onError: (error) => {
@@ -76,24 +77,30 @@ export const Template = ({curriculumId}: TemplateProps) => {
     }
   },[showOptions])
 
-  const pages = useAppSelector((state) => state.curriculumReducer)
+  const pages = useAppSelector((state) => state.curriculumReducer);
+
+  useEffect(() => {
+    if (savedContent && savedContent.length > 0) {
+      console.log(savedContent)
+      dispatch(sincronize(savedContent));
+      setIsSincronized(true)
+    }
+  }, [savedContent, dispatch]);
 
   const handleEdit = async (formData: CurriculumContentFormData) => {
+    console.log(formData)
     try {
         const result = await editCurriculumContent({curriculumId, formData}).unwrap();
         console.log("Actualización exitosa:", result);
-        if(isSuccess) {
-          //actualizarEstado()
-        }else {
-          //Notificar error quiza con toast
-        }
+        toast.success("Guardado con éxito")
     } catch (err) {
         console.error("Error en la mutación:", err);
+        toast.error("No se ha podido guardar")
     }
   };
 
 
-  if(pages) return (
+  if(isSincronized && pages) return (
     <div className="relative overflow-x-scroll md:overflow-x-hidden">
       {/* El referrer se ha colodado en un ancestro extra porque de otro modo no cogia el background-color */}
       <div ref={referrer}>

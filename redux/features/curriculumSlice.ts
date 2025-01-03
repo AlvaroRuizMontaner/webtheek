@@ -527,6 +527,10 @@ export const curriculumSlice = createSlice({
     name: "curriculum",
     initialState,
     reducers: {
+        // Sincronize state with database
+        sincronize: (_, action) => {
+            return action.payload
+        },
         // Theme
         selectTheme: (state, action) => {
             const {color} = action.payload
@@ -813,6 +817,7 @@ export const curriculumSlice = createSlice({
 })
 
 const {
+    sincronize,
     selectTheme,
     /* Body */
     addPage,
@@ -860,6 +865,7 @@ const {
 const curriculumReducer = curriculumSlice.reducer
 
 export {
+    sincronize,
     selectTheme,
     /* Body */
     addPage,
