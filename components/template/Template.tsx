@@ -32,7 +32,6 @@ export const Template = ({curriculumId, savedContent}: TemplateProps) => {
   const [isLoading, setIsLoading] = useState(false)
   const [showOptions, setShowOptions] = useState(true)
   const [showDashLine, setShowDashLine] = useState(true)
-  const [isSincronized, setIsSincronized] = useState(false)
   const [editCurriculumContent, { /* data, error, */ isLoading: isEditLoading/* , isFetching  */}] = useEditCurriculumContentMutation();
   const { mutate } = useMutation({
     mutationFn: generatePDF,
@@ -80,10 +79,10 @@ export const Template = ({curriculumId, savedContent}: TemplateProps) => {
   const pages = useAppSelector((state) => state.curriculumReducer);
 
   useEffect(() => {
+    console.log(pages)
     if (savedContent && savedContent.length > 0) {
       console.log(savedContent)
       dispatch(sincronize(savedContent));
-      setIsSincronized(true)
     }
   }, [savedContent, dispatch]);
 
@@ -100,7 +99,7 @@ export const Template = ({curriculumId, savedContent}: TemplateProps) => {
   };
 
 
-  if(isSincronized && pages) return (
+  if(pages) return (
     <div className="relative overflow-x-scroll md:overflow-x-hidden">
       {/* El referrer se ha colodado en un ancestro extra porque de otro modo no cogia el background-color */}
       <div ref={referrer}>

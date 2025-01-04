@@ -132,7 +132,7 @@ export default function CurriculumsView() {
                 </div>
                 <Link
                   className=" text-primary-500 font-bold"
-                  href="/curriculum/create"
+                  href="/curriculums/create"
                 >
                   Crear curriculum
                 </Link>
