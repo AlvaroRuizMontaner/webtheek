@@ -26,6 +26,9 @@ const Footer = (): JSX.Element => {
           <li>
             <Link href="/quizzes">Quizzes</Link>
           </li>
+          <li>
+            <Link href="/curriculums">Curriculums</Link>
+          </li>
           {/*           <li>
             <a>Monitoring</a>
           </li>

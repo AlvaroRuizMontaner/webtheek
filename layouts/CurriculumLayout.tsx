@@ -9,11 +9,11 @@ import Footer from '@/components/footer/Footer';
 import MobileNav from '@/components/Nav/MobileNav';
 
 
-interface AppLayoutProps {
+interface CurriculumLayoutProps {
     children: React.ReactNode
 }
 
-export default function AppLayout({children}: AppLayoutProps): ReactNode {
+export default function CurriculumLayout({children}: CurriculumLayoutProps): ReactNode {
 
 /*   getSectionFromRouter */
 
@@ -28,9 +28,9 @@ export default function AppLayout({children}: AppLayoutProps): ReactNode {
       <header className=" bg-primary-900 py-2u">
         <div
           className="max-w-screen-2xl mx-auto flex sm:flex-row gap-6
-            justify-between items-center container"
+            justify-between items-center cv-container"
         >
-          <div className="w-24">
+          <div className="w-24 flex-shrink-0">
             <Link href="/">
               <Logo />
             </Link>
@@ -48,7 +48,7 @@ export default function AppLayout({children}: AppLayoutProps): ReactNode {
 
       {/* <Redirect /> */}
 
-      <section className=" max-w-screen-2xl flex-1 mx-auto my-12u container -showgrid">
+      <section className=" max-w-screen-2xl flex-1 mx-auto my-12u cv-container -showgrid">
           {children}
       </section>
 

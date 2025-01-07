@@ -102,21 +102,40 @@ export const Template = ({curriculumId, savedContent}: TemplateProps) => {
   if(pages) return (
     <div className="relative overflow-x-scroll md:overflow-x-hidden">
       {/* El referrer se ha colodado en un ancestro extra porque de otro modo no cogia el background-color */}
-      <div ref={referrer}>
+      <div className="flex flex-col gap-12" ref={referrer}>
         {pages.map((page, pageNumber) => (
           <div
             key={"cuerpo" + pageNumber}
             className="relative bg-white h-[297mm] w-[785px] flex items-center m-auto overflow-y-hidden"
           >
             <div className="min-w-[42rem] h-full max-w-2xl bg-white p-12 px-0 mx-auto relative">
-              {showOptions && <ControlOptions contentLength={page.body.length} addFunctions={[{function: addBodyChildByIndex, icon: PlusIcon as IconType}]} dispatch={dispatch} color="gray-200" pageNumber={pageNumber} />}
+              {showOptions && (
+                <ControlOptions
+                  contentLength={page.body.length}
+                  addFunctions={[
+                    {
+                      function: addBodyChildByIndex,
+                      icon: PlusIcon as IconType,
+                    },
+                  ]}
+                  dispatch={dispatch}
+                  color="gray-200"
+                  pageNumber={pageNumber}
+                />
+              )}
               <div className="contenedor h-full">
                 <section className="">
                   <CentralBody pageNumber={pageNumber} page={page.body} />
                 </section>
                 <section className={`side ${page.themeName}`}>
-                  {pageNumber === 0 && <Header themeName={page.themeName} {...page.header} />}
-                  <SideBody showOptions={showOptions} pageNumber={pageNumber} page={page.side} />
+                  {pageNumber === 0 && (
+                    <Header themeName={page.themeName} {...page.header} />
+                  )}
+                  <SideBody
+                    showOptions={showOptions}
+                    pageNumber={pageNumber}
+                    page={page.side}
+                  />
                 </section>
               </div>
             </div>
@@ -126,47 +145,49 @@ export const Template = ({curriculumId, savedContent}: TemplateProps) => {
           </div>
         ))}
       </div>
-      <section className="top-0 left-2 lg:left-20 flex flex-col gap-3 fixed z-50">
-        <div
-          className="mt-4 flex justify-center cursor-pointer"
-          onClick={() => dispatch(addPage())}
-        >
-          <DocumentPlusIcon className="w-8 h-8 text-gray-200" />
-        </div>
-        <div>
+      <section className="top-0 left-4 fixed z-50 h-full flex flex-col justify-center">
+        <div className="bg-gray-100 rounded-lg py-2 flex flex-col gap-3 justify-center h-fit">
           <div
-            className="cursor-pointer w-8 h-8 relative"
-            onClick={handleClick}
+            className="flex justify-center cursor-pointer"
+            onClick={() => dispatch(addPage())}
           >
-            {isLoading ? (
-              <span className="absolute left-0 bottom-0 block w-8 h-8">
-                <Spinner color="violet" size="small" />
-              </span>
-            ) : (
-              <PdfIcon className="w-8 h-8 text-gray-200" />
-              /* https://www.svgrepo.com/svg/64173/pdf-file */
-            )}
+            <DocumentPlusIcon className="w-8 h-8 text-gray-200" />
           </div>
-          <Link
-            ref={linkRef}
-            target={"_blank"}
-            href={pdfUrl}
-            className="hidden absolute"
-          ></Link>
-        </div>
-        <EditableTheme />
-        <div>
-          <div
-            className="cursor-pointer w-8 h-8 relative"
-            onClick={() => handleEdit(pages as any)}
-          >
-            {isEditLoading ? (
-              <span className="absolute left-0 bottom-0 block w-8 h-8">
-                <Spinner color="violet" size="small" />
-              </span>
-            ) : (
-              <BiSave className="w-8 h-8 text-gray-400" />
-            )}
+          <div>
+            <div
+              className="cursor-pointer w-8 h-8 relative"
+              onClick={handleClick}
+            >
+              {isLoading ? (
+                <span className="absolute left-0 bottom-0 block w-8 h-8">
+                  <Spinner color="violet" size="small" />
+                </span>
+              ) : (
+                <PdfIcon className="w-8 h-8 text-gray-200" />
+                /* https://www.svgrepo.com/svg/64173/pdf-file */
+              )}
+            </div>
+            <Link
+              ref={linkRef}
+              target={"_blank"}
+              href={pdfUrl}
+              className="hidden absolute"
+            ></Link>
+          </div>
+          <EditableTheme />
+          <div>
+            <div
+              className="cursor-pointer w-8 h-8 relative"
+              onClick={() => handleEdit(pages as any)}
+            >
+              {isEditLoading ? (
+                <span className="absolute left-0 bottom-0 block w-8 h-8">
+                  <Spinner color="violet" size="small" />
+                </span>
+              ) : (
+                <BiSave className="w-8 h-8 text-gray-400" />
+              )}
+            </div>
           </div>
         </div>
       </section>

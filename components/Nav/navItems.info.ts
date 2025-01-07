@@ -21,6 +21,10 @@ export const navItemsInfo: NavItem[] = [
         url: "quizzes"
     },
     {
+        name: "Curriculums",
+        url: "curriculums"
+    },
+    {
         name: "Cerrar sesión"
     }
 ]

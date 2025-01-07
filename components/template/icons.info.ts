@@ -36,7 +36,19 @@ export const icons = [
         classNameIcon: "material-symbols-outlined",
     },
     {
+        nameIcon: "business_center",
+        classNameIcon: "material-symbols-outlined",
+    },
+    {
         nameIcon: "code",
+        classNameIcon: "material-symbols-outlined"
+    },
+    {
+        nameIcon: "rocket_launch",
+        classNameIcon: "material-symbols-outlined"
+    },
+    {
+        nameIcon: "settings_accessibility",
         classNameIcon: "material-symbols-outlined"
     },
 ]
