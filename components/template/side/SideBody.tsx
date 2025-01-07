@@ -7,14 +7,15 @@ import { addSideBodyChildByIndex, addSideBodyChildByIndex2, addSideBodyChildByIn
 import { useAppDispatch } from "@/redux/hooks";
 
 type SideBodyProps = {
-  page: SectionSideBodyInfoType[]
+  sidePage: SectionSideBodyInfoType[]
   pageNumber: number
   showOptions: boolean
 }
 
 
-export default function SideBody({page, pageNumber, showOptions}: SideBodyProps) {
+export default function SideBody({sidePage, pageNumber, showOptions}: SideBodyProps) {
   const dispatch = useAppDispatch()
+
 
   const sideAddFunctionOptions = [
     {
@@ -33,8 +34,8 @@ export default function SideBody({page, pageNumber, showOptions}: SideBodyProps)
 
   return (
     <div className='flex flex-col justify-center gap-5 p-[1.25rem] text-white relative'>
-      {showOptions && <ControlOptions position="side" contentLength={page.length} addFunctions={sideAddFunctionOptions} dispatch={dispatch} color="gray-200" pageNumber={pageNumber} />}
-      {page.map((bodyChild, bodyChildIndex) => (
+      {showOptions && <ControlOptions position="side" contentLength={sidePage.length} addFunctions={sideAddFunctionOptions} dispatch={dispatch} color="gray-200" pageNumber={pageNumber} />}
+      {sidePage.map((bodyChild, bodyChildIndex) => (
         <SectionSideBody sideAddFunctionOptions={sideAddFunctionOptions} pageNumber={pageNumber} key={bodyChildIndex} bodyChildIndex={bodyChildIndex} {...bodyChild} />
       ))}
     </div>

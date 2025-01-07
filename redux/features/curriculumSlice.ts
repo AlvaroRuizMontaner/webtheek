@@ -1,7 +1,7 @@
 import { SectionCentralBodyInfoType, SectionHeader, SectionSideBodyInfoType } from "@/components/template/curriculum.info";
 import { createSlice } from "@reduxjs/toolkit"
 
-type InitialStateType = {
+export type InitialStateType = {
     themeName: string
     body: SectionCentralBodyInfoType[]
     header?: SectionHeader

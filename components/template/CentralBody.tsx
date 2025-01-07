@@ -1,21 +1,29 @@
-import { useEffect, useRef } from 'react'
+import { Dispatch, SetStateAction, useEffect, useRef } from 'react'
 import SectionCentralBody from './SectionCentralBody'
 import { SectionCentralBodyInfoType } from './curriculum.info'
 
+type CentralBodyProps = {
+  bodyPage: SectionCentralBodyInfoType[]
+  pageNumber: number
+  setShowDashLine: Dispatch<SetStateAction<boolean>>
+}
 
-
-export default function CentralBody({page, pageNumber}: {page: SectionCentralBodyInfoType[], pageNumber:number}) {
-  const bodyRef = useRef<HTMLDivElement | undefined>(undefined)
+export default function CentralBody({bodyPage, pageNumber, setShowDashLine}: CentralBodyProps) {
+  const bodyRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
-      if(bodyRef) {
-        console.log(bodyRef.current?.offsetHeight)
+    if(bodyRef && bodyRef.current) {
+      if(bodyRef.current.offsetHeight > 1027) {
+        setShowDashLine(true)
+      } else {
+        setShowDashLine(false)
       }
-    },[page])
+    }
+  },[bodyPage])
 
   return (
     <div ref={bodyRef} className='flex flex-col justify-center gap-10 px-[1.25rem]'> {/* px en vez de p provisional */}
-        {page.map((bodyChild, bodyChildIndex) => (
+        {bodyPage.map((bodyChild, bodyChildIndex) => (
             <SectionCentralBody bodyChildIndex={bodyChildIndex} pageNumber={pageNumber} key={bodyChildIndex} {...bodyChild}/>
         ))}
     </div>
