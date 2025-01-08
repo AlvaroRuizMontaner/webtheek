@@ -1,5 +1,5 @@
 import { axiosBaseQuery } from "@/services/CurriculumAPI";
-import { Curriculum, CurriculumContentFormData, CurriculumCreateFormData } from "@/types/curriculum";
+import { Curriculum, CurriculumCreateFormData } from "@/types/curriculum";
 import { createApi, /* fetchBaseQuery */ } from "@reduxjs/toolkit/query/react"; // Si se importa la version sin el /react no se crearan los hooks del final
 
 export const curriculumApi = createApi({
@@ -33,7 +33,7 @@ export const curriculumApi = createApi({
                 { type: "Curriculum", id: curriculumId }, // Proporciona una tag dinámica por ID
             ],
         }),
-        editCurriculumContent: builder.mutation<Curriculum, {curriculumId: string, formData: CurriculumContentFormData}>({ // El primer parametro generico define el tipo de la respuesta y el segundo el tipo de lo que se envia
+        editCurriculumContent: builder.mutation<Curriculum, {curriculumId: string, formData: Curriculum["content"]}>({ // El primer parametro generico define el tipo de la respuesta y el segundo el tipo de lo que se envia
             query: ({ curriculumId, formData }) => {
                 console.log("Datos enviados a la API:", formData);  // Log de depuración
                 

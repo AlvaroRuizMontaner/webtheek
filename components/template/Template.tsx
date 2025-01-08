@@ -13,7 +13,7 @@ import { DocumentPlusIcon } from "@heroicons/react/20/solid";
 import PdfIcon from '../../public/icons/pdf_icon.svg';
 import EditableTheme from "./theme/EditableTheme";
 import { useEditCurriculumContentMutation } from "@/redux/services/createApiCurriculum";
-import { Curriculum, CurriculumContentFormData } from "@/types/curriculum";
+import { Curriculum } from "@/types/curriculum";
 import { toast } from "react-toastify";
 import Page from "./Page";
 
@@ -69,7 +69,7 @@ export const Template = ({curriculumId, savedContent}: TemplateProps) => {
     }
   },[showOptions])
 
-  const state = useAppSelector((state) => state.curriculumReducer);
+  const content = useAppSelector((state) => state.curriculumReducer);
 
   useEffect(() => {
     if (savedContent && savedContent.pages.length > 0) {
@@ -77,7 +77,7 @@ export const Template = ({curriculumId, savedContent}: TemplateProps) => {
     }
   }, [savedContent, dispatch]);
 
-  const handleEdit = async (formData: CurriculumContentFormData) => {
+  const handleEdit = async (formData: Curriculum["content"]) => {
     console.log(formData)
     try {
         const result = await editCurriculumContent({curriculumId, formData}).unwrap();
@@ -90,12 +90,12 @@ export const Template = ({curriculumId, savedContent}: TemplateProps) => {
   };
 
 
-  if(state && state.pages) return (
+  if(content && content.pages) return (
     <div className="relative overflow-x-scroll md:overflow-x-hidden">
       {/* El referrer se ha colodado en un ancestro extra porque de otro modo no cogia el background-color */}
       <div className="flex flex-col gap-12" ref={referrer}>
-        {state.pages.map((page, pageNumber) => (
-          <Page themeName={state.themeName} key={"page" + pageNumber} page={page} pageNumber={pageNumber} showOptions={showOptions} />
+        {content.pages.map((page, pageNumber) => (
+          <Page themeName={content.themeName} key={"page" + pageNumber} page={page} pageNumber={pageNumber} showOptions={showOptions} />
         ))}
       </div>
       <section className="top-0 left-4 fixed z-50 h-full flex flex-col justify-center">
@@ -131,7 +131,7 @@ export const Template = ({curriculumId, savedContent}: TemplateProps) => {
           <div>
             <div
               className="cursor-pointer w-8 h-8 relative"
-              onClick={() => handleEdit(state.pages as any)}
+              onClick={() => handleEdit(content as any)}
             >
               {isEditLoading ? (
                 <span className="absolute left-0 bottom-0 block w-8 h-8">
