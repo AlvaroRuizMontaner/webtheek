@@ -29,7 +29,7 @@ export default function SidePage({side, header, themeName, pageNumber, showOptio
   return (
     <section ref={sidePageRef} className={`side ${themeName}`}>
       {pageNumber === 0 && (
-        <Header themeName={themeName} {...header} />
+        <Header {...header} />
       )}
       <SideBody
         showOptions={showOptions}

@@ -13,13 +13,13 @@ import { DocumentPlusIcon } from "@heroicons/react/20/solid";
 import PdfIcon from '../../public/icons/pdf_icon.svg';
 import EditableTheme from "./theme/EditableTheme";
 import { useEditCurriculumContentMutation } from "@/redux/services/createApiCurriculum";
-import { CurriculumContentFormData } from "@/types/curriculum";
+import { Curriculum, CurriculumContentFormData } from "@/types/curriculum";
 import { toast } from "react-toastify";
 import Page from "./Page";
 
 type TemplateProps = {
   curriculumId: string
-  savedContent: CurriculumContentFormData
+  savedContent: Curriculum["content"]
 }
 
 
@@ -69,10 +69,10 @@ export const Template = ({curriculumId, savedContent}: TemplateProps) => {
     }
   },[showOptions])
 
-  const pages = useAppSelector((state) => state.curriculumReducer);
+  const state = useAppSelector((state) => state.curriculumReducer);
 
   useEffect(() => {
-    if (savedContent && savedContent.length > 0) {
+    if (savedContent && savedContent.pages.length > 0) {
       dispatch(sincronize(savedContent));
     }
   }, [savedContent, dispatch]);
@@ -90,12 +90,12 @@ export const Template = ({curriculumId, savedContent}: TemplateProps) => {
   };
 
 
-  if(pages) return (
+  if(state && state.pages) return (
     <div className="relative overflow-x-scroll md:overflow-x-hidden">
       {/* El referrer se ha colodado en un ancestro extra porque de otro modo no cogia el background-color */}
       <div className="flex flex-col gap-12" ref={referrer}>
-        {pages.map((page, pageNumber) => (
-          <Page key={"page" + pageNumber} page={page} pageNumber={pageNumber} showOptions={showOptions} />
+        {state.pages.map((page, pageNumber) => (
+          <Page themeName={state.themeName} key={"page" + pageNumber} page={page} pageNumber={pageNumber} showOptions={showOptions} />
         ))}
       </div>
       <section className="top-0 left-4 fixed z-50 h-full flex flex-col justify-center">
@@ -131,7 +131,7 @@ export const Template = ({curriculumId, savedContent}: TemplateProps) => {
           <div>
             <div
               className="cursor-pointer w-8 h-8 relative"
-              onClick={() => handleEdit(pages as any)}
+              onClick={() => handleEdit(state.pages as any)}
             >
               {isEditLoading ? (
                 <span className="absolute left-0 bottom-0 block w-8 h-8">

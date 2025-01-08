@@ -44,7 +44,6 @@ const headerSchema = z.object({
 
 export const curriculumContentSchema = z.array(z.object({
     body: z.array(bodyObjectSchema),
-    themeName: z.string(),
     header: headerSchema.optional(),
     side: z.array(sideObjectSchema)
 }))
@@ -53,7 +52,10 @@ export const curriculumSchema = z.object({
     _id: z.string(),
     name: z.string(),
     manager: z.string()/* .optional() */,
-    content: curriculumContentSchema
+    content: z.object({
+        themeName: z.string(),
+        pages: curriculumContentSchema
+    })
 })
 
 const fetchImage = z.object({

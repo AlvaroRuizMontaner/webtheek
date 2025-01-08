@@ -22,7 +22,7 @@ interface SectionSideBodyProps extends SectionSideBodyInfoType {
 export default function SectionSideBody({ title, info, pageNumber, bodyChildIndex, sideAddFunctionOptions}: SectionSideBodyProps) {
   const dispatch = useAppDispatch()
   const [showBodyChildOptions, setShowBodyChildOptions] = useState(false)
-  const themeName = useAppSelector((state) => state.curriculumReducer)[pageNumber].themeName
+  const themeName = useAppSelector((state) => state.curriculumReducer).themeName
 
   const handleOnBlur = useCallback(() => {
     setTimeout(() => setShowBodyChildOptions(false), 100)

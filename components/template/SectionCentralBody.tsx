@@ -18,7 +18,7 @@ interface SectionCentralBody extends SectionCentralBodyInfoType {
 export default function SectionCentralBody({title, info, pageNumber, bodyChildIndex}: SectionCentralBody) {
     const dispatch = useAppDispatch()
     const [showBodyChildOptions, setShowBodyChildOptions] = useState(false)
-    const themeName = useAppSelector((state) => state.curriculumReducer)[pageNumber].themeName
+    const themeName = useAppSelector((state) => state.curriculumReducer).themeName
 
 
 /*     const handleOnInputList = (infoChildIndex: number, listChildIndex: number) => (e: React.SyntheticEvent) => {

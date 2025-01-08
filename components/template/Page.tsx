@@ -8,12 +8,13 @@ import { useState } from 'react'
 import SidePage from './SidePage'
 
 type PageProps = {
-    page: InitialStateType[number]
+    page: InitialStateType["pages"][number]
     pageNumber: number
     showOptions: boolean
+    themeName: string
 }
 
-export default function Page({page, pageNumber, showOptions}: PageProps) {
+export default function Page({page, pageNumber, showOptions, themeName}: PageProps) {
     const dispatch = useAppDispatch()
     const [showDashLine, setShowDashLine] = useState(false)
 
@@ -41,7 +42,7 @@ export default function Page({page, pageNumber, showOptions}: PageProps) {
         <section className="">
           <CentralBody setShowDashLine={setShowDashLine} pageNumber={pageNumber} bodyPage={page.body} />
         </section>
-        <SidePage pageNumber={pageNumber} side={page.side} header={page.header} themeName={page.themeName} setShowDashLine={setShowDashLine} showOptions={showOptions} />
+        <SidePage pageNumber={pageNumber} side={page.side} header={page.header} themeName={themeName} setShowDashLine={setShowDashLine} showOptions={showOptions} />
       </div>
     </div>
     {showDashLine && showOptions && (

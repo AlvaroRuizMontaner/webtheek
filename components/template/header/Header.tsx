@@ -5,18 +5,19 @@ import EditableBirthday from './EditableBirthday'
 import { CameraIcon } from '@heroicons/react/20/solid'
 import { toast } from 'react-toastify'
 import { useUploadImageMutation } from '@/redux/services/hostImage'
+import { useAppSelector } from '@/redux/hooks'
 
 type HeaderProps = {
   name?: string
   charge?: string
   birthday?: string
-  themeName: string
 }
 
-export default function Header({name="", charge="", birthday="", themeName}: HeaderProps) {
+export default function Header({name="", charge="", birthday=""}: HeaderProps) {
 /*   const [selectedFile, setSelectedFile] = useState<File | null>(null); */
   const [preview, setPreview] = useState<string | undefined>(undefined);
   const [showCam, setShowCam] = useState<boolean>(false)
+  const themeName = useAppSelector((state) => state.curriculumReducer).themeName
 
   const inputRef = useRef<HTMLInputElement>(null)
 
