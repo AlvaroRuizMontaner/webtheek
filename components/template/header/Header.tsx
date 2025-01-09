@@ -27,33 +27,35 @@ export default function Header({name="", charge="", birthday="", photoUrl=""}: H
   const defaultPhotoURL = 'https://i.imgur.com/5H0KCsy.png' // "https://imagizer.imageshack.com/img923/7400/eoTc6E.png"
 
   const [uploadImage, /* { isLoading, error } */] = useUploadImageMutation();
+
+ const handleEditPhotoUrl = (url: string) => {
+    dispatch(editPhotoUrl({         
+      pageNumber: 0, 
+      photoUrl: url
+    }))
+  }
   
   const handleUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
 
     if (file) {
       const url = URL.createObjectURL(file);
-      //setPreview(url);
-      dispatch(editPhotoUrl({         
-        pageNumber: 0, 
-        photoUrl: url
-      }))
 
       const formData = new FormData();
       formData.append('image', file);
       formData.append('album', 'ShBFecvIzWtNoIS');
 
       try {
+        //setPreview(url);
+        handleEditPhotoUrl(url)
+
         const result = await uploadImage(formData)
         const {data} = result
-        if(data) {
+        if(data && data.data) {
           //setPreview(data.data?.link)
-          console.log(data)
-          console.log(data.data?.link)
-          dispatch(editPhotoUrl({         
-            pageNumber: 0, 
-            photoUrl: data.data?.link
-          }))
+          handleEditPhotoUrl(data.data?.link)
+        } else {
+          toast.warning("La imagen no será guardable en base de datos")
         }
         console.log(result)
       } catch (error) {
