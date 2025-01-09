@@ -26,6 +26,7 @@ export type SectionCentralBodyInfoType = {
 }
 
 export type SectionHeader = {
+    photoUrl: string
     name: string
     charge: string
     birthday: string

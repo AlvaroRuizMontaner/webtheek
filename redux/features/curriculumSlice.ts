@@ -245,6 +245,7 @@ const initialState: InitialStateType = {
                 }
             ],
             header : {
+                photoUrl: "https://i.imgur.com/5H0KCsy.png",
                 name: "Name Surname Surname",
                 charge: "Your work",
                 birthday: " 01-01-2000",
@@ -694,6 +695,12 @@ export const curriculumSlice = createSlice({
         },
 
         /* -----------------------------------------------------Header----------------------------------------------------- */
+        editPhotoUrl: (state, action) => {
+            const {photoUrl, pageNumber} = action.payload
+            if(pageNumber === 0 && state.pages[pageNumber].header) {
+                state.pages[pageNumber].header!.photoUrl = photoUrl;
+            }
+        },
         editName: (state, action) => {
             const { pageNumber, value} = action.payload
             if(pageNumber === 0 && state.pages[pageNumber].header) {
@@ -845,6 +852,7 @@ const {
     editListChild,
     editIcon,
     /* Header */
+    editPhotoUrl,
     editName,
     editCharge,
     editBirthday,
@@ -893,6 +901,7 @@ export {
     editListChild,
     editIcon,
     /* Header */
+    editPhotoUrl,
     editName,
     editCharge,
     editBirthday,
