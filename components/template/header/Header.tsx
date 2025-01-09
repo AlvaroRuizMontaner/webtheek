@@ -48,6 +48,8 @@ export default function Header({name="", charge="", birthday="", photoUrl=""}: H
         const {data} = result
         if(data) {
           //setPreview(data.data?.link)
+          console.log(data)
+          console.log(data.data?.link)
           dispatch(editPhotoUrl({         
             pageNumber: 0, 
             photoUrl: data.data?.link
