@@ -133,7 +133,7 @@ export default function Header({name="", charge="", birthday="", photoUrl=""}: H
       <div className='flex justify-center'>
         <div className='relative w-[130px]' onMouseOut={() => setShowCam(false)}  onMouseOver={() => setShowCam(true)}>
           <input onChange={handleUpload} className='absolute block opacity-0 w-0' ref={inputRef} accept="image/*" type="file" name="" id="icon-button-file" />
-          <img className='w-[130px]' src={photoUrl || defaultPhotoURL} alt="" />
+          <img className='w-[130px] block min-h-10' src={photoUrl || defaultPhotoURL} alt="" />
           {showCam && <label className='absolute right-0 bottom-0 cursor-pointer' htmlFor="icon-button-file">
             <CameraIcon className='w-8 h-8 text-blue-500' />
           </label>}
