@@ -14,9 +14,10 @@ type ControlOptionsProps = {
     color: string
     addFunctions: AddFunctions
     position?: "side" | "body"
+    isEditable?: boolean
 }
 
-export default function ControlOptions({color, contentLength, position="body", pageNumber, dispatch, addFunctions}: ControlOptionsProps) {
+export default function ControlOptions({color, contentLength, position="body", pageNumber, dispatch, addFunctions, isEditable=true}: ControlOptionsProps) {
 
     function AddIcon({ icon }: {icon: IconType}) {
       const IconComponent = icon
@@ -24,8 +25,8 @@ export default function ControlOptions({color, contentLength, position="body", p
     }
 
   return (
-    <div className={`bg-${color} absolute text-white top-4 flex gap-2 rounded-md z-10`}>
-      {pageNumber !== 0 && position === "body" && (
+    <div className={`bg-${color} absolute text-white top-0 right-0 flex gap-2 z-10`}>
+      {pageNumber !== 0 && position === "body" && isEditable && (
         <span
         className="cursor-pointer"
         onClick={() => dispatch(deletePage({ pageNumber }))}

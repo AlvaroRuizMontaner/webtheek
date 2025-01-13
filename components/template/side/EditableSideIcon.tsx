@@ -11,6 +11,7 @@ type EditableSideIconProps = {
   pageNumber: number
   infoChildIndex?: number | undefined
   addFunction: (p: any) => any
+  isEditable: boolean
 }
 
 type RadioInputIconProps = {
@@ -41,7 +42,7 @@ function RadioInputIcon({icon, pageNumber, bodyChildIndex, infoChildIndex, addFu
   )
 }
 
-export default function EditableSideIcon({title, pageNumber, bodyChildIndex, addFunction, infoChildIndex=undefined}: EditableSideIconProps) {
+export default function EditableSideIcon({title, pageNumber, bodyChildIndex, addFunction, infoChildIndex=undefined, isEditable}: EditableSideIconProps) {
 
   const [showIconList, setShowIconList] = useState(false)
 
@@ -50,7 +51,7 @@ export default function EditableSideIcon({title, pageNumber, bodyChildIndex, add
       <span onClick={() => setShowIconList(true)} className={`text-white cursor-pointer ${title.classNameIcon}`}>
         {title.nameIcon}
       </span>
-      {showIconList && (
+      {showIconList && isEditable && (
         <div className='absolute w-80 h-40 bg-blue-700 left-0 -translate-x-full'>
           <div className='p-4u bg-white shadow-md h-full grid grid-cols-4 gap-4 justify-center overflow-y-scroll'>
             {icons.map((icon, iconIndex) => (

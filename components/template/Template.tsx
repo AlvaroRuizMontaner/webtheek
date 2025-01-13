@@ -20,10 +20,11 @@ import Page from "./Page";
 type TemplateProps = {
   curriculumId: string
   savedContent: Curriculum["content"]
+  isPublic?: boolean
 }
 
 
-export const Template = ({curriculumId, savedContent}: TemplateProps) => {
+export const Template = ({curriculumId, savedContent, isPublic=false}: TemplateProps) => {
   const [pdfUrl, setPdfUrl] = useState("")
   const [isLoading, setIsLoading] = useState(false)
   const [showOptions, setShowOptions] = useState(true)
@@ -95,17 +96,17 @@ export const Template = ({curriculumId, savedContent}: TemplateProps) => {
       {/* El referrer se ha colodado en un ancestro extra porque de otro modo no cogia el background-color */}
       <div className="flex flex-col gap-12" ref={referrer}>
         {content.pages.map((page, pageNumber) => (
-          <Page themeName={content.themeName} key={"page" + pageNumber} page={page} pageNumber={pageNumber} showOptions={showOptions} />
+          <Page isPublic={isPublic} themeName={content.themeName} key={"page" + pageNumber} page={page} pageNumber={pageNumber} showOptions={showOptions} />
         ))}
       </div>
       <section className="top-0 left-4 fixed z-50 h-full flex flex-col justify-center">
         <div className="bg-gray-100 rounded-lg py-2 flex flex-col gap-3 justify-center h-fit">
-          <div
+          {!isPublic && <div
             className="flex justify-center cursor-pointer"
             onClick={() => dispatch(addPage())}
           >
             <DocumentPlusIcon className="w-8 h-8 text-gray-200" />
-          </div>
+          </div>}
           <div>
             <div
               className="cursor-pointer w-8 h-8 relative"
@@ -128,7 +129,7 @@ export const Template = ({curriculumId, savedContent}: TemplateProps) => {
             ></Link>
           </div>
           <EditableTheme />
-          <div>
+          {!isPublic && <div>
             <div
               className="cursor-pointer w-8 h-8 relative"
               onClick={() => handleEdit(content as any)}
@@ -141,7 +142,7 @@ export const Template = ({curriculumId, savedContent}: TemplateProps) => {
                 <BiSave className="w-8 h-8 text-gray-400" />
               )}
             </div>
-          </div>
+          </div>}
         </div>
       </section>
     </div>

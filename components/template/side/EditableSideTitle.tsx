@@ -9,9 +9,10 @@ type EditableSideTitleProps = {
   bodyChildIndex: number
   handleOnBlur: () => void
   handleOnFocus: () => void
+  isEditable: boolean
 }
 
-export default function EditableSideTitle({titleText, bodyChildIndex, pageNumber, handleOnFocus, handleOnBlur}: EditableSideTitleProps) {
+export default function EditableSideTitle({titleText, bodyChildIndex, pageNumber, handleOnFocus, handleOnBlur, isEditable}: EditableSideTitleProps) {
 
   const dispatch = useAppDispatch()
   const editableRef = useRef(null);
@@ -39,7 +40,7 @@ export default function EditableSideTitle({titleText, bodyChildIndex, pageNumber
     <h2
       dangerouslySetInnerHTML={{ __html: titleText }}
       ref={editableRef}
-      contentEditable
+      contentEditable={isEditable ? true : false}
       onInput={handleInput}
       className={`text-xl max-w-40 outline-none `}
       onFocus={handleOnFocus} 

@@ -5,9 +5,10 @@ import React, { useRef } from 'react';
 
 type EditableBirthdayProps = {
   birthday: string
+  isEditable: boolean
 }
 
-export default function EditableBirthday({birthday}: EditableBirthdayProps) {
+export default function EditableBirthday({birthday, isEditable}: EditableBirthdayProps) {
 
   const dispatch = useAppDispatch()
   const editableRef = useRef(null);
@@ -34,7 +35,7 @@ export default function EditableBirthday({birthday}: EditableBirthdayProps) {
     <p
       dangerouslySetInnerHTML={{ __html: birthday }}
       ref={editableRef}
-      contentEditable
+      contentEditable={isEditable ? true : false}
       onInput={handleInput}
       className='text-center text-base outline-none'
     ></p>

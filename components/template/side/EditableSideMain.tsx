@@ -12,9 +12,10 @@ type EditableMainProps = {
   handleOnFocus: () => void
   handleOnBlur: () => void
   infoChild: SideInfoChildType
+  isEditable: boolean
 }
 
-export default function EditableMain({ bodyChildIndex, pageNumber, infoChildIndex, handleOnFocus, handleOnBlur, infoChild}: EditableMainProps) {
+export default function EditableMain({ bodyChildIndex, pageNumber, infoChildIndex, handleOnFocus, handleOnBlur, infoChild, isEditable}: EditableMainProps) {
 
   const dispatch = useAppDispatch()
   const [showMainOptions, setShowMainOptions] = useState(false)
@@ -55,7 +56,7 @@ return (
       onBlur={handleListChildOnBlur}
       onFocus={handleListChildOnFocus}
       dangerouslySetInnerHTML={{ __html: infoChild.main }}
-      contentEditable={true}
+      contentEditable={isEditable ? true : false}
       onInput={handleOnInputInfoMain(infoChildIndex)}
       className="font-bold max-w-[390px] text-white break-all flex items-center outline-none"
     ></span>), [infoChild.main, infoChildIndex])}

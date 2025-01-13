@@ -5,9 +5,10 @@ import React, { useRef } from 'react';
 
 type EditableChargeProps = {
   charge: string
+  isEditable: boolean
 }
 
-export default function EditableCharge({charge}: EditableChargeProps) {
+export default function EditableCharge({charge, isEditable}: EditableChargeProps) {
 
   const dispatch = useAppDispatch()
   const editableRef = useRef(null);
@@ -34,7 +35,7 @@ export default function EditableCharge({charge}: EditableChargeProps) {
     <p
       dangerouslySetInnerHTML={{ __html: charge }}
       ref={editableRef}
-      contentEditable
+      contentEditable={isEditable ? true : false}
       onInput={handleInput}
       className='text-center text-base outline-none'
     ></p>

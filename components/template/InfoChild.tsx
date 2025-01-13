@@ -19,9 +19,10 @@ type InfoChildProps = {
     pageNumber: number
     bodyChildIndex: number
     themeName: string
+    isEditable: boolean
 }
 
-export default function InfoChild({infoChildIndex, handleOnBlur, handleOnFocus, infoChild, pageNumber, bodyChildIndex, themeName}: InfoChildProps) {
+export default function InfoChild({infoChildIndex, handleOnBlur, handleOnFocus, infoChild, pageNumber, bodyChildIndex, themeName, isEditable}: InfoChildProps) {
     const dispatch = useAppDispatch()
     const [showInfoChildOptions, setShowInfoChildOptions] = useState(false)
 
@@ -37,14 +38,14 @@ export default function InfoChild({infoChildIndex, handleOnBlur, handleOnFocus, 
   return (
     <div className='relative z-10'>
       <div className="space-y-2 relative z-50" key={infoChildIndex}>
-        {infoChild.main && <EditableMain themeName={themeName} infoChild={infoChild} handleInfoOnBlur={handleInfoOnBlur} handleInfoOnFocus={handleInfoOnFocus} pageNumber={pageNumber} bodyChildIndex={bodyChildIndex} infoChildIndex={infoChildIndex} main={infoChild.main} />}
+        {infoChild.main && <EditableMain isEditable={isEditable} themeName={themeName} infoChild={infoChild} handleInfoOnBlur={handleInfoOnBlur} handleInfoOnFocus={handleInfoOnFocus} pageNumber={pageNumber} bodyChildIndex={bodyChildIndex} infoChildIndex={infoChildIndex} main={infoChild.main} />}
         {infoChild && infoChild.detail && <div className="flex justify-between text-gray-400 text-sm">
-          <EditableDetail infoChild={infoChild} handleInfoOnBlur={handleInfoOnBlur} handleInfoOnFocus={handleInfoOnFocus} pageNumber={pageNumber} bodyChildIndex={bodyChildIndex} infoChildIndex={infoChildIndex} detail={infoChild.detail} />
-          {infoChild.date && <EditableDate handleInfoOnBlur={handleInfoOnBlur} handleInfoOnFocus={handleInfoOnFocus} pageNumber={pageNumber} bodyChildIndex={bodyChildIndex} infoChildIndex={infoChildIndex} date={infoChild.date} />}
+          <EditableDetail isEditable={isEditable} infoChild={infoChild} handleInfoOnBlur={handleInfoOnBlur} handleInfoOnFocus={handleInfoOnFocus} pageNumber={pageNumber} bodyChildIndex={bodyChildIndex} infoChildIndex={infoChildIndex} detail={infoChild.detail} />
+          {infoChild.date && <EditableDate isEditable={isEditable} handleInfoOnBlur={handleInfoOnBlur} handleInfoOnFocus={handleInfoOnFocus} pageNumber={pageNumber} bodyChildIndex={bodyChildIndex} infoChildIndex={infoChildIndex} date={infoChild.date} />}
         </div>}
         {infoChild.list && infoChild.list.length >= 1 && (
           <ul className=" text-[14px] list-disc">
-            {infoChild.list.map((listChild, listChildIndex) => listChild && <EditableListChild key={"" + infoChildIndex + listChildIndex} listChild={listChild} handleInfoOnBlur={handleInfoOnBlur} handleInfoOnFocus={handleInfoOnFocus} pageNumber={pageNumber} bodyChildIndex={bodyChildIndex} infoChildIndex={infoChildIndex} listChildIndex={listChildIndex} />)}
+            {infoChild.list.map((listChild, listChildIndex) => listChild && <EditableListChild isEditable={isEditable} key={"" + infoChildIndex + listChildIndex} listChild={listChild} handleInfoOnBlur={handleInfoOnBlur} handleInfoOnFocus={handleInfoOnFocus} pageNumber={pageNumber} bodyChildIndex={bodyChildIndex} infoChildIndex={infoChildIndex} listChildIndex={listChildIndex} />)}
           </ul>
         )}
       </div>

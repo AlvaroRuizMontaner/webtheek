@@ -6,9 +6,10 @@ type CentralBodyProps = {
   bodyPage: SectionCentralBodyInfoType[]
   pageNumber: number
   setShowDashLine: Dispatch<SetStateAction<boolean>>
+  isEditable: boolean
 }
 
-export default function CentralBody({bodyPage, pageNumber, setShowDashLine}: CentralBodyProps) {
+export default function CentralBody({bodyPage, pageNumber, setShowDashLine, isEditable}: CentralBodyProps) {
   const bodyRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
@@ -23,9 +24,9 @@ export default function CentralBody({bodyPage, pageNumber, setShowDashLine}: Cen
 
   return (
     <div ref={bodyRef} className='flex flex-col justify-center gap-10 px-[1.25rem]'> {/* px en vez de p provisional */}
-        {bodyPage.map((bodyChild, bodyChildIndex) => (
-            <SectionCentralBody bodyChildIndex={bodyChildIndex} pageNumber={pageNumber} key={bodyChildIndex} {...bodyChild}/>
-        ))}
+      {bodyPage.map((bodyChild, bodyChildIndex) => (
+        <SectionCentralBody isEditable={isEditable} bodyChildIndex={bodyChildIndex} pageNumber={pageNumber} key={bodyChildIndex} {...bodyChild}/>
+      ))}
     </div>
   )
 }

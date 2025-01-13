@@ -10,10 +10,11 @@ type SideBodyProps = {
   sidePage: SectionSideBodyInfoType[]
   pageNumber: number
   showOptions: boolean
+  isEditable: boolean
 }
 
 
-export default function SideBody({sidePage, pageNumber, showOptions}: SideBodyProps) {
+export default function SideBody({sidePage, pageNumber, showOptions, isEditable}: SideBodyProps) {
   const dispatch = useAppDispatch()
 
 
@@ -36,7 +37,7 @@ export default function SideBody({sidePage, pageNumber, showOptions}: SideBodyPr
     <div className='flex flex-col justify-center gap-5 p-[1.25rem] text-white relative'>
       {showOptions && <ControlOptions position="side" contentLength={sidePage.length} addFunctions={sideAddFunctionOptions} dispatch={dispatch} color="gray-200" pageNumber={pageNumber} />}
       {sidePage.map((bodyChild, bodyChildIndex) => (
-        <SectionSideBody sideAddFunctionOptions={sideAddFunctionOptions} pageNumber={pageNumber} key={bodyChildIndex} bodyChildIndex={bodyChildIndex} {...bodyChild} />
+        <SectionSideBody sideAddFunctionOptions={sideAddFunctionOptions} pageNumber={pageNumber} key={bodyChildIndex} bodyChildIndex={bodyChildIndex} {...bodyChild} isEditable={isEditable} />
       ))}
     </div>
   )

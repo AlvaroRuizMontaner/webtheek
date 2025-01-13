@@ -5,9 +5,10 @@ import React, { useRef } from 'react';
 
 type EditableNameProps = {
   name: string
+  isEditable: boolean
 }
 
-export default function EditableName({name}: EditableNameProps) {
+export default function EditableName({name, isEditable}: EditableNameProps) {
 
   const dispatch = useAppDispatch()
   const editableRef = useRef(null);
@@ -34,7 +35,7 @@ export default function EditableName({name}: EditableNameProps) {
     <h1
       dangerouslySetInnerHTML={{ __html: name }}
       ref={editableRef}
-      contentEditable
+      contentEditable={isEditable ? true : false}
       onInput={handleInput}
       className=' text-2xl text-center font-bold outline-none'
     ></h1>

@@ -13,9 +13,10 @@ type HeaderProps = {
   charge?: string
   birthday?: string
   photoUrl?: string
+  isEditable: boolean
 }
 
-export default function Header({name="", charge="", birthday="", photoUrl=""}: HeaderProps) {
+export default function Header({name="", charge="", birthday="", photoUrl="", isEditable}: HeaderProps) {
 /*   const [selectedFile, setSelectedFile] = useState<File | null>(null); */
   //const [preview, setPreview] = useState<string | undefined>(undefined);
   const [showCam, setShowCam] = useState<boolean>(false)
@@ -134,18 +135,18 @@ export default function Header({name="", charge="", birthday="", photoUrl=""}: H
         <div className='relative w-[130px]' onMouseOut={() => setShowCam(false)}  onMouseOver={() => setShowCam(true)}>
           <input onChange={handleUpload} className='absolute block opacity-0 w-0' ref={inputRef} accept="image/*" type="file" name="" id="icon-button-file" />
           <img className='w-[130px] block min-h-10' src={photoUrl || defaultPhotoURL} alt="" />
-          {showCam && <label className='absolute right-0 bottom-0 cursor-pointer' htmlFor="icon-button-file">
+          {showCam && isEditable && <label className='absolute right-0 bottom-0 cursor-pointer' htmlFor="icon-button-file">
             <CameraIcon className='w-8 h-8 text-blue-500' />
           </label>}
         </div>
       </div>
 
       {/* <h1 className=' text-2xl text-center font-bold'>{name}</h1> */}
-      <EditableName name={name} />
+      <EditableName isEditable={isEditable} name={name} />
 
       {/* <p className='text-center text-gray-400'>{charge}</p> */}
-      <EditableCharge charge={charge} />
-      <EditableBirthday birthday={birthday} />
+      <EditableCharge isEditable={isEditable} charge={charge} />
+      <EditableBirthday isEditable={isEditable} birthday={birthday} />
       {/* <p className='text-center text-gray-400 h-[20px]'>{birthday}</p> */}
     </div>
   )

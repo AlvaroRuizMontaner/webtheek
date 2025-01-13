@@ -8,6 +8,7 @@ type EditableBarProps = {
     bodyChildIndex: number
     pageNumber: number
     themeName: string
+    isEditable: boolean
 }
 
 function makeNumberToStringPercentage(param: number) {
@@ -19,7 +20,7 @@ function makeStringPercentageToNumber(param: string) {
 
 
 
-export default function EditableBar({barWidth, themeName, pageNumber, infoChildIndex, bodyChildIndex}: EditableBarProps) {
+export default function EditableBar({barWidth, themeName, pageNumber, infoChildIndex, bodyChildIndex, isEditable}: EditableBarProps) {
     const [showInput, setShowInput] = useState(false)
     const [width, setWidth] = useState(() => makeStringPercentageToNumber(barWidth))
     const dispatch = useAppDispatch()
@@ -30,25 +31,27 @@ export default function EditableBar({barWidth, themeName, pageNumber, infoChildI
     }
 
   return (
-    <div className={`h-5 w-full offset-bar ${themeName} mb-2 relative`}>
-      <label
+    <label 
+      className={`h-5 w-full offset-bar ${themeName} mb-2 relative cursor-pointer`}
+      onClick={isEditable ? () => setShowInput(true) : undefined}
+      htmlFor={"bar" + pageNumber + infoChildIndex}
+    >
+      <div
         style={{ width: makeNumberToStringPercentage(width)}}
-        htmlFor={"bar" + infoChildIndex}
-        className={`h-full bar ${themeName} block cursor-pointer`}
-        onClick={() => setShowInput(true)}
-      ></label>
+        className={`h-full bar ${themeName} block`}
+      ></div>
       <input
         onChange={(e) => setWidth(parseInt(e.target.value))}
         onBlur={handleOnBlur}
         className={`absolute text-black p-1 h-12 w-12 -right-[24px] top-[10px] -translate-y-[50%] translate-x-[100%] ${showInput ? "block" : "hidden"}`}
         type="number"
         name="bar"
-        id={"bar" + infoChildIndex}
+        id={"bar" + pageNumber + infoChildIndex}
         value={width}
         min="0"
         max="100"
         step="5"
       />
-    </div>
+    </label>
   );
 }

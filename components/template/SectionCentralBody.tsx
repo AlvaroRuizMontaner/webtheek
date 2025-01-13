@@ -13,9 +13,10 @@ const MemoizedEditableTitle = memo(EditableTitle)
 interface SectionCentralBody extends SectionCentralBodyInfoType {
     pageNumber: number;
     bodyChildIndex: number
+    isEditable: boolean
 }
 
-export default function SectionCentralBody({title, info, pageNumber, bodyChildIndex}: SectionCentralBody) {
+export default function SectionCentralBody({title, info, pageNumber, bodyChildIndex, isEditable}: SectionCentralBody) {
     const dispatch = useAppDispatch()
     const [showBodyChildOptions, setShowBodyChildOptions] = useState(false)
     const themeName = useAppSelector((state) => state.curriculumReducer).themeName
@@ -47,12 +48,12 @@ export default function SectionCentralBody({title, info, pageNumber, bodyChildIn
     <div className='relative z-10'>
         <section className='flex flex-col gap-3 relative z-50'>
             <div className='flex gap-2 items-center relative -translate-x-8 z-20'>
-                <EditableIcon themeName={themeName} bodyChildIndex={bodyChildIndex} pageNumber={pageNumber} title={title} />
-                <MemoizedEditableTitle themeName={themeName} handleOnBlur={handleOnBlur} handleOnFocus={handleOnFocus} pageNumber={pageNumber} bodyChildIndex={bodyChildIndex} titleText={title.text} />
+                <EditableIcon themeName={themeName} bodyChildIndex={bodyChildIndex} pageNumber={pageNumber} title={title} isEditable={isEditable} />
+                <MemoizedEditableTitle isEditable={isEditable} themeName={themeName} handleOnBlur={handleOnBlur} handleOnFocus={handleOnFocus} pageNumber={pageNumber} bodyChildIndex={bodyChildIndex} titleText={title.text} />
             </div>
 
             {info.map((infoChild, infoChildIndex) => (
-                <InfoChild themeName={themeName} key={"infoChild" + infoChildIndex} bodyChildIndex={bodyChildIndex} infoChildIndex={infoChildIndex} infoChild={infoChild} pageNumber={pageNumber} handleOnFocus={handleOnFocus} handleOnBlur={handleOnBlur} />
+                <InfoChild isEditable={isEditable} themeName={themeName} key={"infoChild" + infoChildIndex} bodyChildIndex={bodyChildIndex} infoChildIndex={infoChildIndex} infoChild={infoChild} pageNumber={pageNumber} handleOnFocus={handleOnFocus} handleOnBlur={handleOnBlur} />
             ))}
         </section>
         {showBodyChildOptions && (

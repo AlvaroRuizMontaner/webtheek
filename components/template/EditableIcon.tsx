@@ -11,6 +11,7 @@ type EditableIconProps = {
   bodyChildIndex: number
   pageNumber: number
   themeName: string
+  isEditable: boolean
 }
 
 type RadioInputIconProps = {
@@ -40,7 +41,7 @@ function RadioInputIcon({icon, pageNumber, bodyChildIndex, setShowIconList, them
   )
 }
 
-export default function EditableIcon({title, pageNumber, bodyChildIndex, themeName}: EditableIconProps) {
+export default function EditableIcon({title, pageNumber, bodyChildIndex, themeName, isEditable}: EditableIconProps) {
 
   const [showIconList, setShowIconList] = useState(false)
 
@@ -49,7 +50,7 @@ export default function EditableIcon({title, pageNumber, bodyChildIndex, themeNa
       <span onClick={() => setShowIconList(true)} className={`text-white cursor-pointer ${title.classNameIcon}`}>
         {title.nameIcon}
       </span>
-      {showIconList && (
+      {showIconList && isEditable && (
         <div className={`absolute w-80 h-40 body-icon ${themeName} right-0 translate-x-full`}>
           <div className='p-6u bg-white shadow-md h-full grid grid-cols-4 gap-4 justify-center overflow-y-scroll'>
             {icons.map((icon, iconIndex) => (

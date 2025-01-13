@@ -33,6 +33,15 @@ export const curriculumApi = createApi({
                 { type: "Curriculum", id: curriculumId }, // Proporciona una tag dinámica por ID
             ],
         }),
+        getPublicCurriculumById: builder.query<Curriculum, {curriculumId: string}>({
+            query: ({curriculumId}) => ({
+                url: `browse/curriculums/${curriculumId}`,
+                method: "GET"
+            }),
+            providesTags: (result, error, { curriculumId }) => [ //  const { data, error, isLoading } = useGetCurriculumByIdQuery({ curriculumId: "12345" });
+                { type: "Curriculum", id: curriculumId }, // Proporciona una tag dinámica por ID
+            ],
+        }),
         editCurriculumContent: builder.mutation<Curriculum, {curriculumId: string, formData: Curriculum["content"]}>({ // El primer parametro generico define el tipo de la respuesta y el segundo el tipo de lo que se envia
             query: ({ curriculumId, formData }) => {
                 console.log("Datos enviados a la API:", formData);  // Log de depuración
@@ -82,6 +91,7 @@ export const {
     useCreateCurriculumMutation,
     useGetCurriculumsQuery,
     useGetCurriculumByIdQuery,
+    useGetPublicCurriculumByIdQuery,
     useEditCurriculumContentMutation,
     useEditCurriculumNameMutation,
     useDeleteCurriculumMutation,

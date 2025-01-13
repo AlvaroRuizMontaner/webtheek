@@ -13,9 +13,10 @@ type EditableDetailProps = {
   handleInfoOnFocus: () => void
   handleInfoOnBlur: () => void
   infoChild: InfoChildType
+  isEditable: boolean
 }
 
-export default function EditableDetail({detail, bodyChildIndex, pageNumber, infoChildIndex, handleInfoOnFocus, handleInfoOnBlur, infoChild}: EditableDetailProps) {
+export default function EditableDetail({detail, bodyChildIndex, pageNumber, infoChildIndex, handleInfoOnFocus, handleInfoOnBlur, infoChild, isEditable}: EditableDetailProps) {
 
   const dispatch = useAppDispatch()
   const [showDetailOptions, setShowDetailOptions] = useState(false)
@@ -53,7 +54,7 @@ export default function EditableDetail({detail, bodyChildIndex, pageNumber, info
         onFocus={handleListChildOnFocus}
         dangerouslySetInnerHTML={{ __html: detail }}
         onInput={handleOnInputInfoDetail(infoChildIndex)}
-        contentEditable={true}
+        contentEditable={isEditable ? true : false}
         className="max-w-[195px] outline-none"
       ></p>), [detail, infoChildIndex])}
       {showDetailOptions && (

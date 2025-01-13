@@ -10,9 +10,10 @@ type SidePageProps = {
     pageNumber: number
     showOptions: boolean
     setShowDashLine: Dispatch<SetStateAction<boolean>>
+    isEditable: boolean
 }
 
-export default function SidePage({side, header, themeName, pageNumber, showOptions, setShowDashLine}: SidePageProps) {
+export default function SidePage({side, header, themeName, pageNumber, showOptions, setShowDashLine, isEditable}: SidePageProps) {
     const sidePageRef = useRef<HTMLElement | null>(null)
 
     useEffect(() => {
@@ -29,9 +30,10 @@ export default function SidePage({side, header, themeName, pageNumber, showOptio
   return (
     <section ref={sidePageRef} className={`side ${themeName}`}>
       {pageNumber === 0 && (
-        <Header {...header} />
+        <Header isEditable={isEditable} {...header} />
       )}
       <SideBody
+        isEditable={isEditable}
         showOptions={showOptions}
         pageNumber={pageNumber}
         sidePage={side}

@@ -10,9 +10,10 @@ type EditableDateProps = {
   infoChildIndex: number
   handleInfoOnFocus: () => void
   handleInfoOnBlur: () => void
+  isEditable: boolean
 }
 
-export default function EditableDate({date, bodyChildIndex, pageNumber, infoChildIndex, handleInfoOnFocus, handleInfoOnBlur}: EditableDateProps) {
+export default function EditableDate({date, bodyChildIndex, pageNumber, infoChildIndex, handleInfoOnFocus, handleInfoOnBlur, isEditable}: EditableDateProps) {
 
   const dispatch = useAppDispatch()
   const editableRef = useRef(null);
@@ -67,7 +68,7 @@ export default function EditableDate({date, bodyChildIndex, pageNumber, infoChil
         onFocus={handleListChildOnFocus}
         dangerouslySetInnerHTML={{ __html: date }}
         onInput={handleOnInputInfoDate(infoChildIndex)}
-        contentEditable={true}
+        contentEditable={isEditable ? true : false}
         className="max-w-[195px] outline-none"
       ></p>), [date, infoChildIndex])}
       {showDateOptions && (

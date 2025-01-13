@@ -12,9 +12,10 @@ type EditableListChildProps = {
   handleInfoOnFocus: () => void
   handleInfoOnBlur: () => void
   listChildIndex: number
+  isEditable: boolean
 }
 
-export default function EditableListChild({listChild, bodyChildIndex, pageNumber, infoChildIndex, listChildIndex, handleInfoOnFocus, handleInfoOnBlur}: EditableListChildProps) {
+export default function EditableListChild({listChild, bodyChildIndex, pageNumber, infoChildIndex, listChildIndex, handleInfoOnFocus, handleInfoOnBlur, isEditable}: EditableListChildProps) {
 
   const dispatch = useAppDispatch()
   const editableRef = useRef(null);
@@ -45,7 +46,7 @@ export default function EditableListChild({listChild, bodyChildIndex, pageNumber
         onBlur={handleListChildOnBlur}
         onFocus={handleListChildOnFocus}
         dangerouslySetInnerHTML={{ __html: listChild }}
-        contentEditable={true}
+        contentEditable={isEditable ? true : false}
         onInput={handleOnInputInfoList(infoChildIndex, listChildIndex)}
         className='max-w-[390px] outline-none w-fit'
       ></li>), [listChild, infoChildIndex, listChildIndex])}

@@ -12,9 +12,10 @@ type PageProps = {
     pageNumber: number
     showOptions: boolean
     themeName: string
+    isPublic?: boolean
 }
 
-export default function Page({page, pageNumber, showOptions, themeName}: PageProps) {
+export default function Page({page, pageNumber, showOptions, themeName, isPublic}: PageProps) {
     const dispatch = useAppDispatch()
     const [showDashLine, setShowDashLine] = useState(false)
 
@@ -23,26 +24,27 @@ export default function Page({page, pageNumber, showOptions, themeName}: PagePro
     key={"cuerpo" + pageNumber}
     className="relative bg-white h-[297mm] w-[785px] flex items-center m-auto overflow-y-hidden"
   >
+    {showOptions && (
+      <ControlOptions
+        contentLength={page.body.length}
+        addFunctions={[
+          {
+            function: addBodyChildByIndex,
+            icon: PlusIcon as IconType,
+          },
+        ]}
+        dispatch={dispatch}
+        color="gray-200"
+        pageNumber={pageNumber}
+        isEditable={!isPublic}
+      />
+    )}
     <div className="min-w-[42rem] h-full max-w-2xl bg-white p-12 px-0 mx-auto relative">
-      {showOptions && (
-        <ControlOptions
-          contentLength={page.body.length}
-          addFunctions={[
-            {
-              function: addBodyChildByIndex,
-              icon: PlusIcon as IconType,
-            },
-          ]}
-          dispatch={dispatch}
-          color="gray-200"
-          pageNumber={pageNumber}
-        />
-      )}
       <div className="contenedor h-full">
         <section className="">
-          <CentralBody setShowDashLine={setShowDashLine} pageNumber={pageNumber} bodyPage={page.body} />
+          <CentralBody isEditable={!isPublic} setShowDashLine={setShowDashLine} pageNumber={pageNumber} bodyPage={page.body} />
         </section>
-        <SidePage pageNumber={pageNumber} side={page.side} header={page.header} themeName={themeName} setShowDashLine={setShowDashLine} showOptions={showOptions} />
+        <SidePage isEditable={!isPublic} pageNumber={pageNumber} side={page.side} header={page.header} themeName={themeName} setShowDashLine={setShowDashLine} showOptions={showOptions} />
       </div>
     </div>
     {showDashLine && showOptions && (

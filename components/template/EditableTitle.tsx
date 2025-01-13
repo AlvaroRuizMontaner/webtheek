@@ -10,9 +10,10 @@ type EditableTitleProps = {
   handleOnBlur: () => void
   handleOnFocus: () => void
   themeName: string
+  isEditable: boolean
 }
 
-export default function EditableTitle({titleText, bodyChildIndex, pageNumber, handleOnFocus, handleOnBlur, themeName}: EditableTitleProps) {
+export default function EditableTitle({titleText, bodyChildIndex, pageNumber, handleOnFocus, handleOnBlur, themeName, isEditable}: EditableTitleProps) {
 
 
   const dispatch = useAppDispatch()
@@ -41,7 +42,7 @@ export default function EditableTitle({titleText, bodyChildIndex, pageNumber, ha
     <h2
       dangerouslySetInnerHTML={{ __html: titleText }}
       ref={editableRef}
-      contentEditable
+      contentEditable={isEditable ? true : false}
       onInput={handleInput}
       className={`text-xl body-title ${themeName} font-bold uppercase max-w-[350px] outline-none`}
       /* focus:border-blue-500 focus:rounded-md focus:ring-2 focus:ring-blue-300 transition duration-300 */

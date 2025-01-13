@@ -16,10 +16,11 @@ interface SectionSideBodyProps extends SectionSideBodyInfoType {
     function: any;
     icon: IconType;
   }[]
+  isEditable: boolean
 }
 
 
-export default function SectionSideBody({ title, info, pageNumber, bodyChildIndex, sideAddFunctionOptions}: SectionSideBodyProps) {
+export default function SectionSideBody({ title, info, pageNumber, bodyChildIndex, sideAddFunctionOptions, isEditable}: SectionSideBodyProps) {
   const dispatch = useAppDispatch()
   const [showBodyChildOptions, setShowBodyChildOptions] = useState(false)
   const themeName = useAppSelector((state) => state.curriculumReducer).themeName
@@ -35,13 +36,13 @@ export default function SectionSideBody({ title, info, pageNumber, bodyChildInde
     <div className='relative z-10'>
       <section className='flex flex-col gap-4 relative z-50'>
         <div className='flex gap-2 font-bold'>
-          <EditableSideIcon addFunction={editSideIcon} title={title} pageNumber={pageNumber} bodyChildIndex={bodyChildIndex} />
-          <MemoizedEditableSideTitle titleText={title.text} bodyChildIndex={bodyChildIndex} pageNumber={pageNumber} handleOnFocus={handleOnFocus} handleOnBlur={handleOnBlur} />
+          <EditableSideIcon addFunction={editSideIcon} title={title} pageNumber={pageNumber} bodyChildIndex={bodyChildIndex} isEditable={isEditable}/>
+          <MemoizedEditableSideTitle titleText={title.text} bodyChildIndex={bodyChildIndex} pageNumber={pageNumber} handleOnFocus={handleOnFocus} handleOnBlur={handleOnBlur} isEditable={isEditable}/>
         </div>
 
         <div className='space-y-2'>
           {info.map((infoChild, infoChildIndex) => (
-            <InfoChild themeName={themeName} pageNumber={pageNumber} handleOnFocus={handleOnFocus} handleOnBlur={handleOnBlur} key={infoChildIndex} infoChild={infoChild} infoChildIndex={infoChildIndex} bodyChildIndex={bodyChildIndex} />
+            <InfoChild themeName={themeName} pageNumber={pageNumber} handleOnFocus={handleOnFocus} handleOnBlur={handleOnBlur} key={infoChildIndex} infoChild={infoChild} infoChildIndex={infoChildIndex} bodyChildIndex={bodyChildIndex} isEditable={isEditable}/>
           ))}
         </div>
       </section>
