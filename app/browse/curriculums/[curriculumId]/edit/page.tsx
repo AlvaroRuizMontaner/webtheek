@@ -1,6 +1,6 @@
 "use client"
 
-import EditCurriculumView from "../../../../views/curriculums/EditCurriculumView"
+import EditCurriculumView from "@/views/curriculums/EditCurriculumView"
 
 export type EditPageProps = {
   params: {
