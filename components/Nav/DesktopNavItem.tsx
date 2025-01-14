@@ -18,9 +18,9 @@ export default function DesktopNavItem({name, url}: NavItem) {
   },[isLogged])
 
     const queryClient = useQueryClient()
-    const path = usePathname()
 
-    const isPath = useMemo(() => path.includes(url!), [path])
+    const path = usePathname() ?? ''; // Asegúrate de que `path` no sea null
+    const isPath = useMemo(() => path.includes(url!), [path]);
 
     const logout = () => {
       setIsLogged(false)
