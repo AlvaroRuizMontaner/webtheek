@@ -1,0 +1,9 @@
+{
+    "extends": "../tsconfig.json",
+    "compilerOptions": {
+      "types": ["cypress"],
+      "strict": true,
+      "lib": ["esnext", "dom"],
+      "noEmit": true
+    },
+}
