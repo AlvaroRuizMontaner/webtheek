@@ -8,7 +8,8 @@
     "start": "set ENV=production && next start",
     "lint": "next lint",
     "test": "jest",
-    "test-cypress": "npx cypress open --e2e --browser chrome"
+    "test-cypress-open": "npx cypress open --e2e --browser chrome",
+    "test-cypress": "npx cypress run"
   },
   "engines": {
     "node": "20.x"
