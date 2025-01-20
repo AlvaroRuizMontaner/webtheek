@@ -56,6 +56,7 @@ export default function ProjectsView() {
                       <Link
                         href={`/projects/${project._id}`}
                         className="text-gray-600 cursor-pointer hover:underline headline3 font-bold"
+                        id={project._id}
                       >
                         {project.projectName}
                       </Link>

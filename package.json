@@ -9,6 +9,7 @@
     "lint": "next lint",
     "test": "jest",
     "test-cypress-open": "npx cypress open --e2e --browser chrome",
+    "test-cypress-projects": "npx cypress run --spec 'cypress/e2e/projects/**/*.cy.{js,ts}'",
     "test-cypress": "npx cypress run"
   },
   "engines": {

@@ -16,6 +16,7 @@ export default function SubmitInput({isLoading, value, disabled=false, className
       ${disabled ? "opacity-60" : "opacity-100"}`
       }>
         {!isLoading ? <input
+        id="submit"
         type="submit"
         value={value}
         disabled={disabled}

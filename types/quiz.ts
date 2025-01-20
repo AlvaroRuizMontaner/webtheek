@@ -57,6 +57,7 @@ export const dashboardQuizSchema = z.array(
 export const editQuizSchema = quizSchema.pick({
     name: true,
     description: true,
+    time: true
 })
 
 export const solvableQuizSchema = quizSchema.pick({
@@ -68,6 +69,6 @@ export const solvableQuizSchema = quizSchema.pick({
 
 export type SolvableQuiz = z.infer<typeof solvableQuizSchema>
 export type Quiz = z.infer<typeof quizSchema>
-export type QuizFormData = Pick<Quiz, "name" | "description">
+export type QuizFormData = Pick<Quiz, "name" | "description" | "time">
 export type QuizTimeData = Pick<Quiz, "time">
 export type QuizTimeModal = Pick<Quiz, "_id" | "time">

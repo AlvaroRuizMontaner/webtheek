@@ -40,7 +40,7 @@ export default function Input<TFormValues extends FieldValues>({
   required,
   validate,
   pattern,
-  children
+  children,
 }: InputProps<TFormValues>) {
   return (
     <div className="flex flex-col gap-4u">

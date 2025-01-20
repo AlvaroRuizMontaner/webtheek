@@ -13,6 +13,11 @@ export const metadata: Metadata = {
   description: "Crea tus proyectos, tests, curriculum y más, todo ello lo puedes hacer aquí",
   icons: {
     icon: "/logosinborde.png",
+    other: {
+      rel: 'stylesheet',
+      url: "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0",
+      precedence: "default"
+    },
   },
   openGraph: {
     images: [
@@ -24,7 +29,7 @@ export const metadata: Metadata = {
       }
     ],
   }
-};
+} as unknown as Metadata // Solucion temporal al tipado de precedence
 
 export default function RootLayout({
   children,
@@ -33,9 +38,8 @@ export default function RootLayout({
 }>): JSX.Element {
   return (
     <html className="" lang="en">
-      <head>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
-      </head>
+  {/* Eliminado por estar obsoleto, movido a metadata */}
+  {/* <head><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" /></head> */}
       <body className={`${poppins.className} min-h-screen flex flex-col body3 bg-gray-100`}>
         <Provider>
             {children}

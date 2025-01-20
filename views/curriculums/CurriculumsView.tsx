@@ -58,6 +58,7 @@ export default function CurriculumsView() {
                           <Link
                             href={`/curriculums/${curriculum._id}`}
                             className="text-gray-600 cursor-pointer hover:underline headline3 font-bold"
+                            id={curriculum._id}
                           >
                             {curriculum.name}
                           </Link>

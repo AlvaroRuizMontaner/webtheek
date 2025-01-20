@@ -58,6 +58,7 @@ export default function QuizzesView() {
                           <Link
                             href={`/quizzes/${quiz._id}`}
                             className="text-gray-600 cursor-pointer hover:underline headline3 font-bold"
+                            id={quiz._id}
                           >
                             {quiz.name}
                           </Link>

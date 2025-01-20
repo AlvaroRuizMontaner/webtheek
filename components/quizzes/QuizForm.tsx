@@ -14,7 +14,7 @@ export default function QuizForm({register, errors}: QuizFormProps) {
         <Input
           label="Nombre del Quiz"
           name="name"
-          id="projectName"
+          id="quizName"
           placeholder="Nombre del Quiz"
           register={register}
           errors={errors}

@@ -24,6 +24,7 @@ export default function EditQuizForm({data, quizId}: EditQuizFormProps) {
       const {register, handleSubmit, formState: {errors}} = useForm({defaultValues: {
         name: data.name,
         description: data.description,
+        time: data.time
       }})
 
       const queryClient = useQueryClient()
