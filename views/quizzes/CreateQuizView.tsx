@@ -19,6 +19,7 @@ export default function CreateQuizView():JSX.Element {
   const initialValues: QuizFormData = {
     name: "",
     description: "",
+    time: 10
   };
 
   const {register, handleSubmit, formState: {errors}} = useForm({defaultValues: initialValues})
