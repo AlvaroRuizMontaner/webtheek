@@ -1,4 +1,5 @@
 import "@testing-library/jest-dom";
+import { TextEncoder, /* TextDecoder */ } from "util"; // Polyfill para node para poder usar la API TextEncoder
 
 jest.mock("swiper/css", jest.fn());
 
@@ -9,10 +10,22 @@ jest.mock('next/router', () => ({
       query: {},
       asPath: '/',
     })),
-  }));
+}));
 
-  jest.mock("next/navigation", () => ({
-    usePathname: jest.fn(() => "localhost:3000/"), // Devuelve una ruta simulada
-  }));
+jest.mock("next/navigation", () => ({
+  usePathname: jest.fn(() => "localhost:3000/"), // Devuelve una ruta simulada
+}));
+
+global.fetch = jest.fn(() =>
+  Promise.resolve({
+    json: () =>
+      Promise.resolve([
+        { _id: "1", projectName: "Test Project", clientName: "Client A", description: "Description A" },
+      ]),
+  })
+) as jest.Mock;
+
+global.TextEncoder = TextEncoder;
+/* global.TextDecoder = TextDecoder; */
 
 export {};

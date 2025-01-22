@@ -1,5 +1,6 @@
 'use client' // Error components must be Client Components
  
+import EmptyState from '@/components/empty-state/EmptyState'
 import { useEffect } from 'react'
  
 export default function Error({
@@ -15,15 +16,18 @@ export default function Error({
   }, [error])
  
   return (
-    <div>
-      <h2>Something went wrong!</h2>
+    <div className="text-center py-20 flex flex-col">
+      <div className="h-64">
+        <EmptyState text="Algo ha fallado..." />
+      </div>
       <button
+      className='py-2 px-8 rounded-md bg-primary-300 text-white w-fit m-auto hover:bg-primary-500 mt-4u'
         onClick={
           // Attempt to recover by trying to re-render the segment
           () => reset()
         }
       >
-        Try again
+        Prueba de nuevo
       </button>
     </div>
   )

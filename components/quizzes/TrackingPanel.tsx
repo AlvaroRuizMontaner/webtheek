@@ -21,7 +21,7 @@ export default function TrackingPanel() {
 
   return (
     <div className="tracker-container">
-      <div className="tracker flex sm:flex-col gap-2 items-center">
+      <div className="tracker grid gap-2 items-center">
         <section className="bg-white border-2 rounded-md border-primary-400 shadow-md p-2 gap-2">
           {questions.map((question, questionIndex) => (
             <div className="h-fit" key={`track${questionIndex}`}>
@@ -35,8 +35,10 @@ export default function TrackingPanel() {
             </div>
           ))}
         </section>
-        <section className="bg-white w-fit border-2 rounded-md border-primary-400 shadow-md p-2 sm:p-1 ml-auto">
-          <QuizTimer />
+        <section className="w-full">
+          <div className='bg-white border-2 rounded-md border-primary-400 shadow-md py-2 w-24 sm:p-1 mx-auto flex justify-center'>
+            <QuizTimer />
+          </div>
         </section>
       </div>
     </div>

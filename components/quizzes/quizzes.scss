@@ -1,7 +1,11 @@
 @import "../../styles/breakpoints";
 
+$initialTop: 250px;
+$top: 8.5rem;
+$scroll-offset: 4px;
+
     .tracker-container {
-        top: 150px;
+        top: calc($initialTop + $scroll-offset);
         position: sticky;
         z-index: 2;
 
@@ -10,7 +14,7 @@
             right: 0;
             height: min-content;
             width: 100%;
-            top: -150px;
+            top: -$initialTop;
     
             section:nth-of-type(1) {
                 display: grid;
@@ -26,10 +30,10 @@
         }
 
         @media screen and (min-width: $small) {
-            top: 3rem;
+            top: calc($top + $scroll-offset);
             .tracker {
-                width: 172px;
-                top: -3rem;
+                /* width: 172px; */
+                top: -$top;
             }
         }
     }

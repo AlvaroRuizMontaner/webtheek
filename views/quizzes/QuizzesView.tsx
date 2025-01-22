@@ -22,13 +22,14 @@ export default function QuizzesView() {
     const router = useRouter()
     const path = usePathname()
     const { data: user, isLoading: authLoading } = useAuth()
-    const { data, isLoading } = useQuery({
+    const { data, isLoading, isError } = useQuery({
       queryKey: ["quizzes"],
       queryFn: getQuizzes,
     });
   
   
-    if (isLoading && authLoading) return <Loading />;
+    if (isError) return <EmptyState text="Algo ha fallado..." />
+    if (isLoading || authLoading) return <Loading />;
   
     if (data && user)
         return (

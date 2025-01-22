@@ -28,7 +28,7 @@ export default function CurriculumsView() {
     }); */
   
   
-    if (isLoading && authLoading) return <Loading />;
+    if (isLoading || authLoading) return <Loading />;
   
     if (data && user)
         return (

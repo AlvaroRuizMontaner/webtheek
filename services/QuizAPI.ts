@@ -80,7 +80,7 @@ type QuizApiType = {
 
 export async function addTime({formData, quizId}: QuizTimeModalType) {
     try {
-        const { data } = await api.put(`/quizzes/${quizId}`, formData)
+        const { data } = await api.put(`/quizzes/${quizId}/time`, formData)
         return data
     } catch (error) {
         if(isAxiosError(error) && error.response)

@@ -20,13 +20,14 @@ export default function ProjectsView() {
   const router = useRouter()
   const path = usePathname()
   const { data: user, isLoading: authLoading } = useAuth()
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, isError } = useQuery({
     queryKey: ["projects"],
     queryFn: getProjects,
   });
 
 
-  if (isLoading && authLoading) return <Loading />;
+  if (isLoading || authLoading) return <Loading />;
+  if (isError) return <EmptyState text="Algo ha fallado..." />
 
   if (data && user)
     return (

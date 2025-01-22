@@ -26,7 +26,8 @@ export default function SolvableQuizView({quizId}: SolvableQuizViewProps) {
     });
 
    useEffect(() => {
-    if (data) {
+     if (data) {
+      console.log(data.time)
       dispatch({type: "BUILD_STATE", payload: {questions: data.questions, time: data.time}})
       setIsBuilt(true)
     }
@@ -49,7 +50,7 @@ export default function SolvableQuizView({quizId}: SolvableQuizViewProps) {
     if(isLoading) return <Loading />
     if(isError) throw new Error(error.message);
     if(data && isBuilt) return (
-      <div className="relative pt-32">
+      <div className="relative pt-56 sm:pt-28">
         <TrackingPanel />
 
 {/*         <div className='sm:max-w-[65%]'>
