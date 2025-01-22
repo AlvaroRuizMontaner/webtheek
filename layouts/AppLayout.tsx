@@ -25,7 +25,7 @@ export default function AppLayout({children}: AppLayoutProps): ReactNode {
 
   return (
     <>
-      <header className=" bg-primary-900 py-2u">
+      <header className=" bg-primary-900 py-2u relative z-[2]">
         <div
           className="max-w-screen-2xl mx-auto flex sm:flex-row gap-6
             justify-between items-center container"
@@ -48,7 +48,7 @@ export default function AppLayout({children}: AppLayoutProps): ReactNode {
 
       {/* <Redirect /> */}
 
-      <section className=" max-w-screen-2xl flex-1 mx-auto my-12u container -showgrid">
+      <section className=" max-w-screen-2xl flex-1 mx-auto my-12u container -showgrid relative z-[1]">
           {children}
       </section>
 

@@ -94,7 +94,7 @@ export type InitialStateType = {
     ]
 ] */
 
-const initialState: InitialStateType = {
+export const initialState: InitialStateType = {
     themeName: "blue-indigo",
     pages: [
         {

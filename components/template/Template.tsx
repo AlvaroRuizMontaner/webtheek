@@ -8,7 +8,7 @@ import "./theme/themes.scss";
 import Spinner from "../spinners/Spinner";
 import Link from "next/link";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { addPage, sincronize } from "@/redux/features/curriculumSlice";
+import { addPage, initialState, sincronize } from "@/redux/features/curriculumSlice";
 import { DocumentPlusIcon } from "@heroicons/react/20/solid";
 import PdfIcon from '../../public/icons/pdf_icon.svg';
 import EditableTheme from "./theme/EditableTheme";
@@ -73,8 +73,12 @@ export const Template = ({curriculumId, savedContent, isPublic=false}: TemplateP
   const content = useAppSelector((state) => state.curriculumReducer);
 
   useEffect(() => {
+    // Si el registro tiene informacion util, se añade al estado
     if (savedContent && savedContent.pages.length > 0) {
       dispatch(sincronize(savedContent));
+    } else {
+      // Si el registro NO tiene informacion util, se aplica el initialState
+      dispatch(sincronize(initialState));
     }
   }, [savedContent, dispatch]);
 

@@ -32,7 +32,7 @@ export default function ControlBoundary({color, position="body", pageNumber, bod
     }
 
   return (
-      <div className={`border-${color} absolute border-[3px] top-0 right-0 h-[115%] ${styles.boundary} ${styles[position]} ${styles[orientation]} -translate-y-[7.5%]`}> {/* z quitado provisional */}
+      <div className={`border-${color} absolute border-[3px] top-0 right-0 h-[115%] ${styles.boundary} ${styles[position]} ${styles[orientation]} -translate-y-[7.5%] rounded-md`}> {/* z quitado provisional */}
         <div className={`bg-${color} ${orientationClasses} absolute -translate-y-[50%] -translate-x-[50%] gap-2 rounded-md z-10`}>
           <span
             className="cursor-pointer "
