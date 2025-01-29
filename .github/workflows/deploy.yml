@@ -1,0 +1,34 @@
+name: Deploy to Digital Ocean
+
+on:
+  push:
+    branches:
+      - master  # Se ejecutará cuando hagas push a la rama master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v3
+
+      - name: Login en Digital Ocean Container Registry
+        run: echo "${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}" | docker login -u _ --password-stdin registry.digitalocean.com
+
+      - name: Construir y etiquetar la imagen Docker
+        run: |
+          docker build -t registry.digitalocean.com/webtheek-container/app/app:${{ github.sha }} .
+
+      - name: Subir la imagen al Container Registry
+        run: |
+          docker push registry.digitalocean.com/webtheek-container/app/app:${{ github.sha }}
+
+      - name: Instalar doctl
+        run: |
+          sudo snap install doctl
+          doctl auth init --access-token "${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}"
+
+      - name: Actualizar la aplicación en Digital Ocean
+        run: |
+          doctl apps update webtheek --image registry.digitalocean.com/webtheek-container/app/app:${{ github.sha }}
+
