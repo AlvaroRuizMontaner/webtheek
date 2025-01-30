@@ -64,7 +64,8 @@
 #------------------------------------------Configuracion en etapas------------------------------------------
 
 # Etapa builder: Construir la aplicación
-FROM node:18-alpine AS builder
+#FROM node:18-alpine AS builder
+FROM node:18-slim AS builder
 WORKDIR /app
 
 COPY package*.json ./
