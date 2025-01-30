@@ -9,6 +9,7 @@
 
 # Ver que contenedores hay corriendo: docker ps
 # Acceder a un contenedor en ejecucion: docker exec -it <CONTAINER_ID> sh
+# Ver arquitectura usada: uname -m
 # Ver el contenido del contenedor incluyendo archivos ocultos: ls -a
 # Salir del contenedor: exit (o usar ctrl + D)
 # Ver los logs del contenedor docker logs <id del contenedor>

@@ -40,6 +40,7 @@ jobs:
           context: .
           push: true
           tags: ghcr.io/${{ env.OWNER_LC }}/${{ github.event.repository.name }}:latest
+          platforms: linux/amd64  # Forzar arquitectura
           build-args: |
             NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}  # Variable de entorno para el build
 
