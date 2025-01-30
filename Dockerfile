@@ -49,7 +49,7 @@
 # Conectarse a digital ocean con el token usando doctl auth init -t <token>
 # Hacer login en digital ocean usando doctl registry login
 # Crear la imagen usando versionado docker build -t app:1.0.0 .
-# Cambiarle el nombre a la imagen usando el nombre del registro de digital ocean usando docker tag app:1.0.0 <nombre contenedor>:1.0.0
+# Cambiarle el nombre a la imagen usando el nombre del registro de digital ocean usando docker tag app:1.0.0 <nombre contenedor>/app:1.0.0
 # hacer push con el nuevo nombre usando docker push <nombre contenedor>:1.0.0  
 
 
