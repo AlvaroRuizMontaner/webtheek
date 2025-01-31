@@ -1,0 +1,18 @@
+name: webtheek
+services:
+  - name: webtheek-service
+    image: ghcr.io/${{ github.repository }}:latest
+    internal_ports:
+      - port: 3000
+    routes:
+      - path: /
+    envs:
+      - key: NODE_ENV
+        value: production
+      - key: NEXT_PUBLIC_STRIPE_API_SECRET
+        value: $NEXT_PUBLIC_STRIPE_API_SECRET
+      - key: NEXT_PUBLIC_API_URL
+        value: $NEXT_PUBLIC_API_URL
+    resources:
+      cpu: 1
+      memory: 1GiB
