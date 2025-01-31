@@ -32,7 +32,14 @@ jobs:
           echo "OWNER_LC=${OWNER,,}" >> $GITHUB_ENV
         env:
           OWNER_PART: '${{ github.repository }}'
-
+      - name: Debug environment variables
+        run: |
+          echo "NEXT_PUBLIC_STRIPE_API_SECRET: $NEXT_PUBLIC_STRIPE_API_SECRET"
+          echo "NEXT_PUBLIC_API_URL: $NEXT_PUBLIC_API_URL"
+          echo "NEXT_PUBLIC_ENV: $NEXT_PUBLIC_ENV"
+        env:
+          NEXT_PUBLIC_STRIPE_API_SECRET: ${{ secrets.STRIPE_API_KEY }}
+          NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
       - name: Build and push Docker image
         id: push
         uses: docker/build-push-action@v6.5.0
