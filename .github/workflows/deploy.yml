@@ -44,9 +44,8 @@ jobs:
             NEXT_PUBLIC_STRIPE_API_SECRET=${{ secrets.STRIPE_API_KEY }}
             NEXT_PUBLIC_ENV=${{ secrets.NEXT_PUBLIC_ENV }}
             NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}
-          platforms: linux/amd64  # Forzar arquitectura
-          build-args: |
             NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}  # Variable de entorno para el build
+          platforms: linux/amd64  # Forzar arquitectura
 
       - name: Check build output files
         run: |
