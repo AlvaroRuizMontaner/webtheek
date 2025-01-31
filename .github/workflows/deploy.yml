@@ -59,7 +59,12 @@ jobs:
           docker run --rm ghcr.io/${{ env.OWNER_LC }}/${{ github.event.repository.name }}:latest ls -R /app/.next
 
       - name: Validate the build (optional)
-        run: docker run --rm -p 3001:3000 ghcr.io/${{ env.OWNER_LC }}/${{ github.event.repository.name }}:latest npm run start
+        run: |
+          docker run -d --name nextjs-test -p 3000:3000 ghcr.io/${{ env.OWNER_LC }}/${{ github.event.repository.name }}:latest npm run start
+          sleep 10  # Esperar a que el servidor arranque
+          curl -I http://localhost:3000 || (echo "Validation failed" && exit 1)
+          echo "Server validation successful!"
+          docker stop nextjs-test
 
       - name: Deploy the app
         uses: digitalocean/app_action/deploy@v2
