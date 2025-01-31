@@ -41,3 +41,5 @@ export async function POST(request: Request) {
     // Confirma a stripe que todo ha ido correctamente
     return new Response(null, {status: 200})
 } */
+
+export {}
