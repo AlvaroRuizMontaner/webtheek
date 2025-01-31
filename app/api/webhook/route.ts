@@ -1,4 +1,4 @@
-import { headers } from "next/headers";
+/* import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 
@@ -40,4 +40,4 @@ export async function POST(request: Request) {
 
     // Confirma a stripe que todo ha ido correctamente
     return new Response(null, {status: 200})
-}
+} */
