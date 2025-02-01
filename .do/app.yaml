@@ -1,7 +1,7 @@
 name: webtheek
 services:
   - name: webtheek-service
-    image: ghcr.io/AlvaroRuizMontaner/webtheek:latest
+    image: registry.digitalocean.com/webtheek-container/app:1.0.0
     internal_ports:
       - port: 3000
     routes:
