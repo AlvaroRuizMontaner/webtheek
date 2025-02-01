@@ -1,7 +1,7 @@
 name: webtheek
 services:
   - name: webtheek-service
-    image: ghcr.io/${{ github.repository }}:latest
+    image: ghcr.io/AlvaroRuizMontaner/webtheek:latest
     internal_ports:
       - port: 3000
     routes:
