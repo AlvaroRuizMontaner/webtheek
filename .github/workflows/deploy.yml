@@ -19,34 +19,34 @@ jobs:
       - name: Install system dependencies (for native modules)
         run: sudo apt-get update && sudo apt-get install -y python3 make g++
 
-      - name: Log in to the Container registry
-        uses: docker/login-action@v3.3.0
+      - name: Log in to DigitalOcean Container Registry
+        uses: docker/login-action@v3
         with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: registry.digitalocean.com
+          username: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+          password: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
 
-      - name: Set lower case owner name
-        run: |
-          OWNER=$(echo "${OWNER_PART}" | cut -d'/' -f1)
-          echo "OWNER_LC=${OWNER,,}" >> $GITHUB_ENV
-        env:
-          OWNER_PART: '${{ github.repository }}'
-      - name: Debug environment variables
-        run: |
-          echo "NEXT_PUBLIC_STRIPE_API_SECRET: $NEXT_PUBLIC_STRIPE_API_SECRET"
-          echo "NEXT_PUBLIC_API_URL: $NEXT_PUBLIC_API_URL"
-          echo "NEXT_PUBLIC_ENV: $NEXT_PUBLIC_ENV"
-        env:
-          NEXT_PUBLIC_STRIPE_API_SECRET: ${{ secrets.STRIPE_API_KEY }}
-          NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
+      #- name: Set lower case owner name
+      #  run: |
+      #    OWNER=$(echo "${OWNER_PART}" | cut -d'/' -f1)
+      #    echo "OWNER_LC=${OWNER,,}" >> $GITHUB_ENV
+      #  env:
+      #    OWNER_PART: '${{ github.repository }}'
+      #- name: Debug environment variables
+      #  run: |
+      #    echo "NEXT_PUBLIC_STRIPE_API_SECRET: $NEXT_PUBLIC_STRIPE_API_SECRET"
+      #    echo "NEXT_PUBLIC_API_URL: $NEXT_PUBLIC_API_URL"
+      #    echo "NEXT_PUBLIC_ENV: $NEXT_PUBLIC_ENV"
+      #  env:
+      #    NEXT_PUBLIC_STRIPE_API_SECRET: ${{ secrets.STRIPE_API_KEY }}
+      #    NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
       - name: Build and push Docker image
         id: push
-        uses: docker/build-push-action@v6.5.0
+        uses: docker/build-push-action@v6
         with:
           context: .
           push: true
-          tags: ghcr.io/${{ env.OWNER_LC }}/${{ github.event.repository.name }}:latest
+          tags: registry.digitalocean.com/webtheek-container/app:1.0.0
           build-args: |
             NEXT_PUBLIC_STRIPE_API_SECRET=${{ secrets.STRIPE_API_KEY }}
             NEXT_PUBLIC_ENV=${{ secrets.NEXT_PUBLIC_ENV }}
