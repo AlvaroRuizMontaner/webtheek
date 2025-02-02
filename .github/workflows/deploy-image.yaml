@@ -102,6 +102,13 @@ jobs:
          username: ${{ github.actor }}
          password: ${{ secrets.GITHUB_TOKEN }}
 
+     - name: Set lower case owner name
+       run: |
+        OWNER=$(echo "${OWNER_PART}" | cut -d'/' -f1)
+        echo "OWNER_LC=${OWNER,,}" >> $GITHUB_ENV
+        env:
+        OWNER_PART: '${{ github.repository }}'
+
      - name: Build and push Docker image
        id: push
        uses: docker/build-push-action@v6.5.0
