@@ -61,7 +61,7 @@
 #    deploy_on_push: true
 #    repo: AlvaroRuizMontaner/webtheek
 
-#Despues este
+#Despues este para la imagen con despliegues manuales usando push de imagen
 #image:
     #deploy_on_push:
       #enabled: true
