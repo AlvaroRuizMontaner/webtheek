@@ -61,6 +61,14 @@
 #    deploy_on_push: true
 #    repo: AlvaroRuizMontaner/webtheek
 
+#Despues este
+#image:
+    #deploy_on_push:
+      #enabled: true
+    #registry_type: DOCR
+    #repository: app
+    #tag: 1.0.0
+
 
 #------------------------------------------Configuracion en etapas------------------------------------------
 
