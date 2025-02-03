@@ -106,7 +106,7 @@ jobs:
        run: |
         OWNER=$(echo "${OWNER_PART}" | cut -d'/' -f1)
         echo "OWNER_LC=${OWNER,,}" >> $GITHUB_ENV
-        env:
+      env:
         OWNER_PART: '${{ github.repository }}'
 
      - name: Build and push Docker image
