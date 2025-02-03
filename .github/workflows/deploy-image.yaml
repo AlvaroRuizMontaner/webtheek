@@ -133,8 +133,8 @@ jobs:
       
       - name: Validate App Spec
         run: |
-          doctl apps spec validate ./app.yaml
+          doctl apps spec validate ./.do/app.yaml
 
       - name: Deploy container
         run: |
-          doctl apps update 44ee4a7f-a5fd-489b-8491-f704b39211b5 ./app.yaml
+          doctl apps update 44ee4a7f-a5fd-489b-8491-f704b39211b5 ./.do/app.yaml
