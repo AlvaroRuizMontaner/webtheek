@@ -113,6 +113,10 @@ jobs:
         with:
           context: .
           push: true
+          build-args: |
+            NEXT_PUBLIC_STRIPE_API_SECRET=${{ secrets.STRIPE_API_KEY }}
+            NEXT_PUBLIC_ENV=${{ secrets.NEXT_PUBLIC_ENV }}
+            NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}  # Variable de entorno para el build
           tags: ghcr.io/${{ env.REPO_NAME }}:latest
 
       - name: Deploy the app
