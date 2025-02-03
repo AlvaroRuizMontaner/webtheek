@@ -119,9 +119,22 @@ jobs:
             NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}  # Variable de entorno para el build
           tags: ghcr.io/${{ env.REPO_NAME }}:latest
 
-      - name: Deploy the app
-        uses: digitalocean/app_action/deploy@v2
-        env:
-          SAMPLE_DIGEST: ${{ steps.push.outputs.digest }}
+      #- name: Deploy the app
+      #  uses: digitalocean/app_action/deploy@v2
+      #  env:
+      #    SAMPLE_DIGEST: ${{ steps.push.outputs.digest }}
+      #  with:
+      #    token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
         with:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+      
+      - name: Validate App Spec
+        run: |
+          doctl apps spec validate --spec ./app.yaml
+
+      - name: Deploy container
+        run: |
+          doctl apps update 44ee4a7f-a5fd-489b-8491-f704b39211b5 --spec ./app.yaml

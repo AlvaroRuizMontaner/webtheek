@@ -1,9 +1,18 @@
 name: webtheek
 services:
-  - name: webtheek-service
-    image: registry.digitalocean.com/webtheek-container/app:1.0.0
-    internal_ports:
-      - port: 3000
+  - name: webtheek
+    build_command: npm run build
+    environment_slug: node-js
+    http_port: 8080
+    image:
+      registry: ghcr.io
+      registry_type: GHCR
+      repository: alvaroruizmontaner/webtheek
+      tag: latest
+    instance_count: 1
+    instance_size_slug: basic-xxs
+    run_command: npm start
+    source_dir: /
     routes:
       - path: /
     envs:
@@ -16,3 +25,4 @@ services:
     resources:
       cpu: 1
       memory: 1GiB
+
