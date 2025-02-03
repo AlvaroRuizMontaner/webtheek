@@ -102,10 +102,10 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Set lower case owner name
+      # Convertir el nombre del tag a minúsculas
+      - name: Set lowercase repository name
         run: |
-          OWNER=$(echo "${{ github.repository }}" | cut -d'/' -f1)
-          echo "OWNER_LC=${OWNER,,}" >> $GITHUB_ENV
+          echo "REPO_NAME=$(echo '${{ github.repository }}' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
 
       - name: Build and push Docker image
         id: push
@@ -113,11 +113,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: ghcr.io/${{ env.OWNER_LC }}/${{ github.event.repository.name }}:latest
-          build-args: |
-            NEXT_PUBLIC_STRIPE_API_SECRET=${{ secrets.STRIPE_API_KEY }}
-            NEXT_PUBLIC_ENV=${{ secrets.NEXT_PUBLIC_ENV }}
-            NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}
+          tags: ghcr.io/${{ env.REPO_NAME }}:latest
 
       - name: Deploy the app
         uses: digitalocean/app_action/deploy@v2
@@ -125,4 +121,3 @@ jobs:
           SAMPLE_DIGEST: ${{ steps.push.outputs.digest }}
         with:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
-          #app_spec_location: .do/app.yaml
