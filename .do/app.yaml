@@ -11,7 +11,7 @@ services:
       #registry: ghcr.io
       #registry_type: GHCR
       #repository: alvaroruizmontaner/webtheek
-      tag: 1.0.1
+      tag: ${{ env.VERSION_TAG }}
     instance_count: 1
     instance_size_slug: basic-xxs
     run_command: npm start
