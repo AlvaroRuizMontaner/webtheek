@@ -148,7 +148,9 @@ jobs:
             NEXT_PUBLIC_STRIPE_API_SECRET=${{ secrets.STRIPE_API_KEY }}
             NEXT_PUBLIC_ENV=${{ secrets.NEXT_PUBLIC_ENV }}
             NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}  # Variable de entorno para el build
-          tags: registry.digitalocean.com/webtheek-container/app:latest
+          tags: |
+            registry.digitalocean.com/webtheek-container/app:${{ env.VERSION_TAG }}
+            registry.digitalocean.com/webtheek-container/app:latest
 
       #- name: Deploy the app
       #  uses: digitalocean/app_action/deploy@v2
