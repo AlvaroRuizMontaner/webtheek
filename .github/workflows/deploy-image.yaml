@@ -167,7 +167,7 @@ jobs:
       - name: Insert VERSION_TAG into app.yaml
         run: |
           echo "VERSION_TAG=${{ env.VERSION_TAG }}"
-          yq e '.services[].image.tag = env.VERSION_TAG' -i ./.do/app.yaml
+          yq e ".services[].image.tag = \"$VERSION_TAG\"" -i ./.do/app.yaml
         env:
           VERSION_TAG: ${{ env.VERSION_TAG }}
       
