@@ -150,7 +150,6 @@ jobs:
             NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}  # Variable de entorno para el build
           tags: |
             registry.digitalocean.com/webtheek-container/app:${{ env.VERSION_TAG }}
-            registry.digitalocean.com/webtheek-container/app:latest
 
       #- name: Deploy the app
       #  uses: digitalocean/app_action/deploy@v2
