@@ -5,7 +5,7 @@ services:
     environment_slug: node-js
     http_port: 8080
     image:
-      registry: registry.digitalocean.com/webtheek-container
+      registry: registry.digitalocean.com/webtheek-container/app
       registry_type: DOCR
       repository: webtheek-container/app
       #registry: ghcr.io
