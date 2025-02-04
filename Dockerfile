@@ -70,7 +70,7 @@
     #tag: 1.0.0
 
 
-#-------------------------------------------Configuracion en etapas-------------------------------------------
+#------------------------------------------- Configuracion en etapas- ------------------------------------------
 
 # Etapa builder: Construir la aplicación
 #FROM node:18-alpine AS builder
