@@ -166,7 +166,10 @@ jobs:
 
       - name: Insert VERSION_TAG into app.yaml
         run: |
+          echo "VERSION_TAG=${{ env.VERSION_TAG }}"
           yq e '.services[].image.tag = env.VERSION_TAG' -i ./.do/app.yaml
+        env:
+          VERSION_TAG: ${{ env.VERSION_TAG }}
       
       - name: Validate App Spec
         run: |
