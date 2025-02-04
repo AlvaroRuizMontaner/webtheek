@@ -5,9 +5,12 @@ services:
     environment_slug: node-js
     http_port: 8080
     image:
-      registry: ghcr.io
-      registry_type: GHCR
-      repository: alvaroruizmontaner/webtheek
+      registry: registry.digitalocean.com
+      registry_type: DOCR
+      repository: webtheek-container/app
+      #registry: ghcr.io
+      #registry_type: GHCR
+      #repository: alvaroruizmontaner/webtheek
       tag: latest
     instance_count: 1
     instance_size_slug: basic-xxs

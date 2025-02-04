@@ -95,17 +95,20 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Log in to the Container registry
-        uses: docker/login-action@v3.3.0
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Log in to DigitalOcean Container Registry
+        run: actions/checkout@v4
+
+      #- name: Log in to the Container registry
+      #  uses: docker/login-action@v3.3.0
+      #  with:
+      #    registry: ghcr.io
+      #    username: ${{ github.actor }}
+      #    password: ${{ secrets.GITHUB_TOKEN }}
 
       #Convertir el nombre del tag a minúsculas
-      - name: Set lowercase repository name
-        run: |
-          echo "REPO_NAME=$(echo '${{ github.repository }}' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+      #- name: Set lowercase repository name
+      #  run: |
+      #    echo "REPO_NAME=$(echo '${{ github.repository }}' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
 
       - name: Build and push Docker image
         id: push
@@ -117,7 +120,7 @@ jobs:
             NEXT_PUBLIC_STRIPE_API_SECRET=${{ secrets.STRIPE_API_KEY }}
             NEXT_PUBLIC_ENV=${{ secrets.NEXT_PUBLIC_ENV }}
             NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}  # Variable de entorno para el build
-          tags: ghcr.io/${{ env.REPO_NAME }}:latest
+          tags: registry.digitalocean.com/webtheek-container/app:latest
 
       #- name: Deploy the app
       #  uses: digitalocean/app_action/deploy@v2
@@ -137,4 +140,4 @@ jobs:
 
       - name: Deploy container
         run: |
-          doctl apps update 44ee4a7f-a5fd-489b-8491-f704b39211b5 --spec ./.do/app.yaml
+          doctl apps update 44ee4a7f-a5fd-489b-8491-f704b39211b5 --spec ./.do/app.yaml --access-token ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
