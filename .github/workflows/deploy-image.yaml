@@ -166,7 +166,7 @@ jobs:
 
       - name: Insert VERSION_TAG into app.yaml
         run: |
-          sed -i "s/version-placeholder/${{ env.VERSION_TAG }}/g" ./.do/app.yaml
+          yq e '.services[].image.tag = env.VERSION_TAG' -i ./.do/app.yaml
       
       - name: Validate App Spec
         run: |
