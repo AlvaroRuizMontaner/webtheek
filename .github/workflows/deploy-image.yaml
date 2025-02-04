@@ -102,6 +102,25 @@ jobs:
           username: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
           password: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
 
+      - name: Set version tag
+        id: tag
+        run: |
+          # Obtener el último tag (si existe)
+          LAST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "v1.0.0")
+
+          # Dividir el tag en componentes: v1, 0, 0
+          MAJOR=$(echo $LAST_TAG | cut -d'.' -f1 | tr -d 'v')
+          MINOR=$(echo $LAST_TAG | cut -d'.' -f2)
+          PATCH=$(echo $LAST_TAG | cut -d'.' -f3)
+
+          # Incrementar la versión menor (minor)
+          NEW_PATCH=$((PATCH + 1))
+          NEW_TAG="v${MAJOR}.${MINOR}.${NEW_PATCH}"
+
+          # Guardar la nueva tag en el entorno
+          echo "VERSION_TAG=$NEW_TAG" >> $GITHUB_ENV
+          echo "Nueva versión: $NEW_TAG"
+
       #- name: Log in to the Container registry
       #  uses: docker/login-action@v3.3.0
       #  with:
