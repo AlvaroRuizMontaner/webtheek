@@ -162,10 +162,15 @@ jobs:
         uses: digitalocean/action-doctl@v2
         with:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
       
-      - name: Validate App Spec
+      - name: Insert VERSION_TAG into app.yaml
         run: |
-          doctl apps spec validate ./.do/app.yaml
+          sed -i "s/\${{ env.VERSION_TAG }}/${{ env.VERSION_TAG }}/g" ./.do/app.yaml
 
       - name: Deploy container
         run: |
