@@ -102,38 +102,24 @@ jobs:
           username: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
           password: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
 
-
-      - name: Generate metadata
-        uses: docker/metadata-action@v5
-        id: meta
-        with:
-          tags: |
-            type=semver,pattern={{version}}
-      - name: Check and clean tag
+      - name: Set version tag
+        id: tag
         run: |
-          VERSION_TAG=${{ steps.meta.outputs.tags }}
-          # Aquí puedes limpiar caracteres especiales si es necesario
-          echo "Using clean tag: $VERSION_TAG"
-          echo "VERSION_TAG=$VERSION_TAG" >> $GITHUB_ENV
+          # Obtener el último tag (si existe)
+          LAST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "1.0.0")
 
-      #- name: Set version tag
-      #  id: tag
-      #  run: |
-      #    # Obtener el último tag (si existe)
-      #    LAST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "1.0.0")
-#
-      #    # Dividir el tag en componentes: 1, 0, 0
-      #    MAJOR=$(echo $LAST_TAG | cut -d'.' -f1)
-      #    MINOR=$(echo $LAST_TAG | cut -d'.' -f2)
-      #    PATCH=$(echo $LAST_TAG | cut -d'.' -f3)
-#
-      #    # Incrementar la versión menor (minor)
-      #    NEW_PATCH=$((PATCH + 1))
-      #    NEW_TAG="${MAJOR}.${MINOR}.${NEW_PATCH}"
-#
-      #    # Guardar la nueva tag en el entorno
-      #    echo "VERSION_TAG=$NEW_TAG" >> $GITHUB_ENV
-      #    echo "Nueva versión: $NEW_TAG"
+          # Dividir el tag en componentes: 1, 0, 0
+          MAJOR=$(echo $LAST_TAG | cut -d'.' -f1)
+          MINOR=$(echo $LAST_TAG | cut -d'.' -f2)
+          PATCH=$(echo $LAST_TAG | cut -d'.' -f3)
+
+          # Incrementar la versión menor (minor)
+          NEW_PATCH=$((PATCH + 1))
+          NEW_TAG="${MAJOR}.${MINOR}.${NEW_PATCH}"
+
+          # Guardar la nueva tag en el entorno
+          echo "VERSION_TAG=$NEW_TAG" >> $GITHUB_ENV
+          echo "Nueva versión: $NEW_TAG"
 
       - name: Check image tag
         run: |
@@ -164,6 +150,7 @@ jobs:
             NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}  # Variable de entorno para el build
           tags: |
             registry.digitalocean.com/webtheek-container/app:${{ env.VERSION_TAG }}
+            registry.digitalocean.com/webtheek-container/app:latest
 
       #- name: Deploy the app
       #  uses: digitalocean/app_action/deploy@v2
@@ -177,14 +164,13 @@ jobs:
         with:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
 
-      - name: Install doctl
-        uses: digitalocean/action-doctl@v2
-        with:
-          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
-      
       - name: Insert VERSION_TAG into app.yaml
         run: |
           sed -i "s/\${{ env.VERSION_TAG }}/${{ env.VERSION_TAG }}/g" ./.do/app.yaml
+      
+      - name: Validate App Spec
+        run: |
+          doctl apps spec validate ./.do/app.yaml
 
       - name: Deploy container
         run: |
