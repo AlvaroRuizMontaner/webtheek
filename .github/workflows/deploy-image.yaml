@@ -78,6 +78,8 @@
 #          app_spec_location: .do/app.yaml
 
 
+#git tag 1.x.x && git push origin --tags && git push origin master
+
 name: Build, Push and Deploy a Docker Image
 
 # Evento que desencadena el workflow: se ejecuta en cada push a la rama "master"
@@ -159,7 +161,7 @@ jobs:
           build-args: |  # Se pasan las variables de entorno a la app
             NEXT_PUBLIC_STRIPE_API_SECRET=${{ secrets.STRIPE_API_KEY }}
             NEXT_PUBLIC_ENV=${{ secrets.NEXT_PUBLIC_ENV }}
-            NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}  # Variable de entorno para el build
+            NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}# Variable de entorno para el build
           tags: |  # Subir la imagen con dos tags: el tag de versión y el tag "latest"
             registry.digitalocean.com/webtheek-container/app:${{ env.VERSION_TAG }}
             registry.digitalocean.com/webtheek-container/app:latest
