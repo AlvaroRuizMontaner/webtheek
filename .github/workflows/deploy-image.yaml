@@ -80,24 +80,29 @@
 
 name: Build, Push and Deploy a Docker Image
 
+# Evento que desencadena el workflow: se ejecuta en cada push a la rama "master"
 on:
   push:
     branches: [master]
 
+# Permisos necesarios para leer el contenido del repositorio y escribir en el registro de paquetes
 permissions:
   contents: read
   packages: write
 
 jobs:
   build-push-deploy-image:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest # Ejecuta el job en una máquina virtual con Ubuntu
+
     steps:
+      # Paso 1: Clonar el repositorio
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Esto asegura que se obtengan todos los tags
+          fetch-depth: 0  # Esto asegura que se obtengan todos los tags, lo que es necesario para calcular la versión
           
 
+      # Paso 2: Iniciar sesión en el registro de contenedores de DigitalOcean
       - name: Log in to DigitalOcean Container Registry
         uses: docker/login-action@v3
         with:
@@ -105,25 +110,27 @@ jobs:
           username: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
           password: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
 
+      # Paso 3: Generar un nuevo tag basado en el último tag existente en Git
       - name: Set version tag
         id: tag
         run: |
-          # Obtener el último tag (si existe)
+          # Obtener el último tag o establecer un valor fallback
           LAST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "1.0.0")
 
-          # Dividir el tag en componentes: 1, 0, 0
+          # Dividir el tag en componentes
           MAJOR=$(echo $LAST_TAG | cut -d'.' -f1)
           MINOR=$(echo $LAST_TAG | cut -d'.' -f2)
           PATCH=$(echo $LAST_TAG | cut -d'.' -f3)
 
-          # Incrementar la versión menor (minor)
+          # Incrementar la versión de patch
           NEW_PATCH=$((PATCH + 1))
           NEW_TAG="${MAJOR}.${MINOR}.${NEW_PATCH}"
 
-          # Guardar la nueva tag en el entorno
+          # Guardar la nueva tag en las variables de entorno de GitHub
           echo "VERSION_TAG=$NEW_TAG" >> $GITHUB_ENV
           echo "Nueva versión: $NEW_TAG"
 
+      # Paso 4: Mostrar el tag que se está utilizando
       - name: Check image tag
         run: |
           echo "Using image tag: ${{ env.VERSION_TAG }}"
@@ -141,17 +148,19 @@ jobs:
       #  run: |
       #    echo "REPO_NAME=$(echo '${{ github.repository }}' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
 
+
+      # Paso 5: Construir y subir la imagen Docker al registro de DigitalOcean
       - name: Build and push Docker image
         id: push
         uses: docker/build-push-action@v6.5.0
         with:
-          context: .
-          push: true
-          build-args: |
+          context: .  # Define el contexto de build como el directorio actual
+          push: true  # Subir la imagen al registro después de construirla
+          build-args: |  # Se pasan las variables de entorno a la app
             NEXT_PUBLIC_STRIPE_API_SECRET=${{ secrets.STRIPE_API_KEY }}
             NEXT_PUBLIC_ENV=${{ secrets.NEXT_PUBLIC_ENV }}
             NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}  # Variable de entorno para el build
-          tags: |
+          tags: |  # Subir la imagen con dos tags: el tag de versión y el tag "latest"
             registry.digitalocean.com/webtheek-container/app:${{ env.VERSION_TAG }}
             registry.digitalocean.com/webtheek-container/app:latest
 
@@ -162,22 +171,30 @@ jobs:
       #  with:
       #    token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
 
+      # Paso 6: Instalar la herramienta CLI de DigitalOcean (doctl)
       - name: Install doctl
         uses: digitalocean/action-doctl@v2
         with:
-          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}  # Token de acceso para autenticarse
 
+      # Paso 7: Insertar el tag de la versión en el app spec (app.yaml)
       - name: Insert VERSION_TAG into app.yaml
         run: |
           echo "VERSION_TAG=${{ env.VERSION_TAG }}"
-          yq e ".services[].image.tag = \"$VERSION_TAG\"" -i ./.do/app.yaml
+          yq e ".services[].image.tag = \"$VERSION_TAG\"" -i ./.do/app.yaml # Actualizar el campo "tag" en el YAML de app (app spec)
         env:
           VERSION_TAG: ${{ env.VERSION_TAG }}
       
+      # Paso 8: Validar el app spec antes del despliegue
       - name: Validate App Spec
         run: |
           doctl apps spec validate ./.do/app.yaml
 
+      # Paso 9: Actualizar la aplicación en DigitalOcean con el nuevo app spec
       - name: Deploy container
         run: |
           doctl apps update 44ee4a7f-a5fd-489b-8491-f704b39211b5 --spec ./.do/app.yaml --access-token ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+      
+      # Paso 10: Confirmar que las variables están aplicadas correctamente
+      - name: Verify deployment
+        run: doctl apps describe 44ee4a7f-a5fd-489b-8491-f704b39211b5 --format Spec

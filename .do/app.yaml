@@ -1,28 +1,35 @@
-name: webtheek
+name: webtheek  # Nombre de la aplicación en DigitalOcean
+
+domains:  # Configuracion del dominio
+  - domain: webtheek.com
+    type: PRIMARY
+
 services:
-  - name: webtheek
-    build_command: npm run build
-    environment_slug: node-js
-    http_port: 8080
+  - name: webtheek  # Nombre del servicio. Este es el principal componente que se ejecutará.
+    build_command: npm run build  # Comando para compilar la aplicación antes de su ejecución
+    environment_slug: node-js  # Tipo de entorno que se usará. Define el entorno base compatible con Node.js.
+    http_port: 8080   # Puerto donde se expone la aplicación dentro del contenedor
     image:
       #registry: registry.digitalocean.com/webtheek-container/app
-      registry_type: DOCR
-      repository: app
       #registry: ghcr.io
       #registry_type: GHCR
       #repository: alvaroruizmontaner/webtheek
+      registry_type: DOCR  # Especifica que el registro es el Container Registry de DigitalOcean (DOCR)
+      repository: app  # Nombre del repositorio en el registro.
       tag: ${{ env.VERSION_TAG }}
-    instance_count: 1
-    instance_size_slug: basic-xxs
-    run_command: npm start
-    source_dir: /
-    routes:
+    instance_count: 1  # Número de instancias del servicio que se ejecutarán
+    instance_size_slug: basic-xxs  # Tamaño de las instancias. Aquí se usa la opción más pequeña (`basic-xxs`).
+    run_command: npm start  # Comando que se ejecuta para iniciar la aplicación
+    source_dir: /  # Directorio raíz del código fuente en el contenedor
+    routes:  # Configuración de las rutas de acceso público al servicio
       - path: /
-    envs:
+    envs:  # Variables de entorno que se pasarán al entorno de ejecución
       - key: NODE_ENV
         value: production
       - key: NEXT_PUBLIC_STRIPE_API_SECRET
         value: $NEXT_PUBLIC_STRIPE_API_SECRET
       - key: NEXT_PUBLIC_API_URL
         value: $NEXT_PUBLIC_API_URL
+      - key: NEXT_PUBLIC_FRONTEND_URL
+        value: $NEXT_PUBLIC_FRONTEND_URL
 
