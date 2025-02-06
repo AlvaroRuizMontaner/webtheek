@@ -10,6 +10,10 @@ import Head from 'next/head';
 
 export default function DashboardView() {
 
+  console.log(process.env.NEXT_PUBLIC_API_URL)
+  console.log(process.env.NEXT_PUBLIC_FRONTEND_URL)
+  console.log(process.env.NEXT_PUBLIC_STRIPE_API_SECRET)
+
   return (
     <>
       <Head>{renderPageSeo(seoHome, "index")}</Head>

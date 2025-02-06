@@ -1,5 +1,5 @@
 #-------------------------------------------Comandos-------------------------------------------
-
+# Nombre de imagen: registry.digitalocean.com/webtheek-container/app:1.0.0 .
 # Crear la imagen: docker build -t <nombre de imagen> .
 # Crear/correr contenedor basado en la imagen anterior: docker run -it -d <nombre de imagen>
 # Crear/correr contenedor basado en la imagen anterior con puerto accesible: docker run -it -d -p 3000:3000 <nombre de imagen>
@@ -18,6 +18,9 @@
 
 # Ver que images hay: docker images
 # Borrar imagen: docker rmi <id de la imagen>
+
+# Liberar espacio de viejos contenedores y cache: docker builder prune --all
+# Limpiar cache npm: npm cache clean --force
 
 
 #----------------------------------------- Configuracion Basica -----------------------------------------
@@ -95,6 +98,10 @@ RUN npm run build  # Asegurar que se genera .next/
 # Etapa runner: Ejecutar la aplicación en producción
 FROM node:18-alpine AS runner
 WORKDIR /app
+
+ENV NEXT_PUBLIC_STRIPE_API_SECRET=$NEXT_PUBLIC_STRIPE_API_SECRET
+ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
+ENV NEXT_PUBLIC_ENV=$NEXT_PUBLIC_ENV
 
 # Copiar los archivos esenciales desde builder
 COPY --from=builder /app/.next ./.next
