@@ -17,6 +17,9 @@ export default function What({whatInfo}: WhatProps) {
     const [slideIndex, setSlideIndex] = useState(1)
   
     const swiperRef = useRef<SwiperType>();
+    console.log(process.env.NEXT_PUBLIC_API_URL)
+    console.log(process.env.NEXT_PUBLIC_FRONTEND_URL)
+    console.log(process.env.NEXT_PUBLIC_STRIPE_API_SECRET)
 
   return (
     <section className="max-w-[1200px] mx-auto">
