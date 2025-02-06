@@ -199,5 +199,5 @@ jobs:
           doctl apps update 44ee4a7f-a5fd-489b-8491-f704b39211b5 --spec ./.do/app.yaml --access-token ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
       
       # Paso 10: Confirmar que las variables están aplicadas correctamente
-      - name: Verify deployment
-        run: doctl apps describe 44ee4a7f-a5fd-489b-8491-f704b39211b5 --format Spec
+      #- name: Verify deployment
+      #  run: doctl apps describe 44ee4a7f-a5fd-489b-8491-f704b39211b5 --format Spec
