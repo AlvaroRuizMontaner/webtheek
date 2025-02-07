@@ -151,8 +151,25 @@ jobs:
       #  run: |
       #    echo "REPO_NAME=$(echo '${{ github.repository }}' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
 
+      # Ejecuta el servidor en segundo plano (por eso usa &)
+      - name: Start the application server
+        run: npm start &
 
-      # Paso 5: Construir y subir la imagen Docker al registro de DigitalOcean
+      - name: Wait for server to start
+        run: sleep 10  # Esperar 10 segundos antes de iniciar Cypress
+
+      # Paso 5: Correr los tests
+      - name: Run Cypress tests
+        uses: cypress-io/github-action@v6
+        with:
+          browser: chrome
+          config-file: cypress.config.ts
+        env:
+          NEXT_PUBLIC_STRIPE_API_SECRET: ${{ secrets.STRIPE_API_KEY }}
+          NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
+          NEXT_PUBLIC_ENV: production
+
+      # Paso 6: Construir y subir la imagen Docker al registro de DigitalOcean
       - name: Build and push Docker image
         id: push
         uses: docker/build-push-action@v6.5.0
@@ -174,23 +191,13 @@ jobs:
       #  with:
       #    token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
 
-      - name: Run Cypress tests
-        uses: cypress-io/github-action@v6
-        with:
-          browser: chrome
-          config-file: cypress.config.ts
-        env:
-          NEXT_PUBLIC_STRIPE_API_SECRET: ${{ secrets.STRIPE_API_KEY }}
-          NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
-          NEXT_PUBLIC_ENV: production
-
-      # Paso 6: Instalar la herramienta CLI de DigitalOcean (doctl)
+      # Paso 7: Instalar la herramienta CLI de DigitalOcean (doctl)
       - name: Install doctl
         uses: digitalocean/action-doctl@v2
         with:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}  # Token de acceso para autenticarse
 
-      # Paso 7: Insertar el tag de la versión en el app spec (app.yaml)
+      # Paso 8: Insertar el tag de la versión en el app spec (app.yaml)
       - name: Insert VERSION_TAG into app.yaml
         run: |
           echo "VERSION_TAG=${{ env.VERSION_TAG }}"
@@ -203,11 +210,11 @@ jobs:
         run: |
           doctl apps spec validate ./.do/app.yaml
 
-      # Paso 9: Actualizar la aplicación en DigitalOcean con el nuevo app spec
+      # Paso 10: Actualizar la aplicación en DigitalOcean con el nuevo app spec
       - name: Deploy container
         run: |
           doctl apps update 44ee4a7f-a5fd-489b-8491-f704b39211b5 --spec ./.do/app.yaml --access-token ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
       
-      # Paso 10: Confirmar que las variables están aplicadas correctamente
+      # Paso 11: Confirmar que las variables están aplicadas correctamente
       #- name: Verify deployment
       #  run: doctl apps describe 44ee4a7f-a5fd-489b-8491-f704b39211b5 --format Spec
