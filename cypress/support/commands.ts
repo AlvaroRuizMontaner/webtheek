@@ -1,7 +1,7 @@
 Cypress.Commands.add('login', (email, password) => {
     cy.request({
       method: 'POST',
-      url: `http://localhost:4000/api/auth/login`,
+      url: `${process.env.NEXT_PUBLIC_API_URL}/auth/login`,
       body: { email, password },
     }).then((response) => {
       expect(response.status).to.eq(200); // Verifica que el login fue exitoso
