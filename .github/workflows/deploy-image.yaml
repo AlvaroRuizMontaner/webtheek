@@ -151,17 +151,13 @@ jobs:
       #  run: |
       #    echo "REPO_NAME=$(echo '${{ github.repository }}' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
 
-      # Ejecuta el servidor en segundo plano (por eso usa &)
-      - name: Start the application server
-        run: npm start &
-
-      - name: Wait for server to start
-        run: sleep 10  # Esperar 10 segundos antes de iniciar Cypress
 
       # Paso 5: Correr los tests
       - name: Run Cypress tests
         uses: cypress-io/github-action@v6
         with:
+          build: npm run build
+          start: npm run start
           browser: chrome
           config-file: cypress.config.ts
         env:
