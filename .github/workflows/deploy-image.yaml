@@ -162,7 +162,7 @@ jobs:
           config-file: cypress.config.ts
         env:
           NEXT_PUBLIC_STRIPE_API_SECRET: ${{ secrets.STRIPE_API_KEY }}
-          NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
+          NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL_CYPRESS }}
           NEXT_PUBLIC_ENV: production
 
       # Paso 6: Construir y subir la imagen Docker al registro de DigitalOcean
