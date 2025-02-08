@@ -39,6 +39,9 @@ describe('E2E Mutation Tests', () => {
     it('Create a resource', () => {
       cy.login(email, password); // Login al inicio
 
+      // Interceptar la solicitud antes del envío del formulario
+      cy.intercept('POST', '/api/projects').as('createProject');
+
       // Crear un recurso
       cy.visit(`${frontendUrl}/projects/create`);
 
@@ -48,6 +51,9 @@ describe('E2E Mutation Tests', () => {
       cy.get('#description').focus().type(resourceName);
 
       cy.get('form').submit() // Submit a form
+
+      // Esperar a que la solicitud interceptada se complete
+      cy.wait('@createProject').its('response.statusCode').should('eq', 200);
     });
 
     it('Buscar si el proyecto se ha creado, editarlo y luego borrarlo', () => {
@@ -56,7 +62,7 @@ describe('E2E Mutation Tests', () => {
         cy.visit(`${frontendUrl}/projects`);
         
         // Encuentra el elemento que contiene el nombre del recurso y extrae su ID
-        cy.contains(resourceName).should('exist').invoke('attr', 'id').then((resourceId) => {
+        cy.contains(resourceName, { timeout: 3000 }).should('exist').invoke('attr', 'id').then((resourceId) => {
           //const resourceId = element.attr('id'); // Supón que el ID está en un atributo `data-id`
           cy.log(`Resource ID: ${resourceId}`); // Muestra el ID en los logs para depuración 
           
