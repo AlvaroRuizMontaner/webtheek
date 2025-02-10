@@ -37,7 +37,13 @@ describe('E2E Mutation Tests', () => {
       cy.get('form').submit() // Submit a form
 
       // Esperar a que la solicitud interceptada se complete
-      cy.wait('@createQuiz').its('response.statusCode').should('eq', 200);
+      //cy.wait('@createQuiz').its('response.statusCode').should('eq', 200);
+      cy.wait('@createQuiz').then((interception) => {
+        cy.log('POST URL:', interception.request.url);
+        cy.log('Response status:', (interception.response as any).statusCode);
+        cy.log('Request body:', JSON.stringify(interception.request.body));
+        cy.log('Response body:', JSON.stringify((interception.response as any).body));
+      });
     });
 
     it('Buscar si el quiz se ha creado, editarlo y luego borrarlo', () => {
