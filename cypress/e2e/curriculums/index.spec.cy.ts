@@ -27,7 +27,12 @@ describe('E2E Mutation Tests', () => {
       cy.login(email, password); // Login al inicio
 
       // Interceptar la solicitud antes del envío del formulario
-      cy.intercept('POST', '/api/curriculums').as('createCurriculum');
+      cy.intercept('POST', '**/curriculums', (req) => {
+        req.continue((res) => {
+          cy.log('Response Status:', res.statusCode);
+          cy.log('Response Body:', res.body);
+        });
+      });
 
       // Crear un recurso
       cy.visit(`${frontendUrl}/curriculums/create`);
