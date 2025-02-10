@@ -38,7 +38,6 @@ describe('E2E Mutation Tests', () => {
         // Esperar a que la solicitud interceptada se complete
         //cy.wait('@createCurriculum').its('response.statusCode').should('eq', 200);
         cy.wait('@createCurriculum').then((interception) => {
-            // Imprimir detalles de la solicitud
             cy.log('POST URL:', interception.request.url);
             cy.log('Response status:', (interception.response as any).statusCode);
             cy.log('Request body:', JSON.stringify(interception.request.body));
