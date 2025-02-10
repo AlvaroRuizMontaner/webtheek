@@ -5,7 +5,7 @@ declare global {
       interface Chainable {
 
         //Custom command to select DOM element by data-cy attribute.
-        login(email: string, password: string);
+        login(email: string, password: string): Chainable<void>
       }
     }
 }
