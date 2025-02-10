@@ -32,9 +32,14 @@ describe('E2E Mutation Tests', () => {
       // Crear un recurso
       cy.visit(`${frontendUrl}/curriculums/create`);
 
-      cy.get('#curriculumName').focus().type(resourceName).then(($input) => {
-        // $input es el elemento DOM resultante del comando cy.get()
-        cy.log('El valor del input es:', $input.val()); // Imprime el valor actual del input
+      cy.wait('@createCurriculum').then((interception) => {
+        // Imprimir detalles de la solicitud
+        cy.log('POST URL:', interception.request.url);
+        if(interception) {
+            cy.log('Response status:', (interception.response as any).statusCode);
+            cy.log('Request body:', JSON.stringify(interception.request.body));
+            cy.log('Response body:', JSON.stringify((interception.response as any).body));
+        }
     });
       cy.get('form').submit() // Submit a form
 
