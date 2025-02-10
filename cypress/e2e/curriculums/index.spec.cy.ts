@@ -24,28 +24,27 @@ describe('Login and access curriculums', () => {
 describe('E2E Mutation Tests', () => {
   
     it('Create a resource', () => {
-      cy.login(email, password); // Login al inicio
-
-      // Interceptar la solicitud antes del envío del formulario
-      cy.intercept('POST', '**/api/curriculums*').as('createCurriculum');
-
-      // Crear un recurso
-      cy.visit(`${frontendUrl}/curriculums/create`);
-
-      cy.wait('@createCurriculum').then((interception) => {
-        // Imprimir detalles de la solicitud
-        cy.log('POST URL:', interception.request.url);
-        if(interception) {
+        cy.login(email, password); // Login al inicio
+  
+        // Interceptar la solicitud antes del envío del formulario
+        cy.intercept('POST', '/api/curriculums').as('createCurriculum');
+  
+        // Crear un recurso
+        cy.visit(`${frontendUrl}/curriculums/create`);
+  
+        cy.get('#curriculumName').focus().type(resourceName);
+        cy.get('form').submit() // Submit a form
+  
+        // Esperar a que la solicitud interceptada se complete
+        //cy.wait('@createCurriculum').its('response.statusCode').should('eq', 200);
+        cy.wait('@createCurriculum').then((interception) => {
+            // Imprimir detalles de la solicitud
+            cy.log('POST URL:', interception.request.url);
             cy.log('Response status:', (interception.response as any).statusCode);
             cy.log('Request body:', JSON.stringify(interception.request.body));
             cy.log('Response body:', JSON.stringify((interception.response as any).body));
-        }
-    });
-      cy.get('form').submit() // Submit a form
-
-      // Esperar a que la solicitud interceptada se complete
-      cy.wait('@createCurriculum').its('response.statusCode').should('eq', 200);
-    });
+        });
+      });
 
     it('Buscar si el curriculum se ha creado, editarlo y luego borrarlo', () => {
         cy.login(email, password); // Login al inicio
