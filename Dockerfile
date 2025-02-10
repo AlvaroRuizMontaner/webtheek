@@ -95,6 +95,9 @@ RUN npm install
 COPY . .
 RUN npm run build  # Asegurar que se genera .next/
 
+# Instalar Cypress para pruebas
+RUN npx cypress verify
+
 # Etapa runner: Ejecutar la aplicación en producción
 FROM node:18-alpine AS runner
 WORKDIR /app
