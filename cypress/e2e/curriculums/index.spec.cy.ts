@@ -38,10 +38,10 @@ describe('E2E Mutation Tests', () => {
         // Esperar a que la solicitud interceptada se complete
         //cy.wait('@createCurriculum').its('response.statusCode').should('eq', 200);
         cy.wait('@createCurriculum').then((interception) => {
-            cy.task('logMessage', interception.request.url);
-            cy.task('logMessage', (interception.response as any).statusCode);
-            cy.task('logMessage', JSON.stringify(interception.request.body));
-            cy.task('logMessage', JSON.stringify((interception.response as any).body));
+            cy.log('POST URL:', interception.request.url);
+            cy.log('Response status:', (interception.response as any).statusCode);
+            cy.log('Request body:', JSON.stringify(interception.request.body));
+            cy.log('Response body:', JSON.stringify((interception.response as any).body));
         });
       });
 
