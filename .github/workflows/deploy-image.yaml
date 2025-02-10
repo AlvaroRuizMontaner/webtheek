@@ -159,7 +159,7 @@ jobs:
           build: npm run build
           start: npm run start
           browser: chrome
-          config-file: cypress.config.ts
+          config-file: cypress.config.js
         env:
           NEXT_PUBLIC_STRIPE_API_SECRET: ${{ secrets.STRIPE_API_KEY }}
           NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL_CYPRESS }}
