@@ -2,7 +2,7 @@ import '../../support/commands';
 import { email, frontendUrl, password } from "../../support/credentials";
 
 const resourceName = "Test";
-//const editResourceName = "Edited";
+const editResourceName = "Edited";
 
 describe('Login and access curriculums', () => {
 
@@ -56,23 +56,16 @@ describe('E2E Mutation Tests', () => {
         cy.wait('@getCurriculums', { timeout: 15000 }).then((interception) => {
             cy.task("logStringify", JSON.stringify(interception.request.url))
             cy.task("logStringify", JSON.stringify(interception.request.headers))
+            cy.task('log', JSON.stringify((interception.response as any).body));
             //cy.task('log', (interception.response as any).statusCode);
-            //cy.task('log', JSON.stringify((interception.response as any).body));
 
-            const redirectUrl = interception.response?.headers['location'];
-            cy.task("log", redirectUrl || "No redirection detected")
+            const redirectUrl = interception.response?.headers['location'] as string;
+            cy.visit(redirectUrl)
         });
-        cy.request({
-            url: '/api/curriculums',
-            followRedirect: true
-        }).then((response) => {
-            expect(response.status).to.eq(200);
-        });
-        
 
         
         // Encuentra el elemento que contiene el nombre del recurso y extrae su ID
-        /* cy.contains(resourceName, { timeout: 15000 }).should('exist').invoke('attr', 'id').then((resourceId) => {
+        cy.contains(resourceName, { timeout: 15000 }).should('exist').invoke('attr', 'id').then((resourceId) => {
           //const resourceId = element.attr('id'); // Supón que el ID está en un atributo `data-id`
           cy.log(`Resource ID: ${resourceId}`); // Muestra el ID en los logs para depuración 
           
@@ -96,6 +89,6 @@ describe('E2E Mutation Tests', () => {
           cy.get('#password').focus().clear().type("password");
 
           cy.get('form').submit() // Submit a form
-        }); */
+        });
     });
 });
