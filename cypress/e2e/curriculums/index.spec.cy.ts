@@ -17,7 +17,7 @@ describe('Login and access curriculums', () => {
         cy.login(email, password);
 
         // Visita los proyectos
-        cy.visit(`${frontendUrl}/curriculums/678921419e30380d3d1fed2c`)
+        cy.visit(`${frontendUrl}/curriculums/67ab3e2db0366ba1e7daed55`)
     });
 });
 
@@ -53,7 +53,7 @@ describe('E2E Mutation Tests', () => {
         
         cy.visit(`${frontendUrl}/curriculums`);
 
-        cy.wait('@getCurriculums').then((interception) => {
+        cy.wait('@getCurriculums', { timeout: 15000 }).then((interception) => {
             cy.log('GET URL:', interception.request.url);
             cy.log('Response status:', (interception.response as any).statusCode);
             cy.log('Response body:', JSON.stringify((interception.response as any).body));

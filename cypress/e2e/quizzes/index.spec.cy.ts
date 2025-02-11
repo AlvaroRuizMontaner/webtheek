@@ -17,7 +17,7 @@ describe('Login and access quizzes', () => {
         cy.login(email, password);
 
         // Visita los proyectos
-        cy.visit(`${frontendUrl}/quizzes/67aa7b15b0366ba1e7daea84`)
+        cy.visit(`${frontendUrl}/quizzes/67ab3e82b0366ba1e7daedb9`)
     });
 });
 

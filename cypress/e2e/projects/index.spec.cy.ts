@@ -30,7 +30,7 @@ describe('Login and access projects', () => {
         cy.login(email, password);
 
         // Visita los proyectos
-        cy.visit(`${frontendUrl}/projects/678920ab9e30380d3d1fecdd`)
+        cy.visit(`${frontendUrl}/projects/67ab3e60b0366ba1e7daed9b`)
     });
 });
 
@@ -64,8 +64,17 @@ describe('E2E Mutation Tests', () => {
 
     it('Buscar si el proyecto se ha creado, editarlo y luego borrarlo', () => {
         cy.login(email, password); // Login al inicio
+
+        // Interceptar la solicitud GET de projects
+        cy.intercept('GET', '/api/projects').as('getProjects');
         
         cy.visit(`${frontendUrl}/projects`);
+
+        cy.wait('@getProjects', { timeout: 15000 }).then((interception) => {
+          cy.log('GET URL:', interception.request.url);
+          cy.log('Response status:', (interception.response as any).statusCode);
+          cy.log('Response body:', JSON.stringify((interception.response as any).body));
+        });
         
         // Encuentra el elemento que contiene el nombre del recurso y extrae su ID
         cy.contains(resourceName, { timeout: 10000 }).should('exist').invoke('attr', 'id').then((resourceId) => {
