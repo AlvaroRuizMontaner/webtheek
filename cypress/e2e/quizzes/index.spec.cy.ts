@@ -17,7 +17,7 @@ describe('Login and access quizzes', () => {
         cy.login(email, password);
 
         // Visita los proyectos
-        cy.visit(`${frontendUrl}/quizzes/6789211a9e30380d3d1fecfa`)
+        cy.visit(`${frontendUrl}/quizzes/67aa7b15b0366ba1e7daea84`)
     });
 });
 
@@ -48,8 +48,17 @@ describe('E2E Mutation Tests', () => {
 
     it('Buscar si el quiz se ha creado, editarlo y luego borrarlo', () => {
         cy.login(email, password); // Login al inicio
+
+        // Interceptar la solicitud GET de quizzes
+        cy.intercept('GET', '/api/quizzes').as('getQuizzes');
         
         cy.visit(`${frontendUrl}/quizzes`);
+
+        cy.wait('@getQuizzes').then((interception) => {
+            cy.log('GET URL:', interception.request.url);
+            cy.log('Response status:', (interception.response as any).statusCode);
+            cy.log('Response body:', JSON.stringify((interception.response as any).body));
+        });
         
         // Encuentra el elemento que contiene el nombre del recurso y extrae su ID
         cy.contains(resourceName, { timeout: 10000 }).should('exist').invoke('attr', 'id').then((resourceId) => {
@@ -57,9 +66,9 @@ describe('E2E Mutation Tests', () => {
             cy.log(`Resource ID: ${resourceId}`); // Muestra el ID en los logs para depuración 
             
             // Guarda el ID en el localStorage
-            cy.window().then((win) => {
-                win.localStorage.setItem('resourceId', resourceId ?? "testId");
-            });
+            //cy.window().then((win) => {
+            //    win.localStorage.setItem('resourceId', resourceId ?? "testId");
+            //});
 
             cy.visit(`${frontendUrl}/quizzes/${resourceId}/edit`)
 

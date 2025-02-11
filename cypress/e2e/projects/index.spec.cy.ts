@@ -73,9 +73,9 @@ describe('E2E Mutation Tests', () => {
           cy.log(`Resource ID: ${resourceId}`); // Muestra el ID en los logs para depuración 
           
           // Guarda el ID en el localStorage
-          cy.window().then((win) => {
-              win.localStorage.setItem('resourceId', resourceId ?? "testId");
-          });
+          //cy.window().then((win) => {
+          //    win.localStorage.setItem('resourceId', resourceId ?? "testId");
+          //});
 
           cy.visit(`${frontendUrl}/projects/${resourceId}/edit`)
 
