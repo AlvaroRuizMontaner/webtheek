@@ -2,7 +2,7 @@ import '../../support/commands';
 import { email, frontendUrl, password } from "../../support/credentials";
 
 const resourceName = "Test";
-const editResourceName = "TestEdited";
+const editResourceName = "Edited";
 
 describe('Login and access quizzes', () => {
 

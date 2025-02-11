@@ -2,7 +2,7 @@ import '../../support/commands';
 import { email, frontendUrl, password } from "../../support/credentials";
 
 const resourceName = "Test";
-const editResourceName = "TestEdited";
+const editResourceName = "Edited";
 
 describe('Login and access curriculums', () => {
 
@@ -61,6 +61,8 @@ describe('E2E Mutation Tests', () => {
             const redirectUrl = interception.response?.headers['location'];
             cy.task("log", redirectUrl || "No redirection detected")
         });
+
+        cy.contains("login", { timeout: 15000 })
         
         // Encuentra el elemento que contiene el nombre del recurso y extrae su ID
         cy.contains(resourceName, { timeout: 15000 }).should('exist').invoke('attr', 'id').then((resourceId) => {
