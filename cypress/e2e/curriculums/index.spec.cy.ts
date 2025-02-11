@@ -54,9 +54,9 @@ describe('E2E Mutation Tests', () => {
         cy.visit(`${frontendUrl}/curriculums`);
 
         cy.wait('@getCurriculums', { timeout: 15000 }).then((interception) => {
-            cy.log('GET URL:', interception.request.url);
-            cy.task('log', (interception.response as any).statusCode);
-            cy.task('log', JSON.stringify((interception.response as any).body));
+            cy.task("logStringify", JSON.stringify(interception.request.url))
+            //cy.task('log', (interception.response as any).statusCode);
+            //cy.task('log', JSON.stringify((interception.response as any).body));
 
             const redirectUrl = interception.response?.headers['location'];
             cy.task("log", redirectUrl || "No redirection detected")
