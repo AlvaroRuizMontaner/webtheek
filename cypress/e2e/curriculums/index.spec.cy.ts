@@ -56,13 +56,13 @@ describe('E2E Mutation Tests', () => {
         cy.wait('@getCurriculums', { timeout: 15000 }).then((interception) => {
             cy.log('GET URL:', interception.request.url);
             cy.task('log', (interception.response as any).statusCode);
-            cy.log('Response body:', JSON.stringify((interception.response as any).body));
+            cy.task('log', JSON.stringify((interception.response as any).body));
 
             const redirectUrl = interception.response?.headers['location'];
             cy.task("log", redirectUrl || "No redirection detected")
         });
 
-        cy.contains("aventura", { timeout: 15000 })
+        cy.contains(resourceName, { timeout: 15000 })
         
         // Encuentra el elemento que contiene el nombre del recurso y extrae su ID
         cy.contains(resourceName, { timeout: 15000 }).should('exist').invoke('attr', 'id').then((resourceId) => {
