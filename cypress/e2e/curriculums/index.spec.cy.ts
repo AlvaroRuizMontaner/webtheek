@@ -62,7 +62,7 @@ describe('E2E Mutation Tests', () => {
             cy.task("log", redirectUrl || "No redirection detected")
         });
 
-        cy.contains("Prosigue ", { timeout: 15000 })
+        cy.contains("aventura ", { timeout: 15000 })
         
         // Encuentra el elemento que contiene el nombre del recurso y extrae su ID
         cy.contains(resourceName, { timeout: 15000 }).should('exist').invoke('attr', 'id').then((resourceId) => {
