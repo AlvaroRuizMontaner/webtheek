@@ -4,7 +4,7 @@ export default defineConfig({
   e2e: {
     setupNodeEvents(on/* , config */) {
         on('task', {
-            logMessage(message) {
+            log(message) {
               console.log(message); // Esto imprime el mensaje en la terminal
               return null; // Cypress requiere un valor de retorno
             }
