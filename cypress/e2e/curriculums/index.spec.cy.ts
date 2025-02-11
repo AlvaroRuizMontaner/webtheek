@@ -57,6 +57,9 @@ describe('E2E Mutation Tests', () => {
             cy.log('GET URL:', interception.request.url);
             cy.task('log', (interception.response as any).statusCode);
             cy.log('Response body:', JSON.stringify((interception.response as any).body));
+
+            const redirectUrl = interception.response?.headers['location'];
+            cy.task("log", redirectUrl || "No redirection detected")
         });
         
         // Encuentra el elemento que contiene el nombre del recurso y extrae su ID
