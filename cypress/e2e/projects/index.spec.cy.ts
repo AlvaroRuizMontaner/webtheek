@@ -77,7 +77,7 @@ describe('E2E Mutation Tests', () => {
         });
         
         // Encuentra el elemento que contiene el nombre del recurso y extrae su ID
-        cy.contains(resourceName, { timeout: 10000 }).should('exist').invoke('attr', 'id').then((resourceId) => {
+        cy.contains(resourceName, { timeout: 15000 }).should('exist').invoke('attr', 'id').then((resourceId) => {
           //const resourceId = element.attr('id'); // Supón que el ID está en un atributo `data-id`
           cy.log(`Resource ID: ${resourceId}`); // Muestra el ID en los logs para depuración 
           

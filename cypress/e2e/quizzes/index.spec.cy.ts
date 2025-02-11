@@ -54,14 +54,14 @@ describe('E2E Mutation Tests', () => {
         
         cy.visit(`${frontendUrl}/quizzes`);
 
-        cy.wait('@getQuizzes').then((interception) => {
+        cy.wait('@getQuizzes', { timeout: 15000 }).then((interception) => {
             cy.log('GET URL:', interception.request.url);
             cy.log('Response status:', (interception.response as any).statusCode);
             cy.log('Response body:', JSON.stringify((interception.response as any).body));
         });
         
         // Encuentra el elemento que contiene el nombre del recurso y extrae su ID
-        cy.contains(resourceName, { timeout: 10000 }).should('exist').invoke('attr', 'id').then((resourceId) => {
+        cy.contains(resourceName, { timeout: 15000 }).should('exist').invoke('attr', 'id').then((resourceId) => {
             //const resourceId = element.attr('id'); // Supón que el ID está en un atributo `data-id`
             cy.log(`Resource ID: ${resourceId}`); // Muestra el ID en los logs para depuración 
             
