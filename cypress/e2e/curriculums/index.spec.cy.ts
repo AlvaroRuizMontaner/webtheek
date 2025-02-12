@@ -47,9 +47,11 @@ describe('E2E Mutation Tests', () => {
         // Interceptar la solicitud GET de curriculums
         cy.intercept('GET', '/api/curriculums').as('getCurriculums');
         
-        cy.visit(`${frontendUrl}/curriculums`);
+        cy.visit(`${frontendUrl}/curriculums`).then((algo) => {
+            cy.task("log", `${frontendUrl}/curriculums`)
+            cy.task("log", algo)
+        })
 
-        cy.task("log", `${frontendUrl}/curriculums`)
 
 /*         cy.wait('@getCurriculums', { timeout: 15000 }).then((interception) => {
             cy.task("logStringify", JSON.stringify(interception.request.url))
