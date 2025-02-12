@@ -59,6 +59,7 @@ describe('E2E Mutation Tests', () => {
             cy.task("logStringify", JSON.stringify(interception.request.headers))
             cy.task('log', JSON.stringify((interception.response as any).body));
             cy.task('log', (interception.response as any).statusCode);
+            cy.task('log', (interception.response as any).message);
 
             if((interception.response as any).statusCode === 301) {
                 const redirectUrl = interception.response?.headers['location'] as string;
