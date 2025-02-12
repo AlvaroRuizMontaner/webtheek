@@ -4,18 +4,18 @@ import { email, frontendUrl, password } from "../../support/credentials";
 const resourceName = "Test";
 const editResourceName = "Edited";
 
+beforeEach(() => {
+    cy.login(email, password)
+})
+
 describe('Login and access curriculums', () => {
 
     it('Visit curriculums', () => {
-        cy.login(email, password);
-
         // Visita los curriculums
         cy.visit(`${frontendUrl}/curriculums`)
         cy.contains(/Curriculums/i).should('exist'); // Verifica que se carga correctamente
     });
     it('Visit test curriculum', () => {
-        cy.login(email, password);
-
         // Visita los proyectos
         cy.visit(`${frontendUrl}/curriculums/67ab3e2db0366ba1e7daed55`)
     });
@@ -24,8 +24,6 @@ describe('Login and access curriculums', () => {
 describe('E2E Mutation Tests', () => {
   
     it('Create a resource', () => {
-        cy.login(email, password); // Login al inicio
-  
         // Interceptar la solicitud antes del envío del formulario
         cy.intercept('POST', '/api/curriculums').as('createCurriculum');
   
@@ -46,8 +44,6 @@ describe('E2E Mutation Tests', () => {
       });
 
     it('Buscar si el curriculum se ha creado, editarlo y luego borrarlo', () => {
-        cy.login(email, password); // Login al inicio
-
         // Interceptar la solicitud GET de curriculums
         cy.intercept('GET', '/api/curriculums').as('getCurriculums');
         
@@ -59,8 +55,8 @@ describe('E2E Mutation Tests', () => {
             cy.task('log', JSON.stringify((interception.response as any).body));
             //cy.task('log', (interception.response as any).statusCode);
 
-            const redirectUrl = interception.response?.headers['location'] as string;
-            cy.visit(redirectUrl)
+            //const redirectUrl = interception.response?.headers['location'] as string;
+            //cy.visit(redirectUrl)
         });
 
         

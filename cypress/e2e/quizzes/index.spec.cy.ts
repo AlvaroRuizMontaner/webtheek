@@ -4,18 +4,18 @@ import { email, frontendUrl, password } from "../../support/credentials";
 const resourceName = "Test";
 const editResourceName = "Edited";
 
+beforeEach(() => {
+    cy.login(email, password)
+})
+
 describe('Login and access quizzes', () => {
 
     it('Visit quizzes', () => {
-        cy.login(email, password);
-
         // Visita los quizzes
         cy.visit(`${frontendUrl}/quizzes`)
         cy.contains(/quizzes/i).should('exist'); // Verifica que se carga correctamente
     });
     it('Visit test quiz', () => {
-        cy.login(email, password);
-
         // Visita los proyectos
         cy.visit(`${frontendUrl}/quizzes/67ab3e82b0366ba1e7daedb9`)
     });
@@ -24,8 +24,6 @@ describe('Login and access quizzes', () => {
 describe('E2E Mutation Tests', () => {
   
     it('Create a resource', () => {
-      cy.login(email, password); // Login al inicio
-
       // Interceptar la solicitud antes del envío del formulario
       cy.intercept('POST', '/api/quizzes').as('createQuiz');
 
@@ -47,15 +45,13 @@ describe('E2E Mutation Tests', () => {
     });
 
     it('Buscar si el quiz se ha creado, editarlo y luego borrarlo', () => {
-        cy.login(email, password); // Login al inicio
-
         // Interceptar la solicitud GET de quizzes
         cy.intercept('GET', '/api/quizzes').as('getQuizzes');
         
         cy.visit(`${frontendUrl}/quizzes`);
 
         cy.wait('@getQuizzes', { timeout: 15000 }).then((interception) => {
-            cy.log('GET URL:', interception.request.url);
+            cy.task('log', interception.request.url);
             cy.log('Response status:', (interception.response as any).statusCode);
             cy.log('Response body:', JSON.stringify((interception.response as any).body));
         });

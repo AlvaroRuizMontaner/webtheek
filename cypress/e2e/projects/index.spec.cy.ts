@@ -4,6 +4,10 @@ import { email, frontendUrl, password } from "../../support/credentials";
 const resourceName = "Test";
 const editResourceName = "Edited";
 
+beforeEach(() => {
+  cy.login(email, password)
+})
+
 Cypress.on("uncaught:exception", (err) => {
     // Cypress and React Hydrating the document don't get along
     // for some unknown reason. Hopefully, we figure out why eventually
@@ -18,17 +22,12 @@ Cypress.on("uncaught:exception", (err) => {
 });
 
 describe('Login and access projects', () => {
-
     it('Visit projects', () => {
-        cy.login(email, password);
-
         // Visita los projects
         cy.visit(`${frontendUrl}/projects`)
         cy.contains(/proyectos/i).should('exist'); // Verifica que se carga correctamente
     });
     it('Visit test project', () => {
-        cy.login(email, password);
-
         // Visita los proyectos
         cy.visit(`${frontendUrl}/projects/67ab3e60b0366ba1e7daed9b`)
     });
@@ -37,8 +36,6 @@ describe('Login and access projects', () => {
 describe('E2E Mutation Tests', () => {
   
     it('Create a resource', () => {
-      cy.login(email, password); // Login al inicio
-
       // Interceptar la solicitud antes del envío del formulario
       cy.intercept('POST', '/api/projects').as('createProject');
 
@@ -63,15 +60,13 @@ describe('E2E Mutation Tests', () => {
     });
 
     it('Buscar si el proyecto se ha creado, editarlo y luego borrarlo', () => {
-        cy.login(email, password); // Login al inicio
-
         // Interceptar la solicitud GET de projects
         cy.intercept('GET', '/api/projects').as('getProjects');
         
         cy.visit(`${frontendUrl}/projects`);
 
         cy.wait('@getProjects', { timeout: 15000 }).then((interception) => {
-          cy.log('GET URL:', interception.request.url);
+          cy.task('log', interception.request.url);
           cy.log('Response status:', (interception.response as any).statusCode);
           cy.log('Response body:', JSON.stringify((interception.response as any).body));
         });
