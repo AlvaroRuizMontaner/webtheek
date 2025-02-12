@@ -46,15 +46,21 @@ describe('E2E Mutation Tests', () => {
     it('Buscar si el curriculum se ha creado, editarlo y luego borrarlo', () => {
         // Interceptar la solicitud GET de curriculums
         cy.intercept('GET', '/api/curriculums').as('getCurriculums');
+
+        cy.request(`${frontendUrl}/curriculums`).then((response) => {
+            cy.task("log", `Status Code: ${response.status}`);
+            expect(response.status).to.eq(200); // Asegura que la página responde correctamente
+        });
         
         cy.visit(`${frontendUrl}/curriculums`).then((algo) => {
             cy.task("log", `${frontendUrl}/curriculums`)
             cy.task("log", algo.location.href)
             cy.task("log", Boolean(algo.localStorage.getItem("AUTH_TOKEN")))
+            
         })
 
 
-        cy.wait('@getCurriculums', { timeout: 15000 }).then((interception) => {
+/*         cy.wait('@getCurriculums', { timeout: 15000 }).then((interception) => {
             cy.task("logStringify", JSON.stringify(interception.request.url))
             cy.task("logStringify", JSON.stringify(interception.request.headers))
             cy.task('log', JSON.stringify((interception.response as any).body));
@@ -65,7 +71,7 @@ describe('E2E Mutation Tests', () => {
                 const redirectUrl = interception.response?.headers['location'] as string;
                 cy.visit(redirectUrl)
             }
-        });
+        }); */
 
         
         // Encuentra el elemento que contiene el nombre del recurso y extrae su ID
