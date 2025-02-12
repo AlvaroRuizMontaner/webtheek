@@ -51,6 +51,8 @@ describe('E2E Mutation Tests', () => {
             cy.task("log", `${frontendUrl}/curriculums`)
             cy.task("log", algo.location.href)
             cy.task("log", Boolean(algo.localStorage.getItem("AUTH_TOKEN")))
+
+            cy.contains(resourceName, { timeout: 15000 })
         })
 
 
