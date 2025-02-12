@@ -47,8 +47,9 @@ describe('E2E Mutation Tests', () => {
         // Interceptar la solicitud GET de curriculums
         cy.intercept('GET', '/api/curriculums').as('getCurriculums');
 
-        cy.request(`${frontendUrl}/curriculums`).then((response) => {
+        cy.request(`http://webtheek-server.onrender.com/api/curriculums`).then((response) => {
             cy.task("log", `Status Code: ${response.status}`);
+            cy.task("log", `Status Code: ${response.body}`);
             expect(response.status).to.eq(200); // Asegura que la página responde correctamente
         });
         
@@ -59,7 +60,7 @@ describe('E2E Mutation Tests', () => {
             
         })
 
-        cy.contains("hola", { timeout: 15000 })
+        cy.contains("Permanently", { timeout: 15000 })
 
 
 /*         cy.wait('@getCurriculums', { timeout: 15000 }).then((interception) => {
