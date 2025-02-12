@@ -1,4 +1,4 @@
-import Redirect from '@/components/Redirect';
+/* import Redirect from '@/components/Redirect'; */
 import AppLayout from '@/layouts/AppLayout';
 
 export default function Layout({children}: {children: JSX.Element}): JSX.Element {
@@ -6,7 +6,7 @@ export default function Layout({children}: {children: JSX.Element}): JSX.Element
     <>
       <AppLayout>
         {children}
-        <Redirect />
+        {/* <Redirect /> Provisional */}
       </AppLayout>
     </>
   );
