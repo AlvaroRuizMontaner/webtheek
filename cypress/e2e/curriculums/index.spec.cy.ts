@@ -49,7 +49,8 @@ describe('E2E Mutation Tests', () => {
         
         cy.visit(`${frontendUrl}/curriculums`).then((algo) => {
             cy.task("log", `${frontendUrl}/curriculums`)
-            cy.task("log", algo)
+            cy.task("log", algo.location.href)
+            cy.task("log", algo.localStorage.getItem("AUTH_TOKEN"))
         })
 
 
