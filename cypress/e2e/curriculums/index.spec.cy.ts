@@ -52,7 +52,7 @@ describe('E2E Mutation Tests', () => {
             cy.task("log", algo.location.href)
             cy.task("log", Boolean(algo.localStorage.getItem("AUTH_TOKEN")))
 
-            cy.contains(resourceName, { timeout: 15000 })
+            cy.contains("permanently", { timeout: 15000 })
         })
 
 
