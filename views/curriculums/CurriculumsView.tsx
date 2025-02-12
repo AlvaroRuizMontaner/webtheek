@@ -1,4 +1,7 @@
+/* import { useAuth } from "@/hooks/useAuth";
+import { usePathname, useRouter } from "next/navigation"; */
 import "./curriculums.scss";
+import { useGetCurriculumsQuery } from "@/redux/services/createApiCurriculum";
 
 
 
@@ -6,13 +9,13 @@ export default function CurriculumsView() {
     //const router = useRouter()
     //const path = usePathname()
     //const { data: user, isLoading: authLoading } = useAuth()
-    //const {data, isLoading, /* error, isFetching */} = useGetCurriculumsQuery(null)
+    const {data, /* isLoading, */ /* error, isFetching */} = useGetCurriculumsQuery(null)
 /*     const { data, isLoading } = useQuery({
       queryKey: ["curriculums"],
       queryFn: getCurriculums,
     }); */
   
-    return <div>Hola</div>
+    if(data) return <div>{data[0]._id}</div>
     /* if (isLoading || authLoading) return <Loading />; */
   
     /* if (data && user) */
