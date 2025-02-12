@@ -47,10 +47,18 @@ describe('E2E Mutation Tests', () => {
         // Interceptar la solicitud GET de curriculums
         cy.intercept('GET', '/api/curriculums').as('getCurriculums');
 
-        cy.request(`http://webtheek-server.onrender.com/api/curriculums`).then((response) => {
+        const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ODZlNGUwOTczYmVhYmE0YjNmNmEyOSIsImlhdCI6MTcyNTQ0NjM4OCwiZXhwIjoxNzQwOTk4Mzg4fQ.ukVkuOzGQYObl39zIOxzJgnXq1H8u8x04x10NHWIdbk"
+
+        cy.request({
+            method: 'GET',
+            url: 'http://webtheek-server.onrender.com/api/curriculums',
+            headers: {
+                Authorization: `Bearer ${token}` // Reemplaza `token` con la variable donde guardes el token real
+            }
+        }).then((response) => {
             cy.task("log", `Status Code: ${response.status}`);
-            cy.task("log", `Status Code: ${response.body}`);
-            expect(response.status).to.eq(200); // Asegura que la página responde correctamente
+            cy.task("log", `Response Body: ${JSON.stringify(response.body)}`);
+            expect(response.status).to.eq(200); // Asegura que la respuesta es correcta
         });
         
         cy.visit(`${frontendUrl}/curriculums`).then((algo) => {
