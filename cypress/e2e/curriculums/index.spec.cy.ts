@@ -53,12 +53,20 @@ describe('E2E Mutation Tests', () => {
             body: { email, password },
         }).then((response) => {
             const token = response.body.token;
+            cy.task("log", `status: ${response.status}`)
             
             // Guardar el token en el localStorage antes de visitar la página
             cy.visit(`http://localhost:3000/curriculums`, {
                 onBeforeLoad(win) {
                     win.localStorage.setItem('AUTH_TOKEN', token); // O sessionStorage.setItem()
                 }
+            });
+
+            // Esperar a que se haga la solicitud de curriculums y registrar los detalles
+            cy.wait('@getCurriculums', { timeout: 15000 }).then((interception) => {
+                cy.task("log", `GET Request URL: ${interception.request.url}`);
+                cy.task("log", `Response Status: ${interception.response?.statusCode}`);
+                cy.task("log", `Response Body: ${JSON.stringify(interception.response?.body)}`);
             });
 
             cy.contains(resourceName, { timeout: 15000 }).should('exist')
