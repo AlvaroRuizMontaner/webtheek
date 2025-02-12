@@ -55,7 +55,7 @@ describe('E2E Mutation Tests', () => {
             const token = response.body.token;
             
             // Guardar el token en el localStorage antes de visitar la página
-            cy.visit('http://webtheek-server.onrender.com/curriculums', {
+            cy.visit(`http://localhost:3000/curriculums`, {
                 onBeforeLoad(win) {
                     win.localStorage.setItem('AUTH_TOKEN', token); // O sessionStorage.setItem()
                 }
