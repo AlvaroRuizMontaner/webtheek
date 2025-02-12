@@ -60,6 +60,17 @@ describe('E2E Mutation Tests', () => {
                 onBeforeLoad(win) {
                     win.localStorage.setItem('AUTH_TOKEN', token); // O sessionStorage.setItem()
                 }
+            }).then((AUTWindow) => {
+                // 📌 Logs para inspeccionar el `AUTWindow`
+                cy.task("log", `Window Location Before: ${AUTWindow.location.href}`);
+                cy.task("log", `Document Ready State: ${AUTWindow.document.readyState}`);
+                cy.task("log", `Document Referrer: ${AUTWindow.document.referrer}`);
+                cy.task("log", `Window History Length: ${AUTWindow.history.length}`);
+                
+                // Ver si la redirección ya ha ocurrido
+                AUTWindow.setTimeout(() => {
+                    cy.task("log", `Window Location After: ${AUTWindow.location.href}`);
+                }, 2000); 
             });
 
             // Esperar a que se haga la solicitud de curriculums y registrar los detalles
