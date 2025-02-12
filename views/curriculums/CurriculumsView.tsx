@@ -1,37 +1,22 @@
-import Button from "@/components/button/Button";
-import EmptyState from "@/components/empty-state/EmptyState";
-import Loading from "@/components/loading-templates/Loading";
-import PermissionTag from "@/components/permission-tag/PermissionTag";
-import Subtitle from "@/components/title/Subtitle";
-import Title from "@/components/title/Title";
-import { useAuth } from "@/hooks/useAuth";
-import { isManager } from "@/utils/policies";
-import { Menu, MenuButton, MenuItem, MenuItems, Transition } from "@headlessui/react";
-import { EllipsisVerticalIcon } from "@heroicons/react/20/solid";
-import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import { Fragment } from "react";
 import "./curriculums.scss";
-import { useGetCurriculumsQuery } from "@/redux/services/createApiCurriculum";
-import DeleteCurriculumModal from "@/components/curriculums/DeleteCurriculumModal";
 
 
 
 export default function CurriculumsView() {
-    const router = useRouter()
-    const path = usePathname()
-    const { data: user, isLoading: authLoading } = useAuth()
-    const {data, isLoading, /* error, isFetching */} = useGetCurriculumsQuery(null)
+    //const router = useRouter()
+    //const path = usePathname()
+    //const { data: user, isLoading: authLoading } = useAuth()
+    //const {data, isLoading, /* error, isFetching */} = useGetCurriculumsQuery(null)
 /*     const { data, isLoading } = useQuery({
       queryKey: ["curriculums"],
       queryFn: getCurriculums,
     }); */
   
+    return <div>Hola</div>
+    /* if (isLoading || authLoading) return <Loading />; */
   
-    if (isLoading || authLoading) return <Loading />;
-  
-    if (data && user)
-        return (
+    /* if (data && user) */
+/*         return (
           <>
             <div className="mb-8u sm:mb-12u">
               <Title variant="dark">Curriculums</Title>
@@ -62,9 +47,9 @@ export default function CurriculumsView() {
                           >
                             {curriculum.name}
                           </Link>
-                        </div>
+                        </div> */
                         {/* <p className="text-gray-400">{curriculum.description}</p> */}
-                      </div>
+{/*                       </div>
                     </div>
                     <div className="flex shrink-0 items-center gap-x-6 w-fit pr-6u py-8u">
                       <Menu as="div" className="relative z-10 flex-none">
@@ -142,5 +127,5 @@ export default function CurriculumsView() {
     
             <DeleteCurriculumModal />
           </>
-        );
+        ); */}
 }
