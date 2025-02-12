@@ -51,20 +51,20 @@ describe('E2E Mutation Tests', () => {
             cy.task("log", `${frontendUrl}/curriculums`)
             cy.task("log", algo.location.href)
             cy.task("log", Boolean(algo.localStorage.getItem("AUTH_TOKEN")))
-
-            cy.contains("permanently", { timeout: 15000 })
         })
 
 
-/*         cy.wait('@getCurriculums', { timeout: 15000 }).then((interception) => {
+        cy.wait('@getCurriculums', { timeout: 15000 }).then((interception) => {
             cy.task("logStringify", JSON.stringify(interception.request.url))
             cy.task("logStringify", JSON.stringify(interception.request.headers))
             cy.task('log', JSON.stringify((interception.response as any).body));
             cy.task('log', (interception.response as any).statusCode);
 
-            const redirectUrl = interception.response?.headers['location'] as string;
-            cy.visit(redirectUrl)
-        }); */
+            if((interception.response as any).statusCode === 301) {
+                const redirectUrl = interception.response?.headers['location'] as string;
+                cy.visit(redirectUrl)
+            }
+        });
 
         
         // Encuentra el elemento que contiene el nombre del recurso y extrae su ID
