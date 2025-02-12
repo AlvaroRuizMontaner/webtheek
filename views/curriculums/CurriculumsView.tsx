@@ -13,7 +13,10 @@ export default function CurriculumsView() {
       queryFn: getCurriculums,
     }); */
   
-    if(data) return <div>{data[0]._id}</div>
+    if(data) return <div>
+      <div>hola</div>
+      <div>{data[0]._id}</div>
+    </div>
     /* if (isLoading || authLoading) return <Loading />; */
   
     /* if (data && user) */

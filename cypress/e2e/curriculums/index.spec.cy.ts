@@ -59,6 +59,8 @@ describe('E2E Mutation Tests', () => {
             
         })
 
+        cy.contains("hola", { timeout: 15000 })
+
 
 /*         cy.wait('@getCurriculums', { timeout: 15000 }).then((interception) => {
             cy.task("logStringify", JSON.stringify(interception.request.url))
