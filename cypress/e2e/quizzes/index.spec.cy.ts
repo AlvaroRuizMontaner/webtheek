@@ -68,7 +68,7 @@ describe('E2E Mutation Tests', () => {
                 cy.visit(`${frontendUrl}/quizzes/${resourceId}/edit`)
 
                 cy.get('#quizName').focus().clear().type(editResourceName);
-                cy.get('#description').focus().type(resourceName);
+                cy.get('#description').focus().clear().type(resourceName);
             
                 cy.get('form').submit() // Submit a form
 
