@@ -87,7 +87,7 @@ describe('E2E Mutation Tests', () => {
         const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ODZlNGUwOTczYmVhYmE0YjNmNmEyOSIsImlhdCI6MTcyNTQ0NjM4OCwiZXhwIjoxNzQwOTk4Mzg4fQ.ukVkuOzGQYObl39zIOxzJgnXq1H8u8x04x10NHWIdbk"
 
         cy.request({
-            url: 'http://webtheek-server.onrender.com/api/curriculums',
+            url: 'https://webtheek-server.onrender.com/api/curriculums',
             followRedirect: false, // Para ver si devuelve un 301
             headers: {
               Authorization: `Bearer ${token}`
