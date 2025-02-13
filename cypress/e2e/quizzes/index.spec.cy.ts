@@ -73,7 +73,7 @@ describe('E2E Mutation Tests', () => {
                 cy.get('#quizName').focus().clear().type(editResourceName);
                 cy.get('#description').focus().clear().type(editResourceName);
             
-                cy.get('form').submit() // Submit a form
+                cy.get('form').submit()
 
                 // Esperar a que la API confirme la actualización
                 cy.wait('@updateQuiz').then((interception) => {
