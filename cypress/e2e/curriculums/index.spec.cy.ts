@@ -47,94 +47,51 @@ describe('E2E Mutation Tests', () => {
         // Interceptar la solicitud GET de curriculums
         cy.intercept('GET', '/api/curriculums').as('getCurriculums');
 
-        cy.request({
-            method: 'POST',
-            url: 'https://webtheek-server.onrender.com/api/auth/login',
-            body: { email, password },
-        }).then((response) => {
-            const token = response.body;
-            cy.task("log", `status: ${response.status}`)
+        cy.visit(`${frontendUrl}/curriculums`)
+
+        // Esperar a que se haga la solicitud de curriculums y registrar los detalles
+        cy.wait('@getCurriculums', { timeout: 15000 }).then((interception) => {
+            cy.task("log", `GET Request URL: ${interception.request.url}`);
+            cy.task("log", `Response Status: ${interception.response?.statusCode}`);
+            cy.task("log", `Response Body: ${JSON.stringify(interception.response?.body)}`);
+        });
+
+        cy.contains(resourceName, { timeout: 15000 }).should('exist').invoke('attr', 'id').then((resourceId) => {
+            //const resourceId = element.attr('id'); // Supón que el ID está en un atributo `data-id`
+            cy.log(`Resource ID: ${resourceId}`); // Muestra el ID en los logs para depuración 
             
-            // Guardar el token en el localStorage antes de visitar la página
-            cy.visit(`http://localhost:3000/curriculums`, {
-                onBeforeLoad(win) {
-                    win.localStorage.setItem('AUTH_TOKEN', token); // O sessionStorage.setItem()
-                }
-            }).then((AUTWindow) => {
-                // 📌 Logs para inspeccionar el `AUTWindow`
-                cy.task("log", `Window Location Before: ${AUTWindow.location.href}`);
-                cy.task("log", `Document Ready State: ${AUTWindow.document.readyState}`);
-                cy.task("log", `Document Referrer: ${AUTWindow.document.referrer}`);
-                cy.task("log", `Window History Length: ${AUTWindow.history.length}`);
-            });
-              
+            // Guarda el ID en el localStorage
+            //cy.window().then((win) => {
+            //    win.localStorage.setItem('resourceId', resourceId ?? "testId");
+            //});
+
+            cy.visit(`${frontendUrl}/curriculums/${resourceId}/edit`)
+
+            cy.get('#curriculumName').focus().clear().type(editResourceName);
+    
+            cy.get('form').submit() // Submit a form
+
+            cy.intercept('GET', '/api/curriculums').as('getCurriculumsEdited');
+
+            // Buscar si el curriculum se ha editado
+            cy.visit(`${frontendUrl}/curriculums`);
 
             // Esperar a que se haga la solicitud de curriculums y registrar los detalles
-            cy.wait('@getCurriculums', { timeout: 15000 }).then((interception) => {
+            cy.wait('@getCurriculumsEdited', { timeout: 15000 }).then((interception) => {
                 cy.task("log", `GET Request URL: ${interception.request.url}`);
                 cy.task("log", `Response Status: ${interception.response?.statusCode}`);
                 cy.task("log", `Response Body: ${JSON.stringify(interception.response?.body)}`);
             });
 
-                    // Encuentra el elemento que contiene el nombre del recurso y extrae su ID
-            cy.contains(resourceName, { timeout: 15000 }).should('exist').invoke('attr', 'id').then((resourceId) => {
-                //const resourceId = element.attr('id'); // Supón que el ID está en un atributo `data-id`
-                cy.log(`Resource ID: ${resourceId}`); // Muestra el ID en los logs para depuración 
-                
-                // Guarda el ID en el localStorage
-                //cy.window().then((win) => {
-                //    win.localStorage.setItem('resourceId', resourceId ?? "testId");
-                //});
-    
-                cy.visit(`${frontendUrl}/curriculums/${resourceId}/edit`)
-    
-                cy.get('#curriculumName').focus().clear().type(editResourceName);
-        
-                cy.get('form').submit() // Submit a form
-    
-                // Buscar si el curriculum se ha editado
-                cy.visit(`${frontendUrl}/curriculums`);
-                cy.contains(editResourceName).should('exist');
-    
-                // Borrar el curriculum
-                cy.visit(`${frontendUrl}/curriculums?deleteCurriculum=${resourceId}`);
-                cy.get('#password').focus().clear().type("password");
-    
-                cy.get('form').submit() // Submit a form
-            });
-            });
 
-        //const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ODZlNGUwOTczYmVhYmE0YjNmNmEyOSIsImlhdCI6MTcyNTQ0NjM4OCwiZXhwIjoxNzQwOTk4Mzg4fQ.ukVkuOzGQYObl39zIOxzJgnXq1H8u8x04x10NHWIdbk"
+            cy.contains(editResourceName).should('exist');
 
-/*         cy.request({
-            url: 'https://webtheek-server.onrender.com/api/curriculums',
-            followRedirect: false, // Para ver si devuelve un 301
-            headers: {
-              Authorization: `Bearer ${token}`
-            }
-          }).then((response) => {
-            cy.task("log", `Status Code: ${response.status}`);
-            cy.task("log", `Response Headers: ${JSON.stringify(response.headers)}`);
-            cy.task("log", `Response Body: ${JSON.stringify(response.body)}`);
-            if (response.status === 301 || response.status === 302) {
-              cy.task("log", `Redirect Location: ${response.headers.location}`);
-            }
-        }); */
+            // Borrar el curriculum
+            cy.visit(`${frontendUrl}/curriculums?deleteCurriculum=${resourceId}`);
+            cy.get('#password').focus().clear().type("password");
 
-
-/*         cy.wait('@getCurriculums', { timeout: 15000 }).then((interception) => {
-            cy.task("logStringify", JSON.stringify(interception.request.url))
-            cy.task("logStringify", JSON.stringify(interception.request.headers))
-            cy.task('log', JSON.stringify((interception.response as any).body));
-            cy.task('log', (interception.response as any).statusCode);
-            cy.task('log', (interception.response as any).message);
-
-            if((interception.response as any).statusCode === 301) {
-                const redirectUrl = interception.response?.headers['location'] as string;
-                cy.visit(redirectUrl)
-            }
-        }); */
-
+            cy.get('form').submit() // Submit a form
+        });
 
     });
 });
