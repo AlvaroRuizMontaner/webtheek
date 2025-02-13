@@ -55,38 +55,42 @@ describe('E2E Mutation Tests', () => {
             cy.log('Response status:', (interception.response as any).statusCode);
             cy.log('Response body:', JSON.stringify((interception.response as any).body));
 
-                    // Encuentra el elemento que contiene el nombre del recurso y extrae su ID
-        cy.contains(resourceName, { timeout: 15000 }).should('exist').invoke('attr', 'id').then((resourceId) => {
-            //const resourceId = element.attr('id'); // Supón que el ID está en un atributo `data-id`
-            cy.log(`Resource ID: ${resourceId}`); // Muestra el ID en los logs para depuración 
+            // Encuentra el elemento que contiene el nombre del recurso y extrae su ID
+            cy.contains(resourceName, { timeout: 15000 }).should('exist').invoke('attr', 'id').then((resourceId) => {
+                //const resourceId = element.attr('id'); // Supón que el ID está en un atributo `data-id`
+                cy.log(`Resource ID: ${resourceId}`); // Muestra el ID en los logs para depuración 
+                
+                // Guarda el ID en el localStorage
+                //cy.window().then((win) => {
+                //    win.localStorage.setItem('resourceId', resourceId ?? "testId");
+                //});
+
+                cy.visit(`${frontendUrl}/quizzes/${resourceId}/edit`)
+
+                cy.get('#quizName').focus().clear().type(editResourceName);
+                cy.get('#description').focus().type(resourceName);
             
-            // Guarda el ID en el localStorage
-            //cy.window().then((win) => {
-            //    win.localStorage.setItem('resourceId', resourceId ?? "testId");
-            //});
+                cy.get('form').submit() // Submit a form
 
-            cy.visit(`${frontendUrl}/quizzes/${resourceId}/edit`)
+                cy.intercept("GET", "/api/quizzes").as("getQuizzesEdited");
 
-            cy.get('#quizName').focus().clear().type(editResourceName);
-            cy.get('#description').focus().type(resourceName);
-        
-            cy.get('form').submit() // Submit a form
+                // Buscar si el quiz se ha editado
+                cy.visit(`${frontendUrl}/quizzes`);
 
-            // Buscar si el quiz se ha editado
-            cy.visit(`${frontendUrl}/quizzes`);
-            cy.contains(editResourceName).should('exist');
+                cy.wait("@getQuizzesEdited", { timeout: 15000 }).then((interception) => {
+                    cy.task("log", `GET Request URL: ${interception.request.url}`);
+                    cy.task("log",`Response Status: ${interception.response?.statusCode}`);
+                    cy.task("log",`Response Body: ${JSON.stringify(interception.response?.body)}`);
 
-            cy.intercept("GET", "/api/quizzes").as("getQuizzesEdited");
+                    cy.contains(editResourceName).should("exist");
 
-            // Borrar el quiz
-            cy.visit(`${frontendUrl}/quizzes?deleteQuiz=${resourceId}`);
+                    // Borrar el quiz
+                    cy.visit(`${frontendUrl}/quizzes?deleteQuiz=${resourceId}`);
+                    cy.get("#password").focus().clear().type("password");
 
-
-            cy.get('#password').focus().clear().type("password");
-
-            cy.get('form').submit() // Submit a form
-            
-        });
+                    cy.get("form").submit(); // Submit a form
+                });         
+            });
         });
     });
 });

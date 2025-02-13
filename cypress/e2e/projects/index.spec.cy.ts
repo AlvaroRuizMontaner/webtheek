@@ -93,7 +93,7 @@ describe('E2E Mutation Tests', () => {
           // Buscar si el proyecto se ha editado
           cy.visit(`${frontendUrl}/projects`);
 
-          // Esperar a que se haga la solicitud de curriculums y registrar los detalles
+          // Esperar a que se haga la solicitud de proyectos y registrar los detalles
           cy.wait("@getProjectsEdited", { timeout: 15000 }).then((interception) => {
             cy.task("log", `GET Request URL: ${interception.request.url}`);
             cy.task("log",`Response Status: ${interception.response?.statusCode}`);
@@ -101,9 +101,9 @@ describe('E2E Mutation Tests', () => {
 
             cy.contains(editResourceName).should("exist");
 
-            // Borrar el curriculum
+            // Borrar el proyecto
             cy.visit(
-              `${frontendUrl}/curriculums?deleteCurriculum=${resourceId}`
+              `${frontendUrl}/projects?deleteProject=${resourceId}`
             );
             cy.get("#password").focus().clear().type("password");
 
