@@ -102,9 +102,7 @@ describe('E2E Mutation Tests', () => {
             cy.contains(editResourceName).should("exist");
 
             // Borrar el proyecto
-            cy.visit(
-              `${frontendUrl}/projects?deleteProject=${resourceId}`
-            );
+            cy.visit(`${frontendUrl}/projects?deleteProject=${resourceId}`);
             cy.get("#password").focus().clear().type("password");
 
             cy.get("form").submit(); // Submit a form
