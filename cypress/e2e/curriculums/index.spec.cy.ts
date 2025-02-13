@@ -56,7 +56,7 @@ describe('E2E Mutation Tests', () => {
             cy.task("log", `status: ${response.status}`)
             
             // Guardar el token en el localStorage antes de visitar la página
-            cy.visit(`https://localhost:3000/curriculums`, {
+            cy.visit(`http://localhost:3000/curriculums`, {
                 onBeforeLoad(win) {
                     win.localStorage.setItem('AUTH_TOKEN', token); // O sessionStorage.setItem()
                 }
