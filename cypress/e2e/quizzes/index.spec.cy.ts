@@ -67,10 +67,20 @@ describe('E2E Mutation Tests', () => {
 
                 cy.visit(`${frontendUrl}/quizzes/${resourceId}/edit`)
 
+                // Interceptar la solicitud PATCH/PUT de actualización del quiz
+                cy.intercept('PUT', `/api/quizzes/${resourceId}`).as('updateQuiz');
+
                 cy.get('#quizName').focus().clear().type(editResourceName);
                 cy.get('#description').focus().clear().type(editResourceName);
             
                 cy.get('form').submit() // Submit a form
+
+                // Esperar a que la API confirme la actualización
+                cy.wait('@updateQuiz').then((interception) => {
+                    cy.task("log", `PUT Request URL: ${interception.request.url}`);
+                    cy.task("log", `Response Status: ${interception.response?.statusCode}`);
+                    cy.task("log", `Response Body: ${JSON.stringify(interception.response?.body)}`);
+                });
 
                 cy.intercept("GET", "/api/quizzes").as("getQuizzesEdited");
 
