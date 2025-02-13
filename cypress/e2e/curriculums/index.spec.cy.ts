@@ -52,7 +52,7 @@ describe('E2E Mutation Tests', () => {
             url: 'https://webtheek-server.onrender.com/api/auth/login',
             body: { email, password },
         }).then((response) => {
-            const token = response.body.token;
+            const token = response.body;
             cy.task("log", `status: ${response.status}`)
             
             // Guardar el token en el localStorage antes de visitar la página
@@ -66,11 +66,6 @@ describe('E2E Mutation Tests', () => {
                 cy.task("log", `Document Ready State: ${AUTWindow.document.readyState}`);
                 cy.task("log", `Document Referrer: ${AUTWindow.document.referrer}`);
                 cy.task("log", `Window History Length: ${AUTWindow.history.length}`);
-                
-                // Ver si la redirección ya ha ocurrido
-                AUTWindow.setTimeout(() => {
-                    cy.task("log", `Window Location After: ${AUTWindow.location.href}`);
-                }, 2000); 
             });
               
 
