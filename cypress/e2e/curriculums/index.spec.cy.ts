@@ -47,16 +47,16 @@ describe('E2E Mutation Tests', () => {
         // Interceptar la solicitud GET de curriculums
         cy.intercept('GET', '/api/curriculums').as('getCurriculums');
 
-        /* cy.request({
+        cy.request({
             method: 'POST',
-            url: 'http://webtheek-server.onrender.com/api/auth/login',
+            url: 'https://webtheek-server.onrender.com/api/auth/login',
             body: { email, password },
         }).then((response) => {
             const token = response.body.token;
             cy.task("log", `status: ${response.status}`)
             
             // Guardar el token en el localStorage antes de visitar la página
-            cy.visit(`http://localhost:3000/curriculums`, {
+            cy.visit(`https://localhost:3000/curriculums`, {
                 onBeforeLoad(win) {
                     win.localStorage.setItem('AUTH_TOKEN', token); // O sessionStorage.setItem()
                 }
@@ -82,11 +82,11 @@ describe('E2E Mutation Tests', () => {
             });
 
             cy.contains(resourceName, { timeout: 15000 }).should('exist')
-        }); */
+        });
 
-        const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ODZlNGUwOTczYmVhYmE0YjNmNmEyOSIsImlhdCI6MTcyNTQ0NjM4OCwiZXhwIjoxNzQwOTk4Mzg4fQ.ukVkuOzGQYObl39zIOxzJgnXq1H8u8x04x10NHWIdbk"
+        //const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ODZlNGUwOTczYmVhYmE0YjNmNmEyOSIsImlhdCI6MTcyNTQ0NjM4OCwiZXhwIjoxNzQwOTk4Mzg4fQ.ukVkuOzGQYObl39zIOxzJgnXq1H8u8x04x10NHWIdbk"
 
-        cy.request({
+/*         cy.request({
             url: 'https://webtheek-server.onrender.com/api/curriculums',
             followRedirect: false, // Para ver si devuelve un 301
             headers: {
@@ -99,16 +99,7 @@ describe('E2E Mutation Tests', () => {
             if (response.status === 301 || response.status === 302) {
               cy.task("log", `Redirect Location: ${response.headers.location}`);
             }
-          });
-        
-/*         cy.visit(`${frontendUrl}/curriculums`).then((algo) => {
-            cy.task("log", `${frontendUrl}/curriculums`)
-            cy.task("log", algo.location.href)
-            cy.task("log", Boolean(algo.localStorage.getItem("AUTH_TOKEN")))
-            
-        })
-
-        cy.contains("Permanently", { timeout: 15000 }) */
+        }); */
 
 
 /*         cy.wait('@getCurriculums', { timeout: 15000 }).then((interception) => {
