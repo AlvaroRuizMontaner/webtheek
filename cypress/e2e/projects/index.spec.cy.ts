@@ -60,44 +60,56 @@ describe('E2E Mutation Tests', () => {
     });
 
     it('Buscar si el proyecto se ha creado, editarlo y luego borrarlo', () => {
-        // Interceptar la solicitud GET de projects
-        cy.intercept('GET', '/api/projects').as('getProjects');
-        
-        cy.visit(`${frontendUrl}/projects`);
+      // Interceptar la solicitud GET de projects
+      cy.intercept('GET', '/api/projects').as('getProjects');
+      
+      cy.visit(`${frontendUrl}/projects`);
 
-        cy.wait('@getProjects', { timeout: 15000 }).then((interception) => {
-          cy.task('log', interception.request.url);
-          cy.log('Response status:', (interception.response as any).statusCode);
-          cy.log('Response body:', JSON.stringify((interception.response as any).body));
-        });
-        
+      cy.wait('@getProjects', { timeout: 15000 }).then((interception) => {
+        cy.task('log', interception.request.url);
+        cy.log('Response status:', (interception.response as any).statusCode);
+        cy.log('Response body:', JSON.stringify((interception.response as any).body));
+
         // Encuentra el elemento que contiene el nombre del recurso y extrae su ID
-        cy.contains(resourceName, { timeout: 15000 }).should('exist').invoke('attr', 'id').then((resourceId) => {
+        cy.contains(resourceName, { timeout: 15000 }).should("exist").invoke("attr", "id").then((resourceId) => {
           //const resourceId = element.attr('id'); // Supón que el ID está en un atributo `data-id`
-          cy.log(`Resource ID: ${resourceId}`); // Muestra el ID en los logs para depuración 
-          
+          cy.log(`Resource ID: ${resourceId}`); // Muestra el ID en los logs para depuración
+
           // Guarda el ID en el localStorage
           //cy.window().then((win) => {
           //    win.localStorage.setItem('resourceId', resourceId ?? "testId");
           //});
 
-          cy.visit(`${frontendUrl}/projects/${resourceId}/edit`)
+          cy.visit(`${frontendUrl}/projects/${resourceId}/edit`);
 
-          cy.get('#projectName').focus().clear().type(editResourceName);
-          cy.get('#clientName').focus().clear().type(editResourceName);
-          cy.get('#description').focus().clear().type(editResourceName);
-    
-          cy.get('form').submit() // Submit a form
+          cy.get("#projectName").focus().clear().type(editResourceName);
+          cy.get("#clientName").focus().clear().type(editResourceName);
+          cy.get("#description").focus().clear().type(editResourceName);
+
+          cy.get("form").submit(); // Submit a form
+
+          cy.intercept("GET", "/api/projects").as("getProjectsEdited");
 
           // Buscar si el proyecto se ha editado
           cy.visit(`${frontendUrl}/projects`);
-          cy.contains(editResourceName).should('exist');
 
-          // Borrar el proyecto
-          cy.visit(`${frontendUrl}/projects?deleteProject=${resourceId}`);
-          cy.get('#password').focus().clear().type("password");
+          // Esperar a que se haga la solicitud de curriculums y registrar los detalles
+          cy.wait("@getProjectsEdited", { timeout: 15000 }).then((interception) => {
+            cy.task("log", `GET Request URL: ${interception.request.url}`);
+            cy.task("log",`Response Status: ${interception.response?.statusCode}`);
+            cy.task("log",`Response Body: ${JSON.stringify(interception.response?.body)}`);
 
-          cy.get('form').submit() // Submit a form
+            cy.contains(editResourceName).should("exist");
+
+            // Borrar el curriculum
+            cy.visit(
+              `${frontendUrl}/curriculums?deleteCurriculum=${resourceId}`
+            );
+            cy.get("#password").focus().clear().type("password");
+
+            cy.get("form").submit(); // Submit a form
+          });
         });
-    });
+      });  
+  });
 });

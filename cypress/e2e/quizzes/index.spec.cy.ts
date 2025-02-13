@@ -54,9 +54,8 @@ describe('E2E Mutation Tests', () => {
             cy.task('log', interception.request.url);
             cy.log('Response status:', (interception.response as any).statusCode);
             cy.log('Response body:', JSON.stringify((interception.response as any).body));
-        });
-        
-        // Encuentra el elemento que contiene el nombre del recurso y extrae su ID
+
+                    // Encuentra el elemento que contiene el nombre del recurso y extrae su ID
         cy.contains(resourceName, { timeout: 15000 }).should('exist').invoke('attr', 'id').then((resourceId) => {
             //const resourceId = element.attr('id'); // Supón que el ID está en un atributo `data-id`
             cy.log(`Resource ID: ${resourceId}`); // Muestra el ID en los logs para depuración 
@@ -77,12 +76,17 @@ describe('E2E Mutation Tests', () => {
             cy.visit(`${frontendUrl}/quizzes`);
             cy.contains(editResourceName).should('exist');
 
+            cy.intercept("GET", "/api/quizzes").as("getQuizzesEdited");
+
             // Borrar el quiz
             cy.visit(`${frontendUrl}/quizzes?deleteQuiz=${resourceId}`);
+
+
             cy.get('#password').focus().clear().type("password");
 
             cy.get('form').submit() // Submit a form
             
+        });
         });
     });
 });
