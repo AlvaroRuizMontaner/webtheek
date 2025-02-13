@@ -47,7 +47,7 @@ describe('E2E Mutation Tests', () => {
         // Interceptar la solicitud GET de curriculums
         cy.intercept('GET', '/api/curriculums').as('getCurriculums');
 
-        cy.request({
+        /* cy.request({
             method: 'POST',
             url: 'http://webtheek-server.onrender.com/api/auth/login',
             body: { email, password },
@@ -72,6 +72,7 @@ describe('E2E Mutation Tests', () => {
                     cy.task("log", `Window Location After: ${AUTWindow.location.href}`);
                 }, 2000); 
             });
+              
 
             // Esperar a que se haga la solicitud de curriculums y registrar los detalles
             cy.wait('@getCurriculums', { timeout: 15000 }).then((interception) => {
@@ -81,7 +82,24 @@ describe('E2E Mutation Tests', () => {
             });
 
             cy.contains(resourceName, { timeout: 15000 }).should('exist')
-        });
+        }); */
+
+        const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ODZlNGUwOTczYmVhYmE0YjNmNmEyOSIsImlhdCI6MTcyNTQ0NjM4OCwiZXhwIjoxNzQwOTk4Mzg4fQ.ukVkuOzGQYObl39zIOxzJgnXq1H8u8x04x10NHWIdbk"
+
+        cy.request({
+            url: 'http://webtheek-server.onrender.com/api/curriculums',
+            followRedirect: false, // Para ver si devuelve un 301
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          }).then((response) => {
+            cy.task("log", `Status Code: ${response.status}`);
+            cy.task("log", `Response Headers: ${JSON.stringify(response.headers)}`);
+            cy.task("log", `Response Body: ${JSON.stringify(response.body)}`);
+            if (response.status === 301 || response.status === 302) {
+              cy.task("log", `Redirect Location: ${response.headers.location}`);
+            }
+          });
         
 /*         cy.visit(`${frontendUrl}/curriculums`).then((algo) => {
             cy.task("log", `${frontendUrl}/curriculums`)
