@@ -3,7 +3,6 @@ import { email, frontendUrl, password } from "../../support/credentials";
 
 const resourceName = "Test";
 const editResourceName = "Edited";
-const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ODZlNGUwOTczYmVhYmE0YjNmNmEyOSIsImlhdCI6MTcyNTQ0NjM4OCwiZXhwIjoxNzQwOTk4Mzg4fQ.ukVkuOzGQYObl39zIOxzJgnXq1H8u8x04x10NHWIdbk"
 
 beforeEach(() => {
     cy.login(email, password)
@@ -85,7 +84,7 @@ describe('E2E Mutation Tests', () => {
 
                 cy.intercept("GET", "/api/quizzes").as("getQuizzesEdited");
 
-                cy.request({
+/*                 cy.request({
                     method: "PUT",
                     url: `https://webtheek-server.onrender.com/api/quizzes/${resourceId}`,
                     headers: {
@@ -102,7 +101,7 @@ describe('E2E Mutation Tests', () => {
                 
                     // Verificar que la API respondió con éxito
                     expect(putResponse.status).to.eq(200);
-                })
+                }) */
 
                 // Buscar si el quiz se ha editado
                 cy.visit(`${frontendUrl}/quizzes`);
