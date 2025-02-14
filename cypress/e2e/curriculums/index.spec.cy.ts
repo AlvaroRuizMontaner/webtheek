@@ -83,12 +83,19 @@ describe('E2E Mutation Tests', () => {
                     cy.task("log", `Response Body: ${JSON.stringify(interception.response?.body)}`);
 
                     cy.contains(editResourceName).should('exist');
+
+                    // Interceptar la solicitud DELETE antes de hacerla
+                    cy.intercept('DELETE', `/api/curriculums/${resourceId}`).as('deleteCurriculum');
     
                     // Borrar el curriculum
                     cy.visit(`${frontendUrl}/curriculums?deleteCurriculum=${resourceId}`);
                     cy.get('#password').focus().clear().type("password");
         
                     cy.get('form').submit() // Submit a form
+
+                    cy.wait('@deleteCurriculum', { timeout: 15000 }).then((interception) => {
+                        cy.task("log", `Delete response Status: ${interception.response?.statusCode}`);
+                    });
                 });
             });
         });
