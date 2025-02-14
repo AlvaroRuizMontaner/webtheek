@@ -64,12 +64,20 @@ describe('E2E Mutation Tests', () => {
                 //cy.window().then((win) => {
                 //    win.localStorage.setItem('resourceId', resourceId ?? "testId");
                 //});
+
+                // Interceptar la solicitud de edición antes de hacerla
+                cy.intercept('PUT', `/api/curriculums/${resourceId}`).as('editCurriculum');
     
                 cy.visit(`${frontendUrl}/curriculums/${resourceId}/edit`)
     
                 cy.get('#curriculumName').focus().clear().type(editResourceName);
         
                 cy.get('form').submit() // Submit a form
+
+                // Esperar a que la API procese la edición antes de continuar
+                cy.wait('@editCurriculum', { timeout: 15000 }).then((interception) => {
+                    cy.task("log", `Response edit Status: ${interception.response?.statusCode}`);
+                });
     
                 cy.intercept('GET', '/api/curriculums').as('getCurriculumsEdited');
     
