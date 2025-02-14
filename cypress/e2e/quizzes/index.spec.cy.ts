@@ -113,11 +113,18 @@ describe('E2E Mutation Tests', () => {
 
                     cy.contains(editResourceName).should("exist");
 
+                    // Interceptar la solicitud DELETE antes de hacerla
+                    cy.intercept('DELETE', `/api/quizzes/${resourceId}`).as('deleteQuiz');
+
                     // Borrar el quiz
                     cy.visit(`${frontendUrl}/quizzes?deleteQuiz=${resourceId}`);
                     cy.get("#password").focus().clear().type("password");
 
                     cy.get("form").submit(); // Submit a form
+
+                    cy.wait('@deleteQuiz', { timeout: 15000 }).then((interception) => {
+                        cy.task("log", `Delete response Status: ${interception.response?.statusCode}`);
+                    });
                 });         
             });
         });

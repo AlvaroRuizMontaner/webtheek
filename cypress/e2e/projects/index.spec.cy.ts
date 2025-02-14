@@ -98,11 +98,18 @@ describe('E2E Mutation Tests', () => {
 
             cy.contains(editResourceName).should("exist");
 
+            // Interceptar la solicitud DELETE antes de hacerla
+            cy.intercept('DELETE', `/api/projects/${resourceId}`).as('deleteProject');
+
             // Borrar el proyecto
             cy.visit(`${frontendUrl}/projects?deleteProject=${resourceId}`);
             cy.get("#password").focus().clear().type("password");
 
             cy.get("form").submit(); // Submit a form
+
+            cy.wait('@deleteProject', { timeout: 15000 }).then((interception) => {
+              cy.task("log", `Delete response Status: ${interception.response?.statusCode}`);
+            });
           });
         });
       });  
