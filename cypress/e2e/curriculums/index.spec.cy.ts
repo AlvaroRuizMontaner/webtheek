@@ -62,7 +62,7 @@ describe('E2E Mutation Tests', () => {
                 
                 // Guarda el ID en el localStorage
                 //cy.window().then((win) => {
-                //    win.localStorage.setItem('resourceId', resourceId ?? "testId");
+                //   win.localStorage.setItem('resourceId', resourceId ?? "testId");
                 //});
 
                 // Interceptar la solicitud de edición antes de hacerla
