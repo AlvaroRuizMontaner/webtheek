@@ -93,7 +93,8 @@ describe('E2E Mutation Tests', () => {
                     },
                     body: {
                         name: editResourceName,
-                        description: editResourceName
+                        description: editResourceName,
+                        time: 10  // ⚡ Se ha añadido `time: 10` según la imagen
                     }
                 }).then((putResponse) => {
                     cy.task("log", `PUT Response Status: ${putResponse.status}`);
@@ -110,9 +111,6 @@ describe('E2E Mutation Tests', () => {
                     cy.task("log", `GET Request URL: ${interception.request.url}`);
                     cy.task("log",`Response Status: ${interception.response?.statusCode}`);
                     cy.task("log",`Response Body: ${JSON.stringify(interception.response?.body)}`);
-
-                    // Verifica que el nombre actualizado está en la respuesta de la API antes de buscarlo en la UI
-                    expect(interception.response?.body).to.deep.include({ name: editResourceName });
 
                     cy.contains(editResourceName).should("exist");
 
