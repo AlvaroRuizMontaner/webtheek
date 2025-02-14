@@ -52,7 +52,7 @@ describe('E2E Mutation Tests', () => {
       // Esperar a que la solicitud interceptada se complete
       //cy.wait('@createProject').its('response.statusCode').should('eq', 200);
       cy.wait('@createProject').then((interception) => {
-        cy.task('log:', `status: ${interception.response}`);
+        cy.task('log', `status: ${interception.response}`);
       });
     });
 
