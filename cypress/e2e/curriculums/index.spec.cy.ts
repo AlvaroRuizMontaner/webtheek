@@ -72,7 +72,7 @@ describe('E2E Mutation Tests', () => {
     
                 cy.get('#curriculumName').focus().clear().type(editResourceName);
         
-                cy.get('form').submit() // Submit a form
+                cy.get('form').submit()
 
                 // Esperar a que la API procese la edición antes de continuar
                 cy.wait('@editCurriculum', { timeout: 15000 }).then((interception) => {
