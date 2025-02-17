@@ -51,82 +51,57 @@ describe('E2E Mutation Tests', () => {
         cy.visit(`${frontendUrl}/quizzes`);
 
         cy.wait('@getQuizzes', { timeout: 15000 }).then((interception) => {
-            cy.task('log', interception.request.url);
             cy.log('Response status:', (interception.response as any).statusCode);
-            cy.log('Response body:', JSON.stringify((interception.response as any).body));
 
             // Encuentra el elemento que contiene el nombre del recurso y extrae su ID
             cy.contains(resourceName, { timeout: 15000 }).should('exist').invoke('attr', 'id').then((resourceId) => {
                 //const resourceId = element.attr('id'); // Supón que el ID está en un atributo `data-id`
                 cy.log(`Resource ID: ${resourceId}`); // Muestra el ID en los logs para depuración 
-                
-                // Guarda el ID en el localStorage
-                //cy.window().then((win) => {
-                //    win.localStorage.setItem('resourceId', resourceId ?? "testId");
-                //});
+
+                // Interceptar la solicitud de edición antes de hacerla
+                cy.intercept('PUT', `/api/quizzes/${resourceId}`).as('editQuiz');
 
                 cy.visit(`${frontendUrl}/quizzes/${resourceId}/edit`)
-
-                // Interceptar la solicitud PATCH/PUT de actualización del quiz
-                cy.intercept('PUT', `/api/quizzes/${resourceId}`).as('updateQuiz');
 
                 cy.get('#quizName').focus().clear().type(editResourceName);
                 cy.get('#description').focus().clear().type(editResourceName);
             
                 cy.get('form').submit()
 
-                // Esperar a que la API confirme la actualización
-                cy.wait('@updateQuiz').then((interception) => {
-                    cy.task("log", `PUT Request URL: ${interception.request.url}`);
-                    cy.task("log", `Response Status: ${interception.response?.statusCode}`);
-                    cy.task("log", `Response Body: ${JSON.stringify(interception.response?.body)}`);
-                });
+                // Esperar a que la API procese la edición antes de continuar
+                cy.wait('@editQuiz', { timeout: 15000 }).then((interception) => {
+                    cy.task("log", `Response edit Status: ${interception.response?.statusCode}`);
 
-                cy.intercept("GET", "/api/quizzes").as("getQuizzesEdited");
+                    cy.intercept("GET", "/api/quizzes").as("getQuizzesEdited");
 
-/*                 cy.request({
-                    method: "PUT",
-                    url: `https://webtheek-server.onrender.com/api/quizzes/${resourceId}`,
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    },
-                    body: {
-                        name: editResourceName,
-                        description: editResourceName,
-                        time: 10  // ⚡ Se ha añadido `time: 10` según la imagen
-                    }
-                }).then((putResponse) => {
-                    cy.task("log", `PUT Response Status: ${putResponse.status}`);
-                    cy.task("log", `PUT Response Body: ${JSON.stringify(putResponse.body)}`);
-                
-                    // Verificar que la API respondió con éxito
-                    expect(putResponse.status).to.eq(200);
-                }) */
-
-                // Buscar si el quiz se ha editado
-                cy.visit(`${frontendUrl}/quizzes`);
-
-                cy.wait("@getQuizzesEdited", { timeout: 15000 }).then((interception) => {
-                    cy.task("log", `GET Request URL: ${interception.request.url}`);
-                    cy.task("log",`Response Status: ${interception.response?.statusCode}`);
-                    cy.task("log",`Response Body: ${JSON.stringify(interception.response?.body)}`);
-
-                    cy.contains(editResourceName).should("exist");
-
-                    // Interceptar la solicitud DELETE antes de hacerla
-                    cy.intercept('DELETE', `/api/quizzes/${resourceId}`).as('deleteQuiz');
-
-                    // Borrar el quiz
-                    cy.visit(`${frontendUrl}/quizzes?deleteQuiz=${resourceId}`);
-                    cy.get("#password").focus().clear().type("password");
-
-                    cy.get("form").submit(); // Submit a form
-
-                    cy.wait('@deleteQuiz', { timeout: 15000 }).then((interception) => {
-                        cy.task("log", `Delete response Status: ${interception.response?.statusCode}`);
-                    });
-                });         
+                    // Buscar si el quiz se ha editado
+                    cy.visit(`${frontendUrl}/quizzes`);
+    
+                    cy.wait("@getQuizzesEdited", { timeout: 15000 }).then((interception) => {
+                        cy.task("log",`Response Status: ${interception.response?.statusCode}`);
+    
+                        cy.contains(editResourceName).should("exist").invoke('attr', 'id').then(() => {
+                            // Interceptar la solicitud DELETE antes de hacerla
+                            cy.intercept('DELETE', `/api/quizzes/${resourceId}`).as('deleteQuiz');
+    
+                            // Borrar el quiz
+                            cy.visit(`${frontendUrl}/quizzes?deleteQuiz=${resourceId}`);
+                            cy.get("#password").focus().clear().type("password");
+    
+                            cy.get("form").submit(); // Submit a form
+    
+                            cy.wait('@deleteQuiz', { timeout: 15000 }).then((interception) => {
+                                cy.task("log", `Delete response Status: ${interception.response?.statusCode}`);
+                            });
+                        })
+                    });    
+                });     
             });
         });
     });
 });
+                
+    // Guarda el ID en el localStorage
+    //cy.window().then((win) => {
+    //    win.localStorage.setItem('resourceId', resourceId ?? "testId");
+    //});

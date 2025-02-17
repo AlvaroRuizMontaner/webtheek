@@ -63,19 +63,15 @@ describe('E2E Mutation Tests', () => {
       cy.visit(`${frontendUrl}/projects`);
 
       cy.wait('@getProjects', { timeout: 15000 }).then((interception) => {
-        cy.task('log', interception.request.url);
-        cy.log('Response status:', (interception.response as any).statusCode);
-        cy.log('Response body:', JSON.stringify((interception.response as any).body));
+        cy.log('Response get status:', (interception.response as any).statusCode);
 
         // Encuentra el elemento que contiene el nombre del recurso y extrae su ID
         cy.contains(resourceName, { timeout: 15000 }).should("exist").invoke("attr", "id").then((resourceId) => {
           //const resourceId = element.attr('id'); // Supón que el ID está en un atributo `data-id`
-          cy.log(`Resource ID: ${resourceId}`); // Muestra el ID en los logs para depuración
+          cy.task("log", `resourceID: ${resourceId}`); // Muestra el ID en los logs para depuración
 
-          // Guarda el ID en el localStorage
-          //cy.window().then((win) => {
-          //    win.localStorage.setItem('resourceId', resourceId ?? "testId");
-          //});
+          // Interceptar la solicitud de edición antes de hacerla
+          cy.intercept('PUT', `/api/projects/${resourceId}`).as('editProject');
 
           cy.visit(`${frontendUrl}/projects/${resourceId}/edit`);
 
@@ -85,33 +81,41 @@ describe('E2E Mutation Tests', () => {
 
           cy.get("form").submit(); // Submit a form
 
-          cy.intercept("GET", "/api/projects").as("getProjectsEdited");
+          // Esperar a que la API procese la edición antes de continuar
+          cy.wait('@editProject', { timeout: 15000 }).then((interception) => {
+            cy.task("log", `Response edit Status: ${interception.response?.statusCode}`);
 
-          // Buscar si el proyecto se ha editado
-          cy.visit(`${frontendUrl}/projects`);
+            cy.intercept("GET", "/api/projects").as("getProjectsEdited");
 
-          // Esperar a que se haga la solicitud de proyectos y registrar los detalles
-          cy.wait("@getProjectsEdited", { timeout: 15000 }).then((interception) => {
-            cy.task("log", `GET Request URL: ${interception.request.url}`);
-            cy.task("log",`Response Status: ${interception.response?.statusCode}`);
-            cy.task("log",`Response Body: ${JSON.stringify(interception.response?.body)}`);
+            // Buscar si el proyecto se ha editado
+            cy.visit(`${frontendUrl}/projects`);
+  
+            // Esperar a que se haga la solicitud de proyectos y registrar los detalles
+            cy.wait("@getProjectsEdited", { timeout: 15000 }).then((interception) => {
+              cy.task("log",`Response Status: ${interception.response?.statusCode}`);
+  
+              cy.contains(editResourceName).should("exist").invoke("attr", "id").then(() => {
+                // Interceptar la solicitud DELETE antes de hacerla
+                cy.intercept('DELETE', `/api/projects/${resourceId}`).as('deleteProject');
 
-            cy.contains(editResourceName).should("exist");
+                // Borrar el proyecto
+                cy.visit(`${frontendUrl}/projects?deleteProject=${resourceId}`);
+                cy.get("#password").focus().clear().type("password");
 
-            // Interceptar la solicitud DELETE antes de hacerla
-            cy.intercept('DELETE', `/api/projects/${resourceId}`).as('deleteProject');
+                cy.get("form").submit(); // Submit a form
 
-            // Borrar el proyecto
-            cy.visit(`${frontendUrl}/projects?deleteProject=${resourceId}`);
-            cy.get("#password").focus().clear().type("password");
-
-            cy.get("form").submit(); // Submit a form
-
-            cy.wait('@deleteProject', { timeout: 15000 }).then((interception) => {
-              cy.task("log", `Delete response Status: ${interception.response?.statusCode}`);
+                cy.wait('@deleteProject', { timeout: 15000 }).then((interception) => {
+                  cy.task("log", `Delete response Status: ${interception.response?.statusCode}`);
+                });
+              })
             });
           });
         });
       });  
   });
 });
+
+  // Guarda el ID en el localStorage
+  //cy.window().then((win) => {
+  //    win.localStorage.setItem('resourceId', resourceId ?? "testId");
+  //});

@@ -51,19 +51,11 @@ describe('E2E Mutation Tests', () => {
 
         // Esperar a que se haga la solicitud de curriculums y registrar los detalles
         cy.wait('@getCurriculums', { timeout: 15000 }).then((interception) => {
-            cy.task("log", `GET Request URL: ${interception.request.url}`);
             cy.task("log", `Response Status: ${interception.response?.statusCode}`);
-            cy.task("log", `Response Body: ${JSON.stringify(interception.response?.body)}`);
-
 
             cy.contains(resourceName, { timeout: 15000 }).should('exist').invoke('attr', 'id').then((resourceId) => {
                 //const resourceId = element.attr('id'); // Supón que el ID está en un atributo `data-id`
                 cy.log(`Resource ID: ${resourceId}`); // Muestra el ID en los logs para depuración 
-                
-                // Guarda el ID en el localStorage
-                //cy.window().then((win) => {
-                //   win.localStorage.setItem('resourceId', resourceId ?? "testId");
-                //});
 
                 // Interceptar la solicitud de edición antes de hacerla
                 cy.intercept('PUT', `/api/curriculums/${resourceId}`).as('editCurriculum');
@@ -77,35 +69,40 @@ describe('E2E Mutation Tests', () => {
                 // Esperar a que la API procese la edición antes de continuar
                 cy.wait('@editCurriculum', { timeout: 15000 }).then((interception) => {
                     cy.task("log", `Response edit Status: ${interception.response?.statusCode}`);
-                });
-    
-                cy.intercept('GET', '/api/curriculums').as('getCurriculumsEdited');
-    
-                // Buscar si el curriculum se ha editado
-                cy.visit(`${frontendUrl}/curriculums`);
-    
-                // Esperar a que se haga la solicitud de curriculums y registrar los detalles
-                cy.wait('@getCurriculumsEdited', { timeout: 15000 }).then((interception) => {
-                    cy.task("log", `GET Request URL: ${interception.request.url}`);
-                    cy.task("log", `Response Status: ${interception.response?.statusCode}`);
-                    cy.task("log", `Response Body: ${JSON.stringify(interception.response?.body)}`);
 
-                    cy.contains(editResourceName).should('exist');
-
-                    // Interceptar la solicitud DELETE antes de hacerla
-                    cy.intercept('DELETE', `/api/curriculums/${resourceId}`).as('deleteCurriculum');
+                    cy.intercept('GET', '/api/curriculums').as('getCurriculumsEdited');
     
-                    // Borrar el curriculum
-                    cy.visit(`${frontendUrl}/curriculums?deleteCurriculum=${resourceId}`);
-                    cy.get('#password').focus().clear().type("password");
+                    // Buscar si el curriculum se ha editado
+                    cy.visit(`${frontendUrl}/curriculums`);
         
-                    cy.get('form').submit() // Submit a form
-
-                    cy.wait('@deleteCurriculum', { timeout: 15000 }).then((interception) => {
-                        cy.task("log", `Delete response Status: ${interception.response?.statusCode}`);
+                    // Esperar a que se haga la solicitud de curriculums y registrar los detalles
+                    cy.wait('@getCurriculumsEdited', { timeout: 15000 }).then((interception) => {
+                        cy.task("log", `GET Request URL: ${interception.request.url}`);
+                        cy.task("log", `Response Status: ${interception.response?.statusCode}`);
+                        cy.task("log", `Response Body: ${JSON.stringify(interception.response?.body)}`);
+    
+                        cy.contains(editResourceName).should('exist').invoke('attr', 'id').then(() => {
+                            // Interceptar la solicitud DELETE antes de hacerla
+                            cy.intercept('DELETE', `/api/curriculums/${resourceId}`).as('deleteCurriculum');
+            
+                            // Borrar el curriculum
+                            cy.visit(`${frontendUrl}/curriculums?deleteCurriculum=${resourceId}`);
+                            cy.get('#password').focus().clear().type("password");
+                
+                            cy.get('form').submit() // Submit a form
+        
+                            cy.wait('@deleteCurriculum', { timeout: 15000 }).then((interception) => {
+                                cy.task("log", `Delete response Status: ${interception.response?.statusCode}`);
+                            });
+                        })
                     });
                 });
             });
         });
     });
 });
+
+    // Guarda el ID en el localStorage
+    //cy.window().then((win) => {
+    //   win.localStorage.setItem('resourceId', resourceId ?? "testId");
+    //});
