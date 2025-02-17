@@ -51,7 +51,7 @@ describe('E2E Mutation Tests', () => {
 
         // Esperar a que se haga la solicitud de curriculums y registrar los detalles
         cy.wait('@getCurriculums', { timeout: 15000 }).then((interception) => {
-            cy.task("log", `Response Status: ${interception.response?.statusCode}`);
+            cy.task("log", `getCurriculums Status: ${interception.response?.statusCode}`);
 
             cy.contains(resourceName, { timeout: 15000 }).should('exist').invoke('attr', 'id').then((resourceId) => {
                 //const resourceId = element.attr('id'); // Supón que el ID está en un atributo `data-id`
@@ -64,11 +64,11 @@ describe('E2E Mutation Tests', () => {
     
                 cy.get('#curriculumName').focus().clear().type(editResourceName);
         
-                cy.get('form').submit()
+                cy.get('#submit').click()
 
                 // Esperar a que la API procese la edición antes de continuar
                 cy.wait('@editCurriculum', { timeout: 15000 }).then((interception) => {
-                    cy.task("log", `Response edit Status: ${interception.response?.statusCode}`);
+                    cy.task("log", `editCurriculum Status: ${interception.response?.statusCode}`);
 
                     cy.intercept('GET', '/api/curriculums').as('getCurriculumsEdited');
     
@@ -77,9 +77,7 @@ describe('E2E Mutation Tests', () => {
         
                     // Esperar a que se haga la solicitud de curriculums y registrar los detalles
                     cy.wait('@getCurriculumsEdited', { timeout: 15000 }).then((interception) => {
-                        cy.task("log", `GET Request URL: ${interception.request.url}`);
-                        cy.task("log", `Response Status: ${interception.response?.statusCode}`);
-                        cy.task("log", `Response Body: ${JSON.stringify(interception.response?.body)}`);
+                        cy.task("log", `getCurriculumsEdited Status: ${interception.response?.statusCode}`);
     
                         cy.contains(editResourceName).should('exist').invoke('attr', 'id').then(() => {
                             // Interceptar la solicitud DELETE antes de hacerla
@@ -89,10 +87,10 @@ describe('E2E Mutation Tests', () => {
                             cy.visit(`${frontendUrl}/curriculums?deleteCurriculum=${resourceId}`);
                             cy.get('#password').focus().clear().type("password");
                 
-                            cy.get('form').submit() // Submit a form
+                            cy.get('#submit').click()
         
                             cy.wait('@deleteCurriculum', { timeout: 15000 }).then((interception) => {
-                                cy.task("log", `Delete response Status: ${interception.response?.statusCode}`);
+                                cy.task("log", `deleteCurriculum Status: ${interception.response?.statusCode}`);
                             });
                         })
                     });

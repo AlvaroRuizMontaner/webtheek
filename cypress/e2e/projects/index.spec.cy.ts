@@ -63,7 +63,7 @@ describe('E2E Mutation Tests', () => {
       cy.visit(`${frontendUrl}/projects`);
 
       cy.wait('@getProjects', { timeout: 15000 }).then((interception) => {
-        cy.log('Response get status:', (interception.response as any).statusCode);
+        cy.log('getProjects status:', (interception.response as any).statusCode);
 
         // Encuentra el elemento que contiene el nombre del recurso y extrae su ID
         cy.contains(resourceName, { timeout: 15000 }).should("exist").invoke("attr", "id").then((resourceId) => {
@@ -79,11 +79,11 @@ describe('E2E Mutation Tests', () => {
           cy.get("#clientName").focus().clear().type(editResourceName);
           cy.get("#description").focus().clear().type(editResourceName);
 
-          cy.get("form").submit(); // Submit a form
+          cy.get('#submit').click()
 
           // Esperar a que la API procese la edición antes de continuar
           cy.wait('@editProject', { timeout: 15000 }).then((interception) => {
-            cy.task("log", `Response edit Status: ${interception.response?.statusCode}`);
+            cy.task("log", `editProject Status: ${interception.response?.statusCode}`);
 
             cy.intercept("GET", "/api/projects").as("getProjectsEdited");
 
@@ -92,7 +92,7 @@ describe('E2E Mutation Tests', () => {
   
             // Esperar a que se haga la solicitud de proyectos y registrar los detalles
             cy.wait("@getProjectsEdited", { timeout: 15000 }).then((interception) => {
-              cy.task("log",`Response Status: ${interception.response?.statusCode}`);
+              cy.task("log",`getProjectsEdited Status: ${interception.response?.statusCode}`);
   
               cy.contains(editResourceName).should("exist").invoke("attr", "id").then(() => {
                 // Interceptar la solicitud DELETE antes de hacerla
@@ -102,10 +102,10 @@ describe('E2E Mutation Tests', () => {
                 cy.visit(`${frontendUrl}/projects?deleteProject=${resourceId}`);
                 cy.get("#password").focus().clear().type("password");
 
-                cy.get("form").submit(); // Submit a form
+                cy.get('#submit').click()
 
                 cy.wait('@deleteProject', { timeout: 15000 }).then((interception) => {
-                  cy.task("log", `Delete response Status: ${interception.response?.statusCode}`);
+                  cy.task("log", `deleteProject Status: ${interception.response?.statusCode}`);
                 });
               })
             });

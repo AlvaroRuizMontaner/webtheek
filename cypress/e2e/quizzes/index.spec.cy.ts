@@ -51,7 +51,7 @@ describe('E2E Mutation Tests', () => {
         cy.visit(`${frontendUrl}/quizzes`);
 
         cy.wait('@getQuizzes', { timeout: 15000 }).then((interception) => {
-            cy.log('Response status:', (interception.response as any).statusCode);
+            cy.log('getQuizzes status:', (interception.response as any).statusCode);
 
             // Encuentra el elemento que contiene el nombre del recurso y extrae su ID
             cy.contains(resourceName, { timeout: 15000 }).should('exist').invoke('attr', 'id').then((resourceId) => {
@@ -66,11 +66,11 @@ describe('E2E Mutation Tests', () => {
                 cy.get('#quizName').focus().clear().type(editResourceName);
                 cy.get('#description').focus().clear().type(editResourceName);
             
-                cy.get('form').submit()
+                cy.get('#submit').click()
 
                 // Esperar a que la API procese la edición antes de continuar
                 cy.wait('@editQuiz', { timeout: 15000 }).then((interception) => {
-                    cy.task("log", `Response edit Status: ${interception.response?.statusCode}`);
+                    cy.task("log", `editQuiz Status: ${interception.response?.statusCode}`);
 
                     cy.intercept("GET", "/api/quizzes").as("getQuizzesEdited");
 
@@ -78,7 +78,7 @@ describe('E2E Mutation Tests', () => {
                     cy.visit(`${frontendUrl}/quizzes`);
     
                     cy.wait("@getQuizzesEdited", { timeout: 15000 }).then((interception) => {
-                        cy.task("log",`Response Status: ${interception.response?.statusCode}`);
+                        cy.task("log",`getQuizzesEdited Status: ${interception.response?.statusCode}`);
     
                         cy.contains(editResourceName).should("exist").invoke('attr', 'id').then(() => {
                             // Interceptar la solicitud DELETE antes de hacerla
@@ -88,10 +88,10 @@ describe('E2E Mutation Tests', () => {
                             cy.visit(`${frontendUrl}/quizzes?deleteQuiz=${resourceId}`);
                             cy.get("#password").focus().clear().type("password");
     
-                            cy.get("form").submit();
+                            cy.get('#submit').click()
     
                             cy.wait('@deleteQuiz', { timeout: 15000 }).then((interception) => {
-                                cy.task("log", `Delete response Status: ${interception.response?.statusCode}`);
+                                cy.task("log", `deleteQuiz Status: ${interception.response?.statusCode}`);
                             });
                         })
                     });    
