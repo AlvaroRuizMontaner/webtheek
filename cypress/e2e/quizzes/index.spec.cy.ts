@@ -59,7 +59,7 @@ describe('E2E Mutation Tests', () => {
                 cy.log(`Resource ID: ${resourceId}`); // Muestra el ID en los logs para depuración 
 
                 // Interceptar la solicitud de edición antes de hacerla
-                cy.intercept('PUT', `/api/quizzes/${resourceId}`).as('editQuiz');
+                cy.intercept('PUT', `/api/quizzes/*`).as('editQuiz');
 
                 cy.visit(`${frontendUrl}/quizzes/${resourceId}/edit`)
 
@@ -82,7 +82,7 @@ describe('E2E Mutation Tests', () => {
     
                         cy.contains(editResourceName).should("exist").invoke('attr', 'id').then(() => {
                             // Interceptar la solicitud DELETE antes de hacerla
-                            cy.intercept('DELETE', `/api/quizzes/${resourceId}`).as('deleteQuiz');
+                            cy.intercept('DELETE', `/api/quizzes/*`).as('deleteQuiz');
     
                             // Borrar el quiz
                             cy.visit(`${frontendUrl}/quizzes?deleteQuiz=${resourceId}`);

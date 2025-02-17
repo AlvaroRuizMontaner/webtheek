@@ -58,7 +58,7 @@ describe('E2E Mutation Tests', () => {
                 cy.log(`Resource ID: ${resourceId}`); // Muestra el ID en los logs para depuración 
 
                 // Interceptar la solicitud de edición antes de hacerla
-                cy.intercept('PUT', `/api/curriculums/${resourceId}`).as('editCurriculum');
+                cy.intercept('PUT', `/api/curriculums/${resourceId}/name`).as('editCurriculum');
     
                 cy.visit(`${frontendUrl}/curriculums/${resourceId}/edit`)
     
