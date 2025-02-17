@@ -156,7 +156,7 @@ jobs:
       - name: Run Jest tests
         run: |
           npm install
-          npm jest -- --ci --coverage
+          npm test -- --ci --coverage
 
       # Paso 6: Instalar Xvfb (necesario para cypress en CD/CI)
       - name: Install Xvfb
