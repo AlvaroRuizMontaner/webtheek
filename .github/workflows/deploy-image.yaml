@@ -152,11 +152,15 @@ jobs:
       #    echo "REPO_NAME=$(echo '${{ github.repository }}' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
 
 
-      # Paso 4.5: Correr los tests
+      # Paso 5: Correr los tests de jest
+      - name: Run Jest tests
+        run: npm test -- --ci --coverage
+
+      # Paso 6: Instalar Xvfb (necesario para cypress en CD/CI)
       - name: Install Xvfb
         run: sudo apt-get install xvfb
 
-      # Paso 5: Correr los tests
+      # Paso 7: Correr los tests
       - name: Run Cypress tests
         uses: cypress-io/github-action@v6
         with:
@@ -170,7 +174,7 @@ jobs:
           NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL_CYPRESS }}
           NEXT_PUBLIC_ENV: production
 
-      # Paso 6: Construir y subir la imagen Docker al registro de DigitalOcean
+      # Paso 8: Construir y subir la imagen Docker al registro de DigitalOcean
       - name: Build and push Docker image
         id: push
         uses: docker/build-push-action@v6.5.0
@@ -192,13 +196,13 @@ jobs:
       #  with:
       #    token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
 
-      # Paso 7: Instalar la herramienta CLI de DigitalOcean (doctl)
+      # Paso 9: Instalar la herramienta CLI de DigitalOcean (doctl)
       - name: Install doctl
         uses: digitalocean/action-doctl@v2
         with:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}  # Token de acceso para autenticarse
 
-      # Paso 8: Insertar el tag de la versión en el app spec (app.yaml)
+      # Paso 10: Insertar el tag de la versión en el app spec (app.yaml)
       - name: Insert VERSION_TAG into app.yaml
         run: |
           echo "VERSION_TAG=${{ env.VERSION_TAG }}"
@@ -206,12 +210,12 @@ jobs:
         env:
           VERSION_TAG: ${{ env.VERSION_TAG }}
       
-      # Paso 8: Validar el app spec antes del despliegue
+      # Paso 11: Validar el app spec antes del despliegue
       - name: Validate App Spec
         run: |
           doctl apps spec validate ./.do/app.yaml
 
-      # Paso 10: Actualizar la aplicación en DigitalOcean con el nuevo app spec
+      # Paso 12: Actualizar la aplicación en DigitalOcean con el nuevo app spec
       - name: Deploy container
         run: |
           doctl apps update 44ee4a7f-a5fd-489b-8491-f704b39211b5 --spec ./.do/app.yaml --access-token ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}

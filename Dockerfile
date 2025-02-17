@@ -95,6 +95,11 @@ RUN npm install
 COPY . .
 RUN npm run build  # Asegurar que se genera .next/
 
+# Ejecutar Jest en el contenedor
+# El doble guion -- es para pasar los argumentos a jest y no a npm
+# --ci ejecuta Jest en modo CI/CD, --coverage genera un reporte
+RUN npm test -- --ci --coverage
+
 # Instalar dependencias del sistema necesarias para Cypress y Xvfb
 RUN apt-get update && apt-get install -y \
   libgtk2.0-0 \
