@@ -88,7 +88,7 @@ describe('E2E Mutation Tests', () => {
                             cy.visit(`${frontendUrl}/quizzes?deleteQuiz=${resourceId}`);
                             cy.get("#password").focus().clear().type("password");
     
-                            cy.get("form").submit(); // Submit a form
+                            cy.get("form").submit();
     
                             cy.wait('@deleteQuiz', { timeout: 15000 }).then((interception) => {
                                 cy.task("log", `Delete response Status: ${interception.response?.statusCode}`);
