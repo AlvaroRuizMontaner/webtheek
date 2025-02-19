@@ -1,4 +1,4 @@
-import "@testing-library/jest-dom";
+import "@testing-library/jest-dom/jest-globals"; // Hubo que añadir el final (/jest-globals) para quitar unos warning en los .test
 import { TextEncoder, /* TextDecoder */ } from "util"; // Polyfill para node para poder usar la API TextEncoder
 
 jest.mock("swiper/css", jest.fn());

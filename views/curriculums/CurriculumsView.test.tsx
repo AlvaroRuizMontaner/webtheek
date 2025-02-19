@@ -6,6 +6,8 @@ import { createApi } from "@reduxjs/toolkit/query/react";
 import { axiosBaseQuery } from "@/services/CurriculumAPI";
 import { Curriculum } from "@/types/curriculum";
 const { useGetCurriculumsQuery } = jest.requireMock("../../redux/services/createApiCurriculum");
+import { describe, expect, it } from '@jest/globals';
+
 
 const curriculumApi = createApi({
     reducerPath: "curriculumApi",
@@ -126,7 +128,7 @@ describe('CurriculumView', () => {
         //screen.debug(); // Esto imprimirá el DOM renderizado en tu terminal
 
         // Verifica que el `role="list"` exista durante el estado de carga
-        expect(screen.getByRole("list")).toBeInTheDocument();
+        expect(screen.getByRole("loading-list")).toBeInTheDocument();
     });
 
     it('should show the data on succesful fetch', () => {

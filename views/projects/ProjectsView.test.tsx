@@ -1,7 +1,7 @@
-import { getProjects } from "@/services/ProjectAPI";
 import { render, screen } from "@testing-library/react";
 import ProjectsView from "./ProjectsView";
 import { QueryClient, QueryClientProvider, useQuery } from "@tanstack/react-query";
+import { describe, expect, it } from '@jest/globals';
 
 jest.mock('next/navigation', () => ({
     usePathname: jest.fn(() => "/projects"),
@@ -74,7 +74,7 @@ describe('ProjectView', () => {
         //screen.debug(); // Esto imprimirá el DOM renderizado en tu terminal
 
         // Verifica que el `role="list"` exista durante el estado de carga
-        expect(screen.getByRole("list")).toBeInTheDocument();
+        expect(screen.getByRole("loading-list")).toBeInTheDocument();
     });
 
     it('should show the data on succesful fetch', () => {
@@ -86,6 +86,8 @@ describe('ProjectView', () => {
 
         render(<ProjectsView />, { wrapper });
         //screen.debug(); // Esto imprimirá el DOM renderizado en tu terminal
+
+        screen.debug(); // Esto imprimirá el DOM renderizado en tu terminal
 
         // Verifica que el `role="list"` exista durante el estado de carga
         expect(screen.getByText(/projectTestName/i)).toBeInTheDocument()
@@ -113,9 +115,8 @@ describe('ProjectView', () => {
         });
 
         render(<ProjectsView />, { wrapper });
-        screen.debug(); // Esto imprimirá el DOM renderizado en tu terminal
 
         expect(screen.getByText(/Algo ha fallado.../i)).toBeInTheDocument()
 
     });
-  });
+});

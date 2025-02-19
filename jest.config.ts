@@ -1,4 +1,5 @@
 // jest.config.js
+import type { Config } from "jest";
 const nextJest = require('next/jest')
 
 const createJestConfig = nextJest({
@@ -7,7 +8,7 @@ const createJestConfig = nextJest({
 })
 
 /** @type {import('@jest/types').Config.InitialOptions} */
-const customJestConfig = {
+const customJestConfig: Config = {
   coverageProvider: 'v8',
   testEnvironment: 'jsdom',
   // Add more setup options before each test is run

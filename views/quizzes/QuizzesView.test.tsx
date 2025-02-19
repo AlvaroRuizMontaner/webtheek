@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import QuizzesView from "./QuizzesView";
 import { QueryClient, QueryClientProvider, useQuery } from "@tanstack/react-query";
+import { describe, expect, it } from '@jest/globals';
 
 jest.mock('next/navigation', () => ({
     usePathname: jest.fn(() => "/quizzes"),
@@ -73,7 +74,7 @@ describe('QuizView', () => {
         //screen.debug(); // Esto imprimirá el DOM renderizado en tu terminal
 
         // Verifica que el `role="list"` exista durante el estado de carga
-        expect(screen.getByRole("list")).toBeInTheDocument();
+        expect(screen.getByRole("loading-list")).toBeInTheDocument();
     });
 
     it('should show the data on succesful fetch', () => {
@@ -90,7 +91,7 @@ describe('QuizView', () => {
         expect(screen.getByText(/quizTestName/i)).toBeInTheDocument()
     });
 
-    it('should show noseque if data is empty', async () => {
+    it('should show empty state component if data is empty', async () => {
         (useQuery as jest.Mock).mockReturnValue({ // Mock dinámico
             data: [],
             isLoading: false,
@@ -115,6 +116,5 @@ describe('QuizView', () => {
         screen.debug(); // Esto imprimirá el DOM renderizado en tu terminal
 
         expect(screen.getByText(/Algo ha fallado.../i)).toBeInTheDocument()
-
     });
   });

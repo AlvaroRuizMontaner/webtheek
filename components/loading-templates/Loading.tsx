@@ -39,7 +39,7 @@ export default function Loading() {
         <section className='__loading h-4 max-w-[316px]'></section>
         <section className='__loading rounded-lg h-[48px] max-w-full sm:max-w-[220px]'></section>
       </div>
-      <ul role="list" className="space-y-4 my-10">
+      <ul role="loading-list" className="space-y-4 my-10">
         {loadingData.map((project, index) => (
           <li
             key={project._id + index}

@@ -153,6 +153,8 @@ jobs:
 
 
       # Paso 5: Correr los tests de jest
+      # El doble guion -- es para pasar los argumentos a jest y no a npm
+      # --ci ejecuta Jest en modo CI/CD, --coverage genera un reporte
       - name: Run Jest tests
         run: |
           npm install
