@@ -20,7 +20,8 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "plotly.js-dist-min": ["node_modules/@types/plotly.js"]
     },
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "cypress.config.ts", "cypress/**/*.ts", "jest.setup.ts", "jest.config.ts"],

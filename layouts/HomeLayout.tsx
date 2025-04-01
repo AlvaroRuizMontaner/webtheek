@@ -6,7 +6,6 @@ import Logo from '@/components/Logo';
 import Link from 'next/link';
 import DesktopNav from '@/components/Nav/DesktopNav';
 import Footer from '@/components/footer/Footer';
-import { useInertialScrollDesktop } from '@/hooks/useInertialScroll';
 import MobileNav from '@/components/Nav/MobileNav';
 
 
@@ -19,7 +18,7 @@ export default function HomeLayout({children}: AppLayoutProps): ReactNode {
 /*   getSectionFromRouter */
 
   if (typeof window !== 'undefined') {
-    useInertialScrollDesktop()
+    //useInertialScrollDesktop()
     //useInertialScrollMobile()
   }
     
