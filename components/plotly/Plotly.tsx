@@ -1,13 +1,14 @@
 import dynamic from 'next/dynamic';
+import { ModeBarButtonAny } from 'plotly.js-dist-min';
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState, useId } from 'react';
 
 // https://dev.to/composite/how-to-integrate-plotlyjs-on-nextjs-14-with-app-router-1loj
 
 // Usamos dynamic import para cargar Plotly de manera dinámica, y deshabilitamos el SSR (Server-Side Rendering).
 // Esto es porque Plotly debe ejecutarse en el cliente, ya que depende del DOM.
-const Plotly: any = dynamic(
+const Plotly = dynamic(
     () =>
-      import('plotly.js-dist-min').then(({ newPlot, purge }: any) => {
+      import('plotly.js-dist-min').then(({ newPlot, purge }) => {
   
         // 'forwardRef' es un patrón en React que permite pasar una referencia (ref) de un componente hijo
         // al componente padre. Esto es útil cuando queremos manejar la referencia a un DOM elemento de manera
@@ -17,7 +18,7 @@ const Plotly: any = dynamic(
             // Desestructuramos las props que el componente va a recibir:
             // 'id' y 'className' son para controlar el identificador y la clase CSS del div.
             // 'data', 'layout', y 'config' son los datos que pasaremos a Plotly para renderizar el gráfico.
-            { id, className, data, layout, config }: { id?: string; className?: string; data: any; layout: any; config: any },
+            { id, className, data, layout, config, editable=false, modeBarButtonsToAdd }: { id?: string; className?: string; data: Plotly.Data[]; layout: Partial<Plotly.Layout>; config?: Plotly.Config, editable?: boolean, modeBarButtonsToAdd?: ModeBarButtonAny[] },
             ref
           ) => {
             // 'useId' es un hook de React que nos da un identificador único para este componente, útil si no pasamos 'id' como prop.
@@ -35,11 +36,18 @@ const Plotly: any = dynamic(
             // Aquí usamos 'useEffect' para crear el gráfico de Plotly solo cuando los datos, el diseño o la configuración cambian.
             useEffect(() => {
               let instance: Plotly.PlotlyHTMLElement | undefined;
-  
+
+              const updatedLayout = {
+                ...layout,
+                modeBar: {
+                  orientation: 'h', // Esto asegura que la barra de herramientas esté horizontal
+                },
+              };
+
               // Si 'originRef.current' está disponible (lo que significa que el div ha sido renderizado),
               // llamamos a 'newPlot' de Plotly para renderizar el gráfico.
-              if (originRef.current) {
-                newPlot(originRef.current, data, layout, { ...config, editable: true }).then((ref: Plotly.PlotlyHTMLElement) => {
+              if (originRef.current && modeBarButtonsToAdd) {
+                newPlot(originRef.current, data, updatedLayout, { ...config, scrollZoom: true, modeBarButtonsToAdd, editable, displaylogo: false, responsive: true }).then((ref: Plotly.PlotlyHTMLElement) => {
                   // Cuando el gráfico ha sido renderizado, guardamos la instancia de Plotly en el estado.
                   setHandle(instance = ref);
                 });
