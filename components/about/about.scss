@@ -1,0 +1,52 @@
+@import "../../styles/breakpoints";
+@import "../../styles/colors";
+
+
+.about {
+    background-image: linear-gradient(to bottom, transparent 50%, var(--primary-900) 50%), url("/backgrounds/general_tools.webp");
+    background-position: center, center -6rem;
+    background-size: 100%, cover;
+    background-repeat: no-repeat;
+
+    @media screen and (min-width: $medium) { 
+        background-image: linear-gradient(to left, transparent 50%, var(--primary-900) 50%), url("/backgrounds/general_tools.webp");
+        background-position: center, calc(50% + 18rem);
+        background-size: 100%, 60rem;
+    }
+    @media screen and (min-width: $extra-extra-large) { 
+        background-size: 100%, cover;
+        /* background-position: center, calc(50% + 38rem); */
+    }
+}
+
+.about-grid {
+    display: grid;
+    grid-template-rows: repeat(2, 25rem);
+    @apply gap-y-4;
+
+    @media screen and (min-width: $medium) { 
+        grid-template-rows: unset;
+        row-gap: unset;
+        grid-template-columns: repeat(2, 1fr);
+        @apply py-12;
+    }
+    @media screen and (min-width: $extra-extra-large) { 
+        margin-inline: auto;
+        max-width: $extra-extra-large;
+    }
+}
+
+.about-text {
+    grid-row: 2/3;
+
+    @media screen and (max-width: #{$small - 1px}) { 
+        h2 {
+            font-size: 28px;
+        }
+    }
+
+    @media screen and (min-width: $medium) { 
+        height: 30rem;
+    }
+
+}

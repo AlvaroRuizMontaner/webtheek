@@ -1,26 +1,35 @@
 export const whatInfo: WhatInfoProps = {
     title: "¿Qué ofrece Webtheek?",
     cards: [
-      {
-        /* name: "Herramientas de archivos e imágenes", */
+/*       {
         name: "Crear y gestionar tus proyectos",
         image: "icons/settings.svg",
         description:
           "Crea proyectos para tus quehaceres, asigna tareas y notas, trae colaboradores, y elige quién puede verlo y ayudar",
       },
       {
-        /* name: "Simulaciones y gráficos", */
         name: "Creación de quizzes",
         image: "/icons/graphic.svg",
         description:
-         /*  "Tú y tu equipo juntos podréis coordinaros con la realización de tareas e interactuar con notas", */
           "Coloca preguntas y las posibles respuestas, comparte el link y deja que quien quieras lo resuelva",
+      }, */
+      {
+        name: "Herramientas de índole general",
+        image: "icons/settings.svg",
+        description:
+          "Crea proyectos, tareas, notas, quizzes y curriculums, todo ello es posible en esta plataforma",
       },
       {
-        name: "Tu perfil donde almacenarlos",
+        name: "Herramientas con fines científicos",
+        image: "/icons/graphic.svg",
+        description:
+          "Destinado a los usuarios más científicos, pronto ofreceremos servicios de cálculo, simulación y graficado",
+      },
+      {
+        name: "Almacenamiento en perfil",
         image: "/icons/profile2.svg",
         description:
-          "Tu trabajo quedará ligado a tu cuenta, la cual quedará aquí almacenada en un sistema seguro de autenticación",
+          "Tu trabajo quedará ligado a tu cuenta, la cual quedará aquí guardada en un sistema seguro de autenticación",
       },
     ],
 };

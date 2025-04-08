@@ -1,3 +1,4 @@
+import About from '@/components/about/About';
 import BannerHome from '@/components/banner/BannerHome';
 import { BannerHomeInfo } from '@/components/banner/banner-home.info';
 import Container from '@/components/container/Container';
@@ -17,6 +18,7 @@ export default function DashboardView() {
         <Container>
           <What whatInfo={whatInfo} />
         </Container>
+        <About />
       <Zigzag info={zigzagInfoHome} />
       <hr />
     </>
