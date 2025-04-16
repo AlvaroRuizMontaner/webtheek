@@ -15,12 +15,11 @@ export default function DashboardView() {
     <>
       <Head>{renderPageSeo(seoHome, "index")}</Head>
       <BannerHome {...BannerHomeInfo} />
-        <Container>
+        {/* <Container> */}
           <What whatInfo={whatInfo} />
-        </Container>
+        {/* </Container> */}
         <About />
       <Zigzag info={zigzagInfoHome} />
-      <hr />
     </>
   );
 }

@@ -3,7 +3,6 @@ import React, { useEffect, useRef, useState } from 'react'
 import { ZigzagItem } from './zigzag.info'
 import Image from 'next/image'
 import "./zigzag.scss"
-import Title from '../title/Title'
 
 type ZigzagProps = {
     info: ZigzagItem[]
@@ -66,7 +65,7 @@ export default function Zigzag({info}: ZigzagProps) {
                     fill={true}
                     src={item.image}
                     alt=""
-                    className="rounded-xl object-contain md:object-cover"
+                    className="rounded-xl object-contain"
                   />
                 </div>
                 <div
@@ -80,7 +79,10 @@ export default function Zigzag({info}: ZigzagProps) {
                     }`}
                 /* ref={elementRef1} className={`h-full flex-1 flex gap-4 flex-col justify-center md:leading-6 lg:leading-8 relative ${isVisible1 ? "opacity-1 __fade" : "opacity-0 "}`} */
                 >
-                  <Title as="h3" className='text-primary-500 headline4'>{item.title}</Title>
+                  <h3 className={`${isEven(index) ? "text-primary-900" : "text-accent-900"} headline4 font-black`}>
+                    {item.title}
+                  </h3>
+                  {/* <Title as="h3" className={`${isEven(index) ? "text-accent-500" : "text-primary-500"} headline4`}>{item.title}</Title> */}
                   <div>{item.text}</div>
                 </div>
               </div>

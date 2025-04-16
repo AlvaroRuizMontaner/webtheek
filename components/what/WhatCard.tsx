@@ -14,7 +14,7 @@ const WhatCard = ({
         rounded-lg shadow-lg shadow-primary-900
      "
       >
-        <div className="relative w-full h-20 bg-primary-100 rounded-lg">
+        <div className="relative w-full h-20 bg-white rounded-lg">
           <Image className="" fill src={image} alt={`Image ${name}`} />
         </div>
         <h2 className="h-20 leading-6 text-accent-300 font-black body2 flex items-center justify-center text-center">
