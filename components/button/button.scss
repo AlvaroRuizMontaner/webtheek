@@ -13,6 +13,15 @@ $grid-unit: 4px;
 
 .cut-button {
     $offset: 10%;
+    $font-size: 20px;
+    $padding-inline: 48px;
+    $padding-block: 12px;
+
+    font-size: $font-size;
+    padding-inline: $padding-inline;
+    padding-block: $padding-block;
+    line-height: 1;
+    
 
     background: linear-gradient(135deg, var(--primary-200) $offset, white $offset, white calc($offset + 1%), var(--primary-200) calc($offset + 1%), var(--primary-200) calc(100% - $offset - 2%), white calc(100% - $offset - 2%), white calc(100% - $offset - 1%), var(--primary-200) calc(100% - $offset - 1%));
 
@@ -23,6 +32,7 @@ $grid-unit: 4px;
 
 
     .corner {
+        $corner-height: calc($font-size + $padding-block * 2);
         &:nth-of-type(1) {
             position: absolute;
             transform: translateX(-12%) translateY(-12%);
