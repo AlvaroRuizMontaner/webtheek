@@ -76,7 +76,22 @@
       transform: scale(1.05);
       box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.3);
     }
-}
+  }
+
+  @keyframes drop-press {
+    0% {
+      transform: scale(1);
+      filter: drop-shadow(5px 10px rgba(0, 0, 0, 0.2));
+    }
+    50% {
+      transform: scale(0.95);
+      filter: drop-shadow(1px 1px rgba(0, 0, 0, 0.2));
+    }
+    100% {
+      transform: scale(1.05);
+      filter: drop-shadow(3px 5px rgba(0, 0, 0, 0.3));
+    }
+  }
   
   @keyframes push {
     0% {

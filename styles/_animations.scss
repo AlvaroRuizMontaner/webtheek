@@ -12,6 +12,11 @@
     animation: press 0.2s linear;
 }
 
+.__press-drop:active {
+    /* transform: scale(0.95); */
+    animation: drop-press 0.2s linear;
+}
+
 /* --------------------------------------------------------------------------------------------- */
   
 .__push {

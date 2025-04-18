@@ -12,36 +12,62 @@ $grid-unit: 4px;
 }
 
 .cut-button {
-    $offset: 10%;
     $font-size: 20px;
     $padding-inline: 48px;
     $padding-block: 12px;
+    $border-width: 2px;
+
+    $corner-height: calc($font-size + $padding-block * 2 + $border-width * 2);
+    $hyp: calc(#{$corner-height} * 1.41421356237);
+    $offset: calc($hyp / 2);
+    $offset-correction: $border-width * 1.41421356237;
+    $corrected-offset1: calc($offset - $offset-correction); /* El gradient que se pinta NO comienza en el borde sino en el padding, y eso debe tenerse en cuenta de este modo */
+    $corrected-offset2: calc($offset - $offset-correction); /* El gradient que se pinta NO comienza en el borde sino en el padding, y eso debe tenerse en cuenta de este modo */
 
     font-size: $font-size;
     padding-inline: $padding-inline;
     padding-block: $padding-block;
     line-height: 1;
+    border-width: $border-width;
+
     
 
-    background: linear-gradient(135deg, var(--primary-200) $offset, white $offset, white calc($offset + 1%), var(--primary-200) calc($offset + 1%), var(--primary-200) calc(100% - $offset - 2%), white calc(100% - $offset - 2%), white calc(100% - $offset - 1%), var(--primary-200) calc(100% - $offset - 1%));
+    background: linear-gradient(135deg, var(--primary-200) $corrected-offset1, white $corrected-offset1, white calc($corrected-offset1 + $border-width), 
+    var(--primary-200) calc($corrected-offset1 + $border-width),
+    var(--primary-200) calc(100% - $corrected-offset2 - $border-width),
+    white calc(100% - $corrected-offset2 - $border-width), white calc(100% - $corrected-offset2), var(--primary-200) calc(100% - $corrected-offset2 - $border-width));
 
     &:hover {
-        background: linear-gradient(135deg, var(--primary-400) $offset, white $offset, white calc($offset + 1%), var(--primary-400) calc($offset + 1%), var(--primary-400) calc(100% - $offset - 2%), white calc(100% - $offset - 2%), white calc(100% - $offset - 1%), var(--primary-400) calc(100% - $offset - 1%));
+        background: linear-gradient(135deg, var(--primary-400) $corrected-offset1, white $corrected-offset1, white calc($corrected-offset1 + $border-width), 
+        var(--primary-400) calc($corrected-offset1 + $border-width),
+        var(--primary-400) calc(100% - $corrected-offset2 - $border-width),
+        white calc(100% - $corrected-offset2 - $border-width), white calc(100% - $corrected-offset2), var(--primary-400) calc(100% - $corrected-offset2 - $border-width));
     }
+
+    /* Crea un mask para evitar que la sombra de la animacion al pulsar se vea por fuera */
+    mask-image: linear-gradient(
+    135deg,
+    transparent #{$corrected-offset1},
+    black #{$corrected-offset1},
+    black calc(100% - #{$corrected-offset2}),
+    transparent calc(100% - #{$corrected-offset2})
+    );
+
+    mask-repeat: no-repeat;
+    mask-size: 100% 100%;
 
 
 
     .corner {
-        $corner-height: calc($font-size + $padding-block * 2);
         &:nth-of-type(1) {
             position: absolute;
-            transform: translateX(-12%) translateY(-12%);
+            /* transform: translateX(-12%) translateY(-12%); */
             background: linear-gradient(135deg, var(--primary-200) 50%, transparent 50%);
-            top:0;
-            left: 0;
-            height: 40px;
-            width: 40px;
-            z-index: 1;
+            top: -$border-width;
+            left: -$border-width;
+            height: $corner-height;
+            width: $corner-height;
+            pointer-events: none;
         }
     /*     &:nth-of-type(2) {
             position: absolute;
@@ -54,13 +80,14 @@ $grid-unit: 4px;
         } */
         &:nth-of-type(3) {
             position: absolute;
-            transform: translateX(9%) translateY(9%);
+            /* transform: translateX(9%) translateY(9%); */
             background: linear-gradient(315deg, var(--primary-200) 50%, transparent 50%);
-            bottom:0;
-            right: 0;
-            height: 40px;
-            width: 40px;
-    
+            /* background: transparent; */
+            bottom: -$border-width;
+            right: -$border-width;
+            height: $corner-height;
+            width: $corner-height;
+            pointer-events: none;
         }
     /*     &:nth-of-type(4) {
             position: absolute;
