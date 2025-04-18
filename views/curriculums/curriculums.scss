@@ -4,6 +4,12 @@
     position: relative;
     /* z-index: 3; */
     /* overflow: hidden; */
+    background-color: #1E1B4B;
+
+    &:hover::after {
+        background-size: 170%;
+        background-position-x: calc(50% + 20px);
+    }
 }
 
 .curriculum-card > * {
@@ -11,17 +17,18 @@
 }
 
 .curriculum-card::after {
+    transition: background-size 0.8s ease, background-position-x 0.8s ease;
     position: absolute;
     content: "";
     width: 100%;
     height: 100%;
     top: 0;
     left: 0;
-    background-image: url("/backgrounds/question-marks.webp");
-    background-position-x: 50%;
-    background-position-y: 20%;
+    background-image: url("/backgrounds/project_bg.png");
+    background-position-x: 5%;
+    background-position-y: 59%;
     background-size: 150%;
-    filter: opacity(0.1);
+    filter: opacity(0.35);
     z-index: 1;
 
 }

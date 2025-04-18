@@ -40,7 +40,7 @@ export default function RootLayout({
     <html className="" lang="en">
   {/* Eliminado por estar obsoleto, movido a metadata */}
   {/* <head><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" /></head> */}
-      <body className={`${poppins.className} min-h-screen flex flex-col body3 bg-gray-100`}>
+      <body className={`${poppins.className} min-h-screen flex flex-col body3 bg-primary-200`}>
         <Provider>
             {children}
         </Provider>

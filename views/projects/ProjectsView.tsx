@@ -40,11 +40,11 @@ export default function ProjectsView() {
         </div>
 
         {data.length ? (
-          <ul role="list" className="space-y-8u my-10">
+          <ul role="list" className="my-10 lg:grid lg:grid-cols-2 gap-8u">
             {data.map((project) => (
               <li
                 key={project._id}
-                className="flex relative justify-between gap-x-6 project-card bg-white shadow-lg"
+                className="flex relative justify-between gap-x-6 project-card bg-white shadow-lg h-full"
               >
                 <div className="flex min-w-0 gap-x-4 pl-6u py-8u overflow-hidden">
                   <div className="min-w-0 flex-auto space-y-2u">
@@ -56,21 +56,21 @@ export default function ProjectsView() {
                     <div>
                       <Link
                         href={`/projects/${project._id}`}
-                        className="text-gray-600 cursor-pointer hover:underline headline3 font-bold"
+                        className="text-accent-200 cursor-pointer hover:underline headline3 font-bold"
                         id={project._id}
                       >
                         {project.projectName}
                       </Link>
                     </div>
-                    <p className="text-gray-400">
+                    <p className="text-white">
                       Cliente: {project.clientName}
                     </p>
-                    <p className="text-gray-400">{project.description}</p>
+                    <p className="text-white">{project.description}</p>
                   </div>
                 </div>
                 <div className="flex shrink-0 items-center gap-x-6 w-fit pr-6u py-8u">
                   <Menu as="div" className="relative z-10 flex-none">
-                    <MenuButton className="-m-2.5 block text-gray-500 hover:text-gray-900">
+                    <MenuButton className="-m-2.5 block text-white hover:text-primary-200">
                       <span className="sr-only">opciones</span>
                       <EllipsisVerticalIcon
                         className="h-9 w-9"

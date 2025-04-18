@@ -19,13 +19,13 @@ export default function PermissionTag({isManager, permissionLevel}: PermissionTa
       <>
       {isManager ? (
         <p
-          className={`${classNames} bg-primary-100 text-primary-700 border-t-primary-500 border-b-primary-500`}
+          className={`${classNames} bg-primary-200 text-primary-700 border-t-primary-500 border-b-primary-500`}
         >
           Manager
         </p>
       ) : (
         <p
-        className={`${classNames} bg-accent-100 text-accent-700 border-t-accent-500 border-b-accent-500`}
+        className={`${classNames} bg-primary-200 text-accent-800 border-t-primary-500 border-b-primary-500`}
         >
           Colaborador
         </p>
