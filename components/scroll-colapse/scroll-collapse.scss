@@ -1,0 +1,24 @@
+@import "../../styles/_colors";
+
+.scroll-collapse {
+    top: 0;
+    left: 0;
+    width: 100%;
+    transition: transform 0.5s ease-in-out;
+    z-index: 1000; /* Asegúrate de que esté encima de otros elementos */
+
+    &.fixed { position: fixed; }
+    &.absolute { position: absolute; }
+
+    &.not-visible { transform: translateY(-100%); }
+    &.visible { transform: translateY(0); }
+  }
+
+.placeholder {
+  &.light {
+    background-color: var(--primary-200);
+  }
+  &.dark {
+    background-color: var(--primary-900);
+  }
+}

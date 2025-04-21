@@ -1,18 +1,17 @@
 import React from 'react'
 import "./banner-home.scss"
-import Button from '../button/Button'
 
 type BannerHomeProps = {
     titles: {
       text: string
     }[]
-    ctas : {
+/*     ctas : {
       text: string,
       href: string
-    }[]
+    }[] */
 }
 
-export default function BannerHome({titles, ctas}: BannerHomeProps) {
+export default function BannerHome({titles, /* ctas */}: BannerHomeProps) {
   return (
     <div className="contenedor-banner-home">
       <section className="banner-home w-full h-full">
@@ -26,7 +25,7 @@ export default function BannerHome({titles, ctas}: BannerHomeProps) {
                   </li>
                 ))}
               </ul>
-              <div className="flex flex-col sm:flex-row gap-4u justify-center">
+{/*               <div className="flex flex-col sm:flex-row gap-4u justify-center">
                 {ctas.map((cta, index) => (
                   <Button
                     key={index + "cta"}
@@ -35,7 +34,7 @@ export default function BannerHome({titles, ctas}: BannerHomeProps) {
                     variant="outline"
                   />
                 ))}
-              </div>
+              </div> */}
             </div>
           </article>
           <article></article>

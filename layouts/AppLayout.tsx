@@ -7,6 +7,7 @@ import Link from 'next/link';
 import DesktopNav from '@/components/Nav/DesktopNav';
 import Footer from '@/components/footer/Footer';
 import MobileNav from '@/components/Nav/MobileNav';
+/* import ScrollCollapse from '@/components/scroll-colapse/Scroll-collapse'; */
 
 
 interface AppLayoutProps {
@@ -25,26 +26,28 @@ export default function AppLayout({children}: AppLayoutProps): ReactNode {
 
   return (
     <>
-      <header className=" bg-primary-900 py-2u relative z-[2]">
-        <div
-          className="max-w-screen-2xl mx-auto flex sm:flex-row gap-6
-            justify-between items-center container"
-        >
-          <div className="w-24">
-            <Link href="/">
-              <Logo />
-            </Link>
+      {/* <ScrollCollapse> */}
+        <header className=" bg-primary-900 py-2u relative z-[2]">
+          <div
+            className="max-w-screen-2xl mx-auto flex sm:flex-row gap-6
+              justify-between items-center container"
+          >
+            <div className="w-24">
+              <Link href="/">
+                <Logo />
+              </Link>
+            </div>
+
+            <section className='hidden h-[130px] md:block'>
+              <DesktopNav />
+            </section>
+
+            <section className='md:hidden'>
+              <MobileNav/>
+            </section>
           </div>
-
-          <section className='hidden h-[130px] md:block'>
-            <DesktopNav />
-          </section>
-
-          <section className='md:hidden'>
-            <MobileNav/>
-          </section>
-        </div>
-      </header>
+        </header>
+      {/* </ScrollCollapse> */}
 
       {/* <Redirect /> */}
 

@@ -6,8 +6,14 @@ export const BannerHomeInfo = {
         {
             text: "Idea quizzes para que cualquiera los resuelva"
         },
+        {
+            text: "Construye tu CV"
+        },
+        {
+            text: "Calcula y grafica tus resultados"
+        },
     ],
-    ctas: [
+/*     ctas: [
         {
           text: "Ir a proyectos",
           href: "/projects"
@@ -16,7 +22,7 @@ export const BannerHomeInfo = {
           text: "Ir a quizzes",
           href: "/quizzes"
         },
-      ]
+      ] */
 }
 export const BannerProjectsInfo = {
     titles: [
