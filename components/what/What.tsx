@@ -37,7 +37,7 @@ export default function What({whatInfo}: WhatProps) {
           </div>
         ) : (
           <div className="max-w-[600px] mx-auto flex flex-col my-16u items-center justify-center relative">
-            <Title as="h1" className='text-center text-primary-500 text-4xl md:headline2'>
+            <Title as="h1" className='text-center text-primary-900 text-4xl md:headline2'>
               {whatInfo.title}
             </Title>
             <div className="swiper-container-home ml-0 md:ml-0">
