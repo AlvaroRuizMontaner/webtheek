@@ -173,7 +173,7 @@ const config: Config = {
         "no-blur": "0 3px 0 hsl(230, 7%, 83%)"
       },
       fontFamily: {
-        lato: ["Lato", "sans-serif"],
+        orbitron: ["Orbitron", "sans-serif"],
         "rubik": ["Rubik", "sans-serif"],
       },
 /*       fontSize: {

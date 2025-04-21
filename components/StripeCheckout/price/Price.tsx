@@ -18,7 +18,7 @@ export default function Price({price=10, haveIva=true}: PriceProps) {
   return (
     <section className={`flex flex-col items-center __pop`}>
     <div className='flex gap-1 min-w-max'>
-      <div className={`flex items-center m-0 body1 font-bold line-height-1 font-lato price-number`}>
+      <div className={`flex items-center m-0 body1 font-bold line-height-1 font-orbitron price-number`}>
         {Number.isInteger(price) ? price : formatPrice(price)}
       </div>
       <section className='flex flex-col ml-[3px]'>

@@ -16,6 +16,8 @@ $grid-unit: 4px;
     $padding-inline: 48px;
     $padding-block: 12px;
     $border-width: 2px;
+    $border-color: white;
+    $bg-hover-color: var(--accent-200);
 
     $corner-height: calc($font-size + $padding-block * 2 + $border-width * 2);
     $hyp: calc(#{$corner-height} * 1.41421356237);
@@ -29,19 +31,20 @@ $grid-unit: 4px;
     padding-block: $padding-block;
     line-height: 1;
     border-width: $border-width;
+    border-color: $border-color;
 
     
 
-    background: linear-gradient(135deg, var(--primary-200) $corrected-offset1, white $corrected-offset1, white calc($corrected-offset1 + $border-width), 
+    background: linear-gradient(135deg, var(--primary-200) $corrected-offset1, $border-color $corrected-offset1, $border-color calc($corrected-offset1 + $border-width), 
     var(--primary-200) calc($corrected-offset1 + $border-width),
     var(--primary-200) calc(100% - $corrected-offset2 - $border-width),
-    white calc(100% - $corrected-offset2 - $border-width), white calc(100% - $corrected-offset2), var(--primary-200) calc(100% - $corrected-offset2 - $border-width));
+    $border-color calc(100% - $corrected-offset2 - $border-width), $border-color calc(100% - $corrected-offset2), var(--primary-200) calc(100% - $corrected-offset2 - $border-width));
 
     &:hover {
-        background: linear-gradient(135deg, var(--primary-400) $corrected-offset1, white $corrected-offset1, white calc($corrected-offset1 + $border-width), 
-        var(--primary-400) calc($corrected-offset1 + $border-width),
-        var(--primary-400) calc(100% - $corrected-offset2 - $border-width),
-        white calc(100% - $corrected-offset2 - $border-width), white calc(100% - $corrected-offset2), var(--primary-400) calc(100% - $corrected-offset2 - $border-width));
+        background: linear-gradient(135deg, $bg-hover-color $corrected-offset1, $border-color $corrected-offset1, $border-color calc($corrected-offset1 + $border-width), 
+        $bg-hover-color calc($corrected-offset1 + $border-width),
+        $bg-hover-color calc(100% - $corrected-offset2 - $border-width),
+        $border-color calc(100% - $corrected-offset2 - $border-width), $border-color calc(100% - $corrected-offset2), $bg-hover-color calc(100% - $corrected-offset2 - $border-width));
     }
 
     /* Crea un mask para evitar que la sombra de la animacion al pulsar se vea por fuera */

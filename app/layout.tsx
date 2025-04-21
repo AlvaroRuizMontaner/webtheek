@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
-import { Poppins } from "next/font/google";
+import { Oxanium } from "next/font/google";
 import "./globals.scss";
 import Provider from "@/utils/Providers";
 
-const poppins = Poppins({
+
+const oxanium = Oxanium({
   subsets: ['latin'],
-  weight: ['400', '600', '700', '800', '900'], // Asegúrate de incluir todos los pesos que necesitas
+  weight: ['400', '600', '700'], // Asegúrate de incluir todos los pesos que necesitas
 });
 
 export const metadata: Metadata = {
@@ -39,8 +40,8 @@ export default function RootLayout({
   return (
     <html className="" lang="en">
   {/* Eliminado por estar obsoleto, movido a metadata */}
-  {/* <head><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" /></head> */}
-      <body className={`${poppins.className} min-h-screen flex flex-col body3 bg-primary-200`}>
+  <head><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap"/></head>
+      <body className={` ${oxanium.className} min-h-screen flex flex-col body3 bg-primary-200`}>
         <Provider>
             {children}
         </Provider>

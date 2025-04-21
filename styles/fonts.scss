@@ -1,11 +1,11 @@
 @import "_breakpoints.scss";
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@100;300;400;700;900&display=swap');
 @tailwind utilities;
 
 
 @layer utilities {
     .headline1, .headline2, .headline3, .headline4 {
-        font-family: 'Lato', sans-serif; 
+        font-family: 'Orbitron', sans-serif;
         letter-spacing: -0.02em;
         line-height: 1;
     }
