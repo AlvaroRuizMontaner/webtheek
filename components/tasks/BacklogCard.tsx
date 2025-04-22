@@ -35,7 +35,7 @@ export default function BacklogCard({task, canEdit, projectId}: BacklogCardProps
     <li
       className="p-2 shadow-y-1 backlog-card rounded-lg flex justify-between"
     >
-      <div className="font-bold text-gray-800 flex flex-col justify-center">
+      <div className="font-bold text-primary-900 flex flex-col justify-center">
         <span
           className="cursor-pointer"
           onClick={() =>
@@ -48,7 +48,7 @@ export default function BacklogCard({task, canEdit, projectId}: BacklogCardProps
 
       <div className="flex shrink-0  gap-x-6">
         <Menu as="div" className="relative flex-none">
-          <Menu.Button className="-m-2.5 block p-2.5 text-gray-500 hover:text-gray-900">
+          <Menu.Button className="-m-2.5 block p-2.5 text-white hover:text-primary-100">
             <span className="sr-only">opciones</span>
             <EllipsisVerticalIcon className="h-9 w-9" aria-hidden="true" />
           </Menu.Button>

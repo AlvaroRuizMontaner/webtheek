@@ -29,7 +29,7 @@ export default function HomeLayout({children}: AppLayoutProps): ReactNode {
       <ScrollCollapse placeholder={{color: "dark"}}>
         <header className=" bg-primary-900 py-2u">
           <div
-            className="max-w-screen-2xl mx-auto flex sm:flex-row gap-6
+            className="max-w-screen-2xl mx-auto flex gap-6
               justify-between items-center container"
           >
             <div className="w-24">
@@ -38,11 +38,11 @@ export default function HomeLayout({children}: AppLayoutProps): ReactNode {
               </Link>
             </div>
 
-            <section className='hidden h-[130px] sm:block'>
+            <section className='hidden h-[130px] md:block'>
               <DesktopNav />
             </section>
 
-            <section className='sm:hidden'>
+            <section className='md:hidden'>
               <MobileNav/>
             </section>
           </div>

@@ -55,14 +55,14 @@ export default function Tabs({tabs}: TabsProps) {
                                 href={tab.href}
                                 className={classNames(
                                     path === tab.href
-                                        ? 'border-primary-500 text-primary-500'
-                                        : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700',
+                                        ? 'border-primary-600 text-primary-600'
+                                        : 'border-transparent text-gray-600 hover:border-gray-400 hover:text-gray-800',
                                     'group inline-flex items-center border-b-2 py-4 px-1 text-sm font-medium'
                                 )}
                             >
                                 <tab.icon
                                     className={classNames(
-                                        path === tab.href ? 'text-primary-500' : 'text-gray-400 group-hover:text-gray-500',
+                                        path === tab.href ? 'text-primary-600' : 'text-gray-500 group-hover:text-gray-600',
                                         '-ml-0.5 mr-2 h-5 w-5'
                                     )}
                                     aria-hidden="true"

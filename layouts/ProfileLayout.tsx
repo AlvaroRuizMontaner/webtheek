@@ -4,7 +4,7 @@ import { FingerPrintIcon, TrophyIcon, UserIcon } from '@heroicons/react/20/solid
 import React, { ReactNode } from 'react'
 
 const tabs = [
-  { name: 'Mi Cuenta', href: '/profile', icon: UserIcon },
+  { name: 'Cuenta', href: '/profile', icon: UserIcon },
   { name: 'Cambiar Password', href: '/profile/password', icon: FingerPrintIcon },
   { name: 'Status', href: '/profile/pricing', icon: TrophyIcon },
 ]

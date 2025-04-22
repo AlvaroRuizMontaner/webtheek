@@ -1,7 +1,6 @@
 import About from '@/components/about/About';
 import BannerHome from '@/components/banner/BannerHome';
 import { BannerHomeInfo } from '@/components/banner/banner-home.info';
-import Container from '@/components/container/Container';
 import What from '@/components/what/What';
 import { whatInfo } from '@/components/what/whatCard.info';
 import Zigzag from '@/components/zigzag/Zigzag';

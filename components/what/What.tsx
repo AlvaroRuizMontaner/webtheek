@@ -7,6 +7,7 @@ import { Swiper as SwiperType } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { ArrowLeftCircleIcon, ArrowRightCircleIcon } from '@heroicons/react/20/solid';
 import Title from '../title/Title';
+import 'swiper/css/bundle';
 
 type WhatProps = {
   whatInfo: WhatInfoProps

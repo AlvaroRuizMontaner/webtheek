@@ -29,7 +29,7 @@ export default function AppLayout({children}: AppLayoutProps): ReactNode {
       {/* <ScrollCollapse> */}
         <header className=" bg-primary-900 py-2u relative z-[2]">
           <div
-            className="max-w-screen-2xl mx-auto flex sm:flex-row gap-6
+            className="max-w-screen-2xl mx-auto flex gap-6
               justify-between items-center container"
           >
             <div className="w-24">

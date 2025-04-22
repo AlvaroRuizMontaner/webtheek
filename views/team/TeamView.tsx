@@ -74,7 +74,7 @@ export default function TeamView({toolId, queryKey, tool}: TeamViewProps) {
           {data?.map((member) => (
             <li
               key={member.user._id}
-              className="flex relative justify-between gap-x-6 project-card bg-white shadow-lg"
+              className="flex relative justify-between gap-x-6 project-card shadow-lg"
             >
               <div className="flex min-w-0 gap-x-4 pl-6u py-8u overflow-hidden">
                 <div className="min-w-0 flex-auto space-y-2u">

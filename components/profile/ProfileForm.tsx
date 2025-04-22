@@ -42,8 +42,8 @@ export default function ProfileForm({ data }: ProfileFormProps) {
           <Title variant="dark">Mi perfil</Title>
           <Subtitle
             variant="dark"
-            text={"Aquí puedes actualizar"}
-            highlight="tu información"
+            text={"Personaliza tu información de cuenta"}
+            /* highlight="tu información" */
           />
 
           <Form onSubmit={handleSubmit(handleEditProfile)}
