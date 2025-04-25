@@ -87,12 +87,12 @@ export default function TeamView({toolId, queryKey, tool}: TeamViewProps) {
                   <div>
                     <Link
                         href={`/${tool}/${toolId}/team/${member.user._id}`}
-                      className="text-gray-600 cursor-pointer hover:underline headline3 font-bold"
+                      className="text-accent-200 cursor-pointer hover:underline headline3 font-bold"
                     >
                       {member.user.name}
                     </Link>
                   </div>
-                  <p className="text-sm text-gray-400">
+                  <p className="text-white">
                     {member.user.email}
                   </p>
                 </div>

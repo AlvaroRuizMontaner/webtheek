@@ -6,7 +6,7 @@ export default function AvisoLegal() {
       <h1 className="headline1 text-center font-bold underline text-primary-800">
         Aviso Legal
       </h1>
-      <p className="text-center text-gray-200 text-sm">
+      <p className="text-center text-gray-500 text-sm">
         Actualizado en {new Date().getFullYear()}
       </p>
       <div className='space-y-8u'>
