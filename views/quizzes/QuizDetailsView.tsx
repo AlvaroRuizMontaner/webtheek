@@ -106,7 +106,7 @@ export default function QuizDetailsView({quizId}: {quizId: Quiz["_id"]}) {
         </nav>
   
         <div className="flex sm:gap-8 relative">
-          <section className=" remote-control h-fit bg-primary-200 p-2 rounded-md w-fit">
+          <section className=" remote-control h-fit bg-primary-800 p-2 rounded-md w-fit">
             <div className="flex flex-col gap-2">
               {totalProvisionalQuestions < 30 && <>
                 <button
@@ -149,7 +149,7 @@ export default function QuizDetailsView({quizId}: {quizId: Quiz["_id"]}) {
             </div>
           </section>
           <section className="mobile-remote-control">
-            <section className=" absolute h-fit bg-primary-200 p-2 rounded-md w-fit">
+            <section className=" absolute h-fit bg-primary-800 p-2 rounded-md w-fit">
               <div className="flex flex-col gap-2">
                 <button
                   onClick={() => addQuestion(4)}

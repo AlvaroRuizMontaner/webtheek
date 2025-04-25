@@ -16,8 +16,8 @@ export default function Questions({dataQuestions, stateQuestions, quizId, splice
   }
 
   return (
-    <section className={`bg-primary-200 w-full rounded-t-md p-6 ${(dataQuestions.length === 0 && stateQuestions.length === 0) ? "hidden":""}`}>
-      <div className="bg-primary-200 space-y-8u first:rounded-t-md">
+    <section className={`bg-primary-800 w-full rounded-t-md p-6 ${(dataQuestions.length === 0 && stateQuestions.length === 0) ? "hidden":""}`}>
+      <div className="bg-primary-800 space-y-8u first:rounded-t-md">
         {dataQuestions.map((question, questionIndex) => (
           <Question
             key={"questionName" + questionIndex}
@@ -28,7 +28,7 @@ export default function Questions({dataQuestions, stateQuestions, quizId, splice
         ))}
       </div>
 
-      {stateQuestions.length !==0 &&<div className="bg-primary-200 space-y-8u last:rounded-b-md pt-8u">
+      {stateQuestions.length !==0 &&<div className="bg-primary-800 space-y-8u last:rounded-b-md pt-8u">
         {stateQuestions.map((question, stateQuestionIndex) => (
           <WritableQuestion
             quizId={quizId}

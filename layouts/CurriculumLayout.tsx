@@ -30,7 +30,7 @@ export default function CurriculumLayout({children}: CurriculumLayoutProps): Rea
           className="max-w-screen-2xl mx-auto flex sm:flex-row gap-6
             justify-between items-center cv-container"
         >
-          <div className="w-24 flex-shrink-0">
+          <div className="w-24"> {/* flex-shrink-0 */}
             <Link href="/">
               <Logo />
             </Link>
@@ -48,7 +48,7 @@ export default function CurriculumLayout({children}: CurriculumLayoutProps): Rea
 
       {/* <Redirect /> */}
 
-      <section className=" max-w-screen-2xl flex-1 mx-auto my-12u cv-container -showgrid relative z-[1]">
+      <section className=" max-w-screen-2xl flex-1 mx-auto py-12u container bg-gray-100 -showgrid relative z-[1]">
           {children}
       </section>
 

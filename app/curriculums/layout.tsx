@@ -1,13 +1,13 @@
 import Redirect from '@/components/Redirect';
-import AppLayout from '@/layouts/AppLayout';
+import CurriculumLayout from '@/layouts/CurriculumLayout';
 
 export default function Layout({children}: {children: JSX.Element}): JSX.Element {
   return (
     <>
-      <AppLayout>
+      <CurriculumLayout>
         {children}
         <Redirect />
-      </AppLayout>
+      </CurriculumLayout>
     </>
   );
 }
