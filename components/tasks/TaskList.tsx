@@ -24,11 +24,11 @@ type TaskListProps = {
 
 
 const statusStyles: {[key: string]: string} = {
-  pending: "border-t-gray-500",
-  onHold: "border-t-accent-danger-500",
-  inProgress: "border-t-primary-500",
-  underReview: "border-t-accent-warning-300",
-  completed: "border-t-accent-500"
+  pending: "border-gray-500",
+  onHold: "border-accent-danger-500",
+  inProgress: "border-primary-300",
+  underReview: "border-accent-warning-500",
+  completed: "border-accent-500"
 }
 
 export default function TaskList({tasks, projectId, canEdit}: TaskListProps) {
@@ -133,7 +133,7 @@ export default function TaskList({tasks, projectId, canEdit}: TaskListProps) {
         backlog: "",
         pending: "text-gray-500",
         onHold: "text-accent-danger-500",
-        inProgress: "text-primary-500",
+        inProgress: "text-primary-300", 
         underReview: "text-accent-warning-500",
         completed: "text-accent-500",
       }
@@ -146,7 +146,7 @@ export default function TaskList({tasks, projectId, canEdit}: TaskListProps) {
       return (
         <div key={status} className="2xl:min-w-0 2xl:w-1/5 taskWidth">
           <div
-            className={`p-3 h-[61px] border-t-8 shadow-y-2 flex border border-slate-300 bg-white ${statusStyles[status]}`}
+            className={`p-3 h-[61px] border-4 shadow-y-2 flex transparent text-white ${statusStyles[status]}`}
           >
             <div className="relative h-full flex items-center">
               <StatusIcon status={status} />
@@ -161,7 +161,7 @@ export default function TaskList({tasks, projectId, canEdit}: TaskListProps) {
   
           {showDropTask && <DropTask status={status} />}
   
-          <ul className="mt-5 space-y-5">
+          <ul className="mt-4u space-y-4u">
             {tasks.length === 0 ? (
               <li className="text-gray-700 text-center pt-3">{""}</li>
             ) : (
@@ -182,10 +182,10 @@ export default function TaskList({tasks, projectId, canEdit}: TaskListProps) {
 
 
   return (
-    <>
-      <h2 className="headline2 font-black mt-16u mb-8u sm:mt-24u sm:mb-12u">Tablón de tareas</h2>
+    <section className="mt-16u sm:mt-24u pattern min-h-[500px] bg-primary-900 overflow-hidden">
+      <h2 className="headline2 font-black leading-[0.5] py-6u text-accent-200 mb-4u">Tablón de tareas</h2>
 
-      <div className="flex gap-5 overflow-x-scroll 2xl:overflow-auto pb-8 pattern min-h-[500px] bg-primary-300">
+      <div className="flex gap-5 overflow-x-scroll 2xl:overflow-auto pb-8">
         {canEdit ? (
           <DndContext
             onDragStart={handleDragStart}
@@ -225,6 +225,6 @@ export default function TaskList({tasks, projectId, canEdit}: TaskListProps) {
           ))
         )}
       </div>
-    </>
+    </section>
   );
 }

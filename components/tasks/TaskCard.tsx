@@ -19,11 +19,11 @@ type TaskCardProps = {
 }
 
 const statusStyles: {[key: string]: string} = {
-  pending: "border-gray-300 shadow-gray-500",
-  onHold: "border-gray-300 shadow-gray-500",
-  inProgress: "border-gray-300 shadow-gray-500",
-  underReview: "border-gray-300 shadow-gray-500",
-  completed: "border-gray-300 shadow-gray-500"
+  pending: "border-primary-300 shadow-gray-500",
+  onHold: "border-primary-300 shadow-gray-500",
+  inProgress: "border-primary-300 shadow-gray-500",
+  underReview: "border-primary-300 shadow-gray-500",
+  completed: "border-primary-300 shadow-gray-500"
 }
 
 export default function TaskCard({task, projectId, canEdit, status}: TaskCardProps) {
@@ -56,7 +56,7 @@ export default function TaskCard({task, projectId, canEdit, status}: TaskCardPro
       {...attributes}
       ref={setNodeRef}
       style={style}
-      className={`p-3 sm:p-5 bg-white border-2 ${statusStyles[status]} flex justify-between gap-3 shadow-y-2 relative task-card`}
+      className={`p-3 sm:p-5 border-2 ${statusStyles[status]} flex justify-between gap-3 shadow-y-2 relative task-card`}
     >
       <div className=" min-w-0 flex justify-center flex-col gap-y-4 max-h-48">
         <div className='flex gap-4'>
@@ -72,7 +72,7 @@ export default function TaskCard({task, projectId, canEdit, status}: TaskCardPro
           </button>
         </div>
         {task.description && (
-          <p className="text-white-900 body3 md:text-base ellipsis ">
+          <p className="body3 md:text-base ellipsis ">
             {linkify(task.description)}
           </p>
         )}

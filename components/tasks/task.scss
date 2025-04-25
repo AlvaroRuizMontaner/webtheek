@@ -25,17 +25,30 @@
     background: linear-gradient( var(--primary-800) -20%, var(--accent-200) 50%, var(--primary-800) 120%);
 }
 .task-card {
-/*     background:
-        radial-gradient(ellipse at top, var(--accent-200), transparent),
-        radial-gradient(ellipse at bottom, var(--primary-800), transparent); */
+ /*    background:
+        radial-gradient(ellipse at top left, var(--accent-200), transparent 50%),
+        radial-gradient(ellipse at top right, var(--primary-900), transparent 50%),
+        radial-gradient(ellipse at bottom left, var(--primary-900), transparent 50%),
+        radial-gradient(ellipse at bottom right, var(--accent-200), transparent 50%); */
     /* background: linear-gradient(135deg, var(--primary-800) -0%, var(--accent-200) 50%, var(--primary-800) 100%); */
-    background: linear-gradient(135deg, white -0%, var(--accent-200) 50%, white 100%);
+    /* background: linear-gradient(135deg, white -0%, var(--accent-200) 50%, white 100%); */
+    background-color: var(--primary-200);
+
+    button {
+        color: var(--primary-700);
+    }
+
+    p {
+        color: black;
+    }
 }
 
 .pattern {
     position: relative;
     z-index: 1; /* Asegúrate de que el contenido esté en el nivel superior */
     scrollbar-color: #202097 #8998f5;
+    background-clip: padding-box;
+    padding: 1rem;
 };
 
 .pattern::after {
@@ -47,7 +60,7 @@
     height: 100%;
     background-image: url("/backgrounds/project_bg.png");
     /* filter: grayscale(1); */
-    filter: opacity(0.10);
+    filter: opacity(0.35);
     background-size: cover;
     background-repeat: no-repeat;
     z-index: -1;
