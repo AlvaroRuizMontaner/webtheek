@@ -63,7 +63,7 @@ export default function TaskCard({task, projectId, canEdit, status}: TaskCardPro
           <Thumbtack />
           <button
             type="button"
-            className=" text-base font-bold text-primary-700 text-left ellipsis"
+            className=" text-base font-bold text-left ellipsis"
             onClick={() =>
               router.push(location.pathname + `?viewTask=${task._id}`)
             }

@@ -34,7 +34,7 @@ export default function ProjectDetailsView({projectId}: {projectId: Project["_id
   if(isError) throw new Error(error.message);
   if(data && user) return (
     <>
-      <Title variant="dark">{data.projectName}</Title>
+      <Title className='leading-[1]' variant="dark">{data.projectName}</Title>
       <Subtitle
       variant="dark"
         text={data.description}

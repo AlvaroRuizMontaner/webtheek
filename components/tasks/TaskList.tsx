@@ -24,11 +24,11 @@ type TaskListProps = {
 
 
 const statusStyles: {[key: string]: string} = {
-  pending: "border-gray-500",
-  onHold: "border-accent-danger-500",
-  inProgress: "border-primary-300",
-  underReview: "border-accent-warning-500",
-  completed: "border-accent-500"
+  pending: "border-t-gray-500",
+  onHold: "border-t-accent-danger-500",
+  inProgress: "border-t-primary-300",
+  underReview: "border-t-accent-warning-500",
+  completed: "border-t-accent-500"
 }
 
 export default function TaskList({tasks, projectId, canEdit}: TaskListProps) {
@@ -146,7 +146,7 @@ export default function TaskList({tasks, projectId, canEdit}: TaskListProps) {
       return (
         <div key={status} className="2xl:min-w-0 2xl:w-1/5 taskWidth">
           <div
-            className={`p-3 h-[61px] border-4 shadow-y-2 flex transparent text-white ${statusStyles[status]}`}
+            className={`p-3 h-[61px] column-title border-t-8 shadow-y-2 bg-white flex text-black ${statusStyles[status]}`}
           >
             <div className="relative h-full flex items-center">
               <StatusIcon status={status} />
@@ -182,8 +182,8 @@ export default function TaskList({tasks, projectId, canEdit}: TaskListProps) {
 
 
   return (
-    <section className="mt-16u sm:mt-24u pattern min-h-[500px] bg-primary-900 overflow-hidden">
-      <h2 className="headline2 font-black leading-[0.5] py-6u text-accent-200 mb-4u">Tablón de tareas</h2>
+    <section className="mt-12u pattern min-h-[500px] bg-primary-900 overflow-hidden">
+      {/* <h2 className="headline2 font-black leading-[0.5] py-6u text-accent-200 mb-4u">Tablón de tareas</h2> */}
 
       <div className="flex gap-5 overflow-x-scroll 2xl:overflow-auto pb-8">
         {canEdit ? (
