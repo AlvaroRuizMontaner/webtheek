@@ -1,0 +1,11 @@
+.eos-table {
+    border: 2px solid black;
+
+    &>div:first-child {
+        border-bottom: 2px solid black;
+    }
+
+    p:not(:last-child) {
+        border-right: 2px solid black;
+    }
+}

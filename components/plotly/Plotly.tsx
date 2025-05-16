@@ -6,6 +6,7 @@ import { forwardRef, useEffect, useImperativeHandle, useRef, useState, useId } f
 
 // Usamos dynamic import para cargar Plotly de manera dinámica, y deshabilitamos el SSR (Server-Side Rendering).
 // Esto es porque Plotly debe ejecutarse en el cliente, ya que depende del DOM.
+
 const Plotly = dynamic(
     () =>
       import('plotly.js-dist-min').then(({ newPlot, purge }) => {
