@@ -15,14 +15,15 @@
 //    D = −a·α·b
 // ────────────────────────────────────────────────────────────────────────────
 
-import { ElementData, R } from "../constantes";
+import { R } from "../constantes";
 import { croot } from "../cardano";
+import { SystemState } from "@/types/eos";
 
 /** utilidades SRK */
 export const fSRK = {
   /** a₀ (solo depende de Tc, Pc)  – Pa·m⁶·mol⁻² */
-  calc_a(Tc: number, Pc: number) {
-    return 0.42747 * R**2 * (Tc ** 2) / Pc;
+  calc_a(Tc: number, Pc: number, alpha: number) {
+    return 0.42747 * R**2 * (Tc ** 2) / Pc * alpha;
   },
 
   /** b – m³·mol⁻¹ */
@@ -38,32 +39,65 @@ export const fSRK = {
 
 type Points = { T: number; P: number }[];
 
+function arrayParamsSRK(gases: SystemState["gases"], T: number) {
+  const aArray: number[] = []
+  const bArray: number[] = []
+
+  gases.forEach((gas) => {
+    const {omega, Tc, Pc} = gas
+    const kappa = 0.48508 + 1.55171 * omega - 0.15613 * omega**2
+
+    const Tr = T / Tc;
+    const alpha = (1 + kappa * (1 - Math.sqrt(Tr)))**2;
+  
+    aArray.push(0.42748 * R**2 * Tc**2 / Pc * alpha); // El array de a's ya llevara el alpha incorporado
+    bArray.push(0.08664 * R * Tc / Pc);
+  })
+
+  return { aArray, bArray }
+}
+
+export function mixParamsSRK(aArray: number[], bArray: number[], systemState: SystemState) {
+
+  if(aArray.length === bArray.length && aArray.length === systemState.gases.length) {
+    // mixing rules
+    let a_mix = 0, b_mix = 0;
+    systemState.gases.forEach((gi, i) => {
+      b_mix += gi.molarFraction * bArray[i];
+      systemState.gases.forEach((gj, j) => {
+        a_mix += gi.molarFraction * gj.molarFraction * Math.sqrt(aArray[i] * aArray[j]); // k_ij = 0
+      });
+    });
+
+    //console.log(`a_mix: ${a_mix}, b_mix: ${b_mix}`)
+
+    return { a_mix, b_mix }
+  } else {
+    throw new Error("Las longitudes de los arrays no coinciden")
+  }
+}
+
 
 /** Devuelve Vm (m³·mol⁻¹) para cada par (T,P) con el modelo SRK. */
 export function calculateVmPointsSRK(
   points: Points,
-  elementData: ElementData
+  T: number,
+  systemState: SystemState
 ) {
-  const { Tc, Pc, omega } = elementData;
+  const {aArray, bArray} = arrayParamsSRK(systemState.gases, T)
+  const {a_mix, b_mix} = mixParamsSRK(aArray, bArray, systemState)
 
-  const kappa = 0.48508 + 1.55171 * omega - 0.15613 * omega**2
-  const a = fSRK.calc_a(Tc, Pc);
-  const b = fSRK.calc_b(Tc, Pc);
-
-  return points.map(({ T, P }, i) => {
-    const alpha = (1 + kappa * (1 - Math.sqrt(T / Tc))) ** 2;
+  return points.map(({ T, P }, _) => {
 
     const coef = [
       P,
       -R * T,
-      a * alpha - R * T * b - P * b**2,
-      -a * alpha * b,
+      a_mix - R * T * b_mix - P * b_mix**2,
+      -a_mix * b_mix,
     ];
 
     const Vm = croot(coef) as number;   // raíz real mayor = fase vapor
-    console.log(
-      `Caso ${i + 1}: Vm = ${Vm} m³/mol, P = ${P} Pa, T = ${T} K`
-    );
+    //console.log(`Caso ${i + 1}: Vm = ${Vm} m³/mol, P = ${P} Pa, T = ${T} K`);
     return Vm;
   });
 }

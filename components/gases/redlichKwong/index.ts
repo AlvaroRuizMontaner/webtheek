@@ -15,8 +15,9 @@
 //     b = 0.08664 · R · Tc / Pc
 //------------------------------------------------------
 
+import { SystemState } from "@/types/eos";
 import { croot } from "../cardano";
-import { ElementData, Points, R } from "../constantes";
+import { Points, R } from "../constantes";
 
 /** Herramientas específicas RK */
 export const fRK = {
@@ -38,23 +39,47 @@ export const fRK = {
   /** (opcional) – T a partir de P y Vm requiere resolver numéricamente */
 };
 
-/** Devuelve los Vm (m³·mol⁻¹) para cada par (T,P) con el modelo RK */
-export function calculateVmPointsRK(points: Points, elementData: ElementData) {
-  const { Tc, Pc } = elementData;
-  const a = fRK.calc_a(Tc, Pc);
-  const b = fRK.calc_b(Tc, Pc);
+function arrayParamsRK(gases: SystemState["gases"]) {
+  const aArray = gases.map(gas => (0.42748 * R**2 * Math.pow(gas.Tc, 2.5) / gas.Pc));
+  const bArray = gases.map(gas => (0.08664 * R * gas.Tc / gas.Pc));
 
-  return points.map(({ T, P }, i) => {
+  return { aArray, bArray }
+}
+
+function mixParamsRK(aArray: number[], bArray: number[], systemState: SystemState) {
+
+  if(aArray.length === bArray.length && aArray.length === systemState.gases.length) {
+    // mixing rules
+    let a_mix = 0, b_mix = 0;
+    systemState.gases.forEach((gi, i) => {
+      b_mix += gi.molarFraction * bArray[i];
+      systemState.gases.forEach((gj, j) => {
+        a_mix += gi.molarFraction * gj.molarFraction * Math.sqrt(aArray[i] * aArray[j]); // k_ij = 0
+      });
+    });
+
+    //console.log(`a_mix: ${a_mix}, b_mix: ${b_mix}`)
+
+    return { a_mix, b_mix }
+  } else {
+    throw new Error("Las longitudes de los arrays no coinciden")
+  }
+}
+
+/** Devuelve los Vm (m³·mol⁻¹) para cada par (T,P) con el modelo RK */
+export function calculateVmPointsRK(points: Points, systemState: SystemState) {
+  const {aArray, bArray} = arrayParamsRK(systemState.gases)
+  const {a_mix, b_mix} = mixParamsRK(aArray, bArray, systemState)
+
+  return points.map(({ T, P }, _) => {
     const coef = [
       P,
       -R * T,
-      a / Math.sqrt(T) - R * T * b - P * b**2,
-      -a * b / Math.sqrt(T),
+      a_mix / Math.sqrt(T) - R * T * b_mix - P * b_mix**2,
+      -a_mix * b_mix / Math.sqrt(T),
     ];
     const Vm = croot(coef) as number; // m³·mol⁻¹ – se usa la raíz real mayor
-    console.log(
-      `Caso ${i + 1}: Vm = ${Vm} m³/mol, P = ${P} Pa, T = ${T} K`
-    );
+    //console.log(`Caso ${i + 1}: Vm = ${Vm} m³/mol, P = ${P} Pa, T = ${T} K`);
     return Vm;
   });
 }

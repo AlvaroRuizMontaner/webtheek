@@ -1,0 +1,29 @@
+.eos-table {
+    border: 2px solid black;
+
+    &>div:not(:last-child) {
+        border-bottom: 2px solid black;
+    }
+
+    p:not(:last-child) {
+        border-right: 2px solid black;
+
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+}
+
+.plots {
+    display: grid;
+    margin-inline: auto;
+
+/*     @media screen and (min-width: $medium) { 
+        grid-template-columns: repeat(2, 1fr);
+        max-width: max-content;
+    }
+    @media screen and (min-width: $large) { 
+        grid-template-columns: repeat(3, 1fr);
+        max-width: 67rem;
+    } */
+}

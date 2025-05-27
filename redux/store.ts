@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit"
 import {curriculumReducer} from "./features/curriculumSlice"
+import {eosReducer} from "./features/eosSlice"
 import { curriculumApi } from "./services/createApiCurriculum"
 import { setupListeners } from "@reduxjs/toolkit/query"
 import { imageApi } from "./services/hostImage"
@@ -7,6 +8,7 @@ import { imageApi } from "./services/hostImage"
 export const store = configureStore({
     reducer: {
         curriculumReducer,
+        eosReducer,
         [curriculumApi.reducerPath]: curriculumApi.reducer, //"curriculumAPI": curriculumApi.reducer
         [imageApi.reducerPath]: imageApi.reducer
     },

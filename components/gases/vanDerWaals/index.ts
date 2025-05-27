@@ -1,8 +1,9 @@
 // Cúbica de van der Waals
 // P*Vm3 − (Pb+RT)*Vm2 + (a+RTb)*Vm − ab = 0
 
+import { SystemState } from "@/types/eos";
 import { croot } from "../cardano";
-import { ElementData, Points, R } from "../constantes";
+import { Points, R } from "../constantes";
 
 export const fVDW = {
     calc_a(Tc: number, Pc: number) {
@@ -24,25 +25,52 @@ export const fVDW = {
 //const C =  a + R * T * b;                     // Pa·m⁶·mol⁻²
 //const D = -a * b;                             // Pa·m⁶·mol⁻²
 
+function arrayParamsVDW(gases: SystemState["gases"]) {
+  const aArray = gases.map(gas => (27 * R**2 * gas.Tc**2) / (64 * gas.Pc));
+  const bArray = gases.map(gas => (R * gas.Tc) / (8 * gas.Pc));
 
-export function calculateVmPoints(points: Points, elementData: ElementData) {
-    const {Tc, Pc} = elementData
-    const a = fVDW.calc_a(Tc, Pc)
-    const b = fVDW.calc_b(Tc, Pc)
+  return { aArray, bArray }
+}
 
-    const calculatedPoints = points.map(({T,P}, i) => {
-        const coef = [
-          P,
-          -(P*b + R*T),
-          a + R*T*b,
-          -a*b
-        ];
-        const Vm = croot(coef) as number;        // m³·mol⁻¹
-        console.log(`Caso ${i+1}: Vm = ${Vm} m3/mol, P = ${P}, T = ${T}`);
-        return Vm
+function mixParamsVDW(aArray: number[], bArray: number[], systemState: SystemState) {
+
+  if(aArray.length === bArray.length && aArray.length === systemState.gases.length) {
+    // mixing rules
+    let a_mix = 0, b_mix = 0;
+    systemState.gases.forEach((gi, i) => {
+      b_mix += gi.molarFraction * bArray[i];
+      systemState.gases.forEach((gj, j) => {
+        a_mix += gi.molarFraction * gj.molarFraction * Math.sqrt(aArray[i] * aArray[j]); // k_ij = 0
+      });
     });
 
-    return calculatedPoints
+    //console.log(`a_mix: ${a_mix}, b_mix: ${b_mix}`)
+
+    return { a_mix, b_mix }
+  } else {
+    throw new Error("Las longitudes de los arrays no coinciden")
+  }
+}
+
+
+export function calculateVmPoints(points: Points, systemState: SystemState) {
+
+  const {aArray, bArray} = arrayParamsVDW(systemState.gases)
+  const {a_mix, b_mix} = mixParamsVDW(aArray, bArray, systemState)
+
+  const calculatedPoints = points.map(({T,P}, _) => {
+    const coef = [
+      P,
+      -(P*b_mix + R*T),
+      a_mix + R*T*b_mix,
+      -a_mix*b_mix
+    ];
+    const Vm = croot(coef) as number;        // m³·mol⁻¹
+    //console.log(`Caso ${i+1}: Vm = ${Vm} m3/mol, P = ${P}, T = ${T}`);
+    return Vm
+  });
+
+  return calculatedPoints
 }
 
 

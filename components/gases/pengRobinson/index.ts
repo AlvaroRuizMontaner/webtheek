@@ -15,8 +15,9 @@
 //     D =  P·b³ + R·T·b² − a·α·b
 // ────────────────────────────────────────────────────────────────
 
-import { ElementData, Points, R } from "../constantes";
+import { Points, R } from "../constantes";
 import { croot } from "../cardano";
+import { SystemState } from "@/types/eos";
 
 /* ---------- utilidades PR ---------- */
 export const fPR = {
@@ -31,27 +32,60 @@ export const fPR = {
   },
 };
 
+function arrayParamsPR(gases: SystemState["gases"], T: number) {
+  const aArray: number[] = []
+  const bArray: number[] = []
+
+  gases.forEach((gas) => {
+    const {omega, Tc, Pc} = gas
+    const kappa = omega <= 0.491 ? (0.37464 + 1.54226 * omega - 0.26992 * omega**2) : (0.379642 + 1.48503 * omega - 0.164423 * omega ** 2 + 0.016666 * omega ** 3)
+
+    const Tr = T / Tc;
+    const alpha = (1 + kappa * (1 - Math.sqrt(Tr)))**2;
+  
+    aArray.push(0.45724 * R**2 * Tc**2 / Pc * alpha); // El array de a's ya llevara el alpha incorporado
+    bArray.push(0.07780 * R * Tc / Pc);
+  })
+
+  return { aArray, bArray }
+}
+
+export function mixParamsPR(aArray: number[], bArray: number[], systemState: SystemState) {
+
+  if(aArray.length === bArray.length && aArray.length === systemState.gases.length) {
+    // mixing rules
+    let a_mix = 0, b_mix = 0;
+    systemState.gases.forEach((gi, i) => {
+      b_mix += gi.molarFraction * bArray[i];
+      systemState.gases.forEach((gj, j) => {
+        a_mix += gi.molarFraction * gj.molarFraction * Math.sqrt(aArray[i] * aArray[j]); // k_ij = 0
+      });
+    });
+
+    //console.log(`a_mix: ${a_mix}, b_mix: ${b_mix}`)
+
+    return { a_mix, b_mix }
+  } else {
+    throw new Error("Las longitudes de los arrays no coinciden")
+  }
+}
+
 
 /** Devuelve los Vm (m³·mol⁻¹) con Peng‑Robinson (raíz real mayor = fase gas) */
-export function calculateVmPointsPR(points: Points, element: ElementData) {
-  const { Tc, Pc, omega } = element;
+export function calculateVmPointsPR(points: Points, T: number, systemState: SystemState) {
+    const {aArray, bArray} = arrayParamsPR(systemState.gases, T)
+    const {a_mix, b_mix} = mixParamsPR(aArray, bArray, systemState)
 
-  const a = fPR.calc_a(Tc, Pc);
-  const b = fPR.calc_b(Tc, Pc);
-  const kappa  = 0.37464 + 1.54226 * omega - 0.26992 * omega**2;
-
-  return points.map(({ T, P }, i) => {
-    const alpha = (1 + kappa * (1 - Math.sqrt(T / Tc))) ** 2;
-
+  return points.map(({ T, P }, _) => {
     const coef = [
       P,
-      P * b - R * T,
-      a * alpha - 3 * P * b * b - 2 * R * T * b,
-      P * b ** 3 + R * T * b ** 2 - a * alpha * b,
+      P * b_mix - R * T,
+      a_mix - 3 * P * b_mix**2 - 2 * R * T * b_mix,
+      P * b_mix ** 3 + R * T * b_mix ** 2 - a_mix * b_mix,
     ];
 
     const Vm = croot(coef) as number;            // (–) usa mayor → gas
-    console.log(`Caso ${i + 1}: Vm = ${Vm} m³/mol, P = ${P} Pa, T = ${T} K`);
+    //console.log(`Caso ${i + 1}: Vm = ${Vm} m³/mol, P = ${P} Pa, T = ${T} K`);
     return Vm;
   });
 }

@@ -1,5 +1,6 @@
+import { ElementData } from "@/types/eos";
+
 export type Points = { T: number; P: number }[];
-export type ElementData = { name: string; formula: string; Tc: number; Pc: number; Vc: number; molarMass: number, omega: number };
 
 export const R=8.314462618  // J mol−1 K−1
 
