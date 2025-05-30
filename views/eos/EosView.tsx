@@ -5,8 +5,18 @@ import { points } from '@/components/gases/constantes';
 import { calculateVmPointsRK } from '@/components/gases/redlichKwong';
 import { calculateVmPointsSRK } from '@/components/gases/soaveRedlichKwong';
 import { calculateVmPointsPR } from '@/components/gases/pengRobinson';
-import Table from "./Table";
 import { useAppSelector } from "@/redux/hooks";
+import Table from "@/components/eos/Table";
+import { SystemState } from "@/types/eos";
+
+function filterSystemState(systemState: SystemState) {
+    const newSystemState: SystemState = JSON.parse(JSON.stringify(systemState))
+    newSystemState.gases = newSystemState.gases.filter((gas) => gas.name !== "-")
+
+    console.log(newSystemState)
+
+    return newSystemState
+}
 
 export default function EosView() {
     const customMargin = {
@@ -18,43 +28,26 @@ export default function EosView() {
 
     const lineWidth = 1.5
 
-/*     const systemState: SystemState = {
-        gases: [
-            {
-                name: "Carbon Dioxide",
-                molarFraction: 0.45,
-                Tc: 304.1282,
-                Pc: 7.3773e6,
-                omega: 0.225
-            },
-            {
-                name: "Oxygen",
-                molarFraction: 0.55,
-                Tc: 154.581,
-                Pc: 5.043e6,
-                omega: 0.318
-            },
-        ]
-    } */
 
     const systemState = useAppSelector(state => state.eosReducer)
+    const newSystemState = filterSystemState(systemState)
 
-    const xtestVDW = calculateVmPoints(points, systemState)
+    const xtestVDW = calculateVmPoints(points, newSystemState)
     const ytestVDW = points.map(({P}) => {
         return P
     })
 
-    const xtestRK = calculateVmPointsRK(points, systemState)
+    const xtestRK = calculateVmPointsRK(points, newSystemState)
     const ytestRK = points.map(({P}) => {
         return P
     })
 
-    const xtestSRK = calculateVmPointsSRK(points, 280, systemState)
+    const xtestSRK = calculateVmPointsSRK(points, 280, newSystemState)
     const ytestSRK = points.map(({P}) => {
         return P
     })
 
-    const xtestPR = calculateVmPointsPR(points, 280, systemState)
+    const xtestPR = calculateVmPointsPR(points, 280, newSystemState)
     const ytestPR = points.map(({P}) => {
         return P
     })
@@ -72,7 +65,7 @@ export default function EosView() {
 
 
     if(systemState) return (
-    <div className='plots'>
+    <div className=''>
         <Table gases={systemState.gases} />
         <div className="grid grid-cols-1 md:grid-cols-2 justify-center items-center gap-10 mt-8">
             <Plotly
