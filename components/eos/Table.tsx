@@ -4,6 +4,7 @@ import { Gas, SystemState } from '@/types/eos'
 import { addGas } from "@/redux/features/eosSlice"
 import Button from "../button/Button"
 import { Row, rowClassName } from "./Row"
+import { useEffect, useState } from "react"
 
 
 type TableProps = {
@@ -31,9 +32,22 @@ const defaultGas: Gas = {
 
 export default function Table({gases}: TableProps) {
   const dispatch = useDispatch()
+
+  const [controlledGases, setControlledGases] = useState(gases)
+
+  // Sincronizar el estado local cuando el estado de Redux cambie
+  useEffect(() => {
+    setControlledGases(gases)
+  }, [gases])
+
   return (
     <section className="flex flex-col gap-8u">
-      <Button text="Añadir Gas" onClick={() => dispatch(addGas(defaultGas))} />
+      <Button text="Añadir Gas" 
+        onClick={() => {
+          dispatch(addGas(defaultGas))
+          setControlledGases(prev => [...prev, defaultGas])
+        }}
+      />
       <div className="grid bg-white eos-table">
         <div className={`${rowClassName} bg-primary-300 cursor-context-menu`}>
           <div className='text-center cell'>{defaultValues.name}</div>
@@ -43,7 +57,7 @@ export default function Table({gases}: TableProps) {
         </div>
         {gases.map((gas, gasIndex) => {
           return(
-            <Row gasIndex={gasIndex} key={gasIndex} gas={gas} dispatch={dispatch}/>
+            <Row gasIndex={gasIndex} controlledGas={controlledGases[gasIndex]} setControlledGases={setControlledGases} key={gasIndex} gas={gas} dispatch={dispatch}/>
           )
         })}
       </div>

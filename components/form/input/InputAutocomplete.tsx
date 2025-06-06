@@ -1,51 +1,50 @@
-import { editGasMolarfraction } from '@/redux/features/eosSlice'
+import { editGasByIndex } from '@/redux/features/eosSlice'
 import { Gas } from '@/types/eos'
 import { Dispatch as ReduxDispatch, UnknownAction } from '@reduxjs/toolkit'
-import React, { ChangeEvent, Dispatch, SetStateAction } from 'react'
+import { ChangeEvent, Dispatch, SetStateAction } from 'react'
 
 type InputAutocompleteProps = {
     showSuggestions: boolean
     setSuggestions: Dispatch<SetStateAction<Gas[]>>
-    setShowSuggestions: Dispatch<SetStateAction<boolean>>
+    resetSuggestions: () => void
     suggestions: Gas[]
-    handleInput: (e: ChangeEvent<HTMLInputElement>) => void
-    inputValue: string
-    setInputValue: Dispatch<SetStateAction<string>>
+    handleInput: (gasIndex: number)  => (e: ChangeEvent<HTMLInputElement>) => void
+    value: string
     gasIndex: number
     dispatch: ReduxDispatch<UnknownAction>
 }
 
-export default function InputAutocomplete({showSuggestions, setShowSuggestions, suggestions, handleInput, inputValue, setInputValue, gasIndex, dispatch}: InputAutocompleteProps) {
+export default function InputAutocomplete({showSuggestions, resetSuggestions, suggestions, handleInput, value, gasIndex, dispatch}: InputAutocompleteProps) {
   
-    const handleSuggestionClick = (suggestion: string) => {
-        setInputValue(suggestion)
-        setShowSuggestions(false)
-        dispatch(editGasMolarfraction({ newMolarFraction: suggestion, gasIndex }))
+    const handleSuggestionClick = ( sugIndx: number) => {
+       dispatch(editGasByIndex({ gasIndex, gas: suggestions[sugIndx] }))
     }
 
-    console.log(showSuggestions && suggestions.length)
   
     return (
-        <div className="relative block">
+        <span className="relative block">
             <input
-                onChange={handleInput}
+                onChange={handleInput(gasIndex)}
                 className="body3 p-0 border-0 w-full text-center cursor-text"
                 type="text"
-                value={inputValue}
+                value={value}
             />
             {showSuggestions && suggestions.length > 0 && (
                 <ul className="absolute z-10 bg-white border w-full max-h-40 overflow-y-auto shadow-md">
-                    {suggestions.map((s, idx) => (
+                    {suggestions.map((s, sugIdx) => (
                     <li
-                        key={idx}
+                        key={sugIdx}
                         className="px-2 py-1 hover:bg-gray-100 cursor-pointer"
-                        onClick={() => handleSuggestionClick(s.name)}
+                        onClick={() => {
+                            handleSuggestionClick(sugIdx)
+                            resetSuggestions()
+                        }}
                     >
                         {s.name}
                     </li>
                     ))}
                 </ul>
             )}
-    </div>
+    </span>
   )
 }

@@ -11,7 +11,7 @@ import { SystemState } from "@/types/eos";
 
 function filterSystemState(systemState: SystemState) {
     const newSystemState: SystemState = JSON.parse(JSON.stringify(systemState))
-    newSystemState.gases = newSystemState.gases.filter((gas) => gas.name !== "-")
+    newSystemState.gases = newSystemState.gases.filter((gas) => (gas.molarFraction !== 0) && (gas.name !== "-"))
 
     console.log(newSystemState)
 

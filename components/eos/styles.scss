@@ -8,8 +8,8 @@
     .cell:not(:last-child) {
         border-right: 2px solid black;
 
-        display: -webkit-box;
+/*         display: -webkit-box;
         -webkit-box-orient: vertical;
-        overflow: hidden;
+        overflow: hidden; */
     }
 }

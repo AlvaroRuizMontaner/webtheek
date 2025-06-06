@@ -1,31 +1,23 @@
 import { deleteGas, editGasMolarfraction } from "@/redux/features/eosSlice"
 import { Gas } from "@/types/eos"
-import { PencilSquareIcon, XMarkIcon } from "@heroicons/react/20/solid"
-import { Dispatch, UnknownAction } from "@reduxjs/toolkit"
-import { ChangeEvent, useState } from "react"
+import { XMarkIcon } from "@heroicons/react/20/solid"
+import { Dispatch as ReduxDispatch, UnknownAction } from "@reduxjs/toolkit"
+import { ChangeEvent, Dispatch, SetStateAction, useState } from "react"
 import InputAutocomplete from "../form/input/InputAutocomplete"
 
 type RowProps = {
     gas: Gas
     gasIndex: number
-    dispatch: Dispatch<UnknownAction>
-}
-
-const defaultGas: Gas = {
-    name: "-",
-    Tc: 0,
-    Pc: 0,
-    omega: 0,
-    formula: "-",
-    molarMass: 0,
-    molarFraction: 0
+    dispatch: ReduxDispatch<UnknownAction>
+    controlledGas: Gas
+    setControlledGases: Dispatch<SetStateAction<Gas[]>>
 }
 
 const gasSuggestions: Gas[] = [
     {
         name: "Carbon Dioxide",
         formula: "CO2",
-        molarFraction: 0.45,
+        molarFraction: 0,
         molarMass: 0.0440095,
         Tc: 304.1282,
         Pc: 7.3773e6,
@@ -43,7 +35,7 @@ const gasSuggestions: Gas[] = [
         {
         name: "Nitrogen",
         formula: "N2",
-        molarFraction: 0.3,
+        molarFraction: 0,
         molarMass: 0.02802,
         Tc: 126.2,
         Pc: 3.39e6,
@@ -52,7 +44,7 @@ const gasSuggestions: Gas[] = [
     {
         name: "Hydrogen",
         formula: "H2",
-        molarFraction: 0.25,
+        molarFraction: 0,
         molarMass: 0.00201568,
         Tc: 32.938,
         Pc: 12.8e5,
@@ -61,7 +53,7 @@ const gasSuggestions: Gas[] = [
     {
         name: "Water",
         formula: "H2O",
-        molarFraction: 0.15,
+        molarFraction: 0,
         molarMass: 0.01801528,
         Tc: 647.096,
         Pc: 22.064e6,
@@ -71,36 +63,41 @@ const gasSuggestions: Gas[] = [
 
 export const rowClassName = "grid grid-cols-4 justify-center"
 
-export function Row({gas, gasIndex, dispatch}: RowProps) {
+export function Row({gas, controlledGas, setControlledGases, gasIndex, dispatch}: RowProps) {
 
-  const [rowName, setRowName] = useState(defaultGas.name)
-  const [isRowNameEditable, setIsRowNameEditable] = useState(false)
   const [showIcons, setShowIcons] = useState(false)
   const [suggestions, setSuggestions] = useState(gasSuggestions)
   const [showSuggestions, setShowSuggestions] = useState(false)
 
-  const handleInput = (gasIndex: number) => (e: ChangeEvent<HTMLInputElement>) => {
+  const handleMolarFraction = (gasIndex: number) => (e: ChangeEvent<HTMLInputElement>) => {
     dispatch(editGasMolarfraction({newMolarFraction: e.target.value, gasIndex }))
   }
-  const handleNameInput = (e: ChangeEvent<HTMLInputElement>) => {
+
+  const handleGasName = (gasIndex: number)  => (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
-    setRowName(value)
+    setControlledGases((prev) => {
+        const prevGases = [...prev]
+        const updatedGas = { ...prevGases[gasIndex], name: value }
+        prevGases[gasIndex] = updatedGas
+        return prevGases
+    })
 
     //Controla los suggestions del autocomplete
     setSuggestions(gasSuggestions.filter(g => g.name.toLowerCase().includes(value.toLowerCase())))
     setShowSuggestions(true)
+  }
 
-    dispatch(editGasMolarfraction({newMolarFraction: value, gasIndex }))
+  const resetSuggestions = () => {
+    setShowSuggestions(false)
   }
 
   const properties = {
     showSuggestions,
-    setShowSuggestions,
     setSuggestions,
+    resetSuggestions,
     suggestions,
-    handleInput: handleNameInput,
-    setInputValue: setRowName,
-    inputValue: rowName,
+    handleInput: handleGasName,
+    value: /* gas.name */controlledGas.name,
     gasIndex,
     dispatch
   }
@@ -109,17 +106,24 @@ export function Row({gas, gasIndex, dispatch}: RowProps) {
     <div className="relative" onMouseOver={() => setShowIcons(true)} onMouseOut={() => setShowIcons(false)}>
       <div key={"Row" + gasIndex} className={`${rowClassName} cursor-context-menu`} >
         <div className='text-center cell'>
-          {isRowNameEditable ? <InputAutocomplete {...properties} /> : <span>{gas.name}</span>}
+            <InputAutocomplete {...properties} />
         </div>
         <div className='text-center cell'>{gas.formula}</div>
         <div className='text-center cell'>{gas.molarMass}</div>
         <div className='cell'>
-          <input onChange={handleInput(gasIndex)} className=" body3 p-0 border-0 block w-full text-center h-full cursor-text" type="text" value={gas.molarFraction} />
+          <input onChange={handleMolarFraction(gasIndex)} className=" body3 p-0 border-0 block w-full text-center h-full cursor-text" type="text" value={gas.molarFraction} />
         </div>
       </div>
       {showIcons && <div className='absolute right-0 top-0 !mt-0 flex bg-gray-100'>
-        <PencilSquareIcon onClick={() => setIsRowNameEditable(true)} className='w-6 h-6 text-accent-warning-400 cursor-pointer' />
-        <XMarkIcon onClick={() => dispatch(deleteGas({gasIndex}))} className='w-6 h-6 text-accent-danger-400 cursor-pointer' />
+        <XMarkIcon className='w-6 h-6 text-accent-danger-400 cursor-pointer'
+            onClick={() => {
+                dispatch(deleteGas({gasIndex}))
+                setControlledGases((prev) => {
+                    const prevGases = [...prev]
+                    return prevGases.filter((_, prevGasIndex) => prevGasIndex !== gasIndex)
+                })
+            }}
+        />
       </div>}
     </div>
   )

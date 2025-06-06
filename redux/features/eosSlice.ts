@@ -68,6 +68,10 @@ export const eosSlice = createSlice({
             const {gas, gasIndex} = action.payload
             state.gases.splice(gasIndex+1, 0, gas);
         },
+        editGasByIndex: (state, action) => {
+            const {gas, gasIndex} = action.payload
+            state.gases[gasIndex] = gas;
+        },
         deleteGas: (state, action) => {
             const { gasIndex } = action.payload; // El nuevo objeto body que se quiere añadir
             state.gases.splice(gasIndex, 1);
@@ -85,6 +89,7 @@ export const {
     sincronizeGases,
     addGas,
     addGasByIndex,
+    editGasByIndex,
     deleteGas,
     editGasMolarfraction,
 } = eosSlice.actions
