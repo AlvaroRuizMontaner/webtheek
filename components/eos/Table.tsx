@@ -5,6 +5,7 @@ import { addGas } from "@/redux/features/eosSlice"
 import Button from "../button/Button"
 import { Row, rowClassName } from "./Row"
 import { useEffect, useState } from "react"
+import Sumatory from "./Sumatory"
 
 
 type TableProps = {
@@ -60,6 +61,7 @@ export default function Table({gases}: TableProps) {
             <Row gasIndex={gasIndex} controlledGas={controlledGases[gasIndex]} setControlledGases={setControlledGases} key={gasIndex} gas={gas} dispatch={dispatch}/>
           )
         })}
+        <Sumatory gases={gases} />
       </div>
     </section>
   )
