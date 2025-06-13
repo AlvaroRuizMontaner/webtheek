@@ -103,18 +103,18 @@ export function Row({gas, controlledGas, setControlledGases, gasIndex, dispatch}
   }
 
   return (
-    <div className="relative" onMouseOver={() => setShowIcons(true)} onMouseOut={() => setShowIcons(false)}>
+    <div className="relative w-1/2 border-b border-accent-100/10 hover:bg-accent-100/5" onMouseOver={() => setShowIcons(true)} onMouseOut={() => setShowIcons(false)}>
       <div key={"Row" + gasIndex} className={`${rowClassName} cursor-context-menu`} >
-        <div className='text-center cell'>
+        <div className='text-center'>
             <InputAutocomplete {...properties} />
         </div>
-        <div className='text-center cell'>{gas.formula}</div>
-        <div className='cell'>
+        <div className='text-center'>{gas.formula}</div>
+        <div className="">
           <input onChange={handleMolarFraction(gasIndex)} className=" body3 p-0 border-0 block w-full text-center h-full cursor-text" type="text" value={gas.molarFraction} />
         </div>
       </div>
-      {showIcons && <div className='absolute left-1/3 -translate-x-[120%] top-0 !mt-0 flex bg-gray-100'>
-        <XMarkIcon className='w-4 h-4 md:w-6 md:h-6 text-accent-danger-400 cursor-pointer'
+      {showIcons && <div className='absolute left-1/3 -translate-x-[120%] top-0 !mt-0 flex'>
+        <XMarkIcon className='x-icon'
             onClick={() => {
                 dispatch(deleteGas({gasIndex}))
                 setControlledGases((prev) => {

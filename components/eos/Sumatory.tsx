@@ -14,11 +14,11 @@ export default function Sumatory({gases}: SumatoryProps) {
   }, 0)
 
   return (
-    <div className="relative">
+    <div className="relative w-1/2 text-accent-300">
         <div key={"RowTotal"} className={`${rowClassName} cursor-context-menu`} >
             <div className='text-center cell border-black'></div>
             <div className='text-center cell col-start-2 bg'>Total</div>
-            <div className={`text-center cell col-start-3 ${sum > 1 ? "bg-accent-danger-300" : "white"}`}>{sum}</div>
+            <div className={`text-center cell col-start-3 ${sum > 1 ? "bg-accent-danger-300/0." : "white"}`}>{sum}</div>
         </div>
     </div>
   )

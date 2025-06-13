@@ -23,12 +23,12 @@ export function Rowtemperature({temperature, temperatureIndex, dispatch}: RowTem
     <div className="relative max-w-[3rem] sm:max-w-[5rem] lg:max-w-[7rem]" onMouseOver={() => setShowIcons(true)} onMouseOut={() => setShowIcons(false)}>
       <div key={"Row" + temperatureIndex} className={`text-center cursor-context-menu`} >
         <input onChange={handleChangeTemperature(temperatureIndex)} 
-          className="text-accent-warning-300 bg-transparent body2 p-0 border-0 block w-full text-center cursor-text"
+          className="bg-transparent body2 p-0 border-0 block w-full text-center cursor-text"
           type="text" value={temperature}
         />
       </div>
-      {showIcons && <div className='absolute right-0  top-1/2 -translate-y-1/2 !mt-0 flex bg-gray-100'>
-        <XMarkIcon className='w-4 h-4 text-accent-danger-400 cursor-pointer'
+      {showIcons && <div className='absolute right-0  top-1/2 -translate-y-1/2 !mt-0 flex'>
+        <XMarkIcon className='x-icon'
             onClick={() => {dispatch(deleteTemperatureByIndex({temperatureIndex}))}}
         />
       </div>}

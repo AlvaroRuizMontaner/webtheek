@@ -40,7 +40,7 @@ const config: Config = {
         accent: "#f472b6",
 
 
-        "primary-50": "#e5edff", // hsla(222, 100%, 95%, 1)
+/*         "primary-50": "#e5edff", // hsla(222, 100%, 95%, 1)
         "primary-100": "#ccd5ff", // hsla(229, 100%, 90%, 1)
         "primary-200": "#b3c1ff", // hsla(229, 100%, 85%, 1)
         "primary-300": "#8998f5", // hsla(232, 85%, 75%, 1)
@@ -51,7 +51,22 @@ const config: Config = {
     
         "primary-700": "#202097", // hsla(240, 65%, 36%, 1)
         "primary-800": "#212173", // hsla(240, 56%, 29%, 1)
-        "primary-900": "#1E1B4B", // hsla(244, 47%, 20%, 1)
+        "primary-900": "#1E1B4B", // hsla(244, 47%, 20%, 1) */
+
+
+        "primary-50": "#f0f4ff", // hsla(230, 100%, 97%)
+        "primary-100": "#d9e2ff", // hsla(230, 100%, 90%)
+        "primary-200": "#b9c7ff", // hsla(232, 100%, 85%)
+        "primary-300": "#9eaefc", // hsla(233, 95%, 78%)
+        "primary-400": "#7589f2", // hsla(234, 85%, 68%)
+        "primary-500": "#565ee6", // hsla(237, 74%, 62%) ← el tuyo, ¡ya está perfecto!
+
+        "primary-600": "#4d4dcb", // hsla(240, 55%, 55%) ← tuyo
+        "primary-700": "#2929ae", // hsla(240, 62%, 42%) ← tuyo
+        "primary-800": "#202097", // hsla(240, 65%, 36%) ← tuyo
+        "primary-900": "#1E1B4B", // hsla(244, 47%, 20%) ← tuyo
+
+
 
 
         "gray-100": "#f1f3f9", // hsla(222, 38%, 96%, 1)
@@ -66,8 +81,23 @@ const config: Config = {
         "gray-800": "#1b1b2c", // hsla(240, 24%, 14%, 1)
         "gray-900": "#10101e", // hsla(240, 32%, 9%, 1)
 
+        
 
-        "accent-50": "#e5ffff", // hsla(180, 100%, 95%, 1)
+      "accent-50":  "#e6fdff", // hsla(182, 100%, 95%, 1)
+      "accent-100": "#bff9ff", // hsla(183, 100%, 88%, 1)
+      "accent-200": "#80f4ff", // hsla(185, 100%, 74%, 1)
+      "accent-300": "#4be7f5", // hsla(186, 86%, 64%, 1)
+
+      "accent-400": "#2ed3e0", // hsla(186, 72%, 53%, 1)
+      "accent-500": "#12bdcc", // hsla(187, 81%, 45%, 1)
+      "accent-600": "#109cad", // hsla(187, 77%, 37%, 1)
+
+      "accent-700": "#0b7f90", // hsla(187, 81%, 30%, 1)
+      "accent-800": "#07606f", // hsla(187, 82%, 23%, 1)
+      "accent-900": "#03414e", // hsla(187, 88%, 16%, 1)
+
+
+/*         "accent-50": "#e5ffff", // hsla(180, 100%, 95%, 1)
         "accent-100": "#cff", // hsla(180, 100%, 90%, 1)
         "accent-200": "#97eded", // hsla(180, 70%, 76%, 1)
         "accent-300": "#74dcdc", // hsla(180, 60%, 66%, 1)
@@ -78,7 +108,7 @@ const config: Config = {
     
         "accent-700": "#228c7a", // hsla(170, 61%, 34%, 1)
         "accent-800": "#0b6b5b", // hsla(170, 82%, 23%, 1)
-        "accent-900": "#024f42", // hsla(170, 94%, 16%, 1)
+        "accent-900": "#024f42", // hsla(170, 94%, 16%, 1) */
 
 
         "accent-warning-100": "#fdfde7", // hsla(60, 88%, 95%, 1)

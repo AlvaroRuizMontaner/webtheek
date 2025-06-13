@@ -30,11 +30,11 @@ export default function InputAutocomplete({showSuggestions, resetSuggestions, su
                 value={value}
             />
             {showSuggestions && suggestions.length > 0 && (
-                <ul className="absolute z-10 bg-white border w-full max-h-40 overflow-y-auto shadow-md">
+                <ul className="absolute z-10 border w-full max-h-40 overflow-y-auto shadow-md bg-accent-600">
                     {suggestions.map((s, sugIdx) => (
                     <li
                         key={sugIdx}
-                        className="px-2 py-1 hover:bg-gray-100 cursor-pointer"
+                        className="px-2 py-1 hover:bg-accent-400 cursor-pointer"
                         onClick={() => {
                             handleSuggestionClick(sugIdx)
                             resetSuggestions()

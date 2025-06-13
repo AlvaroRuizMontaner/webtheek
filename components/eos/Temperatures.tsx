@@ -18,7 +18,7 @@ export default function Temperatures({temperatures}: TemperaturesProps) {
 
   return (
     <section className="relative">
-      <div className="panel-container px-[11%] py-[8%]">
+      <div className="panel-temperature-container text-accent-100 px-[11%] py-[8%]">
         {temperatures.map((temperature, temperatureIndex) => (
             <Rowtemperature temperatureIndex={temperatureIndex} temperature={temperature}  key={temperatureIndex} dispatch={dispatch}/>
         ))}
