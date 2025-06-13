@@ -17,7 +17,7 @@ const defaultValues: Record<string, string> = {
   name: "Nombre",
   formula: "Fórmula",
   molarMass: "M (Kg/mol)",
-  molarFraction: "Fracción Molar",
+  molarFraction: "χ",
 }
 
 const defaultGas: Gas = {
@@ -43,17 +43,10 @@ export default function Table({gases}: TableProps) {
 
   return (
     <section className="flex flex-col gap-8u">
-      <Button text="Añadir Gas" 
-        onClick={() => {
-          dispatch(addGas(defaultGas))
-          setControlledGases(prev => [...prev, defaultGas])
-        }}
-      />
       <div className="grid bg-white eos-table">
         <div className={`${rowClassName} bg-primary-300 cursor-context-menu`}>
           <div className='text-center cell'>{defaultValues.name}</div>
           <div className='text-center cell'>{defaultValues.formula}</div>
-          <div className='text-center cell'>{defaultValues.molarMass}</div>
           <div className='text-center cell'>{defaultValues.molarFraction}</div>
         </div>
         {gases.map((gas, gasIndex) => {
@@ -63,6 +56,12 @@ export default function Table({gases}: TableProps) {
         })}
         <Sumatory gases={gases} />
       </div>
+      <Button text="Añadir Gas" 
+        onClick={() => {
+          dispatch(addGas(defaultGas))
+          setControlledGases(prev => [...prev, defaultGas])
+        }}
+      />
     </section>
   )
 }

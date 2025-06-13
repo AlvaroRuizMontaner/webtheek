@@ -61,7 +61,7 @@ const gasSuggestions: Gas[] = [
     },
 ]
 
-export const rowClassName = "grid grid-cols-4 justify-center"
+export const rowClassName = "grid grid-cols-3 justify-center"
 
 export function Row({gas, controlledGas, setControlledGases, gasIndex, dispatch}: RowProps) {
 
@@ -109,13 +109,12 @@ export function Row({gas, controlledGas, setControlledGases, gasIndex, dispatch}
             <InputAutocomplete {...properties} />
         </div>
         <div className='text-center cell'>{gas.formula}</div>
-        <div className='text-center cell'>{gas.molarMass}</div>
         <div className='cell'>
           <input onChange={handleMolarFraction(gasIndex)} className=" body3 p-0 border-0 block w-full text-center h-full cursor-text" type="text" value={gas.molarFraction} />
         </div>
       </div>
-      {showIcons && <div className='absolute right-0 top-0 !mt-0 flex bg-gray-100'>
-        <XMarkIcon className='w-6 h-6 text-accent-danger-400 cursor-pointer'
+      {showIcons && <div className='absolute left-1/3 -translate-x-[120%] top-0 !mt-0 flex bg-gray-100'>
+        <XMarkIcon className='w-4 h-4 md:w-6 md:h-6 text-accent-danger-400 cursor-pointer'
             onClick={() => {
                 dispatch(deleteGas({gasIndex}))
                 setControlledGases((prev) => {

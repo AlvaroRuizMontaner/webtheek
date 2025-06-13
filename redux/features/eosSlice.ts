@@ -49,6 +49,9 @@ export const initialState: SystemState = {
             Pc: 22.064e6,
             omega: 0.344
         }, */
+    ],
+    temperatures: [
+        280
     ]
 }
 
@@ -66,14 +69,18 @@ export const eosSlice = createSlice({
         },
         addGasByIndex: (state, action) => {
             const {gas, gasIndex} = action.payload
-            state.gases.splice(gasIndex+1, 0, gas);
+            if (state.gases[gasIndex]) { // Validamos que el índice sea válido
+                state.gases.splice(gasIndex+1, 0, gas);
+            }
         },
         editGasByIndex: (state, action) => {
             const {gas, gasIndex} = action.payload
-            state.gases[gasIndex] = gas;
+            if (state.gases[gasIndex]) { // Validamos que el índice sea válido
+                state.gases[gasIndex] = gas;
+            }
         },
         deleteGas: (state, action) => {
-            const { gasIndex } = action.payload; // El nuevo objeto body que se quiere añadir
+            const { gasIndex } = action.payload;
             state.gases.splice(gasIndex, 1);
         },
         editGasMolarfraction: (state, action) => {
@@ -82,6 +89,26 @@ export const eosSlice = createSlice({
                 state.gases[gasIndex].molarFraction = newMolarFraction;
             }
         },
+
+        //Temperatures
+        addTemperature: (state, action) => {
+            const temperature = action.payload
+            state.temperatures.push(temperature);
+        },
+        editTemperatureByIndex: (state, action) => {
+            const {temperature, temperatureIndex} = action.payload
+            if (state.temperatures[temperatureIndex]) { // Validamos que el índice sea válido
+                state.temperatures[temperatureIndex] = parseFloat(temperature);
+            }
+        },
+        deleteTemperatureByIndex: (state, action) => {
+            const { temperatureIndex } = action.payload;
+            if (state.temperatures[temperatureIndex]) { // Validamos que el índice sea válido
+                state.temperatures.splice(temperatureIndex, 1);
+            }
+        },
+
+
     }
 })
 
@@ -92,6 +119,10 @@ export const {
     editGasByIndex,
     deleteGas,
     editGasMolarfraction,
+    //Temperatures
+    addTemperature,
+    editTemperatureByIndex,
+    deleteTemperatureByIndex
 } = eosSlice.actions
 
 export const eosReducer = eosSlice.reducer

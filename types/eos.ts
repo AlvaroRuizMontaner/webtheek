@@ -15,4 +15,5 @@ export type SystemState = {
     temperature?: number
     molarVolume?: number
     gases: Gas[]
+    temperatures: number[]
 }

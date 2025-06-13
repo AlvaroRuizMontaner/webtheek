@@ -13,3 +13,34 @@
         overflow: hidden; */
     }
 }
+
+
+.panel-container{
+
+    aspect-ratio: 491 / 232; /* O el ratio de tu imagen */
+    width: 100%;
+    height: auto;
+
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: anchor-center;
+
+    
+    clip-path: inset(0 round 16px);
+
+    &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 100%;
+        background-image: url("/backgrounds/tasklist.png");
+        /* filter: grayscale(1); */
+        filter: opacity(0.75);
+        background-size: contain;
+        background-repeat: no-repeat;
+        z-index: -1;
+    }
+}

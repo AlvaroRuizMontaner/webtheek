@@ -8,6 +8,7 @@ import { calculateVmPointsPR } from '@/components/gases/pengRobinson';
 import { useAppSelector } from "@/redux/hooks";
 import Table from "@/components/eos/Table";
 import { SystemState } from "@/types/eos";
+import Temperatures from "@/components/eos/Temperatures";
 
 function filterSystemState(systemState: SystemState) {
     const newSystemState: SystemState = JSON.parse(JSON.stringify(systemState))
@@ -27,7 +28,6 @@ export default function EosView() {
     }
 
     const lineWidth = 1.5
-
 
     const systemState = useAppSelector(state => state.eosReducer)
     const newSystemState = filterSystemState(systemState)
@@ -67,6 +67,9 @@ export default function EosView() {
     if(systemState) return (
     <div className=''>
         <Table gases={systemState.gases} />
+        <br />
+        <br />
+        <Temperatures temperatures={systemState.temperatures} />
         <div className="grid grid-cols-1 md:grid-cols-2 justify-center items-center gap-10 mt-8">
             <Plotly
                 className="w-full max-w-3xl aspect-[4/3]"
