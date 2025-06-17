@@ -43,26 +43,33 @@ export default function Table({gases}: TableProps) {
 
   return (
     <section className="">
-      <div className="panel-container text-accent-100 px-[11%] py-[8%] overflow-y-scroll">
-        <div className={`${rowClassName} text-white w-1/2 border-b-2 border-accent-500 bg-accent-300/80 cursor-context-menu`}>
-          <div className='text-center cell'>{defaultValues.name}</div>
-          <div className='text-center cell'>{defaultValues.formula}</div>
-          <div className='text-center cell'>{defaultValues.molarFraction}</div>
+      <div className="panel-container text-accent-100">
+        <div className="w-full h-[70%] overflow-y-auto flex justify-center">
+          <div className="panel-content">
+            <div className={`${rowClassName} text-white w-full border-b-2 border-accent-500 bg-accent-300/80 cursor-context-menu`}>
+              <div className='text-center cell'>{defaultValues.name}</div>
+              <div className='text-center cell'>{defaultValues.formula}</div>
+              <div className='text-center cell'>{defaultValues.molarFraction}</div>
+            </div>
+            {gases.map((gas, gasIndex) => {
+              return(
+                <Row gasIndex={gasIndex} controlledGas={controlledGases[gasIndex]} setControlledGases={setControlledGases} key={gasIndex} gas={gas} dispatch={dispatch}/>
+              )
+            })}
+            <Sumatory gases={gases} />
+          </div>
         </div>
-        {gases.map((gas, gasIndex) => {
-          return(
-            <Row gasIndex={gasIndex} controlledGas={controlledGases[gasIndex]} setControlledGases={setControlledGases} key={gasIndex} gas={gas} dispatch={dispatch}/>
-          )
-        })}
-        <Sumatory gases={gases} />
-      </div>
-      <div className="flex justify-center mt-4u">
-        <Button text="Añadir Gas" 
-          onClick={() => {
-            dispatch(addGas(defaultGas))
-            setControlledGases(prev => [...prev, defaultGas])
-          }}
-        />
+        <div className=" flex justify-center">
+          <button 
+            className="panel-button beveled"
+            onClick={() => {
+              dispatch(addGas(defaultGas))
+              setControlledGases(prev => [...prev, defaultGas])
+            }}
+            >
+            Añadir Gas
+          </button>
+        </div>
       </div>
     </section>
   )

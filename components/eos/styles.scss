@@ -1,3 +1,5 @@
+@import "../../styles/_breakpoints";
+
 .eos-table {
     border: 2px solid black;
 
@@ -23,10 +25,37 @@
 
     display: flex;
     flex-direction: column;
-    align-items: anchor-center;
+    justify-content: center;
+    align-items: center;
+    gap: 0.2rem;
 
     
-    clip-path: inset(0 round 16px);
+    
+    .panel-content {
+        display: flex;
+        flex-direction: column;
+        align-items: anchor-center;
+
+
+        height: 100%;
+        width: 100%;
+        padding-inline: 1rem;
+        padding-block: 1rem;
+
+        @media screen and (min-width: $medium) { 
+
+            width: 85%;
+            padding-inline: unset;
+    
+        }
+        @media screen and (min-width: $large) { 
+            width: 70%;
+        }
+
+
+    }
+    
+    clip-path: inset(0 round 16px); /* Redondear esquinas */
 
     &::after {
         content: "";
@@ -46,11 +75,16 @@
     input {
         background-color: transparent;
     }
+
+
 }
 
 
 .panel-temperature-container {
     flex-wrap: wrap;
+    overflow: auto;
+    align-items: anchor-center;
+    justify-content: start;
 }
 
 .x-icon {
@@ -72,5 +106,30 @@
       background-color: rgba(248, 113, 113, 0.3); // hover:bg-accent-danger/30
       color: #fca5a5; // hover:text-accent-danger-300
     }
-  }
+}
+
+.panel-button {
+    position: relative;
+    padding: 0.3rem 1.2rem; // py-2 px-6
+    font-weight: bold;
+    font-size: 12px; // text-sm
+    color: var(--accent-100); // text-accent-100
+    background-color: hsla(186, 100%, 60%, 0.1); // bg-accent-300/10
+    border: 1px solid hsla(186, 100%, 60%, 0.4); // border-accent-300/40
+    box-shadow: 0 0 4px #4be7f5;
+    transition: all 0.3s ease;
+  
+    &:hover {
+      background-color: hsla(186, 100%, 60%, 0.2); // hover:bg-accent-300/20
+      box-shadow: 0 0 8px #4be7f5;
+      color: white;
+    }
+
+    @media screen and (min-width: $medium) { 
+        padding: 0.5rem 1.5rem; // py-2 px-6
+        font-size: 0.875rem; // text-sm
+    }
+}
+  
+  
   
