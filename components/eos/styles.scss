@@ -16,8 +16,9 @@
     }
 }
 
-
-.panel-container, .panel-temperature-container{
+.panel {
+    
+    position: relative;
 
     aspect-ratio: 491 / 232; /* O el ratio de tu imagen */
     width: 100%;
@@ -25,7 +26,6 @@
 
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     gap: 0.2rem;
 
@@ -75,6 +75,69 @@
     input {
         background-color: transparent;
     }
+    
+    
+}    
+
+
+.panel-container, .panel-temperature-container{
+    
+    position: relative;
+
+    aspect-ratio: 491 / 232; /* O el ratio de tu imagen */
+    width: 100%;
+    height: auto;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2rem;
+
+    
+    
+    .panel-content {
+        display: flex;
+        flex-direction: column;
+        align-items: anchor-center;
+
+
+        width: 100%;
+        padding-inline: 1rem;
+
+        @media screen and (min-width: $medium) { 
+
+            width: 85%;
+            padding-inline: unset;
+            padding-block: unset;
+    
+        }
+        @media screen and (min-width: $large) { 
+            width: 70%;
+        }
+
+
+    }
+    
+    clip-path: inset(0 round 8px); /* Redondear esquinas */
+
+    &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 100%;
+        background-image: url("/backgrounds/tasklist.png");
+        /* filter: grayscale(1); */
+        filter: opacity(0.75);
+        background-size: contain;
+        background-repeat: no-repeat;
+        z-index: -1;
+    }
+
+    input {
+        background-color: transparent;
+    }
 
 
 }
@@ -82,7 +145,6 @@
 
 .panel-temperature-container {
     align-items: anchor-center;
-    justify-content: space-between;
     
     .panel-temperature-content {
         overflow: auto;

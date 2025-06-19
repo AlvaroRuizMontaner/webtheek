@@ -1,11 +1,11 @@
-import AppLayout from '@/layouts/AppLayout';
+import EosLayout from '@/layouts/EosLayout';
 
 export default function SciToolsLayout({children}: {children: JSX.Element}): JSX.Element {
   return (
     <>
-      <AppLayout>
+      <EosLayout>
         {children}
-      </AppLayout>
+      </EosLayout>
     </>
   );
 }
