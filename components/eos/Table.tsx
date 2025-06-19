@@ -2,7 +2,6 @@ import { useDispatch } from "react-redux"
 import "./styles.scss"
 import { Gas, SystemState } from '@/types/eos'
 import { addGas } from "@/redux/features/eosSlice"
-import Button from "../button/Button"
 import { Row, rowClassName } from "./Row"
 import { useEffect, useState } from "react"
 import Sumatory from "./Sumatory"
@@ -59,17 +58,17 @@ export default function Table({gases}: TableProps) {
             <Sumatory gases={gases} />
           </div>
         </div>
-        <div className=" flex justify-center">
-          <button 
-            className="panel-button beveled"
-            onClick={() => {
-              dispatch(addGas(defaultGas))
-              setControlledGases(prev => [...prev, defaultGas])
-            }}
-            >
-            Añadir Gas
-          </button>
-        </div>
+      </div>
+      <div className="mt-4 flex justify-center">
+        <button 
+          className="panel-button beveled"
+          onClick={() => {
+            dispatch(addGas(defaultGas))
+            setControlledGases(prev => [...prev, defaultGas])
+          }}
+          >
+          Añadir Gas
+        </button>
       </div>
     </section>
   )

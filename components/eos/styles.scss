@@ -40,12 +40,12 @@
         height: 100%;
         width: 100%;
         padding-inline: 1rem;
-        padding-block: 1rem;
 
         @media screen and (min-width: $medium) { 
 
             width: 85%;
             padding-inline: unset;
+            padding-block: unset;
     
         }
         @media screen and (min-width: $large) { 
@@ -55,7 +55,7 @@
 
     }
     
-    clip-path: inset(0 round 16px); /* Redondear esquinas */
+    clip-path: inset(0 round 8px); /* Redondear esquinas */
 
     &::after {
         content: "";
@@ -81,10 +81,39 @@
 
 
 .panel-temperature-container {
-    flex-wrap: wrap;
-    overflow: auto;
     align-items: anchor-center;
-    justify-content: start;
+    justify-content: space-between;
+    
+    .panel-temperature-content {
+        overflow: auto;
+        flex-wrap: wrap;
+        display: flex;
+        flex-direction: column;
+        align-items: anchor-center;
+        margin-inline: auto;
+
+        scrollbar-width: thin;          /* "auto" or "thin" */
+        scrollbar-color: var(--accent-700) var(--accent-200);   /* scroll thumb and track */ 
+
+
+
+        height: 85%;
+        width: 70%;
+
+/*         padding-inline: 1rem;
+        padding-block: 1rem; */
+
+        @media screen and (min-width: $medium) { 
+
+            height: 70%;
+            width: 85%;
+            padding-inline: unset;
+    
+        }
+        @media screen and (min-width: $large) { 
+            width: 70%;
+        }
+    }
 }
 
 .x-icon {

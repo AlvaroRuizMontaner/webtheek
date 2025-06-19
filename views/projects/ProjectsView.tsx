@@ -31,7 +31,7 @@ export default function ProjectsView() {
 
   if (data && user)
     return (
-      <>
+      <div>
         <div className="mb-8u sm:mb-12u">
           <Title variant="dark">Tus proyectos</Title>
           <Subtitle variant="dark" text="Maneja y administra tus proyectos" />
@@ -143,6 +143,6 @@ export default function ProjectsView() {
         )}
 
         <DeleteProjectModal />
-      </>
+      </div>
     );
 }
