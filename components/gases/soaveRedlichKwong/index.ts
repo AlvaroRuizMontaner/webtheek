@@ -15,7 +15,7 @@
 //    D = −a·α·b
 // ────────────────────────────────────────────────────────────────────────────
 
-import { R } from "../constantes";
+import { Pressures, R } from "../constantes";
 import { croot } from "../cardano";
 import { SystemState } from "@/types/eos";
 
@@ -37,7 +37,6 @@ export const fSRK = {
   },
 };
 
-type Points = { T: number; P: number }[];
 
 function arrayParamsSRK(gases: SystemState["gases"], T: number) {
   const aArray: number[] = []
@@ -80,14 +79,14 @@ export function mixParamsSRK(aArray: number[], bArray: number[], systemState: Sy
 
 /** Devuelve Vm (m³·mol⁻¹) para cada par (T,P) con el modelo SRK. */
 export function calculateVmPointsSRK(
-  points: Points,
+  pressures: Pressures,
   T: number,
   systemState: SystemState
 ) {
   const {aArray, bArray} = arrayParamsSRK(systemState.gases, T)
   const {a_mix, b_mix} = mixParamsSRK(aArray, bArray, systemState)
 
-  return points.map(({ T, P }, _) => {
+  return pressures.map((P) => {
 
     const coef = [
       P,

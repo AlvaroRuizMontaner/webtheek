@@ -3,7 +3,7 @@
 
 import { SystemState } from "@/types/eos";
 import { croot } from "../cardano";
-import { Points, R } from "../constantes";
+import { Pressures, R } from "../constantes";
 
 export const fVDW = {
     calc_a(Tc: number, Pc: number) {
@@ -53,12 +53,12 @@ function mixParamsVDW(aArray: number[], bArray: number[], systemState: SystemSta
 }
 
 
-export function calculateVmPoints(points: Points, systemState: SystemState) {
+export function calculateVmPoints(pressures: Pressures, T: number, systemState: SystemState) {
 
   const {aArray, bArray} = arrayParamsVDW(systemState.gases)
   const {a_mix, b_mix} = mixParamsVDW(aArray, bArray, systemState)
 
-  const calculatedPoints = points.map(({T,P}, _) => {
+  const calculatedPoints = pressures.map((P) => {
     const coef = [
       P,
       -(P*b_mix + R*T),

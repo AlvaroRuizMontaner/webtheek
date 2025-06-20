@@ -1,29 +1,10 @@
 import { ElementData } from "@/types/eos";
 
-export type Points = { T: number; P: number }[];
+export type Pressures = number[];
 
 export const R=8.314462618  // J mol−1 K−1
 
-export const points = [
-    {T:280, P:5e5},
-    {T:280, P:10e5},
-    {T:280, P:15e5},
-    {T:280, P:20e5},
-    {T:280, P:25e5},
-    {T:280, P:30e5},
-    {T:280, P:35e5},
-    {T:280, P:40e5},
-    {T:280, P:45e5},
-    {T:280, P:50e5},
-    {T:280, P:55e5},
-    {T:280, P:60e5},
-    {T:280, P:65e5},
-    {T:280, P:70e5},
-    {T:280, P:75e5},
-    {T:280, P:80e5},
-    {T:280, P:85e5},
-    {T:280, P:90e5},
-];
+export const pressures = [ 5e5, 10e5, 15e5, 20e5, 25e5, 30e5, 35e5, 40e5, 45e5, 50e5, 55e5, 60e5, 65e5, 70e5, 75e5, 80e5, 85e5, 90e5 ];
 
 export const co2Data: ElementData = {
     name: "Carbon Dioxide",

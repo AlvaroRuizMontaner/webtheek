@@ -1,7 +1,7 @@
 import "./eos.scss";
 import Plotly from '../../components/plotly/Plotly';
 import { calculateVmPoints } from '@/components/gases/vanDerWaals';
-import { points } from '@/components/gases/constantes';
+import { pressures } from '@/components/gases/constantes';
 import { calculateVmPointsRK } from '@/components/gases/redlichKwong';
 import { calculateVmPointsSRK } from '@/components/gases/soaveRedlichKwong';
 import { calculateVmPointsPR } from '@/components/gases/pengRobinson';
@@ -32,38 +32,101 @@ export default function EosView() {
     const systemState = useAppSelector(state => state.eosReducer)
     const newSystemState = filterSystemState(systemState)
 
-    const xtestVDW = calculateVmPoints(points, newSystemState)
-    const ytestVDW = points.map(({P}) => {
+    /* ---------------------------------------------Config--------------------------------------------- */
+
+    const config: Partial<Plotly.Data> = {
+        type: 'scatter',
+        mode: 'lines',
+        marker: {color: '#2299ff', width: 0.5,},
+        name: "test",
+    }
+
+    const temperatures = newSystemState.temperatures
+
+
+    /* ---------------------------------------------VDW--------------------------------------------- */
+
+    function calculateMultipleVmLinesVDW(pressures: number[], temperatures: number[], newSystemState: SystemState): Plotly.Data[] {
+        return temperatures.map((T) => (
+            {
+                x: calculateVmPoints(pressures, T, newSystemState),
+                y: pressures,
+                type: 'scatter',
+                mode: 'lines',
+                marker: {color: '#2299ff', width: 0.5,},
+                name: T.toString(),
+                line: {
+                    width: lineWidth, // Grosor de la línea
+                    color: '#2299ff' // Color de la línea
+                },
+            }
+        ))
+    }
+
+    const VDWData: Plotly.Data[] = calculateMultipleVmLinesVDW(pressures, temperatures, newSystemState)
+
+
+/*     const xtestVDW = calculateVmPoints(pressures, 280, newSystemState)
+    const ytestVDW = pressures.map((P) => {
+        return P
+    }) */
+
+/*     const VDWData: Plotly.Data[] = [
+        {
+            x: xtestVDW,
+            y: ytestVDW,
+            ...config
+        }
+    ] */
+
+    /* ---------------------------------------------RK---------------------------------------------- */
+
+    const xtestRK = calculateVmPointsRK(pressures, 280, newSystemState)
+    const ytestRK = pressures.map((P) => {
         return P
     })
 
-    const xtestRK = calculateVmPointsRK(points, newSystemState)
-    const ytestRK = points.map(({P}) => {
+    const RKData: Plotly.Data[] = [
+        {
+            x: xtestRK,
+            y: ytestRK,
+            ...config
+        }
+    ]
+
+
+    /* ---------------------------------------------SRK--------------------------------------------- */
+
+    const xtestSRK = calculateVmPointsSRK(pressures, 280, newSystemState)
+    const ytestSRK = pressures.map((P) => {
         return P
     })
 
-    const xtestSRK = calculateVmPointsSRK(points, 280, newSystemState)
-    const ytestSRK = points.map(({P}) => {
+    const SRKData: Plotly.Data[] = [
+        {
+            x: xtestSRK,
+            y: ytestSRK,
+            ...config
+        }
+    ]
+
+
+    /* ---------------------------------------------PR---------------------------------------------- */
+
+    const xtestPR = calculateVmPointsPR(pressures, 280, newSystemState)
+    const ytestPR = pressures.map((P) => {
         return P
     })
 
-    const xtestPR = calculateVmPointsPR(points, 280, newSystemState)
-    const ytestPR = points.map(({P}) => {
-        return P
-    })
+    const PRData: Plotly.Data[] = [
+        {
+            x: xtestPR,
+            y: ytestPR,
+            ...config
+        }
+    ]
 
-
-/*     const xtestRK = calculateVmPointsRK(points, co2Data)
-    const ytestRK = ytestVSW
-
-    const xtestSRK = calculateVmPointsSRK(points, co2Data)
-    const ytestSRK = ytestVSW
-
-    const xtestPR = calculateVmPointsPR(points, co2Data)
-    const ytestPR = ytestVSW */
-
-
-
+    
     if(systemState) return (
     <div className=''>
         <Table gases={systemState.gases} />
@@ -74,20 +137,7 @@ export default function EosView() {
             <Plotly
                 className="w-full max-w-3xl aspect-[4/3]"
                 editable={false}
-                data={[
-                    {
-                        x: xtestVDW,
-                        y: ytestVDW,
-                        type: 'scatter',
-                        mode: 'lines',
-                        marker: {color: '#2299ff', width: 0.5,},
-                        name: "test",
-                        line: {
-                            width: lineWidth, // Grosor de la línea
-                            color: '#2299ff' // Color de la línea
-                        }
-                    },
-                ]}
+                data={VDWData}
                 layout={
                     {
                         autosize: true,
@@ -138,20 +188,7 @@ export default function EosView() {
             <Plotly
                 className="w-full max-w-3xl aspect-[4/3]"
                 editable={false}
-                data={[
-                    {
-                        x: xtestRK,
-                        y: ytestRK,
-                        type: 'scatter',
-                        mode: 'lines',
-                        marker: {color: '#2299ff', width: 0.5,},
-                        name: "test",
-                        line: {
-                            width: lineWidth, // Grosor de la línea
-                            color: '#2299ff' // Color de la línea
-                        }
-                    },
-                ]}
+                data={RKData}
                 layout={
                     {
                         //width: 820,
@@ -204,20 +241,7 @@ export default function EosView() {
             <Plotly
                 className="w-full max-w-3xl aspect-[4/3]"
                 editable={false}
-                data={[
-                    {
-                        x: xtestSRK,
-                        y: ytestSRK,
-                        type: 'scatter',
-                        mode: 'lines',
-                        marker: {color: '#2299ff', width: 0.5,},
-                        name: "test",
-                        line: {
-                            width: lineWidth, // Grosor de la línea
-                            color: '#2299ff' // Color de la línea
-                        }
-                    },
-                ]}
+                data={SRKData}
                 layout={
                     {
                         //width: 820,
@@ -270,20 +294,7 @@ export default function EosView() {
             <Plotly
                 className="w-full max-w-3xl aspect-[4/3]"
                 editable={false}
-                data={[
-                    {
-                        x: xtestPR,
-                        y: ytestPR,
-                        type: 'scatter',
-                        mode: 'lines',
-                        marker: {color: '#2299ff', width: 0.5,},
-                        name: "test",
-                        line: {
-                            width: lineWidth, // Grosor de la línea
-                            color: '#2299ff' // Color de la línea
-                        }
-                    },
-                ]}
+                data={PRData}
                 layout={
                     {
                         //width: 820,

@@ -15,7 +15,7 @@
 //     D =  P·b³ + R·T·b² − a·α·b
 // ────────────────────────────────────────────────────────────────
 
-import { Points, R } from "../constantes";
+import { Pressures, R } from "../constantes";
 import { croot } from "../cardano";
 import { SystemState } from "@/types/eos";
 
@@ -72,11 +72,11 @@ export function mixParamsPR(aArray: number[], bArray: number[], systemState: Sys
 
 
 /** Devuelve los Vm (m³·mol⁻¹) con Peng‑Robinson (raíz real mayor = fase gas) */
-export function calculateVmPointsPR(points: Points, T: number, systemState: SystemState) {
+export function calculateVmPointsPR(pressures: Pressures, T: number, systemState: SystemState) {
     const {aArray, bArray} = arrayParamsPR(systemState.gases, T)
     const {a_mix, b_mix} = mixParamsPR(aArray, bArray, systemState)
 
-  return points.map(({ T, P }, _) => {
+  return pressures.map((P) => {
     const coef = [
       P,
       P * b_mix - R * T,
