@@ -54,17 +54,16 @@ const config: Config = {
         "primary-900": "#1E1B4B", // hsla(244, 47%, 20%, 1) */
 
 
-        "primary-50": "#f0f4ff", // hsla(230, 100%, 97%)
-        "primary-100": "#d9e2ff", // hsla(230, 100%, 90%)
-        "primary-200": "#b9c7ff", // hsla(232, 100%, 85%)
-        "primary-300": "#9eaefc", // hsla(233, 95%, 78%)
-        "primary-400": "#7589f2", // hsla(234, 85%, 68%)
-        "primary-500": "#565ee6", // hsla(237, 74%, 62%) ← el tuyo, ¡ya está perfecto!
-
-        "primary-600": "#4d4dcb", // hsla(240, 55%, 55%) ← tuyo
-        "primary-700": "#2929ae", // hsla(240, 62%, 42%) ← tuyo
-        "primary-800": "#202097", // hsla(240, 65%, 36%) ← tuyo
-        "primary-900": "#1E1B4B", // hsla(244, 47%, 20%) ← tuyo
+        "primary-50":  "#f0f4ff",  // hsl(230, 100%, 97%)
+        "primary-100": "#d9e2ff",  // hsl(230, 100%, 90%)
+        "primary-200": "#b7caff",  // hsl(230, 100%, 80%)
+        "primary-300": "#8dabff",  // hsl(230, 100%, 70%)
+        "primary-400": "#5f87ff",  // hsl(230, 100%, 60%)
+        "primary-500": "#4d4dcb",  // hsl(240, 55%, 55%)
+        "primary-600": "#2929ae",  // hsl(240, 62%, 42%)
+        "primary-700": "#202097",  // hsl(240, 65%, 36%)
+        "primary-800": "#212173",  // hsl(240, 56%, 29%)
+        "primary-900": "#1e1b4b",  // hsl(244, 47%, 20%)
 
 
 

@@ -51,7 +51,7 @@ export default function Zigzag({info}: ZigzagProps) {
     <div className=''>
     {info.map((item, index) => {
         return (
-          <section key={item.title} className={`py-8u md:py-12u lg:py-24u ${isEven(index) ? "bg-primary-100" : "bg-accent-100"}`}>
+          <section key={item.title} className={`py-8u md:py-12u lg:py-24u ${isEven(index) ? "bg-primary-300" : "bg-accent-100"}`}>
             <div
               key={item.title}
               className="md:h-[400px] body2 md:body3 container-element"

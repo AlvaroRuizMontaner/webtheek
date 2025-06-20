@@ -55,7 +55,7 @@ export default function Table({gases}: TableProps) {
 
   return (
     <Panel button={buttonTSX}>
-      <div className="panel-content">
+      <div className="panel-content overflow-auto">
         <div className={`${rowClassName} text-white w-full border-b-2 border-accent-500 bg-accent-300/80 cursor-context-menu`}>
           <div className='text-center cell'>{defaultValues.name}</div>
           <div className='text-center cell'>{defaultValues.formula}</div>

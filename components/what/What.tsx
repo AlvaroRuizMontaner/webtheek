@@ -23,7 +23,7 @@ export default function What({whatInfo}: WhatProps) {
     console.log(process.env.NEXT_PUBLIC_STRIPE_API_SECRET)
 
   return (
-    <div className='bg-primary-100'>
+    <div className='bg-primary-300'>
       <section className="max-w-[1200px] mx-auto container-element">
         {width > 865 ? (
           <div className="my-24u flex flex-col gap-14">

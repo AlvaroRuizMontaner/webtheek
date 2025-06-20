@@ -68,7 +68,7 @@ export default function CurriculumsView() {
                     </div>
                     <div className="flex shrink-0 items-center gap-x-6 w-fit pr-6u py-8u">
                       <Menu as="div" className="relative z-10 flex-none">
-                        <MenuButton className="-m-2.5 block text-white hover:text-primary-200">
+                        <MenuButton className="-m-2.5 block text-white hover:text-primary-300">
                           <span className="sr-only">opciones</span>
                           <EllipsisVerticalIcon
                             className="h-9 w-9"

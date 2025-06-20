@@ -30,7 +30,7 @@ export default function Temperatures({temperatures}: TemperaturesProps) {
 
   return (
     <Panel button={buttonTSX}>
-      <div className="panel-temperature-content">
+      <div className="panel-temperature-content overflow-auto">
         {temperatures.map((temperature, temperatureIndex) => (
             <Rowtemperature temperatureIndex={temperatureIndex} temperature={temperature}  key={temperatureIndex} dispatch={dispatch}/>
         ))}

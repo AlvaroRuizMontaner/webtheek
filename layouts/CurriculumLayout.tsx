@@ -48,7 +48,7 @@ export default function CurriculumLayout({children}: CurriculumLayoutProps): Rea
 
       {/* <Redirect /> */}
 
-      <section className=" max-w-screen-2xl flex-1 mx-auto py-12u container bg-gray-100 -showgrid relative z-[1]">
+      <section className=" max-w-screen-2xl flex-1 mx-auto py-12u container bg-primary-300 -showgrid relative z-[1]">
           {children}
       </section>
 
