@@ -7,8 +7,9 @@ import { calculateVmPointsSRK } from '@/components/gases/soaveRedlichKwong';
 import { calculateVmPointsPR } from '@/components/gases/pengRobinson';
 import { useAppSelector } from "@/redux/hooks";
 import Table from "@/components/eos/Table";
-import { SystemState } from "@/types/eos";
+import { CalculationFunction, SystemState } from "@/types/eos";
 import Temperatures from "@/components/eos/Temperatures";
+import { PlotData } from "plotly.js";
 
 function filterSystemState(systemState: SystemState) {
     const newSystemState: SystemState = JSON.parse(JSON.stringify(systemState))
@@ -38,15 +39,38 @@ export default function EosView() {
         type: 'scatter',
         mode: 'lines',
         marker: {color: '#2299ff', width: 0.5,},
-        name: "test",
     }
 
-    const temperatures = newSystemState.temperatures
+
+    /* --------------------------------------Wrapper calculations-------------------------------------- */
+
+    function calculateVmLines(pressures: number[], config: Partial<Plotly.Data>, newSystemState: SystemState, calcFunction: CalculationFunction) {
+        const {temperatures} = newSystemState
+        
+
+        return temperatures.map((T) => {
+
+            const calculations: Partial<PlotData> = {
+                x: calcFunction(pressures, T, newSystemState),
+                y: pressures,
+                type: 'scatter',
+                mode: 'lines',
+                marker: {color: '#2299ff', width: 0.5,},
+                name: T.toString(),
+                line: {
+                    width: lineWidth, // Grosor de la línea
+                    color: '#2299ff' // Color de la línea
+                },
+            }
+
+            return calculations
+        })
+    }
 
 
     /* ---------------------------------------------VDW--------------------------------------------- */
 
-    function calculateMultipleVmLinesVDW(pressures: number[], temperatures: number[], newSystemState: SystemState): Plotly.Data[] {
+/*     function calculateMultipleVmLinesVDW(pressures: number[], temperatures: number[], newSystemState: SystemState): Plotly.Data[] {
         return temperatures.map((T) => (
             {
                 x: calculateVmPoints(pressures, T, newSystemState),
@@ -61,9 +85,9 @@ export default function EosView() {
                 },
             }
         ))
-    }
+    } */
 
-    const VDWData: Plotly.Data[] = calculateMultipleVmLinesVDW(pressures, temperatures, newSystemState)
+    const VDWData: Plotly.Data[] = calculateVmLines(pressures, config, newSystemState, calculateVmPoints)
 
 
 /*     const xtestVDW = calculateVmPoints(pressures, 280, newSystemState)
@@ -81,7 +105,7 @@ export default function EosView() {
 
     /* ---------------------------------------------RK---------------------------------------------- */
 
-    const xtestRK = calculateVmPointsRK(pressures, 280, newSystemState)
+    /* const xtestRK = calculateVmPointsRK(pressures, 280, newSystemState)
     const ytestRK = pressures.map((P) => {
         return P
     })
@@ -92,12 +116,14 @@ export default function EosView() {
             y: ytestRK,
             ...config
         }
-    ]
+    ] */
+
+    const RKData: Plotly.Data[] = calculateVmLines(pressures, config, newSystemState, calculateVmPointsRK)
 
 
     /* ---------------------------------------------SRK--------------------------------------------- */
 
-    const xtestSRK = calculateVmPointsSRK(pressures, 280, newSystemState)
+    /* const xtestSRK = calculateVmPointsSRK(pressures, 280, newSystemState)
     const ytestSRK = pressures.map((P) => {
         return P
     })
@@ -108,12 +134,14 @@ export default function EosView() {
             y: ytestSRK,
             ...config
         }
-    ]
+    ] */
+
+    const SRKData: Plotly.Data[] = calculateVmLines(pressures, config, newSystemState, calculateVmPointsSRK)
 
 
     /* ---------------------------------------------PR---------------------------------------------- */
 
-    const xtestPR = calculateVmPointsPR(pressures, 280, newSystemState)
+    /* const xtestPR = calculateVmPointsPR(pressures, 280, newSystemState)
     const ytestPR = pressures.map((P) => {
         return P
     })
@@ -124,7 +152,9 @@ export default function EosView() {
             y: ytestPR,
             ...config
         }
-    ]
+    ] */
+
+    const PRData: Plotly.Data[] = calculateVmLines(pressures, config, newSystemState, calculateVmPointsPR)
 
     
     if(systemState) return (

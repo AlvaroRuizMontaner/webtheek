@@ -17,3 +17,5 @@ export type SystemState = {
     gases: Gas[]
     temperatures: number[]
 }
+
+export type CalculationFunction = (pressures: number[], temperatures: number, newSystemState: SystemState) => number[]
