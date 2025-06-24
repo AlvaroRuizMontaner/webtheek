@@ -11,6 +11,20 @@ import { CalculationFunction, SystemState } from "@/types/eos";
 import Temperatures from "@/components/eos/Temperatures";
 import { PlotData } from "plotly.js";
 
+const lineColors = [
+    "#4E79A7", // Azul principal
+    "#F28E2B", // Naranja vibrante
+    "#E15759", // Rojo suave
+    "#76B7B2", // Verde azulado
+    "#59A14F", // Verde más saturado
+    "#EDC949", // Amarillo dorado
+    "#AF7AA1", // Lila suave
+    "#FF9DA7", // Rosa pálido
+    "#9C755F", // Marrón grisáceo
+    "#BAB0AC"  // Gris suave para series menos relevantes
+  ];
+  
+
 function filterSystemState(systemState: SystemState) {
     const newSystemState: SystemState = JSON.parse(JSON.stringify(systemState))
     newSystemState.gases = newSystemState.gases.filter((gas) => (gas.molarFraction !== 0) && (gas.name !== "-"))
@@ -41,25 +55,37 @@ export default function EosView() {
         marker: {color: '#2299ff', width: 0.5,},
     }
 
-
     /* --------------------------------------Wrapper calculations-------------------------------------- */
 
     function calculateVmLines(pressures: number[], config: Partial<Plotly.Data>, newSystemState: SystemState, calcFunction: CalculationFunction) {
         const {temperatures} = newSystemState
+
+        let counter = 0
         
 
-        return temperatures.map((T) => {
+        return temperatures.map((T, indx) => {
+
+            let currentColor = "#fff"
+            const len = lineColors.length
+
+            if(indx < len) {
+                currentColor = lineColors[indx-len*counter]
+            } else {
+                // La primera vez que corre este bloque es para indx = len por tanto:
+                currentColor = lineColors[indx-len*counter]
+                counter++
+            }
 
             const calculations: Partial<PlotData> = {
                 x: calcFunction(pressures, T, newSystemState),
                 y: pressures,
                 type: 'scatter',
                 mode: 'lines',
-                marker: {color: '#2299ff', width: 0.5,},
+                marker: {color: currentColor, width: 0.5,},
                 name: T.toString(),
                 line: {
                     width: lineWidth, // Grosor de la línea
-                    color: '#2299ff' // Color de la línea
+                    color: currentColor // Color de la línea
                 },
             }
 
