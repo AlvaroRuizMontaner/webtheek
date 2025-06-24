@@ -11,7 +11,7 @@ import { CalculationFunction, SystemState } from "@/types/eos";
 import Temperatures from "@/components/eos/Temperatures";
 import { PlotData } from "plotly.js";
 
-const lineColors = [
+/* const lineColors = [
     "#4E79A7", // Azul principal
     "#F28E2B", // Naranja vibrante
     "#E15759", // Rojo suave
@@ -22,6 +22,86 @@ const lineColors = [
     "#FF9DA7", // Rosa pálido
     "#9C755F", // Marrón grisáceo
     "#BAB0AC"  // Gris suave para series menos relevantes
+  ]; */
+
+  const lineColors = [
+    // 🔵 AZULES
+    "#4E79A7",
+    "#6399C5",
+    "#7DB9E8",
+    "#A3D0F5",
+    "#CAE7FF",
+  
+    // 🔵🟢 AZULADOS → VERDES
+    "#76B7B2",
+    "#59A14F",
+    "#6FBF73",
+    "#8BD494",
+    "#A8E8B4",
+  
+    // 🟢 VERDES PUROS
+    "#45B39D",
+    "#4CAF50",
+    "#66BB6A",
+    "#81C784",
+    "#A5D6A7",
+  
+    // 🟡 VERDES AMARILLENTOS
+    "#B9D98D",
+    "#D4E157",
+    "#E6EE9C",
+    "#F0F4C3",
+    "#FFF9C4",
+  
+    // 🟡 AMARILLOS
+    "#EDC949",
+    "#FFEB3B",
+    "#F4D03F",
+    "#FBC02D",
+    "#FDD835",
+  
+    // 🧡 NARANJAS
+    "#F4A259",
+    "#F28E2B",
+    "#FB8C00",
+    "#EF6C00",
+    "#E65100",
+  
+    // 🔴 ROJOS
+    "#E15759",
+    "#D1495B",
+    "#C21807",
+    "#E53935",
+    "#F44336",
+  
+    // 🔴 ROSADOS
+    "#FF9DA7",
+    "#FFC4BF",
+    "#FADADD",
+    "#F8BBD0",
+    "#F48FB1",
+  
+    // 🟣 VIOLETAS
+/*     "#AF7AA1",
+    "#C48ACB",
+    "#D5A6E2",
+    "#BA68C8",
+    "#9C27B0", */
+  
+    // ⚪ GRIS CLARO
+    "#BAB0AC",
+    "#A5A5A5",
+    "#8D8D8D",
+    "#757575",
+  
+    // ⚫ GRIS OSCURO → NEUTROS
+    "#606060",
+    "#3C3C3C",
+    "#2E3B55",
+    "#1F2A44",
+    "#152137",
+    "#0B1123",
+    "#000000"
   ];
   
 
@@ -37,7 +117,7 @@ function filterSystemState(systemState: SystemState) {
 export default function EosView() {
     const customMargin = {
         l: 60,  // left margin
-        r: 50,  // right margin
+        r: 110,  // right margin
         t: 60,  // top margin
         b: 50,  // bottom margin
     }
@@ -68,11 +148,13 @@ export default function EosView() {
             let currentColor = "#fff"
             const len = lineColors.length
 
-            if(indx < len) {
+            if(indx < len*(counter+1)) {
+                console.log(`indx: ${indx}, len*(counter+1): ${len*(counter+1)}`)
                 currentColor = lineColors[indx-len*counter]
             } else {
                 // La primera vez que corre este bloque es para indx = len por tanto:
                 currentColor = lineColors[indx-len*counter]
+                console.log(currentColor)
                 counter++
             }
 
@@ -95,92 +177,21 @@ export default function EosView() {
 
 
     /* ---------------------------------------------VDW--------------------------------------------- */
-
-/*     function calculateMultipleVmLinesVDW(pressures: number[], temperatures: number[], newSystemState: SystemState): Plotly.Data[] {
-        return temperatures.map((T) => (
-            {
-                x: calculateVmPoints(pressures, T, newSystemState),
-                y: pressures,
-                type: 'scatter',
-                mode: 'lines',
-                marker: {color: '#2299ff', width: 0.5,},
-                name: T.toString(),
-                line: {
-                    width: lineWidth, // Grosor de la línea
-                    color: '#2299ff' // Color de la línea
-                },
-            }
-        ))
-    } */
-
     const VDWData: Plotly.Data[] = calculateVmLines(pressures, config, newSystemState, calculateVmPoints)
 
 
-/*     const xtestVDW = calculateVmPoints(pressures, 280, newSystemState)
-    const ytestVDW = pressures.map((P) => {
-        return P
-    }) */
-
-/*     const VDWData: Plotly.Data[] = [
-        {
-            x: xtestVDW,
-            y: ytestVDW,
-            ...config
-        }
-    ] */
-
     /* ---------------------------------------------RK---------------------------------------------- */
-
-    /* const xtestRK = calculateVmPointsRK(pressures, 280, newSystemState)
-    const ytestRK = pressures.map((P) => {
-        return P
-    })
-
-    const RKData: Plotly.Data[] = [
-        {
-            x: xtestRK,
-            y: ytestRK,
-            ...config
-        }
-    ] */
-
     const RKData: Plotly.Data[] = calculateVmLines(pressures, config, newSystemState, calculateVmPointsRK)
 
 
     /* ---------------------------------------------SRK--------------------------------------------- */
-
-    /* const xtestSRK = calculateVmPointsSRK(pressures, 280, newSystemState)
-    const ytestSRK = pressures.map((P) => {
-        return P
-    })
-
-    const SRKData: Plotly.Data[] = [
-        {
-            x: xtestSRK,
-            y: ytestSRK,
-            ...config
-        }
-    ] */
-
     const SRKData: Plotly.Data[] = calculateVmLines(pressures, config, newSystemState, calculateVmPointsSRK)
 
 
     /* ---------------------------------------------PR---------------------------------------------- */
-
-    /* const xtestPR = calculateVmPointsPR(pressures, 280, newSystemState)
-    const ytestPR = pressures.map((P) => {
-        return P
-    })
-
-    const PRData: Plotly.Data[] = [
-        {
-            x: xtestPR,
-            y: ytestPR,
-            ...config
-        }
-    ] */
-
     const PRData: Plotly.Data[] = calculateVmLines(pressures, config, newSystemState, calculateVmPointsPR)
+
+
 
     
     if(systemState) return (
@@ -197,18 +208,59 @@ export default function EosView() {
                 layout={
                     {
                         autosize: true,
-                        title: {text: 'P-V (VDW)'},
+                        title: {
+                            text: "P-V (VDW)",
+                            font: {
+                              family: "Rubik, sans-serif",
+                              size: 20,
+                              color: "#cdd6ff"
+                            }
+                        },
+                        plot_bgcolor: "#1f233d",  // Fondo del área de gráfico (tu primary-900)
+                        paper_bgcolor: "#1e1b4b", // Fondo del canvas completo
+                        font: {
+                            family: "Rubik, sans-serif",
+                            color: "#cdd6ff",
+                            size: 12
+                        },
                         margin: customMargin,
                         modebar: {orientation: 'h', color: "green"},
                         xaxis: {
-                            title: {text: 'Vm (m3/mol)'},
+                            title: {
+                                text: 'Vm (m3/mol)',       
+                                font: {
+                                color: "#cdd6ff"
+                                }   
+                            },
+                            color: "#cdd6ff", // Color de ticks y números
+                            showgrid: true,
+                            gridcolor: "rgba(217, 226, 255, 0.15)",
+                            zeroline: false
                             //tickformat: ".2e", // Notación científica en el eje X con 2 decimales
                         },
                         yaxis: {
-                            title: {text: 'P (Pa)'},
-                            //tickformat: ",.0f", // Sin notación científica en el eje Y
+                            title: {
+                              text: "P (Pa)",
+                              font: {
+                                color: "#cdd6ff"
+                              }
+                            },
+                            color: "#cdd6ff",
+                            showgrid: true,
+                            gridcolor: "rgba(217, 226, 255, 0.15)",
+                            zeroline: false
                         },
-                        //legend: customLegend,
+                        legend: {
+                            orientation: "v",
+                            x: 1.02,
+                            y: 1,
+                            bgcolor: "rgba(30,27,75,0.6)",  // Semi-transparente sobre el fondo
+                            bordercolor: "#444",
+                            borderwidth: 1,
+                            font: {
+                              color: "#cdd6ff"
+                            }
+                        },
                         showlegend: true
                     }
                 }
