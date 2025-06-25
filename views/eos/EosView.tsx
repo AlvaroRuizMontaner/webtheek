@@ -11,100 +11,79 @@ import { CalculationFunction, SystemState } from "@/types/eos";
 import Temperatures from "@/components/eos/Temperatures";
 import { PlotData } from "plotly.js";
 
-/* const lineColors = [
-    "#4E79A7", // Azul principal
-    "#F28E2B", // Naranja vibrante
-    "#E15759", // Rojo suave
-    "#76B7B2", // Verde azulado
-    "#59A14F", // Verde más saturado
-    "#EDC949", // Amarillo dorado
-    "#AF7AA1", // Lila suave
-    "#FF9DA7", // Rosa pálido
-    "#9C755F", // Marrón grisáceo
-    "#BAB0AC"  // Gris suave para series menos relevantes
-  ]; */
 
   const lineColors = [
-    // 🔵 AZULES
+    // 🔵 Azules profundos → verdes claros
+/*     "#0B1123",
+    "#1F2A44",
+    "#2E3B55", */
     "#4E79A7",
     "#6399C5",
     "#7DB9E8",
     "#A3D0F5",
     "#CAE7FF",
-  
-    // 🔵🟢 AZULADOS → VERDES
     "#76B7B2",
-    "#59A14F",
-    "#6FBF73",
-    "#8BD494",
-    "#A8E8B4",
-  
-    // 🟢 VERDES PUROS
     "#45B39D",
-    "#4CAF50",
     "#66BB6A",
+  
+    // 🟢 Verdes
+    "#59A14F",
+    "#4CAF50",
+    "#6FBF73",
     "#81C784",
     "#A5D6A7",
   
-    // 🟡 VERDES AMARILLENTOS
+    // 🟡 Verde amarillento → amarillos
     "#B9D98D",
     "#D4E157",
+    "#EDC949",
     "#E6EE9C",
     "#F0F4C3",
     "#FFF9C4",
   
-    // 🟡 AMARILLOS
-    "#EDC949",
+    // 🧡 Amarillos → naranjas
     "#FFEB3B",
-    "#F4D03F",
-    "#FBC02D",
     "#FDD835",
-  
-    // 🧡 NARANJAS
+    "#FBC02D",
+    "#F4D03F",
     "#F4A259",
     "#F28E2B",
     "#FB8C00",
+  
+    // 🔴 Naranjas intensos → rojos
     "#EF6C00",
     "#E65100",
-  
-    // 🔴 ROJOS
     "#E15759",
     "#D1495B",
-    "#C21807",
     "#E53935",
     "#F44336",
+    "#C21807",
   
-    // 🔴 ROSADOS
+    // 🩷 Rosados suaves → intensos
     "#FF9DA7",
     "#FFC4BF",
     "#FADADD",
     "#F8BBD0",
     "#F48FB1",
   
-    // 🟣 VIOLETAS
-/*     "#AF7AA1",
+    // 🟣 Violetas (reincorporados)
+    "#AF7AA1",
     "#C48ACB",
     "#D5A6E2",
     "#BA68C8",
-    "#9C27B0", */
+    "#9C27B0",
   
-    // ⚪ GRIS CLARO
+    // ⚪ Grises claros → oscuros
     "#BAB0AC",
     "#A5A5A5",
     "#8D8D8D",
     "#757575",
-  
-    // ⚫ GRIS OSCURO → NEUTROS
     "#606060",
     "#3C3C3C",
-    "#2E3B55",
-    "#1F2A44",
-    "#152137",
-    "#0B1123",
     "#000000"
-  ];
+];
   
-
+  
 function filterSystemState(systemState: SystemState) {
     const newSystemState: SystemState = JSON.parse(JSON.stringify(systemState))
     newSystemState.gases = newSystemState.gases.filter((gas) => (gas.molarFraction !== 0) && (gas.name !== "-"))
@@ -115,6 +94,7 @@ function filterSystemState(systemState: SystemState) {
 }
 
 export default function EosView() {
+    
     const customMargin = {
         l: 60,  // left margin
         r: 110,  // right margin
@@ -145,16 +125,20 @@ export default function EosView() {
 
         return temperatures.map((T, indx) => {
 
-            let currentColor = "#fff"
-            const len = lineColors.length
+            let currentColor: string | undefined = undefined
+            const lenLines = lineColors.length
+            const lenData = newSystemState.temperatures.length
 
-            if(indx < len*(counter+1)) {
-                console.log(`indx: ${indx}, len*(counter+1): ${len*(counter+1)}`)
-                currentColor = lineColors[indx-len*counter]
+            if(indx < lenLines*(counter+1)) {
+                if (lenData < 8) {
+                    currentColor
+                } else {
+                    currentColor = lineColors[indx-lenLines*counter]
+                }
+                console.log(indx < lenLines*(counter+1), `indx: ${indx}`, `len*(counter+1): ${lenLines*(counter+1)}`)
             } else {
                 // La primera vez que corre este bloque es para indx = len por tanto:
-                currentColor = lineColors[indx-len*counter]
-                console.log(currentColor)
+                currentColor = lineColors[indx-lenLines*counter]
                 counter++
             }
 
@@ -192,7 +176,6 @@ export default function EosView() {
     const PRData: Plotly.Data[] = calculateVmLines(pressures, config, newSystemState, calculateVmPointsPR)
 
 
-
     
     if(systemState) return (
     <div className=''>
@@ -213,7 +196,7 @@ export default function EosView() {
                             font: {
                               family: "Rubik, sans-serif",
                               size: 20,
-                              color: "#cdd6ff"
+                              color: "#80f4ff"
                             }
                         },
                         plot_bgcolor: "#1f233d",  // Fondo del área de gráfico (tu primary-900)
@@ -229,10 +212,10 @@ export default function EosView() {
                             title: {
                                 text: 'Vm (m3/mol)',       
                                 font: {
-                                color: "#cdd6ff"
+                                    color: "#80f4ff"
                                 }   
                             },
-                            color: "#cdd6ff", // Color de ticks y números
+                            color: "rgba(128, 244, 255, 0.6)", // Color de ticks y números
                             showgrid: true,
                             gridcolor: "rgba(217, 226, 255, 0.15)",
                             zeroline: false
@@ -242,20 +225,24 @@ export default function EosView() {
                             title: {
                               text: "P (Pa)",
                               font: {
-                                color: "#cdd6ff"
+                                color: "#80f4ff"
                               }
                             },
-                            color: "#cdd6ff",
+                            color: "rgba(128, 244, 255, 0.6)",
                             showgrid: true,
                             gridcolor: "rgba(217, 226, 255, 0.15)",
                             zeroline: false
+                        },
+                        hoverlabel: {
+                            bgcolor: '#80f4ff',
+                            font: { color: '#1e1b4b' }
                         },
                         legend: {
                             orientation: "v",
                             x: 1.02,
                             y: 1,
                             bgcolor: "rgba(30,27,75,0.6)",  // Semi-transparente sobre el fondo
-                            bordercolor: "#444",
+                            bordercolor: "rgba(128, 244, 255, 0.2)",
                             borderwidth: 1,
                             font: {
                               color: "#cdd6ff"
@@ -302,18 +289,66 @@ export default function EosView() {
                         //width: 820,
                         //height: 540,
                         autosize: true,
-                        title: {text: 'P-V (RK)'},
+                        title: {
+                            text: 'P-V (RK)',
+                            font: {
+                                family: "Rubik, sans-serif",
+                                size: 20,
+                                color: "#80f4ff",
+                            }
+                        },
+                        plot_bgcolor: "#1f233d",  // Fondo del área de gráfico (tu primary-900)
+                        paper_bgcolor: "#1e1b4b", // Fondo del canvas completo
+                        font: {
+                            family: "Rubik, sans-serif",
+                            color: "#cdd6ff",
+                            size: 12
+                        },
                         margin: customMargin,
                         modebar: {orientation: 'h', color: "green"},
                         xaxis: {
-                            title: {text: 'Vm (m3/mol)'},
+                            title: {
+                                text: 'Vm (m3/mol)',       
+                                font: {
+                                    color: "#80f4ff"
+                                }   
+                            },
+                            color: "rgba(128, 244, 255, 0.6)", // Color de ticks y números
+                            showgrid: true,
+                            gridcolor: "rgba(217, 226, 255, 0.15)",
+                            zeroline: false
                             //tickformat: ".2e", // Notación científica en el eje X con 2 decimales
                         },
                         yaxis: {
-                            title: {text: 'P (Pa)'},
-                            //tickformat: ",.0f", // Sin notación científica en el eje Y
+                            title: {
+                              text: "P (Pa)",
+                              font: {
+                                color: "#80f4ff"
+                              }
+                            },
+                            color: "rgba(128, 244, 255, 0.6)",
+                            showgrid: true,
+                            gridcolor: "rgba(217, 226, 255, 0.15)",
+                            zeroline: false
                         },
-                        //legend: customLegend,
+                        hoverlabel: {
+                            bgcolor: '#80f4ff',
+                            font: {
+                                color: '#1e1b4b' 
+                                
+                            }
+                        },
+                        legend: {
+                            orientation: "v",
+                            x: 1.02,
+                            y: 1,
+                            bgcolor: "rgba(30,27,75,0.6)",  // Semi-transparente sobre el fondo
+                            bordercolor: "rgba(128, 244, 255, 0.2)",
+                            borderwidth: 1,
+                            font: {
+                              color: "#cdd6ff"
+                            }
+                        },
                         showlegend: true
                     }
                 }
@@ -355,18 +390,65 @@ export default function EosView() {
                         //width: 820,
                         //height: 540,
                         autosize: true,
-                        title: {text: 'P-V (SRK-M)'},
+                        title: {
+                            text: 'P-V (SRK-M)',
+                            font: {
+                                family: "Rubik, sans-serif",
+                                size: 20,
+                                color: "#80f4ff",
+                            }
+
+
+                        },
+                        plot_bgcolor: "#1f233d",  // Fondo del área de gráfico (tu primary-900)
+                        paper_bgcolor: "#1e1b4b", // Fondo del canvas completo
+                        font: {
+                            family: "Rubik, sans-serif",
+                            color: "#cdd6ff",
+                            size: 12
+                        },
                         margin: customMargin,
                         modebar: {orientation: 'h', color: "green"},
                         xaxis: {
-                            title: {text: 'Vm (m3/mol)'},
+                            title: {
+                                text: 'Vm (m3/mol)',       
+                                font: {
+                                    color: "#80f4ff"
+                                }   
+                            },
+                            color: "rgba(128, 244, 255, 0.6)", // Color de ticks y números
+                            showgrid: true,
+                            gridcolor: "rgba(217, 226, 255, 0.15)",
+                            zeroline: false
                             //tickformat: ".2e", // Notación científica en el eje X con 2 decimales
                         },
                         yaxis: {
-                            title: {text: 'P (Pa)'},
-                            //tickformat: ",.0f", // Sin notación científica en el eje Y
+                            title: {
+                              text: "P (Pa)",
+                              font: {
+                                color: "#80f4ff"
+                              }
+                            },
+                            color: "rgba(128, 244, 255, 0.6)",
+                            showgrid: true,
+                            gridcolor: "rgba(217, 226, 255, 0.15)",
+                            zeroline: false
                         },
-                        //legend: customLegend,
+                        hoverlabel: {
+                            bgcolor: '#80f4ff',
+                            font: { color: '#1e1b4b' }
+                        },
+                        legend: {
+                            orientation: "v",
+                            x: 1.02,
+                            y: 1,
+                            bgcolor: "rgba(30,27,75,0.6)",  // Semi-transparente sobre el fondo
+                            bordercolor: "rgba(128, 244, 255, 0.2)",
+                            borderwidth: 1,
+                            font: {
+                              color: "#cdd6ff"
+                            }
+                        },
                         showlegend: true
                     }
                 }
@@ -408,18 +490,64 @@ export default function EosView() {
                         //width: 820,
                         //height: 540,
                         autosize: true,
-                        title: {text: 'P-V (PR)'},
+                        title: {
+                            text: 'P-V (PR)',
+                            font: {
+                                family: "Rubik, sans-serif",
+                                size: 20,
+                                color: "#80f4ff",
+                            }
+
+                        },
+                        plot_bgcolor: "#1f233d",  // Fondo del área de gráfico (tu primary-900)
+                        paper_bgcolor: "#1e1b4b", // Fondo del canvas completo
+                        font: {
+                            family: "Rubik, sans-serif",
+                            color: "#cdd6ff",
+                            size: 12
+                        },
                         margin: customMargin,
                         modebar: {orientation: 'h', color: "green"},
                         xaxis: {
-                            title: {text: 'Vm (m3/mol)'},
+                            title: {
+                                text: 'Vm (m3/mol)',       
+                                font: {
+                                    color: "#80f4ff"
+                                }   
+                            },
+                            color: "rgba(128, 244, 255, 0.6)", // Color de ticks y números
+                            showgrid: true,
+                            gridcolor: "rgba(217, 226, 255, 0.15)",
+                            zeroline: false
                             //tickformat: ".2e", // Notación científica en el eje X con 2 decimales
                         },
                         yaxis: {
-                            title: {text: 'P (Pa)'},
-                            //tickformat: ",.0f", // Sin notación científica en el eje Y
+                            title: {
+                              text: "P (Pa)",
+                              font: {
+                                color: "#80f4ff"
+                              }
+                            },
+                            color: "rgba(128, 244, 255, 0.6)",
+                            showgrid: true,
+                            gridcolor: "rgba(217, 226, 255, 0.15)",
+                            zeroline: false
                         },
-                        //legend: customLegend,
+                        hoverlabel: {
+                            bgcolor: '#80f4ff',
+                            font: { color: '#1e1b4b' }
+                        },
+                        legend: {
+                            orientation: "v",
+                            x: 1.02,
+                            y: 1,
+                            bgcolor: "rgba(30,27,75,0.6)",  // Semi-transparente sobre el fondo
+                            bordercolor: "rgba(128, 244, 255, 0.2)",
+                            borderwidth: 1,
+                            font: {
+                              color: "#cdd6ff"
+                            }
+                        },
                         showlegend: true
                     }
                 }
