@@ -11,11 +11,16 @@ export type ElementData = {
 export type Gas = Pick<ElementData, "name" | "Tc" | "Pc" | "omega" | "formula" | "molarMass"> & {molarFraction: number}
 
 export type SystemState = {
-    pressure?: number
-    temperature?: number
+    pressures: {
+        data: number[],
+        increment: number
+    }
     molarVolume?: number
     gases: Gas[]
-    temperatures: number[]
+    temperatures: {
+        data: number[],
+        increment: number
+    }
 }
 
 export type CalculationFunction = (pressures: number[], temperatures: number, newSystemState: SystemState) => number[]

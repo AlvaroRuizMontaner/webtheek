@@ -50,9 +50,18 @@ export const initialState: SystemState = {
             omega: 0.344
         }, */
     ],
-    temperatures: [
-        280
-    ]
+    temperatures: {
+        data: [
+            280
+        ],
+        increment: 20
+    },
+    pressures: {
+        data: [ 
+            5e5, 10e5, 15e5, 20e5, 25e5, 30e5, 35e5, 40e5, 45e5, 50e5, 55e5, 60e5, 65e5, 70e5, 75e5, 80e5, 85e5, 90e5
+        ],
+        increment: 5e5
+    }
 }
 
 export const eosSlice = createSlice({
@@ -93,20 +102,54 @@ export const eosSlice = createSlice({
         //Temperatures
         addTemperature: (state, action) => {
             const temperature = action.payload
-            state.temperatures.push(temperature);
+            state.temperatures.data.push(temperature);
         },
         editTemperatureByIndex: (state, action) => {
             const {temperature, temperatureIndex} = action.payload
-            if (state.temperatures[temperatureIndex]) { // Validamos que el índice sea válido
-                state.temperatures[temperatureIndex] = parseFloat(temperature);
+            if (state.temperatures.data[temperatureIndex]) { // Validamos que el índice sea válido
+                state.temperatures.data[temperatureIndex] = parseFloat(temperature);
             }
         },
         deleteTemperatureByIndex: (state, action) => {
             const { temperatureIndex } = action.payload;
-            if (state.temperatures[temperatureIndex]) { // Validamos que el índice sea válido
-                state.temperatures.splice(temperatureIndex, 1);
+            if (state.temperatures.data[temperatureIndex]) { // Validamos que el índice sea válido
+                state.temperatures.data.splice(temperatureIndex, 1);
             }
         },
+        plusIncrementTemperature: (state) => {
+            const currentIncrement = state.temperatures.increment
+            state.temperatures.increment =  currentIncrement + 10
+        },
+        minusIncrementTemperature: (state) => {
+            const currentIncrement = state.temperatures.increment
+            state.temperatures.increment =  currentIncrement - 10
+        },
+
+        // Pressures
+        addPressure: (state, action) => {
+            const pressure = action.payload
+            state.pressures.data.push(pressure);
+        },
+        editPressureByIndex: (state, action) => {
+            const {pressure, pressureIndex} = action.payload
+            if (state.pressures.data[pressureIndex]) { // Validamos que el índice sea válido
+                state.pressures.data[pressureIndex] = parseFloat(pressure);
+            }
+        },
+        deletePressureByIndex: (state, action) => {
+            const { pressureIndex } = action.payload;
+            if (state.pressures.data[pressureIndex]) { // Validamos que el índice sea válido
+                state.pressures.data.splice(pressureIndex, 1);
+            }
+        },
+        plusIncrementPressure: (state) => {
+            const currentIncrement = state.pressures.increment
+            state.pressures.increment =  currentIncrement + 5e5
+        },
+        minusIncrementPressure: (state) => {
+            const currentIncrement = state.pressures.increment
+            state.pressures.increment =  currentIncrement - 5e5
+        }
 
 
     }
@@ -122,7 +165,15 @@ export const {
     //Temperatures
     addTemperature,
     editTemperatureByIndex,
-    deleteTemperatureByIndex
+    deleteTemperatureByIndex,
+    plusIncrementTemperature,
+    minusIncrementTemperature,
+    //Pressures
+    addPressure,
+    editPressureByIndex,
+    deletePressureByIndex,
+    plusIncrementPressure,
+    minusIncrementPressure
 } = eosSlice.actions
 
 export const eosReducer = eosSlice.reducer

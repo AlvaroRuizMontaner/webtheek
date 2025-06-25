@@ -27,7 +27,7 @@ export function Rowtemperature({temperature, temperatureIndex, dispatch}: RowTem
           type="text" value={temperature}
         />
       </div>
-      {showIcons && <div className='absolute right-0  top-1/2 -translate-y-1/2 !mt-0 flex'>
+      {showIcons && <div className='absolute -right-2 top-1/2 -translate-y-1/2 !mt-0 flex'>
         <XMarkIcon className='x-icon'
             onClick={() => {dispatch(deleteTemperatureByIndex({temperatureIndex}))}}
         />

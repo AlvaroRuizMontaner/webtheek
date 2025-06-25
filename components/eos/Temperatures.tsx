@@ -1,37 +1,55 @@
 import { useDispatch } from "react-redux"
 import "./styles.scss"
-import { useState } from "react"
 import { Rowtemperature } from "./RowTemperature"
-import { addTemperature } from "@/redux/features/eosSlice"
+import { addTemperature, minusIncrementTemperature, plusIncrementTemperature } from "@/redux/features/eosSlice"
 import Panel from "./Panel"
+import { MinusCircleIcon, PlusCircleIcon } from "@heroicons/react/20/solid"
 
 
 type TemperaturesProps = {
-    temperatures: number[]
+    temperatures: {
+      data: number[]
+      increment: number
+    }
 }
 
 
 export default function Temperatures({temperatures}: TemperaturesProps) {
   const dispatch = useDispatch()
 
-  const [mod] = useState(20)
+  const increment = temperatures.increment
 
   const buttonTSX = (
     <button 
       className="panel-button beveled"
       onClick={() => {
-        const defaultTemperature: unknown = temperatures[temperatures.length-1]
-        dispatch(addTemperature((parseFloat(defaultTemperature as string) || 0) + mod))
+        const defaultTemperature: unknown = temperatures.data[temperatures.data.length-1]
+        dispatch(addTemperature((parseFloat(defaultTemperature as string) || 0) + increment))
       }}
       >
       Añadir Temperatura
     </button>
   )
 
+  const incrementTSX = (
+    <div className="flex items-center justify-between border-t-accent-300/40 border-b-accent-300/40 border-r-accent-300/70 border-l-accent-300/70 rounded-[32px] border-4 text-accent-100 ">
+      <button onClick={() => dispatch(minusIncrementTemperature())}>
+        <MinusCircleIcon className="w-8 h-8" />
+      </button>
+      <span className="max-w-16u block w-12u p-0 text-center border-0 bg-transparent">{temperatures.increment}</span>
+      <button onClick={() => dispatch(plusIncrementTemperature())}>
+        <PlusCircleIcon className="w-8 h-8" />
+      </button>
+  </div>
+  )
+
   return (
-    <Panel button={buttonTSX}>
+    <Panel button={buttonTSX} increment={incrementTSX}>
+      <div className={`text-white border-b-2 border-accent-500 bg-accent-300/80 cursor-context-menu w-[70%]`}>
+        <div className='text-center'>Temperatures (K)</div>
+      </div>
       <div className="panel-temperature-content overflow-auto">
-        {temperatures.map((temperature, temperatureIndex) => (
+        {temperatures.data.map((temperature, temperatureIndex) => (
             <Rowtemperature temperatureIndex={temperatureIndex} temperature={temperature}  key={temperatureIndex} dispatch={dispatch}/>
         ))}
       </div>

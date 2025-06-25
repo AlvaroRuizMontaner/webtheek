@@ -97,7 +97,7 @@ export default function EosView() {
     
     const customMargin = {
         l: 60,  // left margin
-        r: 110,  // right margin
+        r: 80,  // right margin
         t: 60,  // top margin
         b: 50,  // bottom margin
     }
@@ -123,11 +123,11 @@ export default function EosView() {
         let counter = 0
         
 
-        return temperatures.map((T, indx) => {
+        return temperatures.data.map((T, indx) => {
 
             let currentColor: string | undefined = undefined
             const lenLines = lineColors.length
-            const lenData = newSystemState.temperatures.length
+            const lenData = newSystemState.temperatures.data.length
 
             if(indx < lenLines*(counter+1)) {
                 if (lenData < 8) {
@@ -207,7 +207,7 @@ export default function EosView() {
                             size: 12
                         },
                         margin: customMargin,
-                        modebar: {orientation: 'h', color: "green"},
+                        modebar: {orientation: 'h', color: "#80f4ff"},
                         xaxis: {
                             title: {
                                 text: 'Vm (m3/mol)',       
@@ -305,7 +305,7 @@ export default function EosView() {
                             size: 12
                         },
                         margin: customMargin,
-                        modebar: {orientation: 'h', color: "green"},
+                        modebar: {orientation: 'h', color: "#80f4ff"},
                         xaxis: {
                             title: {
                                 text: 'Vm (m3/mol)',       
@@ -408,7 +408,7 @@ export default function EosView() {
                             size: 12
                         },
                         margin: customMargin,
-                        modebar: {orientation: 'h', color: "green"},
+                        modebar: {orientation: 'h', color: "#80f4ff"},
                         xaxis: {
                             title: {
                                 text: 'Vm (m3/mol)',       
@@ -507,7 +507,7 @@ export default function EosView() {
                             size: 12
                         },
                         margin: customMargin,
-                        modebar: {orientation: 'h', color: "green"},
+                        modebar: {orientation: 'h', color: "#80f4ff"},
                         xaxis: {
                             title: {
                                 text: 'Vm (m3/mol)',       
