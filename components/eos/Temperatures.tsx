@@ -46,7 +46,7 @@ export default function Temperatures({temperatures}: TemperaturesProps) {
   return (
     <Panel button={buttonTSX} increment={incrementTSX}>
       <div className={`text-white border-b-2 border-accent-500 bg-accent-300/80 cursor-context-menu w-[70%]`}>
-        <div className='text-center'>Temperatures (K)</div>
+        <div className='text-center'>Isotermas (K)</div>
       </div>
       <div className="panel-temperature-content overflow-auto">
         {temperatures.data.map((temperature, temperatureIndex) => (

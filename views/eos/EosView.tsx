@@ -1,7 +1,6 @@
 import "./eos.scss";
 import Plotly from '../../components/plotly/Plotly';
 import { calculateVmPoints } from '@/components/gases/vanDerWaals';
-import { pressures } from '@/components/gases/constantes';
 import { calculateVmPointsRK } from '@/components/gases/redlichKwong';
 import { calculateVmPointsSRK } from '@/components/gases/soaveRedlichKwong';
 import { calculateVmPointsPR } from '@/components/gases/pengRobinson';
@@ -10,6 +9,7 @@ import Table from "@/components/eos/Table";
 import { CalculationFunction, SystemState } from "@/types/eos";
 import Temperatures from "@/components/eos/Temperatures";
 import { PlotData } from "plotly.js";
+import Pressures from "@/components/eos/Pressures";
 
 
   const lineColors = [
@@ -109,16 +109,16 @@ export default function EosView() {
 
     /* ---------------------------------------------Config--------------------------------------------- */
 
-    const config: Partial<Plotly.Data> = {
+/*     const config: Partial<Plotly.Data> = {
         type: 'scatter',
         mode: 'lines',
         marker: {color: '#2299ff', width: 0.5,},
-    }
+    } */
 
     /* --------------------------------------Wrapper calculations-------------------------------------- */
 
-    function calculateVmLines(pressures: number[], config: Partial<Plotly.Data>, newSystemState: SystemState, calcFunction: CalculationFunction) {
-        const {temperatures} = newSystemState
+    function calculateVmLines(newSystemState: SystemState, calcFunction: CalculationFunction) {
+        const {temperatures, pressures} = newSystemState
 
         let counter = 0
         
@@ -130,7 +130,7 @@ export default function EosView() {
             const lenData = newSystemState.temperatures.data.length
 
             if(indx < lenLines*(counter+1)) {
-                if (lenData < 8) {
+                if (lenData < 15) {
                     currentColor
                 } else {
                     currentColor = lineColors[indx-lenLines*counter]
@@ -143,8 +143,8 @@ export default function EosView() {
             }
 
             const calculations: Partial<PlotData> = {
-                x: calcFunction(pressures, T, newSystemState),
-                y: pressures,
+                x: calcFunction(pressures.data, T, newSystemState),
+                y: pressures.data,
                 type: 'scatter',
                 mode: 'lines',
                 marker: {color: currentColor, width: 0.5,},
@@ -161,19 +161,19 @@ export default function EosView() {
 
 
     /* ---------------------------------------------VDW--------------------------------------------- */
-    const VDWData: Plotly.Data[] = calculateVmLines(pressures, config, newSystemState, calculateVmPoints)
+    const VDWData: Plotly.Data[] = calculateVmLines(newSystemState, calculateVmPoints)
 
 
     /* ---------------------------------------------RK---------------------------------------------- */
-    const RKData: Plotly.Data[] = calculateVmLines(pressures, config, newSystemState, calculateVmPointsRK)
+    const RKData: Plotly.Data[] = calculateVmLines(newSystemState, calculateVmPointsRK)
 
 
     /* ---------------------------------------------SRK--------------------------------------------- */
-    const SRKData: Plotly.Data[] = calculateVmLines(pressures, config, newSystemState, calculateVmPointsSRK)
+    const SRKData: Plotly.Data[] = calculateVmLines(newSystemState, calculateVmPointsSRK)
 
 
     /* ---------------------------------------------PR---------------------------------------------- */
-    const PRData: Plotly.Data[] = calculateVmLines(pressures, config, newSystemState, calculateVmPointsPR)
+    const PRData: Plotly.Data[] = calculateVmLines(newSystemState, calculateVmPointsPR)
 
 
     
@@ -183,6 +183,9 @@ export default function EosView() {
         <br />
         <br />
         <Temperatures temperatures={systemState.temperatures} />
+        <br />
+        <br />
+        <Pressures pressures={systemState.pressures} />
         <div className="grid grid-cols-1 md:grid-cols-2 justify-center items-center gap-10 mt-8">
             <Plotly
                 className="w-full max-w-3xl aspect-[4/3]"

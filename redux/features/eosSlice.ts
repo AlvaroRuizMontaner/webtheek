@@ -52,15 +52,15 @@ export const initialState: SystemState = {
     ],
     temperatures: {
         data: [
-            280
+            25
         ],
-        increment: 20
+        increment: 25
     },
     pressures: {
         data: [ 
             5e5, 10e5, 15e5, 20e5, 25e5, 30e5, 35e5, 40e5, 45e5, 50e5, 55e5, 60e5, 65e5, 70e5, 75e5, 80e5, 85e5, 90e5
         ],
-        increment: 5e5
+        increment: 1e5
     }
 }
 
@@ -118,11 +118,11 @@ export const eosSlice = createSlice({
         },
         plusIncrementTemperature: (state) => {
             const currentIncrement = state.temperatures.increment
-            state.temperatures.increment =  currentIncrement + 10
+            state.temperatures.increment =  currentIncrement + 25
         },
         minusIncrementTemperature: (state) => {
             const currentIncrement = state.temperatures.increment
-            state.temperatures.increment =  currentIncrement - 10
+            state.temperatures.increment =  currentIncrement - 25
         },
 
         // Pressures
