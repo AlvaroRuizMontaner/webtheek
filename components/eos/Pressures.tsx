@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux"
 import "./styles.scss"
-import { addPressure, minusIncrementPressure, plusIncrementPressure } from "@/redux/features/eosSlice"
+import { addPressure, deleteAll, minusIncrementPressure, plusIncrementPressure } from "@/redux/features/eosSlice"
 import Panel from "./Panel"
 import { MinusCircleIcon, PlusCircleIcon } from "@heroicons/react/20/solid"
 import { RowPressure } from "./RowPressure"
@@ -43,8 +43,14 @@ export default function Pressures({pressures}: PressuresProps) {
   </div>
   )
 
+    const deleteAllTSX = (
+      <button className="panel-button beveled" onClick={() => {dispatch(deleteAll("pressures"))}}>
+        Delete All
+      </button>
+    )
+
   return (
-    <Panel button={buttonTSX} increment={incrementTSX}>
+    <Panel button={buttonTSX} increment={incrementTSX} deleteAll={deleteAllTSX}>
       <div className={`text-white border-b-2 border-accent-500 bg-accent-300/80 cursor-context-menu w-[70%]`}>
         <div className='text-center'>Pressure data (Pa)</div>
       </div>

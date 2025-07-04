@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux"
 import "./styles.scss"
 import { Rowtemperature } from "./RowTemperature"
-import { addTemperature, minusIncrementTemperature, plusIncrementTemperature } from "@/redux/features/eosSlice"
+import { addTemperature, deleteAll, minusIncrementTemperature, plusIncrementTemperature } from "@/redux/features/eosSlice"
 import Panel from "./Panel"
 import { MinusCircleIcon, PlusCircleIcon } from "@heroicons/react/20/solid"
 
@@ -43,8 +43,14 @@ export default function Temperatures({temperatures}: TemperaturesProps) {
   </div>
   )
 
+  const deleteAllTSX = (
+    <button className="panel-button beveled" onClick={() => {dispatch(deleteAll("temperatures"))}}>
+      Delete All
+    </button>
+  )
+
   return (
-    <Panel button={buttonTSX} increment={incrementTSX}>
+    <Panel button={buttonTSX} increment={incrementTSX} deleteAll={deleteAllTSX}>
       <div className={`text-white border-b-2 border-accent-500 bg-accent-300/80 cursor-context-menu w-[70%]`}>
         <div className='text-center'>Isotermas (K)</div>
       </div>

@@ -88,8 +88,6 @@ function filterSystemState(systemState: SystemState) {
     const newSystemState: SystemState = JSON.parse(JSON.stringify(systemState))
     newSystemState.gases = newSystemState.gases.filter((gas) => (gas.molarFraction !== 0) && (gas.name !== "-"))
 
-    console.log(newSystemState)
-
     return newSystemState
 }
 
@@ -135,7 +133,6 @@ export default function EosView() {
                 } else {
                     currentColor = lineColors[indx-lenLines*counter]
                 }
-                console.log(indx < lenLines*(counter+1), `indx: ${indx}`, `len*(counter+1): ${lenLines*(counter+1)}`)
             } else {
                 // La primera vez que corre este bloque es para indx = len por tanto:
                 currentColor = lineColors[indx-lenLines*counter]
@@ -182,10 +179,10 @@ export default function EosView() {
         <Table gases={systemState.gases} />
         <br />
         <br />
-        <Temperatures temperatures={systemState.temperatures} />
-        <br />
-        <br />
         <Pressures pressures={systemState.pressures} />
+        <br />
+        <br />
+        <Temperatures temperatures={systemState.temperatures} />
         <div className="grid grid-cols-1 md:grid-cols-2 justify-center items-center gap-10 mt-8">
             <Plotly
                 className="w-full max-w-3xl aspect-[4/3]"

@@ -149,7 +149,13 @@ export const eosSlice = createSlice({
         minusIncrementPressure: (state) => {
             const currentIncrement = state.pressures.increment
             state.pressures.increment =  currentIncrement - 5e5
-        }
+        },
+
+        // All
+        deleteAll: (state, action) => {
+            const dataName: 'pressures' | 'temperatures' = action.payload;
+            state[dataName].data = [];
+        },
 
 
     }
@@ -173,7 +179,9 @@ export const {
     editPressureByIndex,
     deletePressureByIndex,
     plusIncrementPressure,
-    minusIncrementPressure
+    minusIncrementPressure,
+
+    deleteAll
 } = eosSlice.actions
 
 export const eosReducer = eosSlice.reducer
