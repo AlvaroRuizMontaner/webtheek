@@ -15,7 +15,7 @@
 //    D = −a·α·b
 // ────────────────────────────────────────────────────────────────────────────
 
-import { Pressures, R } from "../constantes";
+import { Pressures, RSI } from "../constantes";
 import { croot } from "../cardano";
 import { SystemState } from "@/types/eos";
 
@@ -23,17 +23,17 @@ import { SystemState } from "@/types/eos";
 export const fSRK = {
   /** a₀ (solo depende de Tc, Pc)  – Pa·m⁶·mol⁻² */
   calc_a(Tc: number, Pc: number, alpha: number) {
-    return 0.42747 * R**2 * (Tc ** 2) / Pc * alpha;
+    return 0.42747 * RSI**2 * (Tc ** 2) / Pc * alpha;
   },
 
   /** b – m³·mol⁻¹ */
   calc_b(Tc: number, Pc: number) {
-    return 0.08664 * R * Tc / Pc;
+    return 0.08664 * RSI * Tc / Pc;
   },
 
   /** P=f(T,Vm) – útil para iterativos */
   calcP(T: number, Vm: number, aAlpha: number, b: number) {
-    return R * T / (Vm - b) - aAlpha / (Vm * (Vm + b));
+    return RSI * T / (Vm - b) - aAlpha / (Vm * (Vm + b));
   },
 };
 
@@ -49,8 +49,8 @@ function arrayParamsSRK(gases: SystemState["gases"], T: number) {
     const Tr = T / Tc;
     const alpha = (1 + kappa * (1 - Math.sqrt(Tr)))**2;
   
-    aArray.push(0.42748 * R**2 * Tc**2 / Pc * alpha); // El array de a's ya llevara el alpha incorporado
-    bArray.push(0.08664 * R * Tc / Pc);
+    aArray.push(0.42748 * RSI**2 * Tc**2 / Pc * alpha); // El array de a's ya llevara el alpha incorporado
+    bArray.push(0.08664 * RSI * Tc / Pc);
   })
 
   return { aArray, bArray }
@@ -90,8 +90,8 @@ export function calculateVmPointsSRK(
 
     const coef = [
       P,
-      -R * T,
-      a_mix - R * T * b_mix - P * b_mix**2,
+      -RSI * T,
+      a_mix - RSI * T * b_mix - P * b_mix**2,
       -a_mix * b_mix,
     ];
 

@@ -15,20 +15,20 @@
 //     D =  P·b³ + R·T·b² − a·α·b
 // ────────────────────────────────────────────────────────────────
 
-import { Pressures, R } from "../constantes";
+import { Pressures, RSI } from "../constantes";
 import { croot } from "../cardano";
 import { SystemState } from "@/types/eos";
 
 /* ---------- utilidades PR ---------- */
 export const fPR = {
   calc_a(Tc: number, Pc: number) {
-    return 0.45724 * R**2 * Tc * Tc / Pc;           // Pa·m⁶·mol⁻²
+    return 0.45724 * RSI**2 * Tc * Tc / Pc;           // Pa·m⁶·mol⁻²
   },
   calc_b(Tc: number, Pc: number) {
-    return 0.07780 * R * Tc / Pc;                    // m³·mol⁻¹
+    return 0.07780 * RSI * Tc / Pc;                    // m³·mol⁻¹
   },
   calcP(T: number, Vm: number, aAlpha: number, b: number) {
-    return R * T / (Vm - b) - aAlpha / (Vm**2 + 2*b*Vm - b**2);
+    return RSI * T / (Vm - b) - aAlpha / (Vm**2 + 2*b*Vm - b**2);
   },
 };
 
@@ -43,8 +43,8 @@ function arrayParamsPR(gases: SystemState["gases"], T: number) {
     const Tr = T / Tc;
     const alpha = (1 + kappa * (1 - Math.sqrt(Tr)))**2;
   
-    aArray.push(0.45724 * R**2 * Tc**2 / Pc * alpha); // El array de a's ya llevara el alpha incorporado
-    bArray.push(0.07780 * R * Tc / Pc);
+    aArray.push(0.45724 * RSI**2 * Tc**2 / Pc * alpha); // El array de a's ya llevara el alpha incorporado
+    bArray.push(0.07780 * RSI * Tc / Pc);
   })
 
   return { aArray, bArray }
@@ -79,9 +79,9 @@ export function calculateVmPointsPR(pressures: Pressures, T: number, systemState
   return pressures.map((P) => {
     const coef = [
       P,
-      P * b_mix - R * T,
-      a_mix - 3 * P * b_mix**2 - 2 * R * T * b_mix,
-      P * b_mix ** 3 + R * T * b_mix ** 2 - a_mix * b_mix,
+      P * b_mix - RSI * T,
+      a_mix - 3 * P * b_mix**2 - 2 * RSI * T * b_mix,
+      P * b_mix ** 3 + RSI * T * b_mix ** 2 - a_mix * b_mix,
     ];
 
     const Vm = croot(coef) as number;            // (–) usa mayor → gas

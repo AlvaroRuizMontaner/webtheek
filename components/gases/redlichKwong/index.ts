@@ -17,31 +17,31 @@
 
 import { SystemState } from "@/types/eos";
 import { croot } from "../cardano";
-import { Pressures, R } from "../constantes";
+import { Pressures, RSI } from "../constantes";
 
 /** Herramientas específicas RK */
 export const fRK = {
   /** a(Tc, Pc)  [Pa·m⁶·mol⁻²] */
   calc_a(Tc: number, Pc: number) {
-    return 0.42748 * R**2 * Math.pow(Tc, 2.5) / Pc;
+    return 0.42748 * RSI**2 * Math.pow(Tc, 2.5) / Pc;
   },
 
   /** b(Tc, Pc)  [m³·mol⁻¹] */
   calc_b(Tc: number, Pc: number) {
-    return 0.08664 * R * Tc / Pc;
+    return 0.08664 * RSI * Tc / Pc;
   },
 
   /** Presión a partir de T y Vm (ecuación original RK) */
   calcP(T: number, Vm: number, a: number, b: number) {
-    return (R * T) / (Vm - b) - a / (Math.sqrt(T) * Vm * (Vm + b));
+    return (RSI * T) / (Vm - b) - a / (Math.sqrt(T) * Vm * (Vm + b));
   },
 
   /** (opcional) – T a partir de P y Vm requiere resolver numéricamente */
 };
 
 function arrayParamsRK(gases: SystemState["gases"]) {
-  const aArray = gases.map(gas => (0.42748 * R**2 * Math.pow(gas.Tc, 2.5) / gas.Pc));
-  const bArray = gases.map(gas => (0.08664 * R * gas.Tc / gas.Pc));
+  const aArray = gases.map(gas => (0.42748 * RSI**2 * Math.pow(gas.Tc, 2.5) / gas.Pc));
+  const bArray = gases.map(gas => (0.08664 * RSI * gas.Tc / gas.Pc));
 
   return { aArray, bArray }
 }
@@ -74,8 +74,8 @@ export function calculateVmPointsRK(pressures: Pressures, T: number, systemState
   return pressures.map((P) => {
     const coef = [
       P,
-      -R * T,
-      a_mix / Math.sqrt(T) - R * T * b_mix - P * b_mix**2,
+      -RSI * T,
+      a_mix / Math.sqrt(T) - RSI * T * b_mix - P * b_mix**2,
       -a_mix * b_mix / Math.sqrt(T),
     ];
     const Vm = croot(coef) as number; // m³·mol⁻¹ – se usa la raíz real mayor

@@ -16,7 +16,9 @@ export function Rowtemperature({temperature, temperatureIndex, dispatch}: RowTem
   const [showIcons, setShowIcons] = useState(false)
 
   const handleChangeTemperature = (temperatureIndex: number) => (e: ChangeEvent<HTMLInputElement>) => {
-    dispatch(editTemperatureByIndex({temperature: e.target.value, temperatureIndex }))
+    const newValue = parseFloat(e.target.value)
+    console.log(newValue)
+    dispatch(editTemperatureByIndex({temperature: newValue || 0, temperatureIndex }))
   }
 
   return (

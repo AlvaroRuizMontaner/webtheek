@@ -103,7 +103,7 @@ export function Row({gas, controlledGas, setControlledGases, gasIndex, dispatch}
   }
 
   return (
-    <div className="relative w-full border-b border-accent-100/10 hover:bg-accent-100/5" onMouseOver={() => setShowIcons(true)} onMouseOut={() => setShowIcons(false)}>
+    <div className="relative w-full border-b border-accent-100/10 hover:bg-accent-100/5 sm:py-[2px]" onMouseOver={() => setShowIcons(true)} onMouseOut={() => setShowIcons(false)}>
       <div key={"Row" + gasIndex} className={`${rowClassName} cursor-context-menu`} >
         <div className='text-center'>
             <InputAutocomplete {...properties} />

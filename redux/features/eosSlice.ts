@@ -106,13 +106,13 @@ export const eosSlice = createSlice({
         },
         editTemperatureByIndex: (state, action) => {
             const {temperature, temperatureIndex} = action.payload
-            if (state.temperatures.data[temperatureIndex]) { // Validamos que el índice sea válido
+            if (Number.isFinite(state.temperatures.data[temperatureIndex])) { // Validamos que el índice sea válido
                 state.temperatures.data[temperatureIndex] = parseFloat(temperature);
             }
         },
         deleteTemperatureByIndex: (state, action) => {
             const { temperatureIndex } = action.payload;
-            if (state.temperatures.data[temperatureIndex]) { // Validamos que el índice sea válido
+            if (Number.isFinite(state.temperatures.data[temperatureIndex])) { // Validamos que el índice sea válido
                 state.temperatures.data.splice(temperatureIndex, 1);
             }
         },

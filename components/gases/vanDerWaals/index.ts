@@ -3,20 +3,22 @@
 
 import { SystemState } from "@/types/eos";
 import { croot } from "../cardano";
-import { Pressures, R } from "../constantes";
+import { Pressures, pressureSItopressureBar, RBL } from "../constantes";
 
 export const fVDW = {
     calc_a(Tc: number, Pc: number) {
-      return (27 * (R*Tc) ** 2) / (64 * Pc);
+      const currentP = pressureSItopressureBar(Pc)
+      return (27 * (RBL*Tc) ** 2) / (64 * currentP);
     },
     calc_b(Tc: number, Pc: number) {
-      return (R * Tc) / (8 * Pc);
+      const currentP = pressureSItopressureBar(Pc)
+      return (RBL * Tc) / (8 * currentP);
     },
     calcT(P: number, Vm: number, a: number, b: number) {
-        return ((P * (Vm - b)) / R) + (a / (R * Math.pow(Vm, 2))) * (Vm - b);
+        return ((P * (Vm - b)) / RBL) + (a / (RBL * Math.pow(Vm, 2))) * (Vm - b);
     },
     calcP(T: number, Vm: number, a: number, b: number) {
-        return (R * T) / (Vm - b) - (a / Math.pow(Vm, 2));
+        return (RBL * T) / (Vm - b) - (a / Math.pow(Vm, 2));
     }
 };
 
@@ -26,8 +28,16 @@ export const fVDW = {
 //const D = -a * b;                             // Pa·m⁶·mol⁻²
 
 function arrayParamsVDW(gases: SystemState["gases"]) {
-  const aArray = gases.map(gas => (27 * R**2 * gas.Tc**2) / (64 * gas.Pc));
-  const bArray = gases.map(gas => (R * gas.Tc) / (8 * gas.Pc));
+  const aArray = gases.map(gas => {
+    const Pc = pressureSItopressureBar(gas.Pc)
+
+    return (27 * RBL**2 * gas.Tc**2) / (64 * Pc)
+  });
+  const bArray = gases.map(gas => {
+    const Pc = pressureSItopressureBar(gas.Pc)
+
+    return (RBL * gas.Tc) / (8 * Pc)
+  });
 
   return { aArray, bArray }
 }
@@ -59,10 +69,12 @@ export function calculateVmPoints(pressures: Pressures, T: number, systemState: 
   const {a_mix, b_mix} = mixParamsVDW(aArray, bArray, systemState)
 
   const calculatedPoints = pressures.map((P) => {
+    const currentP = pressureSItopressureBar(P)
+
     const coef = [
-      P,
-      -(P*b_mix + R*T),
-      a_mix + R*T*b_mix,
+      currentP,
+      -(currentP*b_mix + RBL*T),
+      a_mix + RBL*T*b_mix,
       -a_mix*b_mix
     ];
     const Vm = croot(coef) as number;        // m³·mol⁻¹

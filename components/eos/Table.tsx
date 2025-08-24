@@ -17,7 +17,7 @@ const defaultValues: Record<string, string> = {
   name: "Nombre",
   formula: "Fórmula",
   molarMass: "M (Kg/mol)",
-  molarFraction: "χ",
+  molarFraction: "X",
 }
 
 const defaultGas: Gas = {
@@ -56,7 +56,7 @@ export default function Table({gases}: TableProps) {
   return (
     <Panel button={buttonTSX}>
       <div className="panel-content overflow-auto">
-        <div className={`${rowClassName} text-white w-full border-b-2 border-accent-500 bg-accent-300/80 cursor-context-menu`}>
+        <div className={`${rowClassName} text-white w-full border-b-2 border-accent-500 bg-accent-300/80 cursor-context-menu font-bold py-[4px] sm:py-1`}>
           <div className='text-center'>{defaultValues.name}</div>
           <div className='text-center'>{defaultValues.formula}</div>
           <div className='text-center'>{defaultValues.molarFraction}</div>

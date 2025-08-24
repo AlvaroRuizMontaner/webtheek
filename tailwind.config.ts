@@ -27,17 +27,7 @@ const config: Config = {
       },
       /* Paleta de colores */
       colors: {
-        primary: "#6366F1",
-        secondary: "#81c784",
-        tertiary: "#90caf9",
 
-        
-        "dark-primary": "#1E1B4B",
-        "dark-secondary": "#348137",
-        "dark-tertiary": "#2196f3",
-        
-        info: "#4caf50",
-        accent: "#f472b6",
 
 
 /*         "primary-50": "#e5edff", // hsla(222, 100%, 95%, 1)
@@ -134,30 +124,6 @@ const config: Config = {
         "accent-danger-700": "#8c2233", // hsla(350, 61%, 34%, 1)
         "accent-danger-800": "#6b0b1b", // hsla(350, 82%, 23%, 1)
         "accent-danger-900": "#4f020f", // hsla(350, 94%, 16%, 1)
-
-        "blue-300": '#74a2ec',  // Sobrescribe el azul 300
-        "blue-600": '#336ecc',  // Sobrescribe el azul 600
-        "blue-800": '#0a287b',  // Sobrescribe el azul 800
-
-        "indigo-300": '#948fef',
-        "indigo-600": '#362fbc',
-        "indigo-800": '#130d77',
-
-        "yellow-300": '#efef8f',
-        "yellow-600": '#bcbc2f',
-        "yellow-800": '#77770d',
-
-        "orange-300": '#efbf8f',
-        "orange-600": '#bc762f',
-        "orange-800": '#77420d',
-
-        "green-300": 'var(--accent-300)',  // Usa variables CSS para verde
-        "green-600": 'var(--accent-600)',
-        "green-800": 'var(--accent-800)',
-
-        "pink-600": "#d87da6",
-        "pink-800": "#a92359",
-        "pink-300": "#f3aed4"
       },
       spacing: {
         '1u': '4px',   // 16 x 0.25

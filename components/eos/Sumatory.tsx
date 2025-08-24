@@ -14,7 +14,7 @@ export default function Sumatory({gases}: SumatoryProps) {
   }, 0)
 
   return (
-    <div className="relative w-full text-accent-300">
+    <div className="relative w-full text-accent-300 font-bold">
         <div key={"RowTotal"} className={`${rowClassName} cursor-context-menu`} >
             <div className='text-center cell border-black'></div>
             <div className='text-center cell col-start-2 bg'>Total</div>
