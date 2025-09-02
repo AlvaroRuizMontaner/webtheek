@@ -45,7 +45,7 @@ export default function Pressures({pressures}: PressuresProps) {
 
     const deleteAllTSX = (
       <button className="panel-button beveled" onClick={() => {dispatch(deleteAll("pressures"))}}>
-        Delete All
+        Borrar Todo
       </button>
     )
 

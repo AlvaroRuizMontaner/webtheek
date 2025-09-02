@@ -3,13 +3,17 @@ import { ElementData } from "@/types/eos";
 export type Pressures = number[];
 
 export const RSI=8.314462618  // J mol−1 K−1
-export const RBL=0.08314462618  // J mol−1 K−1
+export const RBL=0.08314462618  // bar * L mol−1 K−1
 
 export const pressuresSI = [ 5e5, 10e5, 15e5, 20e5, 25e5, 30e5, 35e5, 40e5, 45e5, 50e5, 55e5, 60e5, 65e5, 70e5, 75e5, 80e5, 85e5, 90e5 ];
 export const pressuresBL = [ 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90 ];
 
 export function pressureSItopressureBar(pressureSI: number) {
     return pressureSI/10e5
+}
+
+export function calculateVmPointsGI(pressures: Pressures, T: number) {
+    return pressures.map((P) => (RSI * T / P));
 }
 
 export const co2Data: ElementData = {

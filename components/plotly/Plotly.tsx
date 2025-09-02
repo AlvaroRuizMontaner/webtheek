@@ -7,9 +7,20 @@ import { forwardRef, useEffect, useImperativeHandle, useRef, useState, useId } f
 // Usamos dynamic import para cargar Plotly de manera dinámica, y deshabilitamos el SSR (Server-Side Rendering).
 // Esto es porque Plotly debe ejecutarse en el cliente, ya que depende del DOM.
 
+type PlotlyComponentProps = {
+  id?: string,
+  className?: string,
+  data: Plotly.Data[],
+  layout: Partial<Plotly.Layout>,
+  config?: Plotly.Config,
+  editable?: boolean,
+  modeBarButtonsToAdd?: ModeBarButtonAny[]
+  setLoading: (bool: boolean) => void
+}
+
 const Plotly = dynamic(
     () =>
-      import('plotly.js-dist-min').then(({ newPlot, purge }) => {
+      import('plotly.js-dist-min').then(({ react, purge }) => { //plotly.react es mas eficiente y rapido que plotly.newPlot
   
         // 'forwardRef' es un patrón en React que permite pasar una referencia (ref) de un componente hijo
         // al componente padre. Esto es útil cuando queremos manejar la referencia a un DOM elemento de manera
@@ -19,7 +30,7 @@ const Plotly = dynamic(
             // Desestructuramos las props que el componente va a recibir:
             // 'id' y 'className' son para controlar el identificador y la clase CSS del div.
             // 'data', 'layout', y 'config' son los datos que pasaremos a Plotly para renderizar el gráfico.
-            { id, className, data, layout, config, editable=false, modeBarButtonsToAdd }: { id?: string; className?: string; data: Plotly.Data[]; layout: Partial<Plotly.Layout>; config?: Plotly.Config, editable?: boolean, modeBarButtonsToAdd?: ModeBarButtonAny[] },
+            { id, className, data, layout, config, editable=false, modeBarButtonsToAdd, setLoading }: PlotlyComponentProps,
             ref
           ) => {
             // 'useId' es un hook de React que nos da un identificador único para este componente, útil si no pasamos 'id' como prop.
@@ -48,9 +59,15 @@ const Plotly = dynamic(
               // Si 'originRef.current' está disponible (lo que significa que el div ha sido renderizado),
               // llamamos a 'newPlot' de Plotly para renderizar el gráfico.
               if (originRef.current && modeBarButtonsToAdd) {
-                newPlot(originRef.current, data, updatedLayout, { ...config, scrollZoom: true, modeBarButtonsToAdd, editable, displaylogo: false, responsive: true }).then((ref: Plotly.PlotlyHTMLElement) => {
+                react(originRef.current, data, updatedLayout, { ...config, scrollZoom: true, modeBarButtonsToAdd, editable, displaylogo: false, responsive: true }).then((ref: Plotly.PlotlyHTMLElement) => {
                   // Cuando el gráfico ha sido renderizado, guardamos la instancia de Plotly en el estado.
-                  setHandle(instance = ref);
+                  instance = ref
+                  setHandle(ref);
+
+                  console.log("ayy lmao")
+
+                  // Escuchamos el evento de que Plotly terminó de dibujar
+                  setLoading(false);
                 });
               }
   

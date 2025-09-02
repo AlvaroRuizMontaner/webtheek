@@ -1,4 +1,4 @@
-import { R } from "../constantes";
+import { RSI as R } from "../constantes";
 
 export function calcA(Tc: number, Pc: number): number {
     return (27 * Math.pow(R, 2) * Math.pow(Tc, 2)) / (64 * Pc);

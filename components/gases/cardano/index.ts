@@ -1,7 +1,7 @@
 const cbrt = (x: number) => Math.sign(x) * Math.cbrt(Math.abs(x));
 const sqrt = (x: number) => Math.sqrt(x);
 
-export function croot(coef: number[]): number | string {
+export function croot(coef: number[]/* , P?: number, T?: number */): number | string {
     if (coef.length !== 4) {
         return "Error: Debe haber exactamente 4 coeficientes."; // Error si no hay 4 coeficientes
     }
@@ -17,11 +17,19 @@ export function croot(coef: number[]): number | string {
     const delta = q ** 2 + (4 * p ** 3) / 27;
     const shift = -b / (3 * a)
 
-    const eps = 1e-12 // tolerancia, se evitan situaciones limite que pueden conducir a errores de redondeo o devoluciones de NaN
+    //const eps = 1e-25;  // tolerancia absoluta, se evitan situaciones limite que pueden conducir a errores de redondeo o devoluciones de NaN
+
+    const relativeEps = 1e-10; // tolerancia relativa
+    const scale = Math.max(Math.abs(q ** 2), Math.abs((4 * p ** 3) / 27), Number.EPSILON); // Ajusta la tolerancia a los valores numericos que se estan manejando
+
+    const threshold = relativeEps * scale;
+
+    //console.log(`delta: ${delta} a P=${P} y T=${T} threshold: ${threshold} p=${p}`)
 
 
     /* ---------- Δ  > 0  (una raíz real) --------------------------- */
-    if (delta > eps) {
+    if (delta > threshold) {
+        //console.log("caso Δ  > threshold, una raiz real")
         return (
             cbrt((-q + sqrt(delta)) / 2) + 
             cbrt((-q - sqrt(delta)) / 2) + shift
@@ -29,7 +37,10 @@ export function croot(coef: number[]): number | string {
     }
 
     /* ---------- Δ  < 0  (tres raíces reales) ---------------------- */
-    else if (delta < -eps) {
+    else if (delta < -threshold) {
+        //console.log("caso Δ < threshold (tres raíces reales")
+
+
         //const theta = Math.acos((3 * q) / (2 * p) * sqrt(-3 / p));
         const arg = (3 * q) / (2 * p) * Math.sqrt(-3 / p);
         const theta = Math.acos(Math.max(-1, Math.min(1, arg)));  // clamp de robustez que evita que el acos dé NaN si arg es mayor que 1 o menos que -1 debido a redondeo
@@ -42,9 +53,10 @@ export function croot(coef: number[]): number | string {
         //return [y0, y1, y2].sort((a, b) => a - b); // Para devolver las 3 raices si fuera el caso
         return Math.max(y0, y1, y2) + shift;
 
-    /* ---------- |Δ| ≤ eps  (raíces múltiples) --------------------- */
+    /* ---------- |Δ| ≤ threshold  (raíces múltiples) --------------------- */
     } else {
-        if (Math.abs(p) < eps && Math.abs(q) < eps) {  // Originalmente es el caso p === 0 && q === 0 pero adaptado al eps
+        //console.log("caso |Δ| ≤ threshold ,raíces múltiples")
+        if (Math.abs(p) < threshold && Math.abs(q) < threshold) {  // Originalmente es el caso p === 0 && q === 0 pero adaptado al eps
             return shift;                 // raíz triple
         }
 

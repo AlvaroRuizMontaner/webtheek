@@ -45,7 +45,7 @@ export default function Temperatures({temperatures}: TemperaturesProps) {
 
   const deleteAllTSX = (
     <button className="panel-button beveled" onClick={() => {dispatch(deleteAll("temperatures"))}}>
-      Delete All
+      Borrar Todo
     </button>
   )
 

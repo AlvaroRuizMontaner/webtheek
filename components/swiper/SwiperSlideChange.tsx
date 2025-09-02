@@ -32,27 +32,27 @@ export default function SwiperSlideChange({projectId, userId}: SwiperSlideChange
     } */
 
     const { data, isLoading, isError } = useQuery({
-        queryKey: ["userTeam", projectId],
-        queryFn: () => getUserTeamById({toolId: projectId, userId, tool: "projects"}),
-        retry: false,
-      });
+      queryKey: ["userTeam", projectId],
+      queryFn: () => getUserTeamById({toolId: projectId, userId, tool: "projects"}),
+      retry: false,
+    });
     
-      const queryClient = useQueryClient()
-    
-      const {mutate} = useMutation({
-        mutationFn: editUserFromTeam,
-        onError: (error) => {
-            toast.error(error.message)
-        },
-        onSuccess: (data) => {
-            toast.success(data)
-            queryClient.invalidateQueries({queryKey: ["userTeam", projectId]})
-        }
-      })
+    const queryClient = useQueryClient()
+  
+    const {mutate} = useMutation({
+      mutationFn: editUserFromTeam,
+      onError: (error) => {
+          toast.error(error.message)
+      },
+      onSuccess: (data) => {
+          toast.success(data)
+          queryClient.invalidateQueries({queryKey: ["userTeam", projectId]})
+      }
+    })
 
-    
-      if (isLoading) return <Loading />
-      if (isError) throw new Error("Error");
+  
+    if (isLoading) return <Loading />
+    if (isError) throw new Error("Error");
 
 
     if (data) return (
