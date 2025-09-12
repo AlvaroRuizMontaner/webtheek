@@ -73,10 +73,10 @@ export function mixParamsPR(aArray: number[], bArray: number[], systemState: Sys
 
 /** Devuelve los Vm (m³·mol⁻¹) con Peng‑Robinson (raíz real mayor = fase gas) */
 export function calculateVmPointsPR(pressures: Pressures, T: number, systemState: SystemState) {
-    const {aArray, bArray} = arrayParamsPR(systemState.gases, T)
-    const {a_mix, b_mix} = mixParamsPR(aArray, bArray, systemState)
+  const {aArray, bArray} = arrayParamsPR(systemState.gases, T)
+  const {a_mix, b_mix} = mixParamsPR(aArray, bArray, systemState)
 
-  return pressures.map((P) => {
+  let calculatedPoints = pressures.map((P) => {
     const coef = [
       P,
       P * b_mix - RSI * T,
@@ -88,4 +88,8 @@ export function calculateVmPointsPR(pressures: Pressures, T: number, systemState
     //console.log(`Caso ${i + 1}: Vm = ${Vm} m³/mol, P = ${P} Pa, T = ${T} K`);
     return Vm;
   });
+
+  calculatedPoints = calculatedPoints.filter((Vm) => Vm > b_mix * (1 + 1e-12)) // Se descartan los casos donde Vm sea menor que b_mix
+
+  return calculatedPoints
 }

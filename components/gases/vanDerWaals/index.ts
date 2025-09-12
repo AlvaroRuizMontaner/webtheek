@@ -74,18 +74,23 @@ export function calculateVmPoints(pressures: Pressures, T: number, systemState: 
   const {aArray, bArray} = arrayParamsVDW(systemState.gases)
   const {a_mix, b_mix} = mixParamsVDW(aArray, bArray, systemState)
 
-  const calculatedPoints = pressures.map((P) => {
+  let calculatedPoints = pressures.map((P) => {
 
     const coef = [
       P,
       -(P*b_mix + RSI*T),
-      a_mix + RSI*T*b_mix,
+      a_mix,
       -a_mix*b_mix
     ];
-    const Vm = croot(coef/* , P, T */) as number;        // m³·mol⁻¹
+    const Vm = croot(coef)       // m³·mol⁻¹
     //console.log(`Caso ${i+1}: Vm = ${Vm} m3/mol, P = ${P}, T = ${T}`);
     return Vm
   });
+
+  console.table(calculatedPoints)
+  console.log(`T: ${T}, a_mix: ${a_mix}, b_mix: ${b_mix}`)
+
+  calculatedPoints = calculatedPoints.filter((Vm) => Vm > b_mix * (1 + 1e-12)) // Se descartan los casos donde Vm sea menor que b_mix
 
   return calculatedPoints
 }
@@ -100,10 +105,10 @@ export function calculateVmPointsBarL(pressures: Pressures, T: number, systemSta
     const coef = [
       PBar,
       -(PBar*b_mix + RBL*T),
-      a_mix + RBL*T*b_mix,
+      a_mix,
       -a_mix*b_mix
     ];
-    const Vm = croot(coef) as number;        // m³·mol⁻¹
+    const Vm = croot(coef);        // m³·mol⁻¹
     //console.log(`Caso ${i+1}: Vm = ${Vm} m3/mol, P = ${P}, T = ${T}`);
     return Vm
   });

@@ -29,7 +29,7 @@ export default function ControlPanel({graphicOptions, selectedGraphicOptions, se
 
 
     return (
-    <div className='bg-primary-900 rounded-md min-h-40 py-6 flex flex-wrap gap-4 justify-center'>
+    <div className='marco-eos'>
         {graphicOptions.map((option, optionIndx) => (
             <div className='flex items-center' key={`${option + optionIndx}`}>
                 <label className={` panel-button cursor-pointer relative ${isSelected(option) ? "!bg-accent-300/60" : ""}`} htmlFor={`${option}id`}>

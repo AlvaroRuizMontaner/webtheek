@@ -71,7 +71,7 @@ export function calculateVmPointsRK(pressures: Pressures, T: number, systemState
   const {aArray, bArray} = arrayParamsRK(systemState.gases)
   const {a_mix, b_mix} = mixParamsRK(aArray, bArray, systemState)
 
-  return pressures.map((P) => {
+  let calculatedPoints = pressures.map((P) => {
     const coef = [
       P,
       -RSI * T,
@@ -82,4 +82,8 @@ export function calculateVmPointsRK(pressures: Pressures, T: number, systemState
     //console.log(`Caso ${i + 1}: Vm = ${Vm} m³/mol, P = ${P} Pa, T = ${T} K`);
     return Vm;
   });
+
+  calculatedPoints = calculatedPoints.filter((Vm) => Vm > b_mix * (1 + 1e-12)) // Se descartan los casos donde Vm sea menor que b_mix
+
+  return calculatedPoints
 }

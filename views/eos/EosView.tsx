@@ -11,8 +11,10 @@ import Temperatures from "@/components/eos/Temperatures";
 import { PlotData } from "plotly.js";
 import Pressures from "@/components/eos/Pressures";
 import ControlPanel from "@/components/eos/ControlPanel";
-import { ReactNode, useState } from "react";
+import { ChangeEvent, ReactNode, useState } from "react";
 import Spinner from "@/components/spinners/Spinner";
+import { calculateVmPointsGI } from "@/components/gases/constantes";
+import RadioTabs from "@/components/eos/RadioTabs";
 
 
   const lineColors = [
@@ -94,28 +96,49 @@ function filterSystemState(systemState: SystemState) {
     return newSystemState
 }
 
+type AutoLoadingWrapperProps = {
+    children: (setLoading: (val: boolean) => void) => ReactNode;
+};
+
+const tabsInfo = [
+    {
+        name: "radio",
+        value: "1",
+        label: "Curvas líquido-vapor" 
+    },
+    {
+        name: "radio",
+        value: "2",
+        label: "Isotermas clásicas"
+    },
+    {
+        name: "radio",
+        value: "3",
+        label: "Factor de compresibilidad (Z)"
+    },
+]
+
 export default function EosView() {
 
-    const graphicOptions = ["Van der Waals", "Redlich-Kwong", "S.-Redlich-Kwong-M", "Peng-Robinson"]
+    const graphicOptions = ["Van der Waals", "Redlich-Kwong", "S.-Redlich-Kwong-M", "Peng-Robinson", "Ideal"]
     const [selectedGraphicOptions, setSelectedGraphicOptions] = useState<string[]>([])
+    const [selectedMode, setSelectedMode] = useState("1")
 
-    const [readyPlots, setReadyPlots] = useState<boolean[]>(graphicOptions.map(() => true))
 
-    const handleLoading = (index: number) => (bool: boolean) => {
-        setReadyPlots((prev) => {
-            const newPrev = [...prev]
-            newPrev[index] = bool
-            return newPrev
-        })
-    }
 
-    const LoadingWrapper = ({ isLoading, children }: {isLoading: boolean, children: ReactNode}) => {
+    const AutoLoadingWrapper = ({ children }: AutoLoadingWrapperProps) => {
+        const [isLoading, setIsLoading] = useState(true);
+      
         return (
           <div className="relative">
-            <div className={`absolute inset-0 ${isLoading ? "opacity-100" : "opacity-0"}`}>
-                <Spinner />
+            <div
+              className={`absolute inset-0 transition-opacity duration-300 ${
+                isLoading ? "opacity-100" : "opacity-0"
+              }`}
+            >
+              <Spinner />
             </div>
-            {children}
+            {children(setIsLoading)}
           </div>
         );
     };
@@ -131,6 +154,12 @@ export default function EosView() {
 
     const systemState = useAppSelector(state => state.eosReducer)
     const newSystemState = filterSystemState(systemState)
+
+
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setSelectedMode(e.target.value)
+        console.log(e.target.value)
+    }
 
     /* ---------------------------------------------Config--------------------------------------------- */
 
@@ -200,417 +229,562 @@ export default function EosView() {
     const PRData: Plotly.Data[] = calculateVmLines(newSystemState, calculateVmPointsPR)
 
 
+    /* ----------------------------------------------GI---------------------------------------------- */
+    const GIData: Plotly.Data[] = calculateVmLines(newSystemState, calculateVmPointsGI)
+
+
     
     if(systemState) return (
     <div className=''>
         <div className="flex flex-col gap-16">
             <Table gases={systemState.gases} />
+            <RadioTabs
+                info={tabsInfo}
+                selectedMode={selectedMode}
+                handleChange={handleChange}
+                >
+                {({ radio, inputProps, labelProps }) => (
+                    <label {...labelProps}>
+                        <span>{radio.label ?? "Sin etiqueta"}</span>
+                        <input {...inputProps} />
+                    </label>
+                )}
+            </RadioTabs>
             <Pressures pressures={systemState.pressures} />
             <Temperatures temperatures={systemState.temperatures} />
             <ControlPanel graphicOptions={graphicOptions} selectedGraphicOptions={selectedGraphicOptions} setSelectedGraphicOptions={setSelectedGraphicOptions} />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 justify-center items-center gap-10 mt-8">
             {selectedGraphicOptions.includes(graphicOptions[0]) && (
-                <LoadingWrapper isLoading={readyPlots[0]} >
-                    <Plotly
+                <AutoLoadingWrapper>
+                    {(setLoading) => (
+                        <Plotly
                         className="w-full max-w-3xl aspect-[4/3]"
-                    editable={false}
-                    data={VDWData}
-                    layout={
-                        {
-                            autosize: true,
-                            title: {
-                                text: "P-V (VDW)",
-                                font: {
-                                    family: "Rubik, sans-serif",
-                                    size: 20,
-                                    color: "#80f4ff"
-                                }
-                            },
-                            plot_bgcolor: "#1f233d",  // Fondo del área de gráfico (tu primary-900)
-                            paper_bgcolor: "#1e1b4b", // Fondo del canvas completo
-                            font: {
-                                family: "Rubik, sans-serif",
-                                color: "#cdd6ff",
-                                size: 12
-                            },
-                            margin: customMargin,
-                            modebar: {orientation: 'h', color: "#80f4ff"},
-                            xaxis: {
+                        editable={false}
+                        data={VDWData}
+                        layout={
+                            {
+                                autosize: true,
                                 title: {
-                                    text: 'Vm (m3/mol)',       
+                                    text: "P-V (VDW)",
                                     font: {
+                                        family: "Rubik, sans-serif",
+                                        size: 20,
                                         color: "#80f4ff"
-                                    }   
-                                },
-                                color: "rgba(128, 244, 255, 0.6)", // Color de ticks y números
-                                showgrid: true,
-                                gridcolor: "rgba(217, 226, 255, 0.15)",
-                                zeroline: false
-                                //tickformat: ".2e", // Notación científica en el eje X con 2 decimales
-                            },
-                            yaxis: {
-                                title: {
-                                    text: "P (Pa)",
-                                    font: {
-                                    color: "#80f4ff"
                                     }
                                 },
-                                color: "rgba(128, 244, 255, 0.6)",
-                                showgrid: true,
-                                gridcolor: "rgba(217, 226, 255, 0.15)",
-                                zeroline: false
-                            },
-                            hoverlabel: {
-                                bgcolor: '#80f4ff',
-                                font: { color: '#1e1b4b' }
-                            },
-                            legend: {
-                                orientation: "v",
-                                x: 1.02,
-                                y: 1,
-                                bgcolor: "rgba(30,27,75,0.6)",  // Semi-transparente sobre el fondo
-                                bordercolor: "rgba(128, 244, 255, 0.2)",
-                                borderwidth: 1,
+                                plot_bgcolor: "#1f233d",  // Fondo del área de gráfico (tu primary-900)
+                                paper_bgcolor: "#1e1b4b", // Fondo del canvas completo
                                 font: {
-                                    color: "#cdd6ff"
-                                }
-                            },
-                            showlegend: true
+                                    family: "Rubik, sans-serif",
+                                    color: "#cdd6ff",
+                                    size: 12
+                                },
+                                margin: customMargin,
+                                modebar: {orientation: 'h', color: "#80f4ff"},
+                                xaxis: {
+                                    title: {
+                                        text: 'Vm (m3/mol)',       
+                                        font: {
+                                            color: "#80f4ff"
+                                        }   
+                                    },
+                                    color: "rgba(128, 244, 255, 0.6)", // Color de ticks y números
+                                    showgrid: true,
+                                    gridcolor: "rgba(217, 226, 255, 0.15)",
+                                    zeroline: false
+                                    //tickformat: ".2e", // Notación científica en el eje X con 2 decimales
+                                },
+                                yaxis: {
+                                    title: {
+                                        text: "P (Pa)",
+                                        font: {
+                                        color: "#80f4ff"
+                                        }
+                                    },
+                                    color: "rgba(128, 244, 255, 0.6)",
+                                    showgrid: true,
+                                    gridcolor: "rgba(217, 226, 255, 0.15)",
+                                    zeroline: false
+                                },
+                                hoverlabel: {
+                                    bgcolor: '#80f4ff',
+                                    font: { color: '#1e1b4b' }
+                                },
+                                legend: {
+                                    orientation: "v",
+                                    x: 1.02,
+                                    y: 1,
+                                    bgcolor: "rgba(30,27,75,0.6)",  // Semi-transparente sobre el fondo
+                                    bordercolor: "rgba(128, 244, 255, 0.2)",
+                                    borderwidth: 1,
+                                    font: {
+                                        color: "#cdd6ff"
+                                    }
+                                },
+                                showlegend: true
+                            }
                         }
-                    }
-                    modeBarButtonsToAdd={
-                        [
-                            {
-                                name: 'color toggler',
-                                title: "", 
-                                icon: {
-                                    path: 'M224 512c35.32 0 63.97-28.65 63.97-64H160.03c0 35.35 28.65 64 63.97 64zm215.39-149.71c-19.32-20.76-55.47-51.99-55.47-154.29 0-77.7-54.48-139.9-127.94-155.16V32c0-17.67-14.32-32-31.98-32s-31.98 14.33-31.98 32v20.84C118.56 68.1 64.08 130.3 64.08 208c0 102.3-36.15 133.53-55.47 154.29-6 6.45-8.66 14.16-8.61 21.71.11 16.4 12.98 32 32.1 32h383.8c19.12 0 32-15.6 32.1-32 .05-7.55-2.61-15.27-8.61-21.71z',
-                                    width: 500,
-                                    height: 600
+                        modeBarButtonsToAdd={
+                            [
+                                {
+                                    name: 'color toggler',
+                                    title: "", 
+                                    icon: {
+                                        path: 'M224 512c35.32 0 63.97-28.65 63.97-64H160.03c0 35.35 28.65 64 63.97 64zm215.39-149.71c-19.32-20.76-55.47-51.99-55.47-154.29 0-77.7-54.48-139.9-127.94-155.16V32c0-17.67-14.32-32-31.98-32s-31.98 14.33-31.98 32v20.84C118.56 68.1 64.08 130.3 64.08 208c0 102.3-36.15 133.53-55.47 154.29-6 6.45-8.66 14.16-8.61 21.71.11 16.4 12.98 32 32.1 32h383.8c19.12 0 32-15.6 32.1-32 .05-7.55-2.61-15.27-8.61-21.71z',
+                                        width: 500,
+                                        height: 600
+                                    },
+                                    click: function() {
+                                        console.log("hola k ase")
+                                    }
                                 },
-                                click: function() {
-                                    console.log("hola k ase")
-                                }
-                            },
-                            {
-                                name: 'color toggler 2',
-                                title: "", 
-                                icon: {
-                                    path: 'M224 512c35.32 0 63.97-28.65 63.97-64H160.03c0 35.35 28.65 64 63.97 64zm215.39-149.71c-19.32-20.76-55.47-51.99-55.47-154.29 0-77.7-54.48-139.9-127.94-155.16V32c0-17.67-14.32-32-31.98-32s-31.98 14.33-31.98 32v20.84C118.56 68.1 64.08 130.3 64.08 208c0 102.3-36.15 133.53-55.47 154.29-6 6.45-8.66 14.16-8.61 21.71.11 16.4 12.98 32 32.1 32h383.8c19.12 0 32-15.6 32.1-32 .05-7.55-2.61-15.27-8.61-21.71z',
-                                    width: 500,
-                                    height: 600
+                                {
+                                    name: 'color toggler 2',
+                                    title: "", 
+                                    icon: {
+                                        path: 'M224 512c35.32 0 63.97-28.65 63.97-64H160.03c0 35.35 28.65 64 63.97 64zm215.39-149.71c-19.32-20.76-55.47-51.99-55.47-154.29 0-77.7-54.48-139.9-127.94-155.16V32c0-17.67-14.32-32-31.98-32s-31.98 14.33-31.98 32v20.84C118.56 68.1 64.08 130.3 64.08 208c0 102.3-36.15 133.53-55.47 154.29-6 6.45-8.66 14.16-8.61 21.71.11 16.4 12.98 32 32.1 32h383.8c19.12 0 32-15.6 32.1-32 .05-7.55-2.61-15.27-8.61-21.71z',
+                                        width: 500,
+                                        height: 600
+                                    },
+                                    click: function() {
+                                        console.log("funcion 2")
+                                    }
                                 },
-                                click: function() {
-                                    console.log("funcion 2")
-                                }
-                            },
-                        ]
-                    }
-                        setLoading={handleLoading(0)}
-                />
-                </LoadingWrapper>
+                            ]
+                        }
+                        setLoading={setLoading}
+                    />
+                    )}
+                </AutoLoadingWrapper>
             )}
-{/*             {selectedGraphicOptions.includes(graphicOptions[1]) && <Plotly
-                className="w-full max-w-3xl aspect-[4/3]"
-                editable={false}
-                data={RKData}
-                layout={
-                    {
-                        //width: 820,
-                        //height: 540,
-                        autosize: true,
-                        title: {
-                            text: 'P-V (RK)',
-                            font: {
-                                family: "Rubik, sans-serif",
-                                size: 20,
-                                color: "#80f4ff",
+            {selectedGraphicOptions.includes(graphicOptions[1]) && (
+                <AutoLoadingWrapper>
+                    {(setLoading) => (
+                        <Plotly
+                            className="w-full max-w-3xl aspect-[4/3]"
+                            editable={false}
+                            data={RKData}
+                            layout={
+                                {
+                                    //width: 820,
+                                    //height: 540,
+                                    autosize: true,
+                                    title: {
+                                        text: 'P-V (RK)',
+                                        font: {
+                                            family: "Rubik, sans-serif",
+                                            size: 20,
+                                            color: "#80f4ff",
+                                        }
+                                    },
+                                    plot_bgcolor: "#1f233d",  // Fondo del área de gráfico (tu primary-900)
+                                    paper_bgcolor: "#1e1b4b", // Fondo del canvas completo
+                                    font: {
+                                        family: "Rubik, sans-serif",
+                                        color: "#cdd6ff",
+                                        size: 12
+                                    },
+                                    margin: customMargin,
+                                    modebar: {orientation: 'h', color: "#80f4ff"},
+                                    xaxis: {
+                                        title: {
+                                            text: 'Vm (m3/mol)',       
+                                            font: {
+                                                color: "#80f4ff"
+                                            }   
+                                        },
+                                        color: "rgba(128, 244, 255, 0.6)", // Color de ticks y números
+                                        showgrid: true,
+                                        gridcolor: "rgba(217, 226, 255, 0.15)",
+                                        zeroline: false
+                                        //tickformat: ".2e", // Notación científica en el eje X con 2 decimales
+                                    },
+                                    yaxis: {
+                                        title: {
+                                        text: "P (Pa)",
+                                        font: {
+                                            color: "#80f4ff"
+                                        }
+                                        },
+                                        color: "rgba(128, 244, 255, 0.6)",
+                                        showgrid: true,
+                                        gridcolor: "rgba(217, 226, 255, 0.15)",
+                                        zeroline: false
+                                    },
+                                    hoverlabel: {
+                                        bgcolor: '#80f4ff',
+                                        font: {
+                                            color: '#1e1b4b' 
+                                            
+                                        }
+                                    },
+                                    legend: {
+                                        orientation: "v",
+                                        x: 1.02,
+                                        y: 1,
+                                        bgcolor: "rgba(30,27,75,0.6)",  // Semi-transparente sobre el fondo
+                                        bordercolor: "rgba(128, 244, 255, 0.2)",
+                                        borderwidth: 1,
+                                        font: {
+                                        color: "#cdd6ff"
+                                        }
+                                    },
+                                    showlegend: true
+                                }
                             }
-                        },
-                        plot_bgcolor: "#1f233d",  // Fondo del área de gráfico (tu primary-900)
-                        paper_bgcolor: "#1e1b4b", // Fondo del canvas completo
-                        font: {
-                            family: "Rubik, sans-serif",
-                            color: "#cdd6ff",
-                            size: 12
-                        },
-                        margin: customMargin,
-                        modebar: {orientation: 'h', color: "#80f4ff"},
-                        xaxis: {
-                            title: {
-                                text: 'Vm (m3/mol)',       
-                                font: {
-                                    color: "#80f4ff"
-                                }   
-                            },
-                            color: "rgba(128, 244, 255, 0.6)", // Color de ticks y números
-                            showgrid: true,
-                            gridcolor: "rgba(217, 226, 255, 0.15)",
-                            zeroline: false
-                            //tickformat: ".2e", // Notación científica en el eje X con 2 decimales
-                        },
-                        yaxis: {
-                            title: {
-                              text: "P (Pa)",
-                              font: {
-                                color: "#80f4ff"
-                              }
-                            },
-                            color: "rgba(128, 244, 255, 0.6)",
-                            showgrid: true,
-                            gridcolor: "rgba(217, 226, 255, 0.15)",
-                            zeroline: false
-                        },
-                        hoverlabel: {
-                            bgcolor: '#80f4ff',
-                            font: {
-                                color: '#1e1b4b' 
-                                
+                            modeBarButtonsToAdd={
+                                [
+                                    {
+                                        name: 'color toggler',
+                                        title: "", 
+                                        icon: {
+                                            path: 'M224 512c35.32 0 63.97-28.65 63.97-64H160.03c0 35.35 28.65 64 63.97 64zm215.39-149.71c-19.32-20.76-55.47-51.99-55.47-154.29 0-77.7-54.48-139.9-127.94-155.16V32c0-17.67-14.32-32-31.98-32s-31.98 14.33-31.98 32v20.84C118.56 68.1 64.08 130.3 64.08 208c0 102.3-36.15 133.53-55.47 154.29-6 6.45-8.66 14.16-8.61 21.71.11 16.4 12.98 32 32.1 32h383.8c19.12 0 32-15.6 32.1-32 .05-7.55-2.61-15.27-8.61-21.71z',
+                                            width: 500,
+                                            height: 600
+                                        },
+                                        click: function() {
+                                            console.log("hola k ase")
+                                        }
+                                    },
+                                    {
+                                        name: 'color toggler 2',
+                                        title: "", 
+                                        icon: {
+                                            path: 'M224 512c35.32 0 63.97-28.65 63.97-64H160.03c0 35.35 28.65 64 63.97 64zm215.39-149.71c-19.32-20.76-55.47-51.99-55.47-154.29 0-77.7-54.48-139.9-127.94-155.16V32c0-17.67-14.32-32-31.98-32s-31.98 14.33-31.98 32v20.84C118.56 68.1 64.08 130.3 64.08 208c0 102.3-36.15 133.53-55.47 154.29-6 6.45-8.66 14.16-8.61 21.71.11 16.4 12.98 32 32.1 32h383.8c19.12 0 32-15.6 32.1-32 .05-7.55-2.61-15.27-8.61-21.71z',
+                                            width: 500,
+                                            height: 600
+                                        },
+                                        click: function() {
+                                            console.log("funcion 2")
+                                        }
+                                    },
+                                ]
                             }
-                        },
-                        legend: {
-                            orientation: "v",
-                            x: 1.02,
-                            y: 1,
-                            bgcolor: "rgba(30,27,75,0.6)",  // Semi-transparente sobre el fondo
-                            bordercolor: "rgba(128, 244, 255, 0.2)",
-                            borderwidth: 1,
-                            font: {
-                              color: "#cdd6ff"
+                            setLoading={setLoading}
+                        />
+                    )}
+                </AutoLoadingWrapper>
+            )}
+            {selectedGraphicOptions.includes(graphicOptions[2]) && (
+                <AutoLoadingWrapper>
+                    {(setLoading) => (
+                        <Plotly
+                            className="w-full max-w-3xl aspect-[4/3]"
+                            editable={false}
+                            data={SRKData}
+                            layout={
+                                {
+                                    //width: 820,
+                                    //height: 540,
+                                    autosize: true,
+                                    title: {
+                                        text: 'P-V (SRK-M)',
+                                        font: {
+                                            family: "Rubik, sans-serif",
+                                            size: 20,
+                                            color: "#80f4ff",
+                                        }
+            
+            
+                                    },
+                                    plot_bgcolor: "#1f233d",  // Fondo del área de gráfico (tu primary-900)
+                                    paper_bgcolor: "#1e1b4b", // Fondo del canvas completo
+                                    font: {
+                                        family: "Rubik, sans-serif",
+                                        color: "#cdd6ff",
+                                        size: 12
+                                    },
+                                    margin: customMargin,
+                                    modebar: {orientation: 'h', color: "#80f4ff"},
+                                    xaxis: {
+                                        title: {
+                                            text: 'Vm (m3/mol)',       
+                                            font: {
+                                                color: "#80f4ff"
+                                            }   
+                                        },
+                                        color: "rgba(128, 244, 255, 0.6)", // Color de ticks y números
+                                        showgrid: true,
+                                        gridcolor: "rgba(217, 226, 255, 0.15)",
+                                        zeroline: false
+                                        //tickformat: ".2e", // Notación científica en el eje X con 2 decimales
+                                    },
+                                    yaxis: {
+                                        title: {
+                                        text: "P (Pa)",
+                                        font: {
+                                            color: "#80f4ff"
+                                        }
+                                        },
+                                        color: "rgba(128, 244, 255, 0.6)",
+                                        showgrid: true,
+                                        gridcolor: "rgba(217, 226, 255, 0.15)",
+                                        zeroline: false
+                                    },
+                                    hoverlabel: {
+                                        bgcolor: '#80f4ff',
+                                        font: { color: '#1e1b4b' }
+                                    },
+                                    legend: {
+                                        orientation: "v",
+                                        x: 1.02,
+                                        y: 1,
+                                        bgcolor: "rgba(30,27,75,0.6)",  // Semi-transparente sobre el fondo
+                                        bordercolor: "rgba(128, 244, 255, 0.2)",
+                                        borderwidth: 1,
+                                        font: {
+                                        color: "#cdd6ff"
+                                        }
+                                    },
+                                    showlegend: true
+                                }
                             }
-                        },
-                        showlegend: true
-                    }
-                }
-                modeBarButtonsToAdd={
-                    [
-                        {
-                            name: 'color toggler',
-                            title: "", 
-                            icon: {
-                                path: 'M224 512c35.32 0 63.97-28.65 63.97-64H160.03c0 35.35 28.65 64 63.97 64zm215.39-149.71c-19.32-20.76-55.47-51.99-55.47-154.29 0-77.7-54.48-139.9-127.94-155.16V32c0-17.67-14.32-32-31.98-32s-31.98 14.33-31.98 32v20.84C118.56 68.1 64.08 130.3 64.08 208c0 102.3-36.15 133.53-55.47 154.29-6 6.45-8.66 14.16-8.61 21.71.11 16.4 12.98 32 32.1 32h383.8c19.12 0 32-15.6 32.1-32 .05-7.55-2.61-15.27-8.61-21.71z',
-                                width: 500,
-                                height: 600
-                            },
-                            click: function() {
-                                console.log("hola k ase")
+                            modeBarButtonsToAdd={
+                                [
+                                    {
+                                        name: 'color toggler',
+                                        title: "", 
+                                        icon: {
+                                            path: 'M224 512c35.32 0 63.97-28.65 63.97-64H160.03c0 35.35 28.65 64 63.97 64zm215.39-149.71c-19.32-20.76-55.47-51.99-55.47-154.29 0-77.7-54.48-139.9-127.94-155.16V32c0-17.67-14.32-32-31.98-32s-31.98 14.33-31.98 32v20.84C118.56 68.1 64.08 130.3 64.08 208c0 102.3-36.15 133.53-55.47 154.29-6 6.45-8.66 14.16-8.61 21.71.11 16.4 12.98 32 32.1 32h383.8c19.12 0 32-15.6 32.1-32 .05-7.55-2.61-15.27-8.61-21.71z',
+                                            width: 500,
+                                            height: 600
+                                        },
+                                        click: function() {
+                                            console.log("hola k ase")
+                                        }
+                                    },
+                                    {
+                                        name: 'color toggler 2',
+                                        title: "", 
+                                        icon: {
+                                            path: 'M224 512c35.32 0 63.97-28.65 63.97-64H160.03c0 35.35 28.65 64 63.97 64zm215.39-149.71c-19.32-20.76-55.47-51.99-55.47-154.29 0-77.7-54.48-139.9-127.94-155.16V32c0-17.67-14.32-32-31.98-32s-31.98 14.33-31.98 32v20.84C118.56 68.1 64.08 130.3 64.08 208c0 102.3-36.15 133.53-55.47 154.29-6 6.45-8.66 14.16-8.61 21.71.11 16.4 12.98 32 32.1 32h383.8c19.12 0 32-15.6 32.1-32 .05-7.55-2.61-15.27-8.61-21.71z',
+                                            width: 500,
+                                            height: 600
+                                        },
+                                        click: function() {
+                                            console.log("funcion 2")
+                                        }
+                                    },
+                                ]
                             }
-                        },
-                        {
-                            name: 'color toggler 2',
-                            title: "", 
-                            icon: {
-                                path: 'M224 512c35.32 0 63.97-28.65 63.97-64H160.03c0 35.35 28.65 64 63.97 64zm215.39-149.71c-19.32-20.76-55.47-51.99-55.47-154.29 0-77.7-54.48-139.9-127.94-155.16V32c0-17.67-14.32-32-31.98-32s-31.98 14.33-31.98 32v20.84C118.56 68.1 64.08 130.3 64.08 208c0 102.3-36.15 133.53-55.47 154.29-6 6.45-8.66 14.16-8.61 21.71.11 16.4 12.98 32 32.1 32h383.8c19.12 0 32-15.6 32.1-32 .05-7.55-2.61-15.27-8.61-21.71z',
-                                width: 500,
-                                height: 600
-                            },
-                            click: function() {
-                                console.log("funcion 2")
+                            setLoading={setLoading}
+                        />
+                    )}
+                </AutoLoadingWrapper>
+            )}
+            {selectedGraphicOptions.includes(graphicOptions[3]) && (
+                <AutoLoadingWrapper>
+                    {(setLoading) => (
+                        <Plotly
+                            className="w-full max-w-3xl aspect-[4/3]"
+                            editable={false}
+                            data={PRData}
+                            layout={
+                                {
+                                    //width: 820,
+                                    //height: 540,
+                                    autosize: true,
+                                    title: {
+                                        text: 'P-V (PR)',
+                                        font: {
+                                            family: "Rubik, sans-serif",
+                                            size: 20,
+                                            color: "#80f4ff",
+                                        }
+            
+                                    },
+                                    plot_bgcolor: "#1f233d",  // Fondo del área de gráfico (tu primary-900)
+                                    paper_bgcolor: "#1e1b4b", // Fondo del canvas completo
+                                    font: {
+                                        family: "Rubik, sans-serif",
+                                        color: "#cdd6ff",
+                                        size: 12
+                                    },
+                                    margin: customMargin,
+                                    modebar: {orientation: 'h', color: "#80f4ff"},
+                                    xaxis: {
+                                        title: {
+                                            text: 'Vm (m3/mol)',       
+                                            font: {
+                                                color: "#80f4ff"
+                                            }   
+                                        },
+                                        color: "rgba(128, 244, 255, 0.6)", // Color de ticks y números
+                                        showgrid: true,
+                                        gridcolor: "rgba(217, 226, 255, 0.15)",
+                                        zeroline: false
+                                        //tickformat: ".2e", // Notación científica en el eje X con 2 decimales
+                                    },
+                                    yaxis: {
+                                        title: {
+                                        text: "P (Pa)",
+                                        font: {
+                                            color: "#80f4ff"
+                                        }
+                                        },
+                                        color: "rgba(128, 244, 255, 0.6)",
+                                        showgrid: true,
+                                        gridcolor: "rgba(217, 226, 255, 0.15)",
+                                        zeroline: false
+                                    },
+                                    hoverlabel: {
+                                        bgcolor: '#80f4ff',
+                                        font: { color: '#1e1b4b' }
+                                    },
+                                    legend: {
+                                        orientation: "v",
+                                        x: 1.02,
+                                        y: 1,
+                                        bgcolor: "rgba(30,27,75,0.6)",  // Semi-transparente sobre el fondo
+                                        bordercolor: "rgba(128, 244, 255, 0.2)",
+                                        borderwidth: 1,
+                                        font: {
+                                        color: "#cdd6ff"
+                                        }
+                                    },
+                                    showlegend: true
+                                }
                             }
-                        },
-                    ]
-                }
-            />}
-            {selectedGraphicOptions.includes(graphicOptions[2]) && <Plotly
-                className="w-full max-w-3xl aspect-[4/3]"
-                editable={false}
-                data={SRKData}
-                layout={
-                    {
-                        //width: 820,
-                        //height: 540,
-                        autosize: true,
-                        title: {
-                            text: 'P-V (SRK-M)',
-                            font: {
-                                family: "Rubik, sans-serif",
-                                size: 20,
-                                color: "#80f4ff",
+                            modeBarButtonsToAdd={
+                                [
+                                    {
+                                        name: 'color toggler',
+                                        title: "", 
+                                        icon: {
+                                            path: 'M224 512c35.32 0 63.97-28.65 63.97-64H160.03c0 35.35 28.65 64 63.97 64zm215.39-149.71c-19.32-20.76-55.47-51.99-55.47-154.29 0-77.7-54.48-139.9-127.94-155.16V32c0-17.67-14.32-32-31.98-32s-31.98 14.33-31.98 32v20.84C118.56 68.1 64.08 130.3 64.08 208c0 102.3-36.15 133.53-55.47 154.29-6 6.45-8.66 14.16-8.61 21.71.11 16.4 12.98 32 32.1 32h383.8c19.12 0 32-15.6 32.1-32 .05-7.55-2.61-15.27-8.61-21.71z',
+                                            width: 500,
+                                            height: 600
+                                        },
+                                        click: function() {
+                                            console.log("hola k ase")
+                                        }
+                                    },
+                                    {
+                                        name: 'color toggler 2',
+                                        title: "", 
+                                        icon: {
+                                            path: 'M224 512c35.32 0 63.97-28.65 63.97-64H160.03c0 35.35 28.65 64 63.97 64zm215.39-149.71c-19.32-20.76-55.47-51.99-55.47-154.29 0-77.7-54.48-139.9-127.94-155.16V32c0-17.67-14.32-32-31.98-32s-31.98 14.33-31.98 32v20.84C118.56 68.1 64.08 130.3 64.08 208c0 102.3-36.15 133.53-55.47 154.29-6 6.45-8.66 14.16-8.61 21.71.11 16.4 12.98 32 32.1 32h383.8c19.12 0 32-15.6 32.1-32 .05-7.55-2.61-15.27-8.61-21.71z',
+                                            width: 500,
+                                            height: 600
+                                        },
+                                        click: function() {
+                                            console.log("funcion 2")
+                                        }
+                                    },
+                                ]
                             }
-
-
-                        },
-                        plot_bgcolor: "#1f233d",  // Fondo del área de gráfico (tu primary-900)
-                        paper_bgcolor: "#1e1b4b", // Fondo del canvas completo
-                        font: {
-                            family: "Rubik, sans-serif",
-                            color: "#cdd6ff",
-                            size: 12
-                        },
-                        margin: customMargin,
-                        modebar: {orientation: 'h', color: "#80f4ff"},
-                        xaxis: {
-                            title: {
-                                text: 'Vm (m3/mol)',       
-                                font: {
-                                    color: "#80f4ff"
-                                }   
-                            },
-                            color: "rgba(128, 244, 255, 0.6)", // Color de ticks y números
-                            showgrid: true,
-                            gridcolor: "rgba(217, 226, 255, 0.15)",
-                            zeroline: false
-                            //tickformat: ".2e", // Notación científica en el eje X con 2 decimales
-                        },
-                        yaxis: {
-                            title: {
-                              text: "P (Pa)",
-                              font: {
-                                color: "#80f4ff"
-                              }
-                            },
-                            color: "rgba(128, 244, 255, 0.6)",
-                            showgrid: true,
-                            gridcolor: "rgba(217, 226, 255, 0.15)",
-                            zeroline: false
-                        },
-                        hoverlabel: {
-                            bgcolor: '#80f4ff',
-                            font: { color: '#1e1b4b' }
-                        },
-                        legend: {
-                            orientation: "v",
-                            x: 1.02,
-                            y: 1,
-                            bgcolor: "rgba(30,27,75,0.6)",  // Semi-transparente sobre el fondo
-                            bordercolor: "rgba(128, 244, 255, 0.2)",
-                            borderwidth: 1,
-                            font: {
-                              color: "#cdd6ff"
+                            setLoading={setLoading}
+                        />
+                    )}
+                </AutoLoadingWrapper>
+            )}
+            {selectedGraphicOptions.includes(graphicOptions[4]) && (
+                <AutoLoadingWrapper>
+                    {(setLoading) => (
+                        <Plotly
+                            className="w-full max-w-3xl aspect-[4/3]"
+                            editable={false}
+                            data={GIData}
+                            layout={
+                                {
+                                    //width: 820,
+                                    //height: 540,
+                                    autosize: true,
+                                    title: {
+                                        text: 'P-V (GI)',
+                                        font: {
+                                            family: "Rubik, sans-serif",
+                                            size: 20,
+                                            color: "#80f4ff",
+                                        }
+            
+                                    },
+                                    plot_bgcolor: "#1f233d",  // Fondo del área de gráfico (tu primary-900)
+                                    paper_bgcolor: "#1e1b4b", // Fondo del canvas completo
+                                    font: {
+                                        family: "Rubik, sans-serif",
+                                        color: "#cdd6ff",
+                                        size: 12
+                                    },
+                                    margin: customMargin,
+                                    modebar: {orientation: 'h', color: "#80f4ff"},
+                                    xaxis: {
+                                        title: {
+                                            text: 'Vm (m3/mol)',       
+                                            font: {
+                                                color: "#80f4ff"
+                                            }   
+                                        },
+                                        color: "rgba(128, 244, 255, 0.6)", // Color de ticks y números
+                                        showgrid: true,
+                                        gridcolor: "rgba(217, 226, 255, 0.15)",
+                                        zeroline: false
+                                        //tickformat: ".2e", // Notación científica en el eje X con 2 decimales
+                                    },
+                                    yaxis: {
+                                        title: {
+                                        text: "P (Pa)",
+                                        font: {
+                                            color: "#80f4ff"
+                                        }
+                                        },
+                                        color: "rgba(128, 244, 255, 0.6)",
+                                        showgrid: true,
+                                        gridcolor: "rgba(217, 226, 255, 0.15)",
+                                        zeroline: false
+                                    },
+                                    hoverlabel: {
+                                        bgcolor: '#80f4ff',
+                                        font: { color: '#1e1b4b' }
+                                    },
+                                    legend: {
+                                        orientation: "v",
+                                        x: 1.02,
+                                        y: 1,
+                                        bgcolor: "rgba(30,27,75,0.6)",  // Semi-transparente sobre el fondo
+                                        bordercolor: "rgba(128, 244, 255, 0.2)",
+                                        borderwidth: 1,
+                                        font: {
+                                        color: "#cdd6ff"
+                                        }
+                                    },
+                                    showlegend: true
+                                }
                             }
-                        },
-                        showlegend: true
-                    }
-                }
-                modeBarButtonsToAdd={
-                    [
-                        {
-                            name: 'color toggler',
-                            title: "", 
-                            icon: {
-                                path: 'M224 512c35.32 0 63.97-28.65 63.97-64H160.03c0 35.35 28.65 64 63.97 64zm215.39-149.71c-19.32-20.76-55.47-51.99-55.47-154.29 0-77.7-54.48-139.9-127.94-155.16V32c0-17.67-14.32-32-31.98-32s-31.98 14.33-31.98 32v20.84C118.56 68.1 64.08 130.3 64.08 208c0 102.3-36.15 133.53-55.47 154.29-6 6.45-8.66 14.16-8.61 21.71.11 16.4 12.98 32 32.1 32h383.8c19.12 0 32-15.6 32.1-32 .05-7.55-2.61-15.27-8.61-21.71z',
-                                width: 500,
-                                height: 600
-                            },
-                            click: function() {
-                                console.log("hola k ase")
+                            modeBarButtonsToAdd={
+                                [
+                                    {
+                                        name: 'color toggler',
+                                        title: "", 
+                                        icon: {
+                                            path: 'M224 512c35.32 0 63.97-28.65 63.97-64H160.03c0 35.35 28.65 64 63.97 64zm215.39-149.71c-19.32-20.76-55.47-51.99-55.47-154.29 0-77.7-54.48-139.9-127.94-155.16V32c0-17.67-14.32-32-31.98-32s-31.98 14.33-31.98 32v20.84C118.56 68.1 64.08 130.3 64.08 208c0 102.3-36.15 133.53-55.47 154.29-6 6.45-8.66 14.16-8.61 21.71.11 16.4 12.98 32 32.1 32h383.8c19.12 0 32-15.6 32.1-32 .05-7.55-2.61-15.27-8.61-21.71z',
+                                            width: 500,
+                                            height: 600
+                                        },
+                                        click: function() {
+                                            console.log("hola k ase")
+                                        }
+                                    },
+                                    {
+                                        name: 'color toggler 2',
+                                        title: "", 
+                                        icon: {
+                                            path: 'M224 512c35.32 0 63.97-28.65 63.97-64H160.03c0 35.35 28.65 64 63.97 64zm215.39-149.71c-19.32-20.76-55.47-51.99-55.47-154.29 0-77.7-54.48-139.9-127.94-155.16V32c0-17.67-14.32-32-31.98-32s-31.98 14.33-31.98 32v20.84C118.56 68.1 64.08 130.3 64.08 208c0 102.3-36.15 133.53-55.47 154.29-6 6.45-8.66 14.16-8.61 21.71.11 16.4 12.98 32 32.1 32h383.8c19.12 0 32-15.6 32.1-32 .05-7.55-2.61-15.27-8.61-21.71z',
+                                            width: 500,
+                                            height: 600
+                                        },
+                                        click: function() {
+                                            console.log("funcion 2")
+                                        }
+                                    },
+                                ]
                             }
-                        },
-                        {
-                            name: 'color toggler 2',
-                            title: "", 
-                            icon: {
-                                path: 'M224 512c35.32 0 63.97-28.65 63.97-64H160.03c0 35.35 28.65 64 63.97 64zm215.39-149.71c-19.32-20.76-55.47-51.99-55.47-154.29 0-77.7-54.48-139.9-127.94-155.16V32c0-17.67-14.32-32-31.98-32s-31.98 14.33-31.98 32v20.84C118.56 68.1 64.08 130.3 64.08 208c0 102.3-36.15 133.53-55.47 154.29-6 6.45-8.66 14.16-8.61 21.71.11 16.4 12.98 32 32.1 32h383.8c19.12 0 32-15.6 32.1-32 .05-7.55-2.61-15.27-8.61-21.71z',
-                                width: 500,
-                                height: 600
-                            },
-                            click: function() {
-                                console.log("funcion 2")
-                            }
-                        },
-                    ]
-                }
-            />}
-            {selectedGraphicOptions.includes(graphicOptions[3]) && <Plotly
-                className="w-full max-w-3xl aspect-[4/3]"
-                editable={false}
-                data={PRData}
-                layout={
-                    {
-                        //width: 820,
-                        //height: 540,
-                        autosize: true,
-                        title: {
-                            text: 'P-V (PR)',
-                            font: {
-                                family: "Rubik, sans-serif",
-                                size: 20,
-                                color: "#80f4ff",
-                            }
-
-                        },
-                        plot_bgcolor: "#1f233d",  // Fondo del área de gráfico (tu primary-900)
-                        paper_bgcolor: "#1e1b4b", // Fondo del canvas completo
-                        font: {
-                            family: "Rubik, sans-serif",
-                            color: "#cdd6ff",
-                            size: 12
-                        },
-                        margin: customMargin,
-                        modebar: {orientation: 'h', color: "#80f4ff"},
-                        xaxis: {
-                            title: {
-                                text: 'Vm (m3/mol)',       
-                                font: {
-                                    color: "#80f4ff"
-                                }   
-                            },
-                            color: "rgba(128, 244, 255, 0.6)", // Color de ticks y números
-                            showgrid: true,
-                            gridcolor: "rgba(217, 226, 255, 0.15)",
-                            zeroline: false
-                            //tickformat: ".2e", // Notación científica en el eje X con 2 decimales
-                        },
-                        yaxis: {
-                            title: {
-                              text: "P (Pa)",
-                              font: {
-                                color: "#80f4ff"
-                              }
-                            },
-                            color: "rgba(128, 244, 255, 0.6)",
-                            showgrid: true,
-                            gridcolor: "rgba(217, 226, 255, 0.15)",
-                            zeroline: false
-                        },
-                        hoverlabel: {
-                            bgcolor: '#80f4ff',
-                            font: { color: '#1e1b4b' }
-                        },
-                        legend: {
-                            orientation: "v",
-                            x: 1.02,
-                            y: 1,
-                            bgcolor: "rgba(30,27,75,0.6)",  // Semi-transparente sobre el fondo
-                            bordercolor: "rgba(128, 244, 255, 0.2)",
-                            borderwidth: 1,
-                            font: {
-                              color: "#cdd6ff"
-                            }
-                        },
-                        showlegend: true
-                    }
-                }
-                modeBarButtonsToAdd={
-                    [
-                        {
-                            name: 'color toggler',
-                            title: "", 
-                            icon: {
-                                path: 'M224 512c35.32 0 63.97-28.65 63.97-64H160.03c0 35.35 28.65 64 63.97 64zm215.39-149.71c-19.32-20.76-55.47-51.99-55.47-154.29 0-77.7-54.48-139.9-127.94-155.16V32c0-17.67-14.32-32-31.98-32s-31.98 14.33-31.98 32v20.84C118.56 68.1 64.08 130.3 64.08 208c0 102.3-36.15 133.53-55.47 154.29-6 6.45-8.66 14.16-8.61 21.71.11 16.4 12.98 32 32.1 32h383.8c19.12 0 32-15.6 32.1-32 .05-7.55-2.61-15.27-8.61-21.71z',
-                                width: 500,
-                                height: 600
-                            },
-                            click: function() {
-                                console.log("hola k ase")
-                            }
-                        },
-                        {
-                            name: 'color toggler 2',
-                            title: "", 
-                            icon: {
-                                path: 'M224 512c35.32 0 63.97-28.65 63.97-64H160.03c0 35.35 28.65 64 63.97 64zm215.39-149.71c-19.32-20.76-55.47-51.99-55.47-154.29 0-77.7-54.48-139.9-127.94-155.16V32c0-17.67-14.32-32-31.98-32s-31.98 14.33-31.98 32v20.84C118.56 68.1 64.08 130.3 64.08 208c0 102.3-36.15 133.53-55.47 154.29-6 6.45-8.66 14.16-8.61 21.71.11 16.4 12.98 32 32.1 32h383.8c19.12 0 32-15.6 32.1-32 .05-7.55-2.61-15.27-8.61-21.71z',
-                                width: 500,
-                                height: 600
-                            },
-                            click: function() {
-                                console.log("funcion 2")
-                            }
-                        },
-                    ]
-                }
-            />} */}
+                            setLoading={setLoading}
+                        />
+                    )}
+                </AutoLoadingWrapper>
+            )}
         </div>
     </div>
   )

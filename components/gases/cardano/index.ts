@@ -1,9 +1,9 @@
 const cbrt = (x: number) => Math.sign(x) * Math.cbrt(Math.abs(x));
 const sqrt = (x: number) => Math.sqrt(x);
 
-export function croot(coef: number[]/* , P?: number, T?: number */): number | string {
+export function croot(coef: number[]): number  {
     if (coef.length !== 4) {
-        return "Error: Debe haber exactamente 4 coeficientes."; // Error si no hay 4 coeficientes
+        throw new Error("Se esperan 4 coeficientes") // Error si no hay 4 coeficientes
     }
 
     // Asignar valores a los coeficientes
@@ -26,14 +26,10 @@ export function croot(coef: number[]/* , P?: number, T?: number */): number | st
 
     //console.log(`delta: ${delta} a P=${P} y T=${T} threshold: ${threshold} p=${p}`)
 
-
     /* ---------- Δ  > 0  (una raíz real) --------------------------- */
     if (delta > threshold) {
         //console.log("caso Δ  > threshold, una raiz real")
-        return (
-            cbrt((-q + sqrt(delta)) / 2) + 
-            cbrt((-q - sqrt(delta)) / 2) + shift
-        )
+        return cbrt((-q + sqrt(delta)) / 2) + cbrt((-q - sqrt(delta)) / 2) + shift
     }
 
     /* ---------- Δ  < 0  (tres raíces reales) ---------------------- */
@@ -67,16 +63,5 @@ export function croot(coef: number[]/* , P?: number, T?: number */): number | st
         
         return Math.max(zSimple, zDouble) + shift;
 
-
-/*         // Forzar tratamiento como 3 raíces reales si hay dudas numéricas
-        const arg = (3 * q) / (2 * p) * Math.sqrt(-3 / p);
-        const theta = Math.acos(Math.max(-1, Math.min(1, arg)));
-        const r = 2 * Math.sqrt(-p / 3);
-
-        const y0 = r * Math.cos(theta / 3);
-        const y1 = r * Math.cos((theta + 2 * Math.PI) / 3);
-        const y2 = r * Math.cos((theta + 4 * Math.PI) / 3);
-
-        return Math.max(y0, y1, y2) + shift;  // siempre devuelve fase vapor */
     } 
 }
