@@ -1,4 +1,4 @@
-import { ElementData } from "@/types/eos";
+import { ElementData, Volumes } from "@/types/eos";
 
 export type Pressures = number[];
 
@@ -14,6 +14,18 @@ export function pressureSItopressureBar(pressureSI: number) {
 
 export function calculateVmPointsGI(pressures: Pressures, T: number) {
     return pressures.map((P) => (RSI * T / P));
+}
+export function calculatePPointsGI(volumes: Volumes, T: number) {
+    return volumes.map((V) => (RSI * T / V));
+}
+
+export function sanitizeVolumes(vols: number[], b: number, eps = 1e-12): number[] {
+    const Vmin = b * (1 + eps);
+    const uniq = Array.from(new Set(vols)); // quita duplicados exactos
+    return uniq
+      .filter(v => Number.isFinite(v))
+      .filter(v => v > Vmin)               // evita V<=b
+      .sort((a,b) => a - b);
 }
 
 export const co2Data: ElementData = {

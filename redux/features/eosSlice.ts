@@ -1,6 +1,11 @@
 import { SystemState } from "@/types/eos";
 import { createSlice } from "@reduxjs/toolkit";
 
+const volumes: number[] = [];
+for (let v = 1.7e-5; v <= 2.32e-4 + 1e-12; v += 1e-6) {
+  volumes.push(Number(v.toExponential(6))); // redondea a 6 cifras
+}
+
 
 export const initialState: SystemState = {
     gases: [
@@ -61,6 +66,17 @@ export const initialState: SystemState = {
             5e5, 10e5, 15e5, 20e5, 25e5, 30e5, 35e5, 40e5, 45e5, 50e5, 55e5, 60e5, 65e5, 70e5, 75e5, 80e5, 85e5, 90e5
         ],
         increment: 1e5
+    },
+    volumes: {
+        data: /* [
+            3.20050097e-05, 3.68130904e-05, 4.23434842e-05, 4.87047036e-05,
+            5.60215626e-05, 6.44376260e-05, 7.41180263e-05, 8.52527034e-05,
+            9.80601319e-05, 1.12791608e-04, 1.29736178e-04, 1.49226315e-04,
+            1.71644435e-04, 1.97430407e-04, 2.27090180e-04, 2.61205711e-04,
+            3.00446385e-04, 3.45582145e-04, 3.97498606e-04, 4.57214425e-04
+        ], */
+        volumes,
+        increment: 1e-5
     }
 }
 
@@ -151,9 +167,36 @@ export const eosSlice = createSlice({
             state.pressures.increment =  currentIncrement - 5e5
         },
 
+
+        // Volumes
+        addVolume: (state, action) => {
+            const volume = action.payload
+            state.volumes.data.push(volume);
+        },
+        editVolumeByIndex: (state, action) => {
+            const {volume, volumeIndex} = action.payload
+            if (state.volumes.data[volumeIndex]) { // Validamos que el índice sea válido
+                state.volumes.data[volumeIndex] = parseFloat(volume);
+            }
+        },
+        deleteVolumeByIndex: (state, action) => {
+            const { volumeIndex } = action.payload;
+            if (state.volumes.data[volumeIndex]) { // Validamos que el índice sea válido
+                state.volumes.data.splice(volumeIndex, 1);
+            }
+        },
+        plusIncrementVolume: (state) => {
+            const currentIncrement = state.volumes.increment
+            state.volumes.increment =  currentIncrement + 1e-5
+        },
+        minusIncrementVolume: (state) => {
+            const currentIncrement = state.volumes.increment
+            state.volumes.increment =  currentIncrement - 1e-5
+        },
+
         // All
         deleteAll: (state, action) => {
-            const dataName: 'pressures' | 'temperatures' = action.payload;
+            const dataName: 'pressures' | 'temperatures' | 'volumes' = action.payload;
             state[dataName].data = [];
         },
 
@@ -180,6 +223,12 @@ export const {
     deletePressureByIndex,
     plusIncrementPressure,
     minusIncrementPressure,
+    //Volumes
+    addVolume,
+    editVolumeByIndex,
+    deleteVolumeByIndex,
+    plusIncrementVolume,
+    minusIncrementVolume,
 
     deleteAll
 } = eosSlice.actions

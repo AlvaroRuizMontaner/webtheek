@@ -15,9 +15,9 @@
 //     b = 0.08664 · R · Tc / Pc
 //------------------------------------------------------
 
-import { SystemState } from "@/types/eos";
+import { SystemState, Volumes } from "@/types/eos";
 import { croot } from "../cardano";
-import { Pressures, RSI } from "../constantes";
+import { Pressures, RSI, sanitizeVolumes } from "../constantes";
 
 /** Herramientas específicas RK */
 export const fRK = {
@@ -86,4 +86,26 @@ export function calculateVmPointsRK(pressures: Pressures, T: number, systemState
   calculatedPoints = calculatedPoints.filter((Vm) => Vm > b_mix * (1 + 1e-12)) // Se descartan los casos donde Vm sea menor que b_mix
 
   return calculatedPoints
+}
+
+//---------------------------------------------Isotherms---------------------------------------------
+
+
+function calculatePressure(volumes: Volumes, T: number, a_mix: number, b_mix: number) {
+  return volumes.map((V) => (
+    (RSI*T)/(V-b_mix) - a_mix/(T**0.5 * V * (V + b_mix))
+  ))
+}
+
+
+export function calculatePressurePointsRK(volumes: Volumes, T: number, systemState: SystemState): Pressures {
+
+  const {aArray, bArray} = arrayParamsRK(systemState.gases)
+  const {a_mix, b_mix} = mixParamsRK(aArray, bArray, systemState)
+
+  const filteredVolumes = sanitizeVolumes(volumes, b_mix)
+
+  const pressures = calculatePressure(filteredVolumes, T, a_mix, b_mix);
+
+  return pressures
 }

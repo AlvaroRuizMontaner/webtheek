@@ -1,21 +1,21 @@
 const cbrt = (x: number) => Math.sign(x) * Math.cbrt(Math.abs(x));
 const sqrt = (x: number) => Math.sqrt(x);
 
-export function croot(coef: number[]): number  {
+export function croot(coef: number[]): number[]  {
     if (coef.length !== 4) {
         throw new Error("Se esperan 4 coeficientes") // Error si no hay 4 coeficientes
     }
 
     // Asignar valores a los coeficientes
-    const [a, b, c, d] = coef;
+    const [A, B, C, D] = coef;
 
-    if (a === 0) throw new Error("El coeficiente cúbico (a) no puede ser 0.");
+    if (A === 0) throw new Error("El coeficiente cúbico (a) no puede ser 0.");
 
     // Calcular las variables intermedias p, q y delta
-    const p = (3 * a * c - b ** 2) / (3 * a ** 2);
-    const q = (2 * b ** 3 - 9 * a * b * c + 27 * a ** 2 * d) / (27 * a ** 3);
+    const p = (3 * A * C - B ** 2) / (3 * A ** 2);
+    const q = (2 * B ** 3 - 9 * A * B * C + 27 * A ** 2 * D) / (27 * A ** 3);
     const delta = q ** 2 + (4 * p ** 3) / 27;
-    const shift = -b / (3 * a)
+    const shift = -B / (3 * A)
 
     //const eps = 1e-25;  // tolerancia absoluta, se evitan situaciones limite que pueden conducir a errores de redondeo o devoluciones de NaN
 
@@ -26,10 +26,11 @@ export function croot(coef: number[]): number  {
 
     //console.log(`delta: ${delta} a P=${P} y T=${T} threshold: ${threshold} p=${p}`)
 
+
     /* ---------- Δ  > 0  (una raíz real) --------------------------- */
     if (delta > threshold) {
         //console.log("caso Δ  > threshold, una raiz real")
-        return cbrt((-q + sqrt(delta)) / 2) + cbrt((-q - sqrt(delta)) / 2) + shift
+        return [cbrt((-q + sqrt(delta)) / 2) + cbrt((-q - sqrt(delta)) / 2) + shift]
     }
 
     /* ---------- Δ  < 0  (tres raíces reales) ---------------------- */
@@ -42,26 +43,26 @@ export function croot(coef: number[]): number  {
         const theta = Math.acos(Math.max(-1, Math.min(1, arg)));  // clamp de robustez que evita que el acos dé NaN si arg es mayor que 1 o menos que -1 debido a redondeo
         const r = 2 * sqrt(-p / 3); // p es negativo en el caso de discriminante negativo, por eso es posible hacer la raíz
 
-        const y0 = r * Math.cos(theta / 3);               // k = 0
-        const y1 = r * Math.cos((theta + 2 * Math.PI) / 3); // k = 1
-        const y2 = r * Math.cos((theta + 4 * Math.PI) / 3); // k = 2
+        const y0 = r * Math.cos(theta / 3) + shift;               // k = 0
+        const y1 = r * Math.cos((theta + 2 * Math.PI) / 3) + shift; // k = 1
+        const y2 = r * Math.cos((theta + 4 * Math.PI) / 3) + shift; // k = 2
 
-        //return [y0, y1, y2].sort((a, b) => a - b); // Para devolver las 3 raices si fuera el caso
-        return Math.max(y0, y1, y2) + shift;
+        return [y0, y1, y2].sort((a, b) => a - b); // Para devolver las 3 raices si fuera el caso
+        //return Math.max(y0, y1, y2);
 
     /* ---------- |Δ| ≤ threshold  (raíces múltiples) --------------------- */
     } else {
         //console.log("caso |Δ| ≤ threshold ,raíces múltiples")
         if (Math.abs(p) < threshold && Math.abs(q) < threshold) {  // Originalmente es el caso p === 0 && q === 0 pero adaptado al eps
-            return shift;                 // raíz triple
+            return [shift];                 // raíz triple
         }
 
-        const zDouble = (-3 * q) / (2 * p); // Debería ser la mayor, apreciable a simple vista por pura algebra
-        const zSimple =  (3 * q) / p;
+        const zDouble = (-3 * q) / (2 * p) + shift; // Debería ser la mayor, apreciable a simple vista por pura algebra
+        const zSimple =  (3 * q) / p + shift;
 
-        //return [zDouble, zDouble, zSimple]; // Para devolver las 3 raices si fuera el caso
+        return [zDouble, zDouble, zSimple]; // Para devolver las 3 raices si fuera el caso
         
-        return Math.max(zSimple, zDouble) + shift;
+        //return Math.max(zSimple, zDouble);
 
     } 
 }

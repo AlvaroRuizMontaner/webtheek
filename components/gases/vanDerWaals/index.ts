@@ -1,9 +1,11 @@
 // Cúbica de van der Waals
 // P*Vm3 − (Pb+RT)*Vm2 + (a+RTb)*Vm − ab = 0
 
-import { SystemState } from "@/types/eos";
+import { Branch, SystemState, Volumes } from "@/types/eos";
 import { croot } from "../cardano";
-import { Pressures, pressureSItopressureBar, RBL, RSI } from "../constantes";
+import { Pressures, pressureSItopressureBar, RBL, RSI, sanitizeVolumes } from "../constantes";
+
+type RootsAndPressuresList = { P: number; roots: number[] };
 
 /* export const fVDW = {
     calc_a(Tc: number, Pc: number) {
@@ -26,6 +28,51 @@ import { Pressures, pressureSItopressureBar, RBL, RSI } from "../constantes";
 //const B = -(P * b + R * T);                   // Pa·m³·mol⁻¹
 //const C =  a + R * T * b;                     // Pa·m⁶·mol⁻²
 //const D = -a * b;                             // Pa·m⁶·mol⁻²
+
+
+function solveRootsByPressure(
+  pressures: number[],
+  T: number,
+  a_mix: number,
+  b_mix: number
+): RootsAndPressuresList[] {
+  return pressures.map(P => {
+    const coef = [ P, -(P*b_mix + RSI*T), a_mix, -a_mix*b_mix ];
+    const roots = croot(coef);               // [1] o [3] raíces (en V), sin filtrar
+    return { P, roots };
+  });
+}
+
+function filterValidVolumes(rootsAndPressuresList: RootsAndPressuresList[], b_mix: number): RootsAndPressuresList[] {
+  const eps = 1e-12;
+  return rootsAndPressuresList.filter(({ roots }) => {
+    const currentVm = roots[0]
+    return Number.isFinite(currentVm) && currentVm > b_mix * (1 + eps)
+  });
+}
+
+
+function calculateCurvesVL( T: number, rootsAndPressuresList: RootsAndPressuresList[], b_mix: number) {
+  const liquid: Branch = { P: [], V: [] };
+  const vapor : Branch = { P: [], V: [] };
+
+  const Vc = 3 * b_mix;
+
+  rootsAndPressuresList.forEach(({P, roots}) => {
+    if (roots.length === 3) {
+      liquid.P.push(P); liquid.V.push(roots[0]);     // menor = líquido
+      vapor.P.push(P); vapor.V.push(roots[2]);     // mayor = vapor
+    } else if (roots.length === 1) {
+      const V = roots[0];
+      // clasifica fuera de la zona de 3 raíces
+      if (V < Vc) { liquid.P.push(P); liquid.V.push(V); } // Se descartan los casos donde Vm sea menor que b_mix
+      else { vapor.P.push(P); vapor.V.push(V); }
+    }
+  })
+
+  return { liquid, vapor };
+}
+
 
 function arrayParamsVDWBarL(gases: SystemState["gases"]) {
   const aArray = gases.map(gas => {
@@ -74,25 +121,16 @@ export function calculateVmPoints(pressures: Pressures, T: number, systemState: 
   const {aArray, bArray} = arrayParamsVDW(systemState.gases)
   const {a_mix, b_mix} = mixParamsVDW(aArray, bArray, systemState)
 
-  let calculatedPoints = pressures.map((P) => {
+  const rootsAndPressures = solveRootsByPressure(pressures, T, a_mix, b_mix);
 
-    const coef = [
-      P,
-      -(P*b_mix + RSI*T),
-      a_mix,
-      -a_mix*b_mix
-    ];
-    const Vm = croot(coef)       // m³·mol⁻¹
-    //console.log(`Caso ${i+1}: Vm = ${Vm} m3/mol, P = ${P}, T = ${T}`);
-    return Vm
-  });
+  const validRoots = filterValidVolumes(rootsAndPressures, b_mix);
+  
+  const curvePoints = calculateCurvesVL(T, validRoots, b_mix)
+  
+  //console.table(validRoots)
+  //console.log(`T: ${T}, a_mix: ${a_mix}, b_mix: ${b_mix}`)
 
-  console.table(calculatedPoints)
-  console.log(`T: ${T}, a_mix: ${a_mix}, b_mix: ${b_mix}`)
-
-  calculatedPoints = calculatedPoints.filter((Vm) => Vm > b_mix * (1 + 1e-12)) // Se descartan los casos donde Vm sea menor que b_mix
-
-  return calculatedPoints
+  return curvePoints
 }
 export function calculateVmPointsBarL(pressures: Pressures, T: number, systemState: SystemState) {
 
@@ -116,4 +154,24 @@ export function calculateVmPointsBarL(pressures: Pressures, T: number, systemSta
   return calculatedPoints
 }
 
+//---------------------------------------------Isotherms---------------------------------------------
 
+
+function calculatePressure(volumes: Volumes, T: number, a_mix: number, b_mix: number) {
+  return volumes.map((V) => (
+    (RSI*T)/(V-b_mix) - a_mix/V**2
+  ))
+}
+
+
+export function calculatePressurePoints(volumes: Volumes, T: number, systemState: SystemState): Pressures {
+
+  const {aArray, bArray} = arrayParamsVDW(systemState.gases)
+  const {a_mix, b_mix} = mixParamsVDW(aArray, bArray, systemState)
+
+  const filteredVolumes = sanitizeVolumes(volumes, b_mix)
+
+  const pressures = calculatePressure(filteredVolumes, T, a_mix, b_mix);
+
+  return pressures
+}
