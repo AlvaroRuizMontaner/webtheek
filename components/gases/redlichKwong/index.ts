@@ -15,7 +15,7 @@
 //     b = 0.08664 · R · Tc / Pc
 //------------------------------------------------------
 
-import { SystemState, Volumes } from "@/types/eos";
+import { PressionAndVolumeData, SystemState, Volumes } from "@/types/eos";
 import { croot } from "../cardano";
 import { Pressures, RSI, sanitizeVolumes } from "../constantes";
 
@@ -98,7 +98,7 @@ function calculatePressure(volumes: Volumes, T: number, a_mix: number, b_mix: nu
 }
 
 
-export function calculatePressurePointsRK(volumes: Volumes, T: number, systemState: SystemState): Pressures {
+export function calculatePressurePointsRK(volumes: Volumes, T: number, systemState: SystemState): PressionAndVolumeData {
 
   const {aArray, bArray} = arrayParamsRK(systemState.gases)
   const {a_mix, b_mix} = mixParamsRK(aArray, bArray, systemState)
@@ -107,5 +107,5 @@ export function calculatePressurePointsRK(volumes: Volumes, T: number, systemSta
 
   const pressures = calculatePressure(filteredVolumes, T, a_mix, b_mix);
 
-  return pressures
+  return {pressureData: pressures, volumeData: filteredVolumes}
 }

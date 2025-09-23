@@ -63,10 +63,12 @@ export default function Isotherms({systemState, customMargin, graphicOptions, li
                     currentColor = lineColors[indx-lenLines*counter]
                     counter++
                 }
+
+                const {pressureData, volumeData} = calcFunction(volumes.data, T, newSystemState)
     
                 const calculations: Partial<PlotData> = {
-                    x: volumes.data,
-                    y: calcFunction(volumes.data, T, newSystemState),
+                    x: volumeData,
+                    y: pressureData,
                     type: 'scatter',
                     mode: 'lines',
                     marker: {color: currentColor, width: 0.5,},
@@ -582,7 +584,8 @@ export default function Isotherms({systemState, customMargin, graphicOptions, li
                                         font: {
                                             color: "#80f4ff"
                                         }
-                                        },
+                                    },
+                                        /* type: "log", */
                                         color: "rgba(128, 244, 255, 0.6)",
                                         showgrid: true,
                                         gridcolor: "rgba(217, 226, 255, 0.15)",

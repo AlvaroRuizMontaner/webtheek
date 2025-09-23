@@ -17,7 +17,7 @@
 
 import { Pressures, RSI, sanitizeVolumes } from "../constantes";
 import { croot } from "../cardano";
-import { SystemState, Volumes } from "@/types/eos";
+import { PressionAndVolumeData, SystemState, Volumes } from "@/types/eos";
 
 /** utilidades SRK */
 export const fSRK = {
@@ -115,7 +115,7 @@ function calculatePressure(volumes: Volumes, T: number, a_mix: number, b_mix: nu
 }
 
 
-export function calculatePressurePointsSRK(volumes: Volumes, T: number, systemState: SystemState): Pressures {
+export function calculatePressurePointsSRK(volumes: Volumes, T: number, systemState: SystemState): PressionAndVolumeData {
 
   const {aArray, bArray} = arrayParamsSRK(systemState.gases, T)
   const {a_mix, b_mix} = mixParamsSRK(aArray, bArray, systemState)
@@ -124,5 +124,5 @@ export function calculatePressurePointsSRK(volumes: Volumes, T: number, systemSt
 
   const pressures = calculatePressure(filteredVolumes, T, a_mix, b_mix);
 
-  return pressures
+  return {pressureData: pressures, volumeData: filteredVolumes}
 }

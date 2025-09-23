@@ -60,7 +60,7 @@ export function croot(coef: number[]): number[]  {
         const zDouble = (-3 * q) / (2 * p) + shift; // Debería ser la mayor, apreciable a simple vista por pura algebra
         const zSimple =  (3 * q) / p + shift;
 
-        return [zDouble, zDouble, zSimple]; // Para devolver las 3 raices si fuera el caso
+        return [zDouble, zDouble, zSimple].sort((a,b) => a - b); // Para devolver las 3 raices si fuera el caso
         
         //return Math.max(zSimple, zDouble);
 

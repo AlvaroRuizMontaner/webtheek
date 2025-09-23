@@ -16,7 +16,10 @@ export function calculateVmPointsGI(pressures: Pressures, T: number) {
     return pressures.map((P) => (RSI * T / P));
 }
 export function calculatePPointsGI(volumes: Volumes, T: number) {
-    return volumes.map((V) => (RSI * T / V));
+    const volumeData = [...volumes].sort((a,b) => a - b);
+    const pressureData = volumeData.map((V) => (RSI * T / V));
+
+    return {pressureData, volumeData}
 }
 
 export function sanitizeVolumes(vols: number[], b: number, eps = 1e-12): number[] {

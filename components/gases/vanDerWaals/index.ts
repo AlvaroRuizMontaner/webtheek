@@ -1,7 +1,7 @@
 // Cúbica de van der Waals
 // P*Vm3 − (Pb+RT)*Vm2 + (a+RTb)*Vm − ab = 0
 
-import { Branch, SystemState, Volumes } from "@/types/eos";
+import { Branch, PressionAndVolumeData, SystemState, Volumes } from "@/types/eos";
 import { croot } from "../cardano";
 import { Pressures, pressureSItopressureBar, RBL, RSI, sanitizeVolumes } from "../constantes";
 
@@ -64,9 +64,17 @@ function calculateCurvesVL( T: number, rootsAndPressuresList: RootsAndPressuresL
       vapor.P.push(P); vapor.V.push(roots[2]);     // mayor = vapor
     } else if (roots.length === 1) {
       const V = roots[0];
-      // clasifica fuera de la zona de 3 raíces
-      if (V < Vc) { liquid.P.push(P); liquid.V.push(V); } // Se descartan los casos donde Vm sea menor que b_mix
-      else { vapor.P.push(P); vapor.V.push(V); }
+
+      // solo se añade si pasa el filtro físico
+      if (V > b_mix) {
+        if (V < Vc) {
+          liquid.P.push(P);
+          liquid.V.push(V);
+        } else {
+          vapor.P.push(P);
+          vapor.V.push(V);
+        }
+      }
     }
   })
 
@@ -130,6 +138,8 @@ export function calculateVmPoints(pressures: Pressures, T: number, systemState: 
   //console.table(validRoots)
   //console.log(`T: ${T}, a_mix: ${a_mix}, b_mix: ${b_mix}`)
 
+  console.log(`T: ${T}, ${validRoots[0].roots}`)
+
   return curvePoints
 }
 export function calculateVmPointsBarL(pressures: Pressures, T: number, systemState: SystemState) {
@@ -164,14 +174,14 @@ function calculatePressure(volumes: Volumes, T: number, a_mix: number, b_mix: nu
 }
 
 
-export function calculatePressurePoints(volumes: Volumes, T: number, systemState: SystemState): Pressures {
+export function calculatePressurePoints(volumes: Volumes, T: number, systemState: SystemState): PressionAndVolumeData {
 
   const {aArray, bArray} = arrayParamsVDW(systemState.gases)
   const {a_mix, b_mix} = mixParamsVDW(aArray, bArray, systemState)
 
   const filteredVolumes = sanitizeVolumes(volumes, b_mix)
 
-  const pressures = calculatePressure(filteredVolumes, T, a_mix, b_mix);
+  const pressureData = calculatePressure(filteredVolumes, T, a_mix, b_mix);
 
-  return pressures
+  return {pressureData, volumeData: filteredVolumes}
 }

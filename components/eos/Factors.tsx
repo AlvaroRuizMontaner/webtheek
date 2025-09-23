@@ -25,6 +25,7 @@ type FactorsProps = {
     lineColors: string[]
 };
 
+
 export default function Factors({selectedZMode, systemState, customMargin, graphicOptions, lineWidth, lineColors}: FactorsProps) {
 
     const [selectedGraphicOptions, setSelectedGraphicOptions] = useState<string[]>([])
@@ -65,15 +66,58 @@ export default function Factors({selectedZMode, systemState, customMargin, graph
                     counter++
                 }
 
-                const pressureValues = calcFunction(volumes.data, T, newSystemState)
-                const zValues = pressureValues.map((P, index) => {
-                    const V = volumes.data[index]
+                const {pressureData, volumeData} = calcFunction(volumes.data, T, newSystemState)
+                const zValues = pressureData.map((P, index) => {
+                    const V = volumeData[index]
 
                     return P*V/(RSI * T)
                 })
     
                 const calculations: Partial<PlotData> = {
-                    x: mode==="Z-V" ? volumes.data : pressureValues,
+                    x: mode==="Z-V" ? volumeData : pressureData,
+                    y: zValues,
+                    type: 'scatter',
+                    mode: 'lines',
+                    marker: {color: currentColor, width: 0.5,},
+                    name: T.toString(),
+                    line: {
+                        width: lineWidth, // Grosor de la línea
+                        color: currentColor // Color de la línea
+                    },
+                }
+    
+                return calculations
+            })
+        }
+        function calculateZLinesGI(newSystemState: SystemState, calcFunction: IsothermCalculationFunction, mode: ZModes="Z-V") {
+            const {temperatures, volumes} = newSystemState
+    
+            let counter = 0
+            
+    
+            return temperatures.data.map((T, indx) => {
+    
+                let currentColor: string | undefined = undefined
+                const lenLines = lineColors.length
+                const lenData = newSystemState.temperatures.data.length
+    
+                if(indx < lenLines*(counter+1)) {
+                    if (lenData < 15) {
+                        currentColor
+                    } else {
+                        currentColor = lineColors[indx-lenLines*counter]
+                    }
+                } else {
+                    // La primera vez que corre este bloque es para indx = len por tanto:
+                    currentColor = lineColors[indx-lenLines*counter]
+                    counter++
+                }
+
+                const {pressureData, volumeData} = calcFunction(volumes.data, T, newSystemState)
+                const zValues = Array(pressureData.length).fill(1)
+    
+                const calculations: Partial<PlotData> = {
+                    x: mode==="Z-V" ? volumeData : pressureData,
                     y: zValues,
                     type: 'scatter',
                     mode: 'lines',
@@ -111,8 +155,9 @@ export default function Factors({selectedZMode, systemState, customMargin, graph
     
     
         /* ----------------------------------------------GI---------------------------------------------- */
-        const GIData: Plotly.Data[] = calculateZLines(newSystemState, calculatePPointsGI, selectedZMode)
+        const GIData: Plotly.Data[] = calculateZLinesGI(newSystemState, calculatePPointsGI, selectedZMode)
         const GITitle = selectedZMode + " GI"
+        console.log(GIData)
 
 
         const xAxisText = selectedZMode === "Z-P" ? "P (Pa)" : "Vm (m3/mol)" 

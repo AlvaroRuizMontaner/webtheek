@@ -40,9 +40,6 @@ export default function Curves({systemState, customMargin, graphicOptions, lineW
     
             let counter = 0
     
-            const traces: Partial<Plotly.PlotData>[] = [];
-            
-    
             return temperatures.data.flatMap((T, indx) => {
     
                 let currentColor: string | undefined = undefined
@@ -64,24 +61,15 @@ export default function Curves({systemState, customMargin, graphicOptions, lineW
                 //const color = lineColors[indx % lineColors.length];
     
                 const { liquid, vapor } = calcFunction(pressures.data, T, newSystemState);
-    
-    /*             const calculations: Partial<PlotData> = {
-                    x: calcFunction(pressures.data, T, newSystemState).vapor.V,
-                    y: pressures.data,
-                    type: 'scatter',
-                    mode: 'lines',
-                    marker: {color: currentColor, width: 0.5,},
-                    name: T.toString(),
-                    line: {
-                        width: lineWidth, // Grosor de la línea
-                        color: currentColor // Color de la línea
-                    },
-                } */
+                console.log(`liquid: ${liquid.V.length} vapor: ${vapor.V.length} T=${T}`)
+
+                const localTraces: Partial<Plotly.PlotData>[] = [];
+
     
     
                 // Rama vapor (sólida)
                 if (vapor.V.length && vapor.P.length) {
-                    traces.push({
+                    localTraces.push({
                     x: vapor.V,              // m³/mol
                     y: vapor.P,              // Pa (o MPa si ya conviertes)
                     type: "scatter",
@@ -97,7 +85,7 @@ export default function Curves({systemState, customMargin, graphicOptions, lineW
             
                 // Rama líquido (discontinua)
                 if (liquid.V.length && liquid.P.length) {
-                    traces.push({
+                    localTraces.push({
                     x: liquid.V,
                     y: liquid.P,
                     type: "scatter",
@@ -110,8 +98,21 @@ export default function Curves({systemState, customMargin, graphicOptions, lineW
                     hovertemplate: `T=${T} K<br>P=%{y}<br>V=%{x}<extra></extra>`
                     });
                 }
+
+                /*             const calculations: Partial<PlotData> = {
+                    x: calcFunction(pressures.data, T, newSystemState).vapor.V,
+                    y: pressures.data,
+                    type: 'scatter',
+                    mode: 'lines',
+                    marker: {color: currentColor, width: 0.5,},
+                    name: T.toString(),
+                    line: {
+                        width: lineWidth, // Grosor de la línea
+                        color: currentColor // Color de la línea
+                    },
+                } */
     
-                return traces
+                return localTraces
             })
         }
     

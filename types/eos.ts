@@ -37,7 +37,8 @@ export type CurvePoints = {
 }
 
 export type ZModes = "Z-V" | "Z-P"
+export type PressionAndVolumeData = {pressureData: Pressures, volumeData: Volumes}
 
 
 export type CalculationFunction = (pressures: number[], temperatures: number, newSystemState: SystemState) => CurvePoints
-export type IsothermCalculationFunction = (volumes: number[], temperatures: number, newSystemState: SystemState) => SystemState["volumes"]["data"]
+export type IsothermCalculationFunction = (volumes: number[], temperatures: number, newSystemState: SystemState) => {pressureData: Pressures, volumeData: Volumes}
