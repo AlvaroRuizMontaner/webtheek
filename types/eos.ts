@@ -30,6 +30,8 @@ export type SystemState = {
 export type Pressures = SystemState["pressures"]["data"]
 export type Volumes = SystemState["volumes"]["data"]
 
+export type RootsAndPressuresList = { P: number; roots: number[] };
+
 export type Branch = { P: number[]; V: number[] };
 export type CurvePoints = {
     liquid: Branch;

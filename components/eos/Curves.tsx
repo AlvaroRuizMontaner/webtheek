@@ -7,6 +7,9 @@ import { calculateVmPoints } from '../gases/vanDerWaals';
 import { filterSystemState } from '@/views/eos/EosView';
 import { AutoLoadingWrapper } from './AutoLoadingWrapper';
 import Plotly from '../../components/plotly/Plotly';
+import { calculateVmPointsRK } from '../gases/redlichKwong';
+import { calculateVmPointsSRK } from '../gases/soaveRedlichKwong';
+import { calculateVmPointsPR } from '../gases/pengRobinson';
 
 type MarginKeys = "l" | "r" | "t" | "b";
 
@@ -17,9 +20,10 @@ type CurvesProps = {
     graphicOptions: string[]
     lineWidth: number
     lineColors: string[]
+    selectedMode: number
 };
 
-export default function Curves({systemState, customMargin, graphicOptions, lineWidth, lineColors}: CurvesProps) {
+export default function Curves({systemState, customMargin, graphicOptions, lineWidth, lineColors, selectedMode}: CurvesProps) {
 
     const [selectedGraphicOptions, setSelectedGraphicOptions] = useState<string[]>([])
 
@@ -122,15 +126,15 @@ export default function Curves({systemState, customMargin, graphicOptions, lineW
     
     
         /* ---------------------------------------------RK---------------------------------------------- */
-        //const RKData: Plotly.Data[] = calculateVmLines(newSystemState, calculateVmPointsRK)
+        const RKData: Plotly.Data[] = calculateVmLines(newSystemState, calculateVmPointsRK)
     
     
         /* ---------------------------------------------SRK--------------------------------------------- */
-        //const SRKData: Plotly.Data[] = calculateVmLines(newSystemState, calculateVmPointsSRK)
+        const SRKData: Plotly.Data[] = calculateVmLines(newSystemState, calculateVmPointsSRK)
     
     
         /* ---------------------------------------------PR---------------------------------------------- */
-        //const PRData: Plotly.Data[] = calculateVmLines(newSystemState, calculateVmPointsPR)
+        const PRData: Plotly.Data[] = calculateVmLines(newSystemState, calculateVmPointsPR)
     
     
         /* ----------------------------------------------GI---------------------------------------------- */
@@ -141,7 +145,7 @@ export default function Curves({systemState, customMargin, graphicOptions, lineW
         <div className='flex flex-col gap-16'>
             <Pressures pressures={systemState.pressures} />
             <Temperatures temperatures={systemState.temperatures} />
-            <ControlPanel graphicOptions={graphicOptions} selectedGraphicOptions={selectedGraphicOptions} setSelectedGraphicOptions={setSelectedGraphicOptions} />
+            <ControlPanel graphicOptions={graphicOptions} selectedGraphicOptions={selectedGraphicOptions} setSelectedGraphicOptions={setSelectedGraphicOptions} selectedMode={selectedMode}/>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 justify-center items-center gap-10 mt-8">
             {selectedGraphicOptions.includes(graphicOptions[0]) && (
@@ -247,7 +251,7 @@ export default function Curves({systemState, customMargin, graphicOptions, lineW
                     )}
                 </AutoLoadingWrapper>
             )}
-{/*             {selectedGraphicOptions.includes(graphicOptions[1]) && (
+            {selectedGraphicOptions.includes(graphicOptions[1]) && (
                 <AutoLoadingWrapper>
                     {(setLoading) => (
                         <Plotly
@@ -320,6 +324,7 @@ export default function Curves({systemState, customMargin, graphicOptions, lineW
                                         }
                                     },
                                     showlegend: true
+                                    
                                 }
                             }
                             modeBarButtonsToAdd={
@@ -568,7 +573,7 @@ export default function Curves({systemState, customMargin, graphicOptions, lineW
                     )}
                 </AutoLoadingWrapper>
             )}
-            {selectedGraphicOptions.includes(graphicOptions[4]) && (
+{/*             {selectedGraphicOptions.includes(graphicOptions[4]) && (
                 <AutoLoadingWrapper>
                     {(setLoading) => (
                         <Plotly

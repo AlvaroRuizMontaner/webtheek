@@ -1,7 +1,6 @@
 import React from "react";
 import "./styles.scss";
 
-// RadioTabs.tsx
 type Item = { name: string; value: string; label?: string }
 
 type RadioItem = {

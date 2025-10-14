@@ -1,4 +1,4 @@
-import { ElementData, Volumes } from "@/types/eos";
+import { Branch, ElementData, RootsAndPressuresList, Volumes } from "@/types/eos";
 
 export type Pressures = number[];
 
@@ -30,6 +30,45 @@ export function sanitizeVolumes(vols: number[], b: number, eps = 1e-12): number[
       .filter(v => v > Vmin)               // evita V<=b
       .sort((a,b) => a - b);
 }
+
+const VcValues = {
+    "VDW": 3,
+    "RK": 3,
+    "SRK": 3.847,
+    "PR": 3.958
+} as const
+
+export function calculateCurvesVL( T: number, rootsAndPressuresList: RootsAndPressuresList[], b_mix: number, eos: keyof typeof VcValues) {
+  const liquid: Branch = { P: [], V: [] };
+  const vapor : Branch = { P: [], V: [] };
+
+
+  const Vc = VcValues[eos] * b_mix;
+
+  rootsAndPressuresList.forEach(({P, roots}) => {
+    if (roots.length === 3) {
+      liquid.P.push(P); liquid.V.push(roots[0]);     // menor = líquido
+      vapor.P.push(P); vapor.V.push(roots[2]);     // mayor = vapor
+    } else if (roots.length === 1) {
+      const V = roots[0];
+
+      // solo se añade si pasa el filtro físico
+      if (V > b_mix) {
+        if (V < Vc) {
+          liquid.P.push(P);
+          liquid.V.push(V);
+        } else {
+          vapor.P.push(P);
+          vapor.V.push(V);
+        }
+      }
+    }
+  })
+
+  return { liquid, vapor };
+}
+
+// -------------------------------------------------------MOCK-------------------------------------------------------
 
 export const co2Data: ElementData = {
     name: "Carbon Dioxide",

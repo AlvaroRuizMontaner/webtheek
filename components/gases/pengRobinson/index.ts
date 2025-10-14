@@ -15,12 +15,12 @@
 //     D =  P·b³ + R·T·b² − a·α·b
 // ────────────────────────────────────────────────────────────────
 
-import { Pressures, RSI, sanitizeVolumes } from "../constantes";
+import { calculateCurvesVL, Pressures, RSI, sanitizeVolumes } from "../constantes";
 import { croot } from "../cardano";
-import { PressionAndVolumeData, SystemState, Volumes } from "@/types/eos";
+import { PressionAndVolumeData, RootsAndPressuresList, SystemState, Volumes } from "@/types/eos";
 
 /* ---------- utilidades PR ---------- */
-export const fPR = {
+/* export const fPR = {
   calc_a(Tc: number, Pc: number) {
     return 0.45724 * RSI**2 * Tc * Tc / Pc;           // Pa·m⁶·mol⁻²
   },
@@ -30,7 +30,33 @@ export const fPR = {
   calcP(T: number, Vm: number, aAlpha: number, b: number) {
     return RSI * T / (Vm - b) - aAlpha / (Vm**2 + 2*b*Vm - b**2);
   },
-};
+}; */
+
+function solveRootsByPressure(
+  pressures: number[],
+  T: number,
+  a_mix: number,
+  b_mix: number
+): RootsAndPressuresList[] {
+  return pressures.map(P => {
+    const coef = [
+      P,
+      P * b_mix - RSI * T,
+      a_mix - 3 * P * b_mix**2 - 2 * RSI * T * b_mix,
+      P * b_mix ** 3 + RSI * T * b_mix ** 2 - a_mix * b_mix,
+    ];
+    const roots = croot(coef);               // [1] o [3] raíces (en V), sin filtrar
+    return { P, roots };
+  });
+}
+
+function filterValidVolumes(rootsAndPressuresList: RootsAndPressuresList[], b_mix: number): RootsAndPressuresList[] {
+  const eps = 1e-12;
+  return rootsAndPressuresList.filter(({ roots }) => {
+    const currentVm = roots[0]
+    return Number.isFinite(currentVm) && currentVm > b_mix * (1 + eps)
+  });
+}
 
 function arrayParamsPR(gases: SystemState["gases"], T: number) {
   const aArray: number[] = []
@@ -76,31 +102,22 @@ export function calculateVmPointsPR(pressures: Pressures, T: number, systemState
   const {aArray, bArray} = arrayParamsPR(systemState.gases, T)
   const {a_mix, b_mix} = mixParamsPR(aArray, bArray, systemState)
 
-  let calculatedPoints = pressures.map((P) => {
-    const coef = [
-      P,
-      P * b_mix - RSI * T,
-      a_mix - 3 * P * b_mix**2 - 2 * RSI * T * b_mix,
-      P * b_mix ** 3 + RSI * T * b_mix ** 2 - a_mix * b_mix,
-    ];
+    const rootsAndPressures = solveRootsByPressure(pressures, T, a_mix, b_mix);
+    const validRoots = filterValidVolumes(rootsAndPressures, b_mix);
+    const curvePoints = calculateCurvesVL(T, validRoots, b_mix, "PR")
 
-    const Vm = croot(coef) as number;            // (–) usa mayor → gas
-    //console.log(`Caso ${i + 1}: Vm = ${Vm} m³/mol, P = ${P} Pa, T = ${T} K`);
-    return Vm;
-  });
 
-  calculatedPoints = calculatedPoints.filter((Vm) => Vm > b_mix * (1 + 1e-12)) // Se descartan los casos donde Vm sea menor que b_mix
-
-  return calculatedPoints
+  return curvePoints
 }
 
 //---------------------------------------------Isotherms---------------------------------------------
 
 
 function calculatePressure(volumes: Volumes, T: number, a_mix: number, b_mix: number) {
-  return volumes.map((V) => (
-    (RSI*T)/(V-b_mix) - a_mix/(V * (V + b_mix))
-  ))
+  return volumes.map((V) => {
+    const denom = V*V + 2*b_mix*V - b_mix*b_mix; // V^2 + 2bV - b^2
+    return (RSI*T)/(V - b_mix) - a_mix / denom;
+})
 }
 
 
@@ -111,7 +128,7 @@ export function calculatePressurePointsPR(volumes: Volumes, T: number, systemSta
 
   const filteredVolumes = sanitizeVolumes(volumes, b_mix)
 
-  const pressures = calculatePressure(filteredVolumes, T, a_mix, b_mix);
+  const pressureData = calculatePressure(filteredVolumes, T, a_mix, b_mix);
 
-  return {pressureData: pressures, volumeData: filteredVolumes}
+  return {pressureData, volumeData: filteredVolumes}
 }

@@ -1,11 +1,10 @@
 // Cúbica de van der Waals
 // P*Vm3 − (Pb+RT)*Vm2 + (a+RTb)*Vm − ab = 0
 
-import { Branch, PressionAndVolumeData, SystemState, Volumes } from "@/types/eos";
+import { PressionAndVolumeData, RootsAndPressuresList, SystemState, Volumes } from "@/types/eos";
 import { croot } from "../cardano";
-import { Pressures, pressureSItopressureBar, RBL, RSI, sanitizeVolumes } from "../constantes";
+import { calculateCurvesVL, Pressures, pressureSItopressureBar, RBL, RSI, sanitizeVolumes } from "../constantes";
 
-type RootsAndPressuresList = { P: number; roots: number[] };
 
 /* export const fVDW = {
     calc_a(Tc: number, Pc: number) {
@@ -51,35 +50,6 @@ function filterValidVolumes(rootsAndPressuresList: RootsAndPressuresList[], b_mi
   });
 }
 
-
-function calculateCurvesVL( T: number, rootsAndPressuresList: RootsAndPressuresList[], b_mix: number) {
-  const liquid: Branch = { P: [], V: [] };
-  const vapor : Branch = { P: [], V: [] };
-
-  const Vc = 3 * b_mix;
-
-  rootsAndPressuresList.forEach(({P, roots}) => {
-    if (roots.length === 3) {
-      liquid.P.push(P); liquid.V.push(roots[0]);     // menor = líquido
-      vapor.P.push(P); vapor.V.push(roots[2]);     // mayor = vapor
-    } else if (roots.length === 1) {
-      const V = roots[0];
-
-      // solo se añade si pasa el filtro físico
-      if (V > b_mix) {
-        if (V < Vc) {
-          liquid.P.push(P);
-          liquid.V.push(V);
-        } else {
-          vapor.P.push(P);
-          vapor.V.push(V);
-        }
-      }
-    }
-  })
-
-  return { liquid, vapor };
-}
 
 
 function arrayParamsVDWBarL(gases: SystemState["gases"]) {
@@ -130,15 +100,13 @@ export function calculateVmPoints(pressures: Pressures, T: number, systemState: 
   const {a_mix, b_mix} = mixParamsVDW(aArray, bArray, systemState)
 
   const rootsAndPressures = solveRootsByPressure(pressures, T, a_mix, b_mix);
-
   const validRoots = filterValidVolumes(rootsAndPressures, b_mix);
-  
-  const curvePoints = calculateCurvesVL(T, validRoots, b_mix)
+  const curvePoints = calculateCurvesVL(T, validRoots, b_mix, "VDW")
   
   //console.table(validRoots)
   //console.log(`T: ${T}, a_mix: ${a_mix}, b_mix: ${b_mix}`)
 
-  console.log(`T: ${T}, ${validRoots[0].roots}`)
+  //console.log(`T: ${T}, ${validRoots[0].roots}`)
 
   return curvePoints
 }

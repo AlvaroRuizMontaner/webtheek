@@ -177,7 +177,7 @@ export default function EosView() {
                     )}
                 </RadioTabs>}
             </div>
-            {selectedMode === "1" && <Curves systemState={systemState} customMargin={customMargin} graphicOptions={graphicOptions} lineWidth={lineWidth} lineColors={lineColors}/>}
+            {selectedMode === "1" && <Curves systemState={systemState} customMargin={customMargin} graphicOptions={graphicOptions} lineWidth={lineWidth} lineColors={lineColors} selectedMode={selectedMode}/>}
             {selectedMode === "2" && <Isotherms systemState={systemState} customMargin={customMargin} graphicOptions={graphicOptions} lineWidth={lineWidth} lineColors={lineColors}/>}
             {selectedMode === "3" && <Factors selectedZMode={selectedZMode} systemState={systemState} customMargin={customMargin} graphicOptions={graphicOptions} lineWidth={lineWidth} lineColors={lineColors}/>}
         </div>
