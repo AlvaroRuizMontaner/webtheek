@@ -20,7 +20,7 @@ type CurvesProps = {
     graphicOptions: string[]
     lineWidth: number
     lineColors: string[]
-    selectedMode: number
+    selectedMode: string
 };
 
 export default function Curves({systemState, customMargin, graphicOptions, lineWidth, lineColors, selectedMode}: CurvesProps) {
