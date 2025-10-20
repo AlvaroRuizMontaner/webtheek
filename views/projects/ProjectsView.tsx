@@ -40,7 +40,7 @@ export default function ProjectsView() {
         </div>
 
         {data.length ? (
-          <ul role="list" className="my-10 lg:grid lg:grid-cols-2 gap-8u">
+          <ul role="list" className="flex flex-col my-10 lg:grid lg:grid-cols-2 gap-8u">
             {data.map((project) => (
               <li
                 key={project._id}

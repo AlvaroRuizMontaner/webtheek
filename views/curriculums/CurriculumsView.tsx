@@ -41,7 +41,7 @@ export default function CurriculumsView() {
             </div>
     
             {data.length ? (
-              <ul role="list" className="lg:grid lg:grid-cols-2 gap-8u my-10">
+              <ul role="list" className="flex flex-col lg:grid lg:grid-cols-2 gap-8u my-10">
                 {data.map((curriculum) => (
                   <li
                     key={curriculum._id}
