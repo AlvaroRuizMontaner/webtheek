@@ -82,8 +82,7 @@
 #git tag 1.x.x && git push origin --tags && git push origin master
 #git tag 1.0.5; git push origin --tags; git push origin master
 
-# ------------------------------------------------------------------------------------------------------------
-
+# -------------------------------------------------------------------------------------------------------------
 name: Build, Push and Deploy a Docker Image
 
 # Evento que desencadena el workflow: se ejecuta en cada push a la rama "master"
