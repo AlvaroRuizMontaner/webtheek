@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "set ENV=local && next dev",
+    "dev:devtools": "cross-env ENV=local NEXT_PUBLIC_SHOW_RQ_DEVTOOLS=true next dev",
     "build": "next build",
     "start": "set ENV=production && next start",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",

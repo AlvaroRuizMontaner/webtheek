@@ -40,9 +40,6 @@ export default function RootLayout({
   return (
     <html className="" lang="en">
   {/* Eliminado por estar obsoleto, movido a metadata */}
-      <head>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap"/>
-      </head>
       <body className={` ${oxanium.className} min-h-screen flex flex-col body3 bg-primary-300`}>
         <Provider>
             {children}
