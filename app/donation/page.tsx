@@ -7,6 +7,7 @@ import Stripe from 'stripe'
 
 async function loadPrices() {
     const stripe = new Stripe(process.env.NEXT_PUBLIC_STRIPE_API_SECRET as string)
+    console.log(process.env.NEXT_PUBLIC_STRIPE_API_SECRET as string)
     const prices = await stripe.prices.list()
     const sortedPrices = prices.data.filter((price) => price.nickname?.toLowerCase() === "donación")
     return sortedPrices
