@@ -4,7 +4,7 @@ import Stripe from "stripe";
 
 // Muestra de webhook en Next (deshuso)
 
-const stripe = new Stripe(process.env.NEXT_PUBLIC_STRIPE_API_SECRET as string)
+const stripe = new Stripe(process.env.STRIPE_API_SECRET as string)
 
 // sign secret del webhook
 const endpointSecret = ""

@@ -20,7 +20,7 @@ export default function What({whatInfo}: WhatProps) {
     const swiperRef = useRef<SwiperType>();
     console.log(process.env.NEXT_PUBLIC_API_URL)
     console.log(process.env.NEXT_PUBLIC_FRONTEND_URL)
-    console.log(process.env.NEXT_PUBLIC_STRIPE_API_SECRET)
+    console.log(process.env.STRIPE_API_SECRET)
 
   return (
     <div className='bg-primary-300'>

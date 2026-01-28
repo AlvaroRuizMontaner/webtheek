@@ -35,11 +35,11 @@
 #
 #      - name: Debug environment variables
 #        run: |
-#          echo "NEXT_PUBLIC_STRIPE_API_SECRET: $NEXT_PUBLIC_STRIPE_API_SECRET"
+#          echo "STRIPE_API_SECRET: $STRIPE_API_SECRET"
 #          echo "NEXT_PUBLIC_API_URL: $NEXT_PUBLIC_API_URL"
 #          echo "NEXT_PUBLIC_ENV: $NEXT_PUBLIC_ENV"
 #        env:
-#          NEXT_PUBLIC_STRIPE_API_SECRET: ${{ secrets.STRIPE_API_KEY }}
+#          STRIPE_API_SECRET: ${{ secrets.STRIPE_API_KEY }}
 #          NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
 #
 #      - name: Build and push Docker image
@@ -50,7 +50,7 @@
 #          push: true
 #          tags: ghcr.io/${{ env.OWNER_LC }}/${{ github.event.repository.name }}:latest
 #          build-args: |
-#            NEXT_PUBLIC_STRIPE_API_SECRET=${{ secrets.STRIPE_API_KEY }}
+#            STRIPE_API_SECRET=${{ secrets.STRIPE_API_KEY }}
 #            NEXT_PUBLIC_ENV=${{ secrets.NEXT_PUBLIC_ENV }}
 #            NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}  # Variable de entorno para el build
 #          platforms: linux/amd64  # Forzar arquitectura
@@ -177,7 +177,7 @@ jobs:
           config-file: cypress.config.ts
           headless: true
         env:
-          NEXT_PUBLIC_STRIPE_API_SECRET: ${{ secrets.STRIPE_API_KEY }}
+          STRIPE_API_SECRET: ${{ secrets.STRIPE_API_KEY }}
           NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL_CYPRESS }}
           NEXT_PUBLIC_ENV: production
 
@@ -189,7 +189,7 @@ jobs:
           context: .  # Define el contexto de build como el directorio actual
           push: true  # Subir la imagen al registro después de construirla
           build-args: |  # Se pasan las variables de entorno a la app
-            NEXT_PUBLIC_STRIPE_API_SECRET=${{ secrets.STRIPE_API_KEY }}
+            STRIPE_API_SECRET=${{ secrets.STRIPE_API_KEY }}
             NEXT_PUBLIC_ENV=${{ secrets.NEXT_PUBLIC_ENV }}
             NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}
           tags: |  # Subir la imagen con dos tags: el tag de versión y el tag "latest"

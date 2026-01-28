@@ -26,8 +26,8 @@ services:
     envs:  # Variables de entorno que se pasarán al entorno de ejecución
       - key: NODE_ENV
         value: production
-      - key: NEXT_PUBLIC_STRIPE_API_SECRET
-        value: $NEXT_PUBLIC_STRIPE_API_SECRET
+      - key: STRIPE_API_SECRET
+        value: $STRIPE_API_SECRET
       - key: NEXT_PUBLIC_API_URL
         value: $NEXT_PUBLIC_API_URL
       - key: NEXT_PUBLIC_FRONTEND_URL

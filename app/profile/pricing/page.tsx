@@ -8,7 +8,7 @@ import Price from '@/components/StripeCheckout/price/Price'
 // Obtención de precios de productos de stripe
 
 async function loadPrices() {
-    const stripe = new Stripe(process.env.NEXT_PUBLIC_STRIPE_API_SECRET as string)
+    const stripe = new Stripe(process.env.STRIPE_API_SECRET as string)
     const prices = await stripe.prices.list()
     const sortedPrices = prices.data.slice(1).sort((a,b) => (a.unit_amount as number) - (b.unit_amount as number))
     return sortedPrices
@@ -25,7 +25,7 @@ const priceDescriptions = {
 export default async function PricingPage() {
 
   const prices = await loadPrices()
-  console.log(process.env.NEXT_PUBLIC_STRIPE_API_SECRET as string)
+  console.log(process.env.STRIPE_API_SECRET as string)
 
   return (
     <div className='space-y-12u mt-14 my-6u'>
