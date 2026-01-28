@@ -25,6 +25,7 @@ const priceDescriptions = {
 export default async function PricingPage() {
 
   const prices = await loadPrices()
+  console.log(process.env.NEXT_PUBLIC_STRIPE_API_SECRET as string)
 
   return (
     <div className='space-y-12u mt-14 my-6u'>
