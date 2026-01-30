@@ -182,7 +182,7 @@ export default function TaskList({tasks, projectId, canEdit}: TaskListProps) {
 
 
   return (
-    <section className="mt-12u pattern min-h-[500px] bg-primary-900 overflow-hidden">
+    <section className="mt-12u pattern min-h-[678px] bg-primary-900 overflow-hidden">
       {/* <h2 className="headline2 font-black leading-[0.5] py-6u text-accent-200 mb-4u">Tablón de tareas</h2> */}
 
       <div className="flex gap-5 overflow-x-scroll 2xl:overflow-auto pb-8">
